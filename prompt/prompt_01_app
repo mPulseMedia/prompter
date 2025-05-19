@@ -1,0 +1,32 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: This file contains sequential prompts for building a basic app.
+
+///////////////////////////////// YOU ARE HERE /////////////////////////////////
+
+prompt_01_app
+
+p_1a__ files           - Create and link all required files
+p_1a_1    html         - Create index.html with English language and UTF-8 encoding
+p_1a_2    css          - Create style.css in app/css/ folder
+p_1a_3    js           - Create main.js in app/js/ folder
+p_1a_4    link         - Link style.css and main.js to index.html
+
+p_1b__ structure       - Set up the basic webpage structure
+p_1b_1    meta         - Add viewport meta tag for responsive display
+p_1b_2    title        - Set page title to "Hello World"
+p_1b_3    window       - Create full-screen window container
+p_1b_4    page         - Add centered page container with 1200px max-width
+
+p_1c__ style           - Apply visual styling and layout
+p_1c_1    colors       - Set window background to white, page to light gray
+p_1c_2    heading      - Add "Hello World" heading with 24px size
+p_1c_3    center       - Center heading vertically and horizontally
+p_1c_4    spacing      - Add 20px padding around heading
+
+p_1d__ standards       - Apply coding standards and organization
+p_1d_1    sections     - Organize style.css into layout, text, and colors sections
+p_1d_2    names        - Use window, page, title as exact element names
+p_1d_3    init         - Set up main.js to run when page loads
+
+//////////////////////////////////////////////////////////////////////////////// 

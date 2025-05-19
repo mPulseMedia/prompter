@@ -1,0 +1,11 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: This file defines basic command rules for executing prompts and resetting app state.
+
+cmd_01_basic
+
+r_1b__ run            - If I say "run"" then grab the Current prompt and executed and move the marker to below that prompt
+
+r_1c__ reset          - If I say "reset" then delete all of the files In the app folder and set the marker back to the top of the prompt page.
+
+//////////////////////////////////////////////////////////////////////////////// 
