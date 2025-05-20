@@ -31,4 +31,7 @@ c_1e_1    function    - get_user_data, set_config_value, find_active_users, upda
 c_1e_2    variable    - user_name, config_value, active_users, current_status.
 c_1e_3    file        - user_config, data_store, active_users, status_update.
 
-////////////////////////////////////////////////////////////////////////////////
+c_1f__ dir            - Make codenames out fo folders and file names
+c_1f_1    path        - Generate codenames by appending directory names to root term
+
+//////////////////////////////////////////////////////////////////////////////// 

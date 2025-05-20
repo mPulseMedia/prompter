@@ -1,0 +1,38 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: These are rules that govern that was curor funcitons within this project.
+
+• file
+  • Structure rules
+    • File name must be format_XX where XX is sequential number
+    • File must be in rule/ directory
+    • File must start and end with 80 ////// characters
+  • Layout rules
+    • "YOU ARE HERE" must be centered between dividers
+    • One blank line between each section
+
+• group
+  • Layout rules
+    • One divider line between groups
+    • Group items must be indented 4 spaces
+  • Naming rules
+    • Group name must be lowercase, one word
+
+• instruction
+  • ID format
+    • Must be letter_number__ format (e.g., i_1a__)
+  • Content rules
+    • Must be lowercase, one word, 20 chars max
+    • Must use " - " (space, dash, space) between name and desc
+    • Must be 60 chars max, end with period
+
+• step
+  • ID format
+    • Must be letter_number_number format (e.g., i_1a_1)
+    • Must be indented 4 spaces from instruction
+  • Content rules
+    • Must be lowercase, one word, 15 chars max
+    • Must use " - " (space, dash, space) between name and desc
+    • Must be 50 chars max, end with period
+
+//////////////////////////////////////////////////////////////////////////////// 

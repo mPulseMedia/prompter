@@ -1,0 +1,41 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: These are rules that govern the selection and management of names used throughout the project.
+
+• structure
+  • Format rules
+    • Use snake_case (underscore between terms) for all codenames in code, files, and folders
+    • Use single word without spaces or special characters for each term in codename
+    • Start codename with approved root term that indicates type or purpose
+
+• terms
+  • Length and case
+    • Keep each term under 15 letters to maintain readability and prevent wrapping
+    • Write all letters in lowercase, no uppercase or mixed case allowed in any term
+  • Word form
+    • Use present tense base verbs (get, set, find) without -ing or -ed for action terms
+    • Use singular form of nouns (user not users) for object and property terms
+
+• roots
+  • Type rules
+    • Use only approved root types from kernal_codename.txt, no custom roots without approval
+  • Usage rules
+    • Use verb roots (get, set, find) for functions and methods that perform actions
+    • Use noun roots (user, data, config) for variables and properties that store values
+    • Use noun roots (user, data, config) for files and folders that contain related items
+
+• context
+  • Scope rules
+    • Match codename to its scope (global, local, private) to indicate visibility and access
+    • Match codename to its purpose (action, storage, configuration) to indicate function
+    • Match codename to its location (module, component, directory) to indicate position
+
+• path
+  • Generation rules
+    • Create a codename by appending each folder and file name from the path, separated by underscores
+    • Ignore any numbers and file extensions in folder and file names
+    • Use only lowercase letters and underscores, no spaces or special characters
+  • Example
+    • For the path: prompter/rule/command.txt, the codename is: prompter_rule_command
+
+//////////////////////////////////////////////////////////////////////////////// 

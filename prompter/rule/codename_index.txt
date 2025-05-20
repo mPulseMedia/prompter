@@ -1,0 +1,38 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: These are rules that govern the generation and management of names used throughout the project.
+
+• format
+  • list
+    • Sort all codenames alphabetically
+    • Place one codename per line
+    • No blank lines between codenames
+  • space
+    • Compare each line with line above
+    • For matching characters use space
+    • Stop at first different character
+  • example
+    • First line: command_01_basic
+    • Second line: command_02_run
+    • Shows as:
+      • command_01_basic
+      •       02_run
+
+• rules
+  • order
+    • Must be alphabetical
+    • Must be case sensitive
+    • Must be complete
+  • update
+    • Add new codenames
+    • Remove old codenames
+    • Resort after changes
+  • check
+    • Verify alphabetical order
+    • Verify space formatting
+    • Verify no duplicates
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
