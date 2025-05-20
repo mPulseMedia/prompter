@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-NOTE: This file defines all rules for naming in the project, from basic to extended usage.
+NOTE: This file defines all rules for picking codenames in the project.
 
 • format
   • case

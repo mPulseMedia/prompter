@@ -1,13 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-NOTE: This file lists all codenames used in the prompter files.
-
-command
-codename
-codename_prompter
-format
-prompter
-prompter_codename_define
-rule
+NOTE: This file tracks all codenames in the prompter directory.
 
 //////////////////////////////////////////////////////////////////////////////// 

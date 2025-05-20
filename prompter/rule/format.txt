@@ -1,38 +1,58 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-NOTE: These are rules that govern that was curor funcitons within this project.
+NOTE: This file defines rules for managing and formatting rules in the project.
 
-• file
-  • Structure rules
-    • File name must be format_XX where XX is sequential number
-    • File must be in rule/ directory
-    • File must start and end with 80 ////// characters
-  • Layout rules
-    • "YOU ARE HERE" must be centered between dividers
-    • One blank line between each section
+• manage
+  • add
+    • Check existing rules before creating new ones
+    • Add to existing rule file if topic matches
+    • Create new rule file only if necessary
+    • Keep related rules together in same file
+  • update
+    • Review rules for clarity and precision
+    • Remove vague or marketing language
+    • Make rules specific and actionable
+    • Keep rules focused on exact requirements
 
-• group
-  • Layout rules
-    • One divider line between groups
-    • Group items must be indented 4 spaces
-  • Naming rules
-    • Group name must be lowercase, one word
+• precise
+  • language
+    • Use clear, non-technical terms
+    • Avoid marketing or promotional language
+    • Be specific about requirements
+    • State exact conditions and limits
+  • scope
+    • Define clear boundaries for each rule
+    • Specify when and where rules apply
+    • List all exceptions explicitly
+    • State exact consequences of violations
+  • format
+    • Use consistent structure for all rules
+    • Keep bullet points focused and clear
+    • Use active voice for requirements
+    • Include examples for complex rules
 
-• instruction
-  • ID format
-    • Must be letter_number__ format (e.g., i_1a__)
-  • Content rules
-    • Must be lowercase, one word, 20 chars max
-    • Must use " - " (space, dash, space) between name and desc
-    • Must be 60 chars max, end with period
+• bullet
+  • length
+    • Keep top-level bullets short and focused
+    • Use second-level for subcategories
+    • Allow 50-70 chars for detailed points
+    • Break long points into multiple points
+  • content
+    • Start with action or requirement
+    • Include specific conditions
+    • State exact limits or boundaries
+    • Add examples when needed
 
-• step
-  • ID format
-    • Must be letter_number_number format (e.g., i_1a_1)
-    • Must be indented 4 spaces from instruction
-  • Content rules
-    • Must be lowercase, one word, 15 chars max
-    • Must use " - " (space, dash, space) between name and desc
-    • Must be 50 chars max, end with period
+• structure
+  • file
+    • Start with NOTE section
+    • Group related rules together
+    • Use consistent indentation
+    • End with divider line
+  • section
+    • Use clear category names
+    • Keep hierarchy logical
+    • Maintain consistent depth
+    • Group by function or purpose
 
 //////////////////////////////////////////////////////////////////////////////// 
