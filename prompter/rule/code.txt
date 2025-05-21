@@ -7,12 +7,10 @@ NOTE: These rules define how to format code files for readability.
     • Look for lines with =, :, ;, => that could benefit from alignment
     • Group lines with similar patterns to create logical blocks
     • Add spaces to create clean vertical lines for better structure
-    • Ensure alignment doesn't break the natural flow of code
-  • scope
-    • Check the entire file for alignment after each edit
-    • Look at surrounding context to determine if alignment helps
-    • Group lines based on their semantic meaning
+    • Ensure alignment doesn't break the code
     • Avoid forcing alignment when it reduces readability
+  • scope
+    • Check all of the code files after each edit
 
 • format
   • css

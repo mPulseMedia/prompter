@@ -1,99 +1,72 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 NOTE: This file defines the complete process for managing and executing prompts in app development.
-Follow format.txt for file formatting, name.txt for naming conventions, and code.txt for code style.
 
 • execute
-  • command
-    • run
-      • Process current prompt file from marker position
-      • Apply code.txt rules to all modified files
-      • Update both app_index.txt and prompter_index.txt
-      • Move marker after completing all steps
-    • reset
-      • Delete all files in app directory
-      • Clear both index files completely
-      • Remove any temporary files
-      • Move marker to top of prompt file (REQUIRED)
-      • Verify marker is at top after reset (REQUIRED)
-  • process
-    • Follow format.txt for file structure rules
-    • Read and understand current prompt before changes
-    • Apply code.txt rules to all modified files
-    • Update both index files after changes
-  • order
-    • Follow name.txt for file naming rules
-    • Follow exact sequence in prompt files
-    • Never skip prompts or steps
-    • Maintain original step order
-    • Satisfy dependencies first
-  • verify
-    • Follow code.txt for validation rules
-    • Check all steps are completed
-    • Validate file changes follow code rules
-    • Confirm both index files are current
-    • Verify marker position is correct
+  • files
+    • creation
+      • After creating any file, run these steps in order:
+        1. Read code.txt and apply all alignment rules
+        2. Read codename.txt and verify all names
+        3. Read format.txt and apply all structure rules
+        4. If any rule fails, fix before proceeding
+    • validation
+      • For each file, check these in order:
+        1. code.txt: alignment of =, :, ;, =>
+        2. code.txt: indentation and spacing
+        3. codename.txt: snake_case names
+        4. codename.txt: name length under 15 chars
+        5. format.txt: file structure
+        6. format.txt: section dividers
 
-• scope
-  • run
-    • Only execute steps in current prompt group
-    • Don't process future prompts or other files
-    • Keep changes within current scope
-    • Follow dependencies in correct order
-  • reset
-    • Clear all files in app directory
-    • Reset both index files
-    • Remove temporary files
-    • Return to initial state
+  • tools
+    • run_terminal_cmd
+      • NEVER use for file operations
+      • NEVER use for deletion
+      • NEVER use commands that show [yn]
+      • NEVER use commands that show pager
+      • ALWAYS pipe to cat if pager possible
+    • delete_file
+      • Use for ALL file deletion
+      • Use for both single and multiple files
+    • edit_file
+      • Use for ALL file creation
+      • Use for ALL file modification
 
-• marker
-  • format
-    • Follow format.txt for marker style
-    • Use "YOU ARE HERE" between dividers
-    • Center text between divider lines
-    • Add blank lines before and after
-    • Keep consistent across all files
-  • position
-    • Follow format.txt for placement rules
-    • Place after NOTE at file start
-    • Move below last completed prompt
-    • Keep before final divider
-    • Never at file start
-    • Verify after each move
+  • safety
+    • tools
+      • Use delete_file for deletion
+      • Use edit_file for creation/modification
+    • operations
+      • Check tool choice before use
+      • Verify no user prompts possible
 
 • track
   • state
-    • Follow name.txt for file tracking
-    • Track current prompt and steps
-    • Record all modified files
-    • Monitor both index files
-    • Document marker movements
-  • history
-    • Follow format.txt for history format
-    • Record prompt execution order
-    • Document all file changes
-    • Track index file updates
-    • Log marker movements
+    • After each file operation:
+      1. Record file path
+      2. Record rule checks run
+      3. Record any fixes made
+    • After each prompt:
+      1. Record files modified
+      2. Record rules applied
+      3. Record marker position
   • verify
-    • Follow code.txt for validation
-    • Confirm all steps completed
-    • Validate file changes
-    • Check index updates
-    • Verify marker position
+    • Before completing any prompt:
+      1. List all files modified
+      2. List all rules checked
+      3. List all fixes made
+      4. Verify marker position
 
-• format
-  • prompt
-    • Follow format.txt for prompt structure
-    • Write clear, unambiguous steps
-    • Group related tasks logically
-    • Show dependencies clearly
-    • List all requirements
-  • index
-    • Follow format.txt for index layout
-    • Follow name.txt for file paths
-    • Use full paths from app root
-    • Align similar paths
-    • Sort alphabetically
-    • Show project structure
+• marker
+  • format
+    • Text: "YOU ARE HERE"
+    • Between: ///////////////////////////////
+    • Blank lines: one before, one after
+  • position
+    • After NOTE section
+    • Before first prompt
+    • After last completed prompt
+    • Never at file start
 
 //////////////////////////////////////////////////////////////////////////////// 

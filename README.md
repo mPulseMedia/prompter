@@ -3,28 +3,19 @@
 Build web apps through sequential prompts.
 
 ## Commands
-- `run` - Execute next prompt
-- `reset` - Reset app state
+- `run`   - Execute next prompt from marker position, process changes, update indexes
+- `reset` - Clear app state, remove temp files, reset indexes, return to start
 
-## Structure
-- `prompter/` - Core prompter files
-  - `rule/` - Cursor behavior and naming rules
-  - `codename/` - Approved naming patterns and terms
-- `prompt/` - Sequential prompts for cursor
-- `app/` - Application code
-
-## Naming
-- Follow `prompter/codename/` patterns exactly
-- Use snake_case, lowercase
-- Root terms (cmd_, rule_, prompt_)
-- Present tense verbs, singular nouns
-- Keep terms under 15 chars
-
-## Usage
-1. Cursor processes `prompt/` files
-2. Execute prompts in sequence
-3. Marker shows current position
-4. Use `run` for next prompt
-5. Use `reset` to start over
+## Files
+- `prompter/rule/`                    - Project rules and conventions
+  - `prompt.txt`                      - How to execute prompts, track progress, manage state
+  - `format.txt`                      - How to format files, structure content, use markers
+  - `code.txt`                        - How to write code, align text, maintain style
+  - `codename.txt`                    - How to name things, use patterns, follow conventions
+  - `index.txt`                       - How to track files, list codenames, maintain order
+- `prompter/prompter_index.txt`       - List of prompter files, track changes, show structure
+- `app/`                              - Your web app code, components, styles, scripts
+- `app_req/`                          - App requirements, specs, dependencies, constraints
+- `app_index.txt`                     - List of app files, track changes, show structure
 
 //////////////////////////////////////////////////////////////////////////////// 
