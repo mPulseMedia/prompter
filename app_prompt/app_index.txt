@@ -3,3 +3,15 @@
 NOTE: This file alphabetically lists all codenames used in the code files.
 
 ////////////////////////////////////////////////////////////////////////////////
+
+body
+circle
+      _container
+get_angle
+heading
+move_circle
+page
+     _container
+viewport_container
+window
+      _container

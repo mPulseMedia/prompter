@@ -1,5 +1,18 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-NOTE: This file alphabetically lists all codenames used in prompter files.
+NOTE: This file alphabetically lists all codenames used in the prompter files.
 
-//////////////////////////////////////////////////////////////////////////////// 
+////////////////////////////////////////////////////////////////////////////////
+
+app
+    _css_style
+     index
+     js_main
+     prompt_01_app
+            app_index
+prompter_index
+         rule_code
+              codename
+              format
+              index
+              prompt 

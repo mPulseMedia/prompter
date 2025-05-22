@@ -69,4 +69,33 @@ NOTE: This file defines the complete process for managing and executing prompts 
     • After last completed prompt
     • Never at file start
 
+• index
+  • format
+    • Start with NOTE section
+    • Use divider lines at start and end
+    • List codenames alphabetically
+    • One codename per line
+    • No blank lines between items
+  • alignment
+    • Compare each line with line above
+    • Count matching characters from start
+    • Replace matching chars with spaces
+    • Keep exact character positions
+    • Show only unique part after match
+  • example
+    • Before:
+      app
+      app_css_style
+      app_index
+    • After:
+      app
+         _css_style
+          index
+  • check
+    • Verify each line's spaces match count
+    • Confirm no characters moved
+    • Ensure alphabetical order
+    • Validate codename format
+    • Check divider line format
+
 //////////////////////////////////////////////////////////////////////////////// 
