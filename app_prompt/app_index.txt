@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-NOTE: This file alphabetically lists all codenames used in the meta files.
+NOTE: This file lists all codenames used in the app files.
 
 01. 
 

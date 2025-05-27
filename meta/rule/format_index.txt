@@ -1,0 +1,32 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: This file defines the rules for formatting index files that list codenames.
+
+1. File Structure
+    a. file name
+        1. Name format: [root]_index.txt
+        3. Examples: app_index.txt, meta_index.txt
+
+    b. Header Format
+        1. Start with divider line
+        2. Include NOTE section
+        3. End with divider line
+
+    c. Empty Index Format
+        1. Keep header structure
+        2. Include "01. " line
+        3. End with divider line
+
+2. Codenames
+    a. List Rules
+        2. One codename per line
+        1. Sort alphabetically
+        3. Number with two+ digits (01-99)
+        4. No duplicates
+        5. left justified
+        6. no indent
+
+    b. hiden characters
+        1. if the character in position x is the same as the character in that same position in the line above, then replace that character with a ' '
+        
+////////////////////////////////////////////////////////////////////////////////

@@ -1,181 +1,84 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-NOTE: This file defines the complete process for managing and executing prompts in app development.
+NOTE: This file defines the process for executing prompts from the meta files.
 
-1. execute
-    a. files
-        1. creation
-            a. After creating any file, run these steps in order:
-                1. Read code.txt and apply all alignment rules
-                2. Read codename.txt and verify all names
-                3. Read format.txt and apply all structure rules
-                4. If any rule fails, fix before proceeding
-        2. validation
-            a. For each file, check these in order:
-                1. code.txt: alignment of =, :, ;, =>
-                2. code.txt: indentation and spacing
-                3. codename.txt: snake_case names
-                4. codename.txt: name length under 15 chars
-                5. format.txt: file structure
-                6. format.txt: section dividers
-    b. tools
-        1. run_terminal_cmd
-            a. NEVER use for file operations
-            b. NEVER use for deletion
-            c. NEVER use commands that show [yn]
-            d. NEVER use commands that show pager
-            e. ALWAYS pipe to cat if pager possible
-        2. delete_file
-            a. Use for ALL file deletion
-            b. Use for both single and multiple files
-        3. edit_file
-            a. Use for ALL file creation
-            b. Use for ALL file modification
-
-2. command
+1. Commands
     a. run
-        1. Action: Execute next prompt in app_prompt/ files after the marker
-        2. Process:
-            a. Find marker position
-            b. Execute next prompt after marker
-            c. Move marker after executed prompt
-            d. Move to next file if needed
-        3. Required Steps:
-            a. MUST execute all rules in this file
-            b. MUST process all changes (code, names, formatting)
-            c. MUST move marker to after last executed prompt
-            d. MUST move marker to next file if last prompt in current file
-            e. MUST update all indexes
-            f. MUST verify marker format (text, dividers, blank lines)
-            g. MUST show codename change list after execution
-            h. MUST list all new and modified identifiers
-            i. MUST follow codename.txt format rules
+        1. Overview: Execute next prompt after prompt_marker
+        2. Steps:
+            a. Find prompt_marker position in app_prompt files
+            b. Execute next prompt after prompt_marker per Execution Rules
+            c. Update prompt_marker location per prompt_marker rules
+
     b. reset
-        1. Action: Delete all files in app/ directory and reset app_index.txt
-        2. Process:
-            a. Delete every file in app/
-            b. Delete every subdirectory in app/
-            c. Keep app/ directory itself
-            d. Clear all codenames from app_index.txt
-            e. Preserve app_index.txt structure (header, numbering)
-            f. Do not modify meta_index.txt
-        3. Required Steps:
-            a. MUST clear app state
-            b. MUST remove temp files
-            c. MUST clear app_index.txt codenames
-            d. MUST preserve app_index.txt structure
-            e. MUST NOT modify meta_index.txt
-            f. MUST move marker to start of first prompt file
-            g. MUST verify marker format (text, dividers, blank lines)
-            h. MUST NOT show codename change list during reset
+        1. Overview: Reset project to initial state
+        2. Steps:
+            a. app directory
+                1. Delete all files and directories in app/ except directory itself
+            b. prompt_marker
+                1. Remove from current location
+                2. Place in initial position per prompt_marker rules
+            c. index files
+                1. Reset ALL index files (*_index.txt) to empty state
+                2. Each index file must:
+                    a. Keep header structure
+                    b. Include only "01. " line
+                    c. End with divider line
+                3. Affected files:
+                    a. app_prompt/app_index.txt
+                    b. meta/meta_index.txt
 
-3. marker
-    a. format
-        1. Text: "YOU ARE HERE"
-        2. Between: ///////////////////////////////
-        3. Blank lines: one before, one after
-    b. position
-        1. After NOTE section
-        2. Before first prompt
-        3. After last completed prompt
-    c. movement
-        1. MUST move after each command execution
-        2. MUST follow format rules when moving
-        3. MUST be placed after last executed prompt
-        4. MUST move to next file if needed
-        5. MUST return to start on reset
+2. prompt_marker
+    a. Format
+        1. Text: "/////////////////////////////// YOU ARE HERE ///////////////////////////////"
+        2. One blank line before and after marker
+    b. Run Behavior
+        1. After each prompt execution:
+            a. Move marker after executed prompt
+            b. Move to next file if current file complete
+        3. Always marks next prompt to execute
+    c. Reset Behavior
+        1. CRITICAL: Must be placed in initial position
+        2. Must be in first prompt file in app_prompt/
+        3. Must be after NOTE section
+        4. Must be before first prompt
+        5. Must have blank lines before and after
+    d. File Rules
+        1. Must be in app_prompt/ directory
 
-4. codenames
-    a. rules
-        1. Follow all rules in codename.txt
-        2. Apply to any new identifier created
-        3. Apply to any identifier modified
-        4. Show changes in codename_change_list
-    b. scope
-        1. Use codenames for all identifiers in the objects you create or modify
-        2. Apply to files, directories, functions, variables
-        3. Apply to database tables, columns, and indexes
-        4. Apply to any named component or resource
-        5. Use snake_case format for all codenames
-        6. Keep names under 15 characters
-        7. Root terms:
-            a. Use exact directory/file name as root term
-            b. Example: 'meta' from meta/ directory
-            c. Example: 'app' from app/ directory
-            d. Example: 'index' from index.html
-            e. Do not infer names from paths
+3. Execution Rules
+    a. Overview: Execute prompt according to files in rule folder
+        1. Steps:
+            a. Review existing codenames in code files and app_prompt/app_index.txt
+            b. Select new codenames per codename.txt rules
+            c. Apply format_code.txt rules to changed files
+            d. Update app_index.txt with new/changed/deleted codenames
 
-5. output
-    a. codename_change_list
-        1. Format:
-            a. Start with "Codename Change List:"
-            b. Use four spaces for indentation
-            c. One identifier per line
-            d. Put type at end (_file, _dir, _func, _var)
-            e. Sort identifiers alphabetically
-            f. Number each identifier (01, 02, 03, etc.)
-            g. Group by type (file, directory, function, variable)
-            h. Must be the last part of any update response
-            i. Must be separated from other content by a blank line
-        2. When to show:
-            a. After creating new files/directories
-            b. After renaming files/directories
-            c. After moving files/directories
-            d. After creating new functions/variables
-            e. After renaming functions/variables
-            f. After any identifier modification
-            g. Always show if any changes occurred
-            h. EXCEPT during reset command
-            i. Must be shown after all other update information
-        3. Example:
-            [Other update information...]
+    b. Terminal Rules
+        1. File Operations
+            a. Use delete_file for ALL deletions
+            b. Use edit_file for ALL creations/modifications
+            c. NEVER use terminal for file operations
+        2. Command Rules
+            a. NEVER use commands requiring [yn] input
+            b. ALWAYS pipe to cat if pager possible
+            c. NEVER use commands that show pager
+            d. ALWAYS use -f or --force flags for rm, mv, cp
+            e. NEVER use interactive flags (-i) on any command
+            f. ALWAYS use non-interactive flags (-n) when available
+            g. ALWAYS use --no-interactive when available
+            h. ALWAYS use -y for commands that might prompt
+            i. NEVER use commands that might wait for input
+            j. ALWAYS verify command flags prevent prompts before running
 
-            Codename Change List:
-                01. app_css_style_file
-                02. app_js_main_file
-                03. meta_rule_prompt_file
-    b. rename
-        1. Allow renaming in subsequent prompt
-        2. Reference by number (e.g., "rename 02 to main_index_file")
-        3. Verify new name follows rules
-        4. Update all references to renamed item
-        5. Show before/after in rename output
-
-////////////////////////////////////////////////////////////////////////////////
-
-1. Reset Command:
-   - Command: "reset"
-   - Effect:
-     * Only affects app_index.txt
-     * Clears all codenames from app_index.txt
-     * Preserves file structure (header, numbering, etc.)
-     * Does not affect meta_index.txt
-   - After reset:
-     * app_index.txt must be rebuilt from scratch
-     * All app codenames must be re-added
-     * Must follow all rules in index.txt when rebuilding
-
-     Ignore this for now:
-
-////////////////////////////////////////////////////////////////////////////////
-
-## Codename Change List
-After each prompt execution, a codename change list must be shown in the response. This list:
-- Shows all new identifiers created
-- Shows all existing identifiers that were modified
-- Uses snake_case format
-- Includes type suffix (_file, _dir, _func, _var)
-- Is sorted alphabetically
-- Is numbered (01, 02, etc.)
-- Is grouped by type
-- Must be the last part of any update response
-- Must be separated from other content by a blank line
-- Is shown in the format:
-    [Other update information...]
-
-    Codename Change List:
-        01. example_file
-        02. example_func
-        03. example_var
-
-//////////////////////////////////////////////////////////////////////////////// 
+4. Chat Output Rules
+    a. Format
+        1. Be brief and direct
+        2. Use codenames to describe changes
+        3. Group related changes together
+        4. Skip obvious details
+    b. Change List
+        1. Show all new codenames
+        2. Show all modified codenames
+        3. Show all deleted codenames
+        4. Group by type (_file, _dir, _func, _var)

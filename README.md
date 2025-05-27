@@ -1,24 +1,41 @@
-# Prompter
+# Meta
 
-Build web apps through sequential prompts.
+Build structured web apps using [Cursor.ai](https://cursor.ai) through sequential prompts, codename indexing, and enforced naming conventions.
 
 ## Commands
-- `run`   - Execute next prompt from marker position, process changes, update indexes
-- `reset` - Clear app state, remove temp files, reset indexes, return to start
 
-## Files
-- `app`                      - folder with app files
-   - `index.html`            - default landing page for app
-- `meta`                     - folder of tools to enhance prompts
-   - `app_req`               - reqirements for app in development
-      - `##_epic`            - file with many prompts, part and future
-      - `app_index.txt`      - index of codenames used by app's code
-   - `rule`                  - folder of files containing rules for cursor.ai
-      - `code.txt`           - rules on code alignmentment and format
-      - `codename.txt`       - rules on selecting names for identifiers in the code
-      - `format.txt`         - rules on format files, structure content, use markers
-      - `index.txt`          - rules on the format of codename indexes
-      - `prompt.txt`         - rules on how the cursor.ai should handel prompts
-   - `meta_index.txt`        - index of codenames in the meta files
+Use these commands within the Cursor.ai chat to control execution:
 
-//////////////////////////////////////////////////////////////////////////////// 
+- `run`  
+  Execute the next prompt from the current marker. Apply changes, update indexes, and continue forward.
+  
+- `reset`  
+  Clear the app state: remove temporary files, reset indexes, and return to the starting point.
+
+## Folder Structure
+
+Cursor.ai generates app files in the `app` folder based on sequential requirements in `app_prompt`, guided by rules in the `meta/rule` folder. All identifiers are tracked in codename index files.
+
+```
+app/                    → Generated web app files  
+  └── index.html        → Default landing page
+
+app_prompt/            → Requirements and prompt sequence  
+  ├── ##_epic          → Master prompt file (includes past and future prompts)  
+  └── app_index.txt    → Index of code identifiers used in `app/`  
+
+meta/                   → Support files for prompt guidance and code structure  
+  ├── rule/             → Formatting and naming rules  
+  │   ├── format_code.txt    → Code layout and alignment rules  
+  │   ├── codename.txt       → Rules for naming identifiers  
+  │   ├── rule.txt           → Rules for how to structure and format rule files  
+  │   └── format_index.txt   → Rules for maintaining codename indexes  
+  └── meta_index.txt    → Index of identifiers used in `meta/` files
+```
+
+## Notes
+
+- Prompts should be consistently formatted and follow rules in the `rule` folder.
+- Codename indexes (`*_index.txt`) must be updated after each prompt cycle.
+- Always start with `##_epic` as the central prompt thread.
+

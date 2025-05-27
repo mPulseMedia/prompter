@@ -1,93 +1,26 @@
 ////////////////////////////////////////////////////////////////////////////////
 
-NOTE: This file defines all rules for naming in the project.
+NOTE: This file defines core naming conventions for all project identifiers.
 
-1. format
-    a. case
-        1. Use snake_case for all names
-        2. Write all letters in lowercase
-        3. Use underscores between terms
-    b. length
-        1. Keep each term under 15 letters
-        2. Keep names short and clear
-    c. abbreviations
-        1. Use standard abbreviations to keep names short
-        2. Common abbreviations:
-           a. cont for container
-           b. max for maximum
-           c. min for minimum
-        3. Always use full words if abbreviation would be unclear
+1. Terminology
+    1. codename - unique name for a concept, object, file, folder, function, variable in the project
+    2. term - one or more terms make up the codename, separated by _
+    3. root - the first term in a codename
+    4. root_list - the list of all roots used throughout the project
 
-2. root_terms
-    a. definition
-        1. Root terms define the domain or scope of an identifier
-        2. Root terms must be one of the allowed set:
-            a. app (for app-level files and components)
-            b. circle (for circle-related elements and variables)
-            c. page (for page-level containers and elements)
-            d. window (for window-level containers and elements)
-        3. All identifiers must start with a root term
-        4. Root terms establish ownership and context
-    b. application
-        1. Files and directories use app_ prefix
-        2. Circle-related elements use circle_ prefix
-        3. Page-related elements use page_ prefix
-        4. Window-related elements use window_ prefix
-    c. variables
-        1. Variables must use root term of their context
-        2. Circle variables start with circle_
-        3. Window variables start with window_
-        4. Page variables start with page_
-        5. App variables start with app_
+2. Format Rules
+    1. Use snake_case
+    2. Keep under 4 terms
+    3. No special characters
+    4. Use common abbreviations consistently
 
-3. path
-    a. generation
-        1. Create codename from folder path
-        2. Append each folder name with underscore
-        3. Ignore numbers and extensions
-    b. example
-        1. Path: meta/rule/command.txt
-        2. Codename: meta_rule_command
-        3. Path: app/css/style.css
-        4. Codename: app_css_style
-        5. Path: meta/rule/
-        6. Codename: meta_rule
+3. Scope Rules
+    1. Apply to all identifiers
+    2. Include files, directories, functions, variables, and anything cursor.ai can name
+    3. No exceptions allowed
 
-4. scope
-    a. apply
-        1. Apply to all identifiers in the project
-        2. Apply to files and directories
-        3. Apply to functions and variables
-        4. Apply to any named component
-    b. patterns
-        1. Element Types
-           a. Use consistent prefixes for element types
-           b. Prefix should indicate element's role or category
-           c. Keep prefix short and clear
-           d. Use same prefix for similar elements
-           e. Examples:
-              - Circle elements start with "circle_"
-              - Window elements start with "window_"
-              - Page elements start with "page_"
-        2. Action Groups
-           a. Use action prefix for related variables
-           b. Group variables by their action or behavior
-           c. Use consistent prefixes for similar actions
-           d. Keep action prefix descriptive but concise
-        3. State Indicators
-           a. Use "is_" as suffix for boolean state variables
-           b. State suffix should be the last term
-           c. Use consistent suffixes for similar states
-           d. Example: "circle_hover_is" for hover state
-        4. Relationships
-           a. Use common prefix for related elements
-           b. Show hierarchy through name structure
-           c. Indicate parent-child relationships
-           d. Group related functionality
-        5. Modifiers
-           a. Use consistent suffixes for modifications
-           b. Indicate type of modification
-           c. Keep modifier terms short
-           d. Use same modifier for similar changes
+4. Path Rules
+    1. Create codename from file path, ignoring extensions and numbers
+    2. Use established roots to shorten path names
 
 //////////////////////////////////////////////////////////////////////////////// 
