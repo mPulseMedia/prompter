@@ -1,69 +1,50 @@
-// Wait for the DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // Get elements
-    const circle    = document.querySelector('.circle_container');
-    const window    = document.querySelector('.window_container');
-    const heading   = document.querySelector('.heading');
-    const page      = document.querySelector('.page_container');
+// Get DOM elements
+const window_cont       = document.querySelector('.window_cont');
+const circle_cont       = document.querySelector('.circle_cont');
 
-    // Get random angle in radians
-    const get_angle = () => Math.random() * Math.PI * 2;
+// Track mouse position for background color
+let mouse_x            = 0;
 
-    // Move circle in random direction
-    const move_circle = () => {
-        const angle     = get_angle();
-        const distance  = 50; // 50 pixels as specified
-        
-        // Get current position
-        const transform = window.getComputedStyle(circle).transform;
-        const matrix    = new DOMMatrix(transform);
-        const pos_x     = matrix.m41;
-        const pos_y     = matrix.m42;
-        
-        // Calculate new position
-        const new_x     = pos_x + Math.cos(angle) * distance;
-        const new_y     = pos_y + Math.sin(angle) * distance;
-        
-        // Get container bounds
-        const page_rect = page.getBoundingClientRect();
-        const circle_rect = circle.getBoundingClientRect();
-        
-        // Calculate boundaries
-        const min_x     = -page_rect.width / 2 + circle_rect.width / 2;
-        const max_x     = page_rect.width / 2 - circle_rect.width / 2;
-        const min_y     = -page_rect.height / 2 + circle_rect.height / 2;
-        const max_y     = page_rect.height / 2 - circle_rect.height / 2;
-        
-        // Clamp position within bounds
-        const final_x   = Math.max(min_x, Math.min(max_x, new_x));
-        const final_y   = Math.max(min_y, Math.min(max_y, new_y));
-        
-        // Apply new position
-        circle.style.transform = `translate(${final_x}px, ${final_y}px) scale(1)`;
-    };
+// Handle circle hover effects
+circle_cont.addEventListener('mouseenter', () => {
+    window_cont.classList.add('circle_hover');
+});
 
-    // Add click event listener
-    circle.addEventListener('click', () => {
-        // Toggle heading text
-        heading.textContent = heading.textContent === 'Hello World' ? 'Goodbye World' : 'Hello World';
-        // Move circle randomly
-        move_circle();
-    });
+circle_cont.addEventListener('mousemove', (e) => {
+    mouse_x            = e.clientX;
+    const hue          = (mouse_x / window.innerWidth) * 360;
+    window_cont.style.backgroundColor = `hsl(${hue}, 100%, 60%)`;
+});
 
-    // Add hover event listeners
-    circle.addEventListener('mouseenter', () => {
-        const transform = window.getComputedStyle(circle).transform;
-        const matrix    = new DOMMatrix(transform);
-        const pos_x     = matrix.m41;
-        const pos_y     = matrix.m42;
-        circle.style.transform = `translate(${pos_x}px, ${pos_y}px) scale(2) rotate(5deg)`;
-    });
+circle_cont.addEventListener('mouseleave', () => {
+    window_cont.classList.remove('circle_hover');
+    window_cont.style.backgroundColor = '#333';
+});
 
-    circle.addEventListener('mouseleave', () => {
-        const transform = window.getComputedStyle(circle).transform;
-        const matrix    = new DOMMatrix(transform);
-        const pos_x     = matrix.m41;
-        const pos_y     = matrix.m42;
-        circle.style.transform = `translate(${pos_x}px, ${pos_y}px) scale(1) rotate(0deg)`;
-    });
+// Handle circle click movement
+circle_cont.addEventListener('click', () => {
+    const circle_move_x      = parseInt(getComputedStyle(circle_cont).left) || 0;
+    const circle_move_y      = parseInt(getComputedStyle(circle_cont).top) || 0;
+    
+    // Calculate random direction
+    const circle_move_angle  = Math.random() * Math.PI * 2;
+    const circle_move_dist   = 50;
+    
+    // Calculate new position
+    const circle_move_target_x = circle_move_x + Math.cos(circle_move_angle) * circle_move_dist;
+    const circle_move_target_y = circle_move_y + Math.sin(circle_move_angle) * circle_move_dist;
+    
+    // Get container bounds
+    const page_cont          = document.querySelector('.page_cont');
+    const page_bounds        = page_cont.getBoundingClientRect();
+    const circle_bounds      = circle_cont.getBoundingClientRect();
+    
+    // Ensure circle stays within bounds
+    const circle_move_max_x  = page_bounds.width - circle_bounds.width;
+    const circle_move_max_y  = page_bounds.height - circle_bounds.height;
+    
+    // Apply movement with bounds checking
+    circle_cont.style.position = 'relative';
+    circle_cont.style.left     = `${Math.max(0, Math.min(circle_move_target_x, circle_move_max_x))}px`;
+    circle_cont.style.top      = `${Math.max(0, Math.min(circle_move_target_y, circle_move_max_y))}px`;
 }); 

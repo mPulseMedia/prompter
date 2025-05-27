@@ -1,0 +1,138 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: This file defines the complete process for managing and executing prompts in app development.
+
+1. execute
+    a. files
+        1. creation
+            a. After creating any file, run these steps in order:
+                1. Read code.txt and apply all alignment rules
+                2. Read codename.txt and verify all names
+                3. Read format.txt and apply all structure rules
+                4. If any rule fails, fix before proceeding
+        2. validation
+            a. For each file, check these in order:
+                1. code.txt: alignment of =, :, ;, =>
+                2. code.txt: indentation and spacing
+                3. codename.txt: snake_case names
+                4. codename.txt: name length under 15 chars
+                5. format.txt: file structure
+                6. format.txt: section dividers
+    b. tools
+        1. run_terminal_cmd
+            a. NEVER use for file operations
+            b. NEVER use for deletion
+            c. NEVER use commands that show [yn]
+            d. NEVER use commands that show pager
+            e. ALWAYS pipe to cat if pager possible
+        2. delete_file
+            a. Use for ALL file deletion
+            b. Use for both single and multiple files
+        3. edit_file
+            a. Use for ALL file creation
+            b. Use for ALL file modification
+
+2. command
+    a. run
+        1. Action: Execute next prompt in app_prompt/ files after the marker
+        2. Process:
+            a. Find marker position
+            b. Execute next prompt after marker
+            c. Move marker after executed prompt, and on to the next file if needed
+    b. reset
+        1. Action: Delete all files in app/ directory
+        2. Process:
+            a. Delete every file in app/
+            b. Delete every subdirectory in app/
+            c. Keep app/ directory itself
+
+3. marker
+    a. format
+        1. Text: "YOU ARE HERE"
+        2. Between: ///////////////////////////////
+        3. Blank lines: one before, one after
+    b. position
+        1. After NOTE section
+        2. Before first prompt
+        3. After last completed prompt
+
+4. codenames
+    a. rules
+        1. Follow all rules in codename.txt
+        2. Apply to any new identifier created
+        3. Apply to any identifier modified
+        4. Show changes in code_name_change_list
+    b. scope
+        1. Use codenames for all identifiers in the objects you create or modify
+        2. Apply to files, directories, functions, variables
+        3. Apply to database tables, columns, and indexes
+        4. Apply to any named component or resource
+        5. Use snake_case format for all codenames
+        6. Keep names under 15 characters
+        7. Root terms:
+            a. Use exact directory/file name as root term
+            b. Example: 'meta' from meta/ directory
+            c. Example: 'app' from app/ directory
+            d. Example: 'index' from index.html
+            e. Do not infer names from paths
+
+5. output
+    a. code_name_change_list
+        1. Format:
+            a. Start with "Code Name Change List:"
+            b. Use four spaces for indentation
+            c. One identifier per line
+            d. Put type at end (_file, _dir, _func, _var)
+            e. Sort identifiers alphabetically
+            f. Number each identifier (01, 02, 03, etc.)
+            g. Group by type (file, directory, function, variable)
+        2. When to show:
+            a. After creating new files/directories
+            b. After renaming files/directories
+            c. After moving files/directories
+            d. After deleting files/directories
+            e. After creating new functions/variables
+            f. After renaming functions/variables
+            g. After any identifier modification
+            h. Always show if any changes occurred
+        3. Example:
+            Code Name Change List:
+                01. app_css_style_file
+                02. app_js_main_file
+                03. meta_rule_prompt_file
+    b. commands
+        1. reset
+            a. Clear current identifier list
+            b. Rescan workspace structure
+            c. Generate new identifier list
+            d. Use exact current names
+            e. Update all references
+            f. Show code_name_change_list of all changes
+    c. summary
+        1. Always include code_name_change_list in response if there were changes
+        2. List must be complete and accurate
+        3. Must show all identifier changes
+        4. Must follow format exactly
+        5. Must be sorted and numbered
+        6. Must be grouped by type
+    d. format
+        1. Start with "Code Name Change List:"
+        2. Use four spaces for indentation
+        3. One identifier per line
+        4. Put type at end (_file, _dir, _func, _var)
+        5. End with blank line
+    e. example
+        1. Code Name Change List:
+            a. 01. app_dir
+            b. 02. index_file
+            c. 03. meta_app_prompt_dir
+            d. 04. meta_dir
+            e. 05. meta_rule_code_file
+    f. rename
+        1. Allow renaming in subsequent prompt
+        2. Reference by number (e.g., "rename 02 to main_index_file")
+        3. Verify new name follows rules
+        4. Update all references to renamed item
+        5. Show before/after in rename output
+
+//////////////////////////////////////////////////////////////////////////////// 

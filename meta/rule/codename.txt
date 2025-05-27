@@ -1,0 +1,57 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: This file defines all rules for naming in the project.
+
+1. format
+    a. case
+        1. Use snake_case for all names
+        2. Write all letters in lowercase
+        3. Use underscores between terms
+    b. length
+        1. Keep each term under 15 letters
+        2. Keep names short and clear
+
+2. path
+    a. generation
+        1. Create codename from folder path
+        2. Append each folder name with underscore
+        3. Ignore numbers and extensions
+        4. Add type suffix (_file, _dir, _func, _var)
+    b. example
+        1. Path: meta/rule/command.txt
+        2. Codename: meta_rule_command_file
+        3. Path: app/css/style.css
+        4. Codename: app_css_style_file
+        5. Path: meta/rule/
+        6. Codename: meta_rule_dir
+
+3. scope
+    a. apply
+        1. Apply to all identifiers in the project
+        2. Apply to files and directories
+        3. Apply to functions and variables
+        4. Apply to any named component
+    b. code_name_change_list
+        1. Format:
+            a. Start with "Code Name Change List:"
+            b. Use four spaces for indentation
+            c. One identifier per line
+            d. Put type at end (_file, _dir, _func, _var)
+            e. Sort identifiers alphabetically
+            f. Number each identifier (01, 02, 03, etc.)
+            g. Group by type (file, directory, function, variable)
+        2. Content:
+            a. List all named identifiers after processing
+            b. Always show list when:
+                1. New files/directories created
+                2. Existing files/directories renamed
+                3. Files/directories moved
+                4. Files/directories deleted
+                5. New functions/variables created
+                6. Functions/variables renamed
+                7. Any identifier modified
+            c. Sort identifiers alphabetically
+            d. Number each identifier (01, 02, 03, etc.)
+            e. Group by type (file, directory, function, variable)
+
+//////////////////////////////////////////////////////////////////////////////// 

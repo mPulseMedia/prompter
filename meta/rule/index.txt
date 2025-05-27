@@ -1,0 +1,24 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: This file defines the rules for all index files in the project.
+
+1. format
+    a. structure
+        1. Start with NOTE section
+        2. Use divider lines at start and end
+        3. Use four spaces for indentation
+    b. space
+        1. Compare each line with line above
+        2. For matching characters use space
+        3. Stop at first different character
+
+2. content
+    a. codenames
+        1. List all codenames used in the app or directory
+        2. Use one codename per line
+        3. Sort codenames alphabetically
+    b. track
+        1. Show current state of codenames
+        2. Track codename changes using code_name_change_list
+
+////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,32 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: These rules define how to format code files for readability.
+
+1. align
+   a. symbols
+      1. Look for lines with =, :, ;, => that could benefit from alignment
+      2. Group lines with similar patterns to create logical blocks
+      3. Add spaces to create clean vertical lines for better structure
+   b. scope
+      1. Check all of the code files after each edit
+
+2. format
+   a. css
+      1. Align colons in rules to separate properties from values
+      2. Align values in lists to make them easier to scan
+      3. Use four spaces for indentation
+   b. html
+      1. Align attributes within tags to show structure
+      2. Align closing tags with their opening tags
+      3. Use four spaces for indentation
+   c. js
+      1. Align variable assignments for easy comparison
+      2. Align function parameters to show structure
+      3. Use four spaces for indentation
+
+3. check
+   a. timing
+      1. Review and align code after making changes
+      2. Check alignment before committing changes
+
+////////////////////////////////////////////////////////////////////////////////

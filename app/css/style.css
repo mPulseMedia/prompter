@@ -1,72 +1,62 @@
-/* Reset default margins and padding */
-body {
+/* Reset and base styles */
+* {
     margin          : 0;
     padding         : 0;
+    box-sizing      : border-box;
+}
+
+body {
     overflow        : hidden;
 }
 
-/* Viewport container with pink border */
-.viewport_container {
+/* Container styles */
+.window_cont {
     position        : fixed;
     top             : 0;
     left            : 0;
     width           : 100vw;
     height          : 100vh;
-    border          : 8px solid rgb(195, 33, 176);
-    box-sizing      : border-box;
-}
-
-/* Window and page containers */
-.window_container {
-    position        : absolute;
-    top             : 0;
-    left            : 0;
-    width           : 100%;
-    height          : 100%;
     background-color: #333;
     transition      : background-color 0.3s ease;
+    border          : 8px solid rgb(195, 33, 176);
 }
 
-.page_container {
+.page_cont {
     width           : 80%;
     height          : 100%;
     margin          : 0 auto;
     display         : flex;
-    justify-content : center;
     align-items     : center;
-    position        : relative;
+    justify-content : center;
 }
 
-/* Circle container and heading */
-.circle_container {
+.circle_cont {
     width           : 200px;
     height          : 200px;
     border-radius   : 50%;
     background-color: white;
     display         : flex;
-    justify-content : center;
     align-items     : center;
+    justify-content : center;
     box-shadow      : 0 4px 8px rgba(0, 0, 0, 0.2);
     transition      : all 0.3s ease;
     cursor          : pointer;
-    position        : absolute;
-    transform       : translate(-50%, -50%);
 }
 
-.circle_container:hover {
-    transform       : translate(-50%, -50%) scale(2);
-    box-shadow      : 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.heading {
+/* Text styles */
+.circle_text {
     font-size       : 24px;
-    margin          : 0;
     padding         : 20px;
     text-align      : center;
 }
 
 /* Hover effects */
-.circle_container:hover ~ .window_container,
-.circle_container:hover {
+.circle_cont:hover {
+    transform       : translateY(-10px) scale(2);
+    box-shadow      : 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Window background color transition */
+.window_cont.circle_hover {
     background-color: #ffeb3b;
 } 
