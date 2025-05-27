@@ -38,7 +38,8 @@ NOTE: This file defines the complete process for managing and executing prompts 
         2. Process:
             a. Find marker position
             b. Execute next prompt after marker
-            c. Move marker after executed prompt, and on to the next file if needed
+            c. Move marker after executed prompt
+            d. Move to next file if needed
         3. Required Steps:
             a. MUST execute all rules in this file
             b. MUST process all changes (code, names, formatting)
@@ -50,17 +51,23 @@ NOTE: This file defines the complete process for managing and executing prompts 
             h. MUST list all new and modified identifiers
             i. MUST follow codename.txt format rules
     b. reset
-        1. Action: Delete all files in app/ directory
+        1. Action: Delete all files in app/ directory and reset app_index.txt
         2. Process:
             a. Delete every file in app/
             b. Delete every subdirectory in app/
             c. Keep app/ directory itself
+            d. Clear all codenames from app_index.txt
+            e. Preserve app_index.txt structure (header, numbering)
+            f. Do not modify meta_index.txt
         3. Required Steps:
             a. MUST clear app state
             b. MUST remove temp files
-            c. MUST reset indexes
-            d. MUST move marker to start of first prompt file
-            e. MUST verify marker format (text, dividers, blank lines)
+            c. MUST clear app_index.txt codenames
+            d. MUST preserve app_index.txt structure
+            e. MUST NOT modify meta_index.txt
+            f. MUST move marker to start of first prompt file
+            g. MUST verify marker format (text, dividers, blank lines)
+            h. MUST NOT show codename change list during reset
 
 3. marker
     a. format
@@ -127,41 +134,48 @@ NOTE: This file defines the complete process for managing and executing prompts 
                 01. app_css_style_file
                 02. app_js_main_file
                 03. meta_rule_prompt_file
-    b. commands
-        1. reset
-            a. Clear current identifier list
-            b. Rescan workspace structure
-            c. Generate new identifier list
-            d. Use exact current names
-            e. Update all references
-    c. summary
-        1. Always include codename_change_list in response if there were changes
-        2. List must be complete and accurate
-        3. Must show all identifier changes
-        4. Must follow format exactly
-        5. Must be sorted and numbered
-        6. Must be grouped by type
-        7. Must be the last part of the response
-        8. Must be separated by a blank line
-        9. EXCEPT during reset command
-    d. format
-        1. Start with "Codename Change List:"
-        2. Use four spaces for indentation
-        3. One identifier per line
-        4. Put type at end (_file, _dir, _func, _var)
-        5. End with blank line
-    e. example
-        1. Codename Change List:
-            a. 01. app_dir
-            b. 02. index_file
-            c. 03. meta_app_prompt_dir
-            d. 04. meta_dir
-            e. 05. meta_rule_code_file
-    f. rename
+    b. rename
         1. Allow renaming in subsequent prompt
         2. Reference by number (e.g., "rename 02 to main_index_file")
         3. Verify new name follows rules
         4. Update all references to renamed item
         5. Show before/after in rename output
+
+////////////////////////////////////////////////////////////////////////////////
+
+1. Reset Command:
+   - Command: "reset"
+   - Effect:
+     * Only affects app_index.txt
+     * Clears all codenames from app_index.txt
+     * Preserves file structure (header, numbering, etc.)
+     * Does not affect meta_index.txt
+   - After reset:
+     * app_index.txt must be rebuilt from scratch
+     * All app codenames must be re-added
+     * Must follow all rules in index.txt when rebuilding
+
+     Ignore this for now:
+
+////////////////////////////////////////////////////////////////////////////////
+
+## Codename Change List
+After each prompt execution, a codename change list must be shown in the response. This list:
+- Shows all new identifiers created
+- Shows all existing identifiers that were modified
+- Uses snake_case format
+- Includes type suffix (_file, _dir, _func, _var)
+- Is sorted alphabetically
+- Is numbered (01, 02, etc.)
+- Is grouped by type
+- Must be the last part of any update response
+- Must be separated from other content by a blank line
+- Is shown in the format:
+    [Other update information...]
+
+    Codename Change List:
+        01. example_file
+        02. example_func
+        03. example_var
 
 //////////////////////////////////////////////////////////////////////////////// 

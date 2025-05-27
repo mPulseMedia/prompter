@@ -2,84 +2,75 @@
 
 NOTE: This file defines the rules for formatting index files that list codenames.
 
-////////////////////////////////////////////////////////////////////////////////
+1. structure
+    a. header
+        1. Start with divider line
+        2. Include NOTE section
+        3. End header with divider line
+        4. List codenames with line numbers
+        5. End with blank line
+    b. numbering
+        1. Use two-digit numbers (01-99)
+        2. Follow with period and space
+        3. Right-align numbers (01., 02., etc.)
+        4. No leading zeros for numbers 10+
 
-1. File Structure:
-   - Start with a header section enclosed by comment lines (////////////////////////////////////////////////////////////////////////////////)
-   - Include a NOTE line explaining the file's purpose
-   - End header with comment lines
-   - List codenames with line numbers
-   - End with a blank line
+2. codenames
+    a. listing
+        1. Sort all codenames alphabetically
+        2. Put each codename on its own line
+        3. Show full codename for first in group
+        4. Show only unique suffix for others
+    b. prefix
+        1. For matching prefixes:
+            a. Replace with spaces
+            b. Use one space per character
+            c. Keep only unique suffix
+        2. For multiple matches:
+            a. Use longest matching prefix
+            b. Replace all matching characters
+            c. Keep only unique suffix
 
-2. Line Numbering:
-   - Use two-digit numbers (01-99) followed by a period and space
-   - Numbers must be right-aligned (e.g., "01.", "02.", etc.)
-   - No leading zeros for numbers 10 and above
+3. alignment
+    a. prefix
+        1. Compare with line above
+        2. For matching prefixes:
+            a. Replace with spaces
+            b. Use one space per character
+            c. Show only suffix
+        3. For no match:
+            a. Show full codename
+            b. Start new group
+    b. indentation
+        1. First line sets group indentation
+        2. Maintain consistent indentation
+        3. No extra spaces for alignment
+        4. No tabs or multiple spaces
+        5. Match prefix character count
 
-3. Codenames:
-   - List all codenames alphabetically
-   - Each codename must be on its own line
-   - First line in a group shows the full codename
-   - Subsequent lines show only the unique suffix
-   - When a codename shares a prefix with the line above:
-     * Replace the entire matching prefix with spaces
-     * Use exactly one space per character in the matching prefix
-     * Keep only the unique suffix
-   - When a codename shares a prefix with multiple lines above:
-     * Use the longest matching prefix from the most recent line
-     * Replace all matching characters with spaces
-     * Keep only the unique suffix
+4. special
+    a. subsets
+        1. Put shorter codename first
+        2. Show only unique suffix for longer
+    b. shared_prefix
+        1. Sort by suffix alphabetically
+        2. Show only unique suffix
+    c. no_match
+        1. Write full codename
+        2. Start new group
+    d. single_word
+        1. Show only suffix
+        2. Keep group prefix spacing
 
-4. Prefix Alignment:
-   - For each line, compare it with the line above
-   - If the current line starts with the same prefix as the line above:
-     * Replace the entire prefix with spaces
-     * Use exactly one space per character in the prefix
-     * Show only the suffix
-   - If the current line has no prefix match with the line above:
-     * Show the full codename
-     * Start a new group
-   - The indentation of each group is determined by the first line in that group
-
-5. Example Format:
-   ```
-   01. circle
-   02.       _border_color
-   03.               thickness
-   04.        is
-   05.        radius
-   ```
-
-6. Special Cases:
-   - If a codename is a subset of another (e.g., "circle" and "circle_border"):
-     * The shorter codename must come first
-     * The longer codename must show only its unique suffix
-   - If multiple codenames share the same prefix but have different suffixes:
-     * List them in alphabetical order of their suffixes
-     * Each line must show only the unique suffix part
-   - If a codename has no prefix match with the line above:
-     * Write the full codename
-     * Start a new group
-   - For single-word suffixes (like "is" and "radius"):
-     * Show only the suffix
-     * Maintain the same prefix spacing as the group
-
-7. Spacing Rules:
-   - Use exactly one space per character in the matching prefix
-   - Each group maintains its own indentation level
-   - The first line in a group determines the indentation for that group
-   - Do not add extra spaces for alignment
-   - Do not use tabs or multiple spaces for indentation
-   - Preserve the exact number of spaces that would be occupied by the matching prefix
-
-8. Validation:
-   - Each line must be numbered
-   - All codenames must be alphabetically sorted
-   - No duplicate codenames allowed
-   - Each line must show either:
-     * The full codename (if first in a group)
-     * Only the unique suffix (if in an existing group)
-   - The number of spaces must exactly match the number of characters in the matching prefix
-   - Each group must maintain consistent indentation
+5. validation
+    a. requirements
+        1. Number every line
+        2. Sort all codenames
+        3. No duplicates allowed
+    b. format
+        1. Show full codename or unique suffix
+        2. Match prefix character count
+        3. Maintain group indentation
+        4. Follow spacing rules exactly
 
 ////////////////////////////////////////////////////////////////////////////////

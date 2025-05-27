@@ -7,35 +7,18 @@ Build web apps through sequential prompts.
 - `reset` - Clear app state, remove temp files, reset indexes, return to start
 
 ## Files
-- `meta/rule/`                        - Project rules and conventions
-  - `prompt.txt`                      - How to execute prompts, track progress, manage state
-  - `format.txt`                      - How to format files, structure content, use markers
-  - `code.txt`                        - How to write code, align text, maintain style
-  - `codename.txt`                    - How to name things, use patterns, follow conventions
-  - `index.txt`                       - How to track files, list codenames, maintain order
-- `meta/prompter_index.txt`           - List of prompter files, track changes, show structure
-- `meta/app_prompt/`                  - Prompt files for app development
-- `app/`                              - Your web app code, components, styles, scripts
-  - `index.html`                      - Web app entry point
-  - `app_index.txt`                      - List of codenames used by app code
-
-## Codename Change List
-After each prompt execution, a codename change list must be shown in the response. This list:
-- Shows all new identifiers created
-- Shows all existing identifiers that were modified
-- Uses snake_case format
-- Includes type suffix (_file, _dir, _func, _var)
-- Is sorted alphabetically
-- Is numbered (01, 02, etc.)
-- Is grouped by type
-- Must be the last part of any update response
-- Must be separated from other content by a blank line
-- Is shown in the format:
-    [Other update information...]
-
-    Codename Change List:
-        01. example_file
-        02. example_func
-        03. example_var
+- `app`                      - folder with app files
+   - `index.html`            - default landing page for app
+- `meta`                     - folder of tools to enhance prompts
+   - `app_req`               - reqirements for app in development
+      - `##_epic`            - file with many prompts, part and future
+      - `app_index.txt`      - index of codenames used by app's code
+   - `rule`                  - folder of files containing rules for cursor.ai
+      - `code.txt`           - rules on code alignmentment and format
+      - `codename.txt`       - rules on selecting names for identifiers in the code
+      - `format.txt`         - rules on format files, structure content, use markers
+      - `index.txt`          - rules on the format of codename indexes
+      - `prompt.txt`         - rules on how the cursor.ai should handel prompts
+   - `meta_index.txt`        - index of codenames in the meta files
 
 //////////////////////////////////////////////////////////////////////////////// 

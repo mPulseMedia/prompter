@@ -2,7 +2,7 @@
 
 NOTE: This file contains the first prompt for building the web app.
 
-/////////////////////////////// YOU ARE HERE /////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 1. files
     a. Setup
@@ -66,5 +66,7 @@ NOTE: This file contains the first prompt for building the web app.
         5. Random direction must be calculated using Math.random()
         6. Movement must be relative to current position
         7. Prevent circle from moving outside viewport boundaries
+
+/////////////////////////////// YOU ARE HERE /////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////// 

@@ -4,11 +4,27 @@ NOTE: This file alphabetically lists all codenames used in the meta files.
 
 ////////////////////////////////////////////////////////////////////////////////
 
-01. app_prompt_app_index
+01. meta_app_req_dir
+02. meta_dir
+03. meta_index_file
+04. meta_rule_dir
+05. meta_rule_code_file
+06. meta_rule_codename_file
+07. meta_rule_format_file
+08. meta_rule_index_file
+09. meta_rule_prompt_file
+
+////////////////////////////////////////////////////////////////////////////////
+
+01. app_css_style
 02.     _index
-03. meta_index
-04. meta_rule_code
-05.     _codename
-06.     _format
-07.     _index
-08. prompter_index 
+03.     _js_main
+04.     _prompt_01_app
+05.           _app_index
+06. meta_app_prompt
+07. meta_index
+08. meta_rule_code
+09.     _codename
+10.     _format
+11.     _index
+12.     _prompt 
