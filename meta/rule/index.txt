@@ -19,6 +19,6 @@ NOTE: This file defines the rules for all index files in the project.
         3. Sort codenames alphabetically
     b. track
         1. Show current state of codenames
-        2. Track codename changes using code_name_change_list
+        2. Track codename changes using codename_change_list
 
 ////////////////////////////////////////////////////////////////////////////////

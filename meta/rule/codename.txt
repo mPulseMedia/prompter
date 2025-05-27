@@ -10,6 +10,13 @@ NOTE: This file defines all rules for naming in the project.
     b. length
         1. Keep each term under 15 letters
         2. Keep names short and clear
+    c. abbreviations
+        1. Use standard abbreviations to keep names short
+        2. Common abbreviations:
+           a. cont for container
+           b. max for maximum
+           c. min for minimum
+        3. Always use full words if abbreviation would be unclear
 
 2. path
     a. generation
@@ -31,15 +38,39 @@ NOTE: This file defines all rules for naming in the project.
         2. Apply to files and directories
         3. Apply to functions and variables
         4. Apply to any named component
-    b. code_name_change_list
+    b. patterns
+        1. Element Types
+           a. Use consistent suffixes for element types
+           b. Suffix should indicate element's role or category
+           c. Keep suffix short and clear
+           d. Use same suffix for similar elements
+        2. Action Groups
+           a. Use action prefix for related variables
+           b. Group variables by their action or behavior
+           c. Use consistent prefixes for similar actions
+           d. Keep action prefix descriptive but concise
+        3. State Indicators
+           a. Use state suffix for state-dependent elements
+           b. State suffix should indicate current condition
+           c. Use consistent suffixes for similar states
+        4. Relationships
+           a. Use common prefix for related elements
+           b. Show hierarchy through name structure
+           c. Indicate parent-child relationships
+           d. Group related functionality
+        5. Modifiers
+           a. Use consistent suffixes for modifications
+           b. Indicate type of modification
+           c. Keep modifier terms short
+           d. Use same modifier for similar changes
+    c. codename_change_list
         1. Format:
-            a. Start with "Code Name Change List:"
+            a. Start with "Codename Change List:"
             b. Use four spaces for indentation
             c. One identifier per line
-            d. Put type at end (_file, _dir, _func, _var)
             e. Sort identifiers alphabetically
             f. Number each identifier (01, 02, 03, etc.)
-            g. Group by type (file, directory, function, variable)
+        
         2. Content:
             a. List all named identifiers after processing
             b. Always show list when:
@@ -50,6 +81,7 @@ NOTE: This file defines all rules for naming in the project.
                 5. New functions/variables created
                 6. Functions/variables renamed
                 7. Any identifier modified
+                8. EXCEPT during reset command
             c. Sort identifiers alphabetically
             d. Number each identifier (01, 02, 03, etc.)
             e. Group by type (file, directory, function, variable)

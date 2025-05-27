@@ -18,4 +18,23 @@ Build web apps through sequential prompts.
 - `app/`                              - Your web app code, components, styles, scripts
 - `index.html`                        - Web app entry point
 
+## Codename Change List
+After each prompt execution, a codename change list must be shown in the response. This list:
+- Shows all new identifiers created
+- Shows all existing identifiers that were modified
+- Uses snake_case format
+- Includes type suffix (_file, _dir, _func, _var)
+- Is sorted alphabetically
+- Is numbered (01, 02, etc.)
+- Is grouped by type
+- Must be the last part of any update response
+- Must be separated from other content by a blank line
+- Is shown in the format:
+    [Other update information...]
+
+    Codename Change List:
+        01. example_file
+        02. example_func
+        03. example_var
+
 //////////////////////////////////////////////////////////////////////////////// 

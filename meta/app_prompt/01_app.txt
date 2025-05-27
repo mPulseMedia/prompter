@@ -4,67 +4,67 @@ NOTE: This file contains the first prompt for building the web app.
 
 /////////////////////////////// YOU ARE HERE /////////////////////////////////
 
-• files
-  • Setup
-    • Create all files inside the top level app folder
-    • Create index.html with English language and UTF-8 encoding
-    • Create style.css in app/css/ folder
-    • Create main.js in app/js/ folder
-    • Link style.css and main.js to index.html
+1. files
+    a. Setup
+        1. Create all files inside the top level app folder
+        2. Create index.html with English language and UTF-8 encoding
+        3. Create style.css in app/css/ folder
+        4. Create main.js in app/js/ folder
+        5. Link style.css and main.js to index.html
 
-• structure
-  • Meta setup
-    • Add viewport meta tag for responsive display
-    • Set page title to "Hello World"
-  • Layout containers
-    • Create full-screen window container
-    • Add centered page container with 80% width
-    • Add circle container around heading
-    • Ensure circle container has equal width and height
+2. structure
+    a. Meta setup
+        1. Add viewport meta tag for responsive display
+        2. Set page title to "Hello World"
+    b. Layout containers
+        1. Create full-screen window container
+        2. Add centered page container with 80% width
+        3. Add circle container around heading
+        4. Ensure circle container has equal width and height
 
-• style
-  • Visual setup
-    • Set window background to dark gray
-    • Add "Hello World" heading with 24px size
-    • Center heading vertically and horizontally
-    • Add 20px padding around heading
-  • Circle effects
-    • Style circle with perfect border radius (50%)
-    • Set explicit equal width and height for circle
-    • Add drop shadow to circle
-    • Add hover effect to move circle up and expand shadow
-    • Ensure circle maintains perfect round shape during hover
+3. style
+    a. Visual setup
+        1. Set window background to dark gray
+        2. Add "Hello World" heading with 24px size
+        3. Center heading vertically and horizontally
+        4. Add 20px padding around heading
+    b. Circle effects
+        1. Style circle with perfect border radius (50%)
+        2. Set explicit equal width and height for circle
+        3. Add drop shadow to circle
+        4. Add hover effect to move circle up and expand shadow
+        5. Ensure circle maintains perfect round shape during hover
 
-• effects
-  • Viewport frame
-    • Add thick pink border around viewport container
-    • Set border width to 8px
-    • Use solid border style
-    • Use rgb(195, 33, 176) for border color
-    • Border should be at outermost edge of visible area
-  • Circle hover
-    • Double circle size on hover (only when hovering circle)
-    • Scale transform to 200%
-    • Keep circle centered during scale
-    • Maintain smooth transition
-    • Ensure circle stays perfectly round during scale
-  • Window background
-    • Start with dark gray background (#333)
-    • Change WINDOW background to yellow (#ffeb3b) when hovering circle
-    • While hovering circle, track mouse X position
-    • Shift window background hue based on mouse X position
-    • Update color smoothly with transition
-    • Return to dark gray when not hovering circle
-    • All color changes only happen when hovering circle
+4. effects
+    a. Viewport frame
+        1. Add thick pink border around viewport container
+        2. Set border width to 8px
+        3. Use solid border style
+        4. Use rgb(195, 33, 176) for border color
+        5. Border should be at outermost edge of visible area
+    b. Circle hover
+        1. Double circle size on hover (only when hovering circle)
+        2. Scale transform to 200%
+        3. Keep circle centered during scale
+        4. Maintain smooth transition
+        5. Ensure circle stays perfectly round during scale
+    c. Window background
+        1. Start with dark gray background (#333)
+        2. Change WINDOW background to yellow (#ffeb3b) when hovering circle
+        3. While hovering circle, track mouse X position
+        4. Shift window background hue based on mouse X position
+        5. Update color smoothly with transition
+        6. Return to dark gray when not hovering circle
+        7. All color changes only happen when hovering circle
 
-• click effects
-  • Circle click
-    • Move circle 50 pixels in random direction on click
-    • Use smooth transition for movement
-    • Keep circle within window bounds
-    • Maintain perfect round shape during movement
-    • Random direction must be calculated using Math.random()
-    • Movement must be relative to current position
-    • Prevent circle from moving outside viewport boundaries
+5. click effects
+    a. Circle click
+        1. Move circle 50 pixels in random direction on click
+        2. Use smooth transition for movement
+        3. Keep circle within window bounds
+        4. Maintain perfect round shape during movement
+        5. Random direction must be calculated using Math.random()
+        6. Movement must be relative to current position
+        7. Prevent circle from moving outside viewport boundaries
 
 //////////////////////////////////////////////////////////////////////////////// 
