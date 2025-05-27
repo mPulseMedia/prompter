@@ -15,12 +15,30 @@ NOTE: This file defines core naming conventions for all project identifiers.
     4. Use common abbreviations consistently
 
 3. Scope Rules
-    1. Apply to all identifiers
+    1. Apply to ALL identifiers
     2. Include files, directories, functions, variables, and anything cursor.ai can name
     3. No exceptions allowed
+    4. Apply to EVERY new identifier created
+    5. Apply to EVERY identifier modified
 
 4. Path Rules
     1. Create codename from file path, ignoring extensions and numbers
     2. Use established roots to shorten path names
+
+5. Application Rules
+    a. Timing
+        1. Apply codename rules BEFORE creating any identifier
+        2. Apply codename rules BEFORE modifying any identifier
+        3. Apply codename rules BEFORE committing any changes
+    b. Verification
+        1. Verify ALL identifiers follow codename rules
+        2. Verify ALL variables use snake_case
+        3. Verify ALL class names use snake_case
+        4. Verify ALL function names use snake_case
+    c. Update Process
+        1. Update ALL affected files when changing codenames
+        2. Update ALL references to changed codenames
+        3. Update index files with ALL codename changes
+        4. Verify no broken references after changes
 
 //////////////////////////////////////////////////////////////////////////////// 

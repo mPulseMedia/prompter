@@ -2,31 +2,71 @@
 
 NOTE: This file defines the rules for formatting index files that list codenames.
 
-1. File Structure
-    a. file name
-        1. Name format: [root]_index.txt
-        3. Examples: app_index.txt, meta_index.txt
-
-    b. Header Format
+1. Structure
+    a. File Name
+        1. Use [root]_index.txt format
+        2. Examples: app_index.txt, meta_index.txt
+    b. Header
         1. Start with divider line
         2. Include NOTE section
         3. End with divider line
-
-    c. Empty Index Format
+    c. Empty State
         1. Keep header structure
         2. Include "01. " line
         3. End with divider line
 
-2. Codenames
-    a. List Rules
-        2. One codename per line
-        1. Sort alphabetically
-        3. Number with two+ digits (01-99)
-        4. No duplicates
-        5. left justified
-        6. no indent
+2. Content
+    a. List Format
+        1. One codename per line
+        2. Sort alphabetically
+        3. Number with two digits (01-99)
+        4. Left justify all entries
+        5. No indentation
+        6. No duplicate entries
+    b. Character Alignment
+        1. Compare each line with previous
+        2. Replace matching characters with space
+        3. Maintain alignment for readability
 
-    b. hiden characters
-        1. if the character in position x is the same as the character in that same position in the line above, then replace that character with a ' '
-        
+3. Update Rules
+    a. Timing
+        1. Update index after EVERY file change.
+        2. Update index after EVERY variable creation.
+        3. Update index after EVERY class name change.
+        4. Update index after EVERY function name change.
+    b. Scope
+        1. Include ALL codenames from ALL files.
+        2. Include ALL variable names from ALL files.
+        3. Include ALL class names from ALL files.
+        4. Include ALL function names from ALL files.
+    c. Verification
+        1. Verify index is updated before committing changes.
+        2. Verify all new codenames are included.
+        3. Verify alphabetical sorting is maintained.
+        4. Verify no duplicates exist.
+
+4. Examples
+    a. Empty Index
+        ```
+        ////////////////////////////////////////////////////////////////////////////////
+
+        NOTE: This file lists all codenames used in the app files.
+
+        01. 
+
+        ////////////////////////////////////////////////////////////////////////////////
+        ```
+    b. Populated Index
+        ```
+        ////////////////////////////////////////////////////////////////////////////////
+
+        NOTE: This file lists all codenames used in the app files.
+
+        01. app_css_style
+        02.     index
+        03.     js_main
+
+        ////////////////////////////////////////////////////////////////////////////////
+        ```
+
 ////////////////////////////////////////////////////////////////////////////////

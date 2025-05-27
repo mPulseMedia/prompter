@@ -9,7 +9,6 @@ NOTE: This file defines the process for executing prompts from the meta files.
             a. Find prompt_marker position in app_prompt files
             b. Execute next prompt after prompt_marker per Execution Rules
             c. Update prompt_marker location per prompt_marker rules
-
     b. reset
         1. Overview: Reset project to initial state
         2. Steps:
@@ -52,7 +51,8 @@ NOTE: This file defines the process for executing prompts from the meta files.
             a. Review existing codenames in code files and app_prompt/app_index.txt
             b. Select new codenames per codename.txt rules
             c. Apply format_code.txt rules to changed files
-            d. Update app_index.txt with new/changed/deleted codenames
+            d. Follow Index Update Rules (see rule 5)
+            e. Verify all rules are followed before marking prompt complete
 
     b. Terminal Rules
         1. File Operations
@@ -70,6 +70,11 @@ NOTE: This file defines the process for executing prompts from the meta files.
             h. ALWAYS use -y for commands that might prompt
             i. NEVER use commands that might wait for input
             j. ALWAYS verify command flags prevent prompts before running
+        3. Edit File Rules
+            a. If edit_file returns "No changes were made":
+                1. Check current state of target file
+                2. try another method
+                5. Report current state in chat if different from desired
 
 4. Chat Output Rules
     a. Format
@@ -77,8 +82,36 @@ NOTE: This file defines the process for executing prompts from the meta files.
         2. Use codenames to describe changes
         3. Group related changes together
         4. Skip obvious details
-    b. Change List
-        1. Show all new codenames
-        2. Show all modified codenames
-        3. Show all deleted codenames
-        4. Group by type (_file, _dir, _func, _var)
+        5. Document EVERY process that requires checking multiple files or updating multiple references as a numbered list of explicit steps
+        6. Include verification steps for EVERY multi-step process
+        7. List ALL affected files for EVERY change
+    b. Rule File Checkmarks
+        1. CRITICAL: MUST be the last thing in EVERY chat output
+        3. MUST mark [x] for each rule file that was:
+            a. Applied during the operation
+            b. Reviewed for compliance
+        4. MUST mark [ ] for each rule file that was:
+            a. Not needed for the operation
+            b. Not reviewed
+        5. MUST be formatted exactly as shown:
+            [ ] codename
+            [ ] format_code
+            [ ] format_index
+            [ ] prompt
+        6. MUST be included even if no rule files were needed
+
+5. Index Update Rules
+    a. Overview: Manage and maintain index files
+        1. Timing
+            a. Must update app_index.txt after EVERY prompt execution
+            b. Must verify app_index.txt is updated before marking prompt as complete
+        2. Content
+            a. Must list ALL files created/modified/deleted in app_index.txt
+            b. Must follow format_index.txt rules for structure and ordering
+            c. Must use codenames per codename.txt rules
+        3. Verification
+            a. Must verify index update before proceeding
+            b. Must check for duplicate entries
+            c. Must ensure all files are properly tracked
+
+////////////////////////////////////////////////////////////////////////////////
