@@ -7,10 +7,10 @@ NOTE: This file contains the first prompt for building the web app.
 1. files
     a. Setup
         1. Create all files inside the top level app folder
-        2. Create index.html with English language and UTF-8 encoding
+        2. Create app/index.html with English language and UTF-8 encoding
         3. Create style.css in app/css/ folder
         4. Create main.js in app/js/ folder
-        5. Link style.css and main.js to index.html
+        5. Link style.css and main.js to app/index.html
 
 2. structure
     a. Meta setup

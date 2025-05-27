@@ -18,21 +18,42 @@ NOTE: This file defines all rules for naming in the project.
            c. min for minimum
         3. Always use full words if abbreviation would be unclear
 
-2. path
+2. root_terms
+    a. definition
+        1. Root terms define the domain or scope of an identifier
+        2. Root terms must be one of the allowed set:
+            a. app (for app-level files and components)
+            b. circle (for circle-related elements and variables)
+            c. page (for page-level containers and elements)
+            d. window (for window-level containers and elements)
+        3. All identifiers must start with a root term
+        4. Root terms establish ownership and context
+    b. application
+        1. Files and directories use app_ prefix
+        2. Circle-related elements use circle_ prefix
+        3. Page-related elements use page_ prefix
+        4. Window-related elements use window_ prefix
+    c. variables
+        1. Variables must use root term of their context
+        2. Circle variables start with circle_
+        3. Window variables start with window_
+        4. Page variables start with page_
+        5. App variables start with app_
+
+3. path
     a. generation
         1. Create codename from folder path
         2. Append each folder name with underscore
         3. Ignore numbers and extensions
-        4. Add type suffix (_file, _dir, _func, _var)
     b. example
         1. Path: meta/rule/command.txt
-        2. Codename: meta_rule_command_file
+        2. Codename: meta_rule_command
         3. Path: app/css/style.css
-        4. Codename: app_css_style_file
+        4. Codename: app_css_style
         5. Path: meta/rule/
-        6. Codename: meta_rule_dir
+        6. Codename: meta_rule
 
-3. scope
+4. scope
     a. apply
         1. Apply to all identifiers in the project
         2. Apply to files and directories
@@ -40,19 +61,24 @@ NOTE: This file defines all rules for naming in the project.
         4. Apply to any named component
     b. patterns
         1. Element Types
-           a. Use consistent suffixes for element types
-           b. Suffix should indicate element's role or category
-           c. Keep suffix short and clear
-           d. Use same suffix for similar elements
+           a. Use consistent prefixes for element types
+           b. Prefix should indicate element's role or category
+           c. Keep prefix short and clear
+           d. Use same prefix for similar elements
+           e. Examples:
+              - Circle elements start with "circle_"
+              - Window elements start with "window_"
+              - Page elements start with "page_"
         2. Action Groups
            a. Use action prefix for related variables
            b. Group variables by their action or behavior
            c. Use consistent prefixes for similar actions
            d. Keep action prefix descriptive but concise
         3. State Indicators
-           a. Use state suffix for state-dependent elements
-           b. State suffix should indicate current condition
+           a. Use "is_" as suffix for boolean state variables
+           b. State suffix should be the last term
            c. Use consistent suffixes for similar states
+           d. Example: "circle_hover_is" for hover state
         4. Relationships
            a. Use common prefix for related elements
            b. Show hierarchy through name structure
@@ -63,27 +89,5 @@ NOTE: This file defines all rules for naming in the project.
            b. Indicate type of modification
            c. Keep modifier terms short
            d. Use same modifier for similar changes
-    c. codename_change_list
-        1. Format:
-            a. Start with "Codename Change List:"
-            b. Use four spaces for indentation
-            c. One identifier per line
-            e. Sort identifiers alphabetically
-            f. Number each identifier (01, 02, 03, etc.)
-        
-        2. Content:
-            a. List all named identifiers after processing
-            b. Always show list when:
-                1. New files/directories created
-                2. Existing files/directories renamed
-                3. Files/directories moved
-                4. Files/directories deleted
-                5. New functions/variables created
-                6. Functions/variables renamed
-                7. Any identifier modified
-                8. EXCEPT during reset command
-            c. Sort identifiers alphabetically
-            d. Number each identifier (01, 02, 03, etc.)
-            e. Group by type (file, directory, function, variable)
 
 //////////////////////////////////////////////////////////////////////////////// 

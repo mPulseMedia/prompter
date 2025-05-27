@@ -16,7 +16,8 @@ Build web apps through sequential prompts.
 - `meta/prompter_index.txt`           - List of prompter files, track changes, show structure
 - `meta/app_prompt/`                  - Prompt files for app development
 - `app/`                              - Your web app code, components, styles, scripts
-- `index.html`                        - Web app entry point
+  - `index.html`                      - Web app entry point
+  - `app_index.txt`                      - List of codenames used by app code
 
 ## Codename Change List
 After each prompt execution, a codename change list must be shown in the response. This list:

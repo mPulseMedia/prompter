@@ -1,0 +1,14 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: This file alphabetically lists all codenames used in the meta files.
+
+////////////////////////////////////////////////////////////////////////////////
+
+01. app_prompt_app_index
+02.     _index
+03. meta_index
+04. meta_rule_code
+05.     _codename
+06.     _format
+07.     _index
+08. prompter_index 
