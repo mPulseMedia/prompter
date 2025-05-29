@@ -1,0 +1,39 @@
+////////////////////////////////////////////////////////////////////////////////
+
+NOTE: This file defines rules for managing and formatting rules in the project.
+
+1. format
+    a. numbering
+        1. Use outline numbering (1.a.1.a).
+        2. Each level must be indented 4 spaces.
+        3. Each line must have a number or letter.
+        4. Each instruction must end with a period.
+
+2. manage
+    a. rule_add
+        1. Check existing rules before creating new ones.
+        2. Add to existing rule file if topic matches.
+        3. Create new rules only if necessary.
+        4. Use simple one-line rules when sub-items are not needed.
+        5. Pick the correct file to add new rules in.
+    b. content
+        1. Make rules that are conventions, yet specific and actionable.
+        2. Start with a verb.
+        3. End with a period.
+        4. One rule per line.
+        5. Never have vague or marketing language.
+        6. The more top level, the shorter the line should be.
+
+3. format_file
+    a. structure
+        1. Start with NOTE section.
+        2. Start file with divider line /////.
+        3. End file with divider line /////.
+        4. Group related rules together.
+    b. examples
+        1. Put examples in a separate section.
+        2. Clearly mark examples as examples.
+        3. Follow all other rules.
+        4. Show before/after if relevant.
+
+//////////////////////////////////////////////////////////////////////////////// 

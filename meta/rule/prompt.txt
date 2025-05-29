@@ -2,116 +2,102 @@
 
 NOTE: This file defines the process for executing prompts from the meta files.
 
-1. Commands
-    a. run
-        1. Overview: Execute next prompt after prompt_marker
-        2. Steps:
-            a. Find prompt_marker position in app_prompt files
-            b. Execute next prompt after prompt_marker per Execution Rules
-            c. Update prompt_marker location per prompt_marker rules
-    b. reset
-        1. Overview: Reset project to initial state
-        2. Steps:
-            a. app directory
-                1. Delete all files and directories in app/ except directory itself
-            b. prompt_marker
-                1. Remove from current location
-                2. Place in initial position per prompt_marker rules
-            c. index files
-                1. Reset ALL index files (*_index.txt) to empty state
-                2. Each index file must:
-                    a. Keep header structure
-                    b. Include only "01. " line
-                    c. End with divider line
-                3. Affected files:
-                    a. app_prompt/app_index.txt
-                    b. meta/meta_index.txt
+1. commands
+    a. rule_check
+        1. List the unchecked set of rule files that you will review while executing the prompt.
+        2. This must be the first step for ANY prompt execution.
+        3. This includes both user commands and app prompt executions.
+    b. run
+        1. Find prompt_marker position in app_prompt files.
+        2. Execute next prompt after prompt_marker per execution rules.
+        3. Update prompt_marker location per prompt_marker rules.
+    c. reset
+        1. Delete all files and directories in app/ except directory itself.
+        2. Remove prompt_marker from current location.
+        3. Place prompt_marker in initial position per prompt_marker rules.
 
-2. prompt_marker
-    a. Format
-        1. Text: "/////////////////////////////// YOU ARE HERE ///////////////////////////////"
-        2. One blank line before and after marker
-    b. Run Behavior
-        1. After each prompt execution:
-            a. Move marker after executed prompt
-            b. Move to next file if current file complete
-        3. Always marks next prompt to execute
-    c. Reset Behavior
-        1. CRITICAL: Must be placed in initial position
-        2. Must be in first prompt file in app_prompt/
-        3. Must be after NOTE section
-        4. Must be before first prompt
-        5. Must have blank lines before and after
-    d. File Rules
-        1. Must be in app_prompt/ directory
+2. output_prompt_marker
+    a. format
+        1. Use text "/////////////////////////////// YOU ARE HERE ///////////////////////////////".
+        2. Add one blank line before marker.
+        3. Add one blank line after marker.
+    b. run_behavior
+        1. Move marker after executed prompt.
+        2. Move to next file if current file complete.
+        3. Always mark next prompt to execute.
+    c. reset_behavior
+        1. Place marker in initial position.
+        2. Place in first prompt file in app_prompt/.
+        3. Place after NOTE section.
+        4. Place before first prompt.
+        5. Add blank lines before and after.
+    d. file_rules
+        1. Place marker in app_prompt/ directory.
 
-3. Execution Rules
-    a. Overview: Execute prompt according to files in rule folder
-        1. Steps:
-            a. Review existing codenames in code files and app_prompt/app_index.txt
-            b. Select new codenames per codename.txt rules
-            c. Apply format_code.txt rules to changed files
-            d. Follow Index Update Rules (see rule 5)
-            e. Verify all rules are followed before marking prompt complete
+3. rule_execute
+    a. overview
+        1. List rule files to be reviewed (rule_check) as the first step.
+        2. Review existing codenames in code files and app_prompt/index_app.txt.
+        3. Select new codenames per codename.txt rules.
+        4. Apply format_code.txt rules to changed files.
+        5. Follow index update rules.
+        6. Verify all rules are followed before marking prompt complete.
+    b. terminal_rules
+        1. Use delete_file for all deletions.
+        2. Use edit_file for all creations/modifications.
+        3. Never use terminal for file operations.
+        4. Never use commands requiring [yn] input.
+        5. Always pipe to cat if pager possible.
+        6. Never use commands that show pager.
+        7. Always use -f or --force flags for rm, mv, cp.
+        8. Never use interactive flags (-i) on any command.
+        9. Always use non-interactive flags (-n) when available.
+        10. Always use --no-interactive when available.
+        11. Always use -y for commands that might prompt.
+        12. Never use commands that might wait for input.
+        13. Always verify command flags prevent prompts before running.
+    c. edit_file_rules
+        1. Check current state of target file if edit_file returns "No changes were made".
+        2. Try another method if needed.
+        3. Report current state in chat if different from desired.
 
-    b. Terminal Rules
-        1. File Operations
-            a. Use delete_file for ALL deletions
-            b. Use edit_file for ALL creations/modifications
-            c. NEVER use terminal for file operations
-        2. Command Rules
-            a. NEVER use commands requiring [yn] input
-            b. ALWAYS pipe to cat if pager possible
-            c. NEVER use commands that show pager
-            d. ALWAYS use -f or --force flags for rm, mv, cp
-            e. NEVER use interactive flags (-i) on any command
-            f. ALWAYS use non-interactive flags (-n) when available
-            g. ALWAYS use --no-interactive when available
-            h. ALWAYS use -y for commands that might prompt
-            i. NEVER use commands that might wait for input
-            j. ALWAYS verify command flags prevent prompts before running
-        3. Edit File Rules
-            a. If edit_file returns "No changes were made":
-                1. Check current state of target file
-                2. try another method
-                5. Report current state in chat if different from desired
-
-4. Chat Output Rules
-    a. Format
-        1. Be brief and direct
-        2. Use codenames to describe changes
-        3. Group related changes together
-        4. Skip obvious details
-        5. Document EVERY process that requires checking multiple files or updating multiple references as a numbered list of explicit steps
-        6. Include verification steps for EVERY multi-step process
-        7. List ALL affected files for EVERY change
-    b. Rule File Checkmarks
-        1. CRITICAL: MUST be the last thing in EVERY chat output
-        3. MUST mark [x] for each rule file that was:
-            a. Applied during the operation
-            b. Reviewed for compliance
-        4. MUST mark [ ] for each rule file that was:
-            a. Not needed for the operation
-            b. Not reviewed
-        5. MUST be formatted exactly as shown:
+4. output_chat
+    a. format
+        1. Be brief and direct.
+        2. Use codenames to describe changes.
+        3. Group related changes together.
+        4. Skip obvious details.
+        5. Document every process that requires checking multiple files or updating multiple references as a numbered list of explicit steps.
+        6. Include verification steps for every multi-step process.
+        7. List all affected files for every change.
+    b. rule_file_checkmarks
+        1. Mark [x] for each rule file that was applied during the operation.
+        2. Mark [x] for each rule file that was reviewed for compliance.
+        3. Mark [ ] for each rule file that was not needed for the operation.
+        4. Mark [ ] for each rule file that was not reviewed.
+        5. Format checkmarks exactly as shown:
+            [ ] rule
             [ ] codename
             [ ] format_code
             [ ] format_index
             [ ] prompt
-        6. MUST be included even if no rule files were needed
+        6. Include checkmarks even if no rule files were needed.
 
-5. Index Update Rules
-    a. Overview: Manage and maintain index files
-        1. Timing
-            a. Must update app_index.txt after EVERY prompt execution
-            b. Must verify app_index.txt is updated before marking prompt as complete
-        2. Content
-            a. Must list ALL files created/modified/deleted in app_index.txt
-            b. Must follow format_index.txt rules for structure and ordering
-            c. Must use codenames per codename.txt rules
-        3. Verification
-            a. Must verify index update before proceeding
-            b. Must check for duplicate entries
-            c. Must ensure all files are properly tracked
+5. index_rule_update
+    a. timing
+        1. Update index_app.txt after every prompt execution.
+        2. Verify index_app.txt is updated before marking prompt as complete.
+        3. Update index_meta.txt after any changes to meta folder files.
+        4. Verify index_meta.txt is updated before marking prompt as complete.
+    b. content
+        1. List all files created/modified/deleted in index_app.txt.
+        2. Follow format_index.txt rules for structure and ordering.
+        3. Use codenames per codename.txt rules.
+        4. List all codenames from meta files in index_meta.txt.
+        5. Apply same formatting rules to index_meta.txt as index_app.txt.
+    c. verification
+        1. Verify index update before proceeding.
+        2. Check for duplicate entries.
+        3. Verify both index_app.txt and index_meta.txt are current.
 
 ////////////////////////////////////////////////////////////////////////////////

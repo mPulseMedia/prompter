@@ -4,35 +4,35 @@ NOTE: These rules define how to format code files for readability.
 
 1. align
     a. symbols
-        1. targets
-            a. Look for lines with =, :, ;, => that could benefit from alignment
-            b. Group lines with similar patterns to create logical blocks
-            c. Add spaces to create clean vertical lines for better structure
+        1. Look for lines with =, :, ;, => that could benefit from alignment.
+        2. Group lines with similar patterns to create logical blocks.
+        3. Add spaces to create clean vertical lines for better structure.
     b. scope
-        1. timing
-            a. Check all of the code files after each edit
+        1. Check all of the code files after each edit.
 
 2. format
     a. css
-        1. rules
-            a. Align colons in rules to separate properties from values
-            b. Align values in lists to make them easier to scan
-            c. Use four spaces for indentation
+        1. Align colons in rules to separate properties from values.
+        2. Align values in lists to make them easier to scan.
+        3. Use four spaces for indentation.
     b. html
-        1. rules
-            a. Align attributes within tags to show structure
-            b. Align closing tags with their opening tags
-            c. Use four spaces for indentation
+        1. Align attributes within tags to show structure.
+        2. Align closing tags with their opening tags.
+        3. Use four spaces for indentation.
     c. js
-        1. rules
-            a. Align variable assignments for easy comparison
-            b. Align function parameters to show structure
-            c. Use four spaces for indentation
+        1. Align variable assignments for easy comparison.
+        2. Align function parameters to show structure.
+        3. Use four spaces for indentation.
 
 3. check
     a. timing
-        1. review
-            a. Review and align code after making changes
-            b. Check alignment before committing changes
+        1. Review and align code after making changes.
+        2. Check alignment before committing changes.
+
+4. codename_reuse
+    a. existing_names
+        1. If index_app is not empty, review existing codenames before generating new ones.
+        2. Use existing codename patterns to inform new codename generation.
+        3. Maintain consistency with established naming conventions in the project.
 
 ////////////////////////////////////////////////////////////////////////////////
