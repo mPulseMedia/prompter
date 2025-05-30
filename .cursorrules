@@ -9,8 +9,7 @@ Before executing any prompt:
    - [ ] format_index
    - [ ] prompt
  
-After executing the prompt:
-2. List the same files again, marking [x] for each rule file that was applied.
+2. After executing the prompt, list the same files again, marking [x] for each rule file that was applied.
 
 ## Commands
 

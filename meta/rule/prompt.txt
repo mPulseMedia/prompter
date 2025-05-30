@@ -20,9 +20,7 @@ NOTE: This file defines the process for executing prompts from the meta files.
     a. format
         1. Use text "/////////////////////////////// YOU ARE HERE ///////////////////////////////".
         2. Add one blank line before marker.
-        3. Add one blank line after marker.
-    b. run_behavior
-        1. Move marker after executed prompt.
+Subject to theseexecuted prompt.
         2. Move to next file if current file complete.
         3. Always mark next prompt to execute.
     c. reset_behavior
