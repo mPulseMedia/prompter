@@ -1,0 +1,65 @@
+([^
+01_start.html	
+01_start.txt	codename_part_duplicate, codename_part_unique
+app	
+button
+button_nav
+button_tool
+clientX
+code	
+code_rule.txt	codename_part_duplicate, codename_part_unique
+codename_part_duplicate
+codename_part_unique
+codename_rule.txt	
+color
+controls
+display
+duplicate
+exports
+field_cursor_set	
+field_mode_exit	codename_part_duplicate, codename_part_unique
+field_text_extract	codename_part_duplicate, codename_part_unique
+FILE_NAME
+file_name
+file_watcher_setup	
+function_rule.txt	codename_part_duplicate, codename_part_unique
+function.html	
+function.txt	codename_part_duplicate, codename_part_unique
+href
+html	
+html_extract.js	codename_part_duplicate, codename_part_unique
+html_path
+index_rule.txt
+innerHTML
+js
+key
+last_modified
+LAST_MODIFIED
+length
+line_number
+list_client.js	codename_part_duplicate, codename_part_unique
+list_duplicate_update	codename_part_duplicate, codename_part_unique
+list_edit_text
+list_editing_mode
+list_filter_btn
+list_filter_controls
+list_label_new
+list_label_old
+list_layout_rule.txt
+list_term_duplicate
+list_term_unique
+message
+method
+nav_controls
+nonCssLines
+offsetNode
+outline_collapse_icon
+outline_expand_icon
+outline_line_number
+style_active
+style_hidden
+style_inactive
+textContent
+txt
+txt_path
+url

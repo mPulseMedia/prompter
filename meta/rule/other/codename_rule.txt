@@ -1,13 +1,15 @@
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 
 NOTE: This file defines core naming conventions for all project identifiers.
 
 1. terminology
     a. definitions
-        1. Define codename as unique name for a concept, object, file, folder, function, variable in the project.
+        1. Define codename as unique name for a concept, object, file, folder, 
+           function, variable in the project.
         2. Define term as one or more terms make up the codename, separated by _.
         3. Define root as the first term in a codename.
-        4. Define root_list as the list of all roots used throughout the project.
+        4. Define root_list as the list of all roots used throughout the 
+           project.
 
 2. rule_format
     a. style
@@ -19,7 +21,8 @@ NOTE: This file defines core naming conventions for all project identifiers.
         1. Start codenames with existing root terms whenever possible.
         2. Only introduce new root terms when absolutely necessary.
     c. term_hierarchy
-        1. Structure terms from left to right as: root > sub_object > attribute > verb.
+        1. Structure terms from left to right as: root > sub_object > 
+           attribute > verb.
         2. Use leftmost terms for root terms and primary objects.
         3. Use next term for term_object_sub or sub-concept if needed.
         4. Use next term for attribute if needed.
@@ -33,8 +36,10 @@ NOTE: This file defines core naming conventions for all project identifiers.
         5. Keep terms concise and clear.
     e. naming_semantic_prefix
         1. Start all circle-related codenames with "circle".
-        2. Use "circle" as the root for any identifier related to circle functionality.
-        3. Use "circle_loc" for circle location-related variables to group them adjacently.
+        2. Use "circle" as the root for any identifier related to circle 
+           functionality.
+        3. Use "circle_loc" for circle location-related variables to group them 
+           adjacently.
         4. Use "loc" as abbreviation for location in second term position.
         5. Use "ui" as root for user interface elements.
         6. Use "color" as root for color calculation variables.
@@ -42,16 +47,21 @@ NOTE: This file defines core naming conventions for all project identifiers.
         8. Use "mouse" as root for mouse tracking variables.
         9. Use "window" as root for window/viewport related variables.
         10. Use "page" as root for page layout variables.
-        11. Use "file" and "list" as attributes when they are objects being acted upon.
-        12. Use "file" as root when referring to file operations or file management.
+        11. Use "file" and "list" as attributes when they are objects being 
+            acted upon.
+        12. Use "file" as root when referring to file operations or file 
+            management.
         13. Use "behavior" as attribute, not root term.
-        14. Use meaningful roots based on actual function, not artificial groupings.
-        14. Group related concepts under shared root terms to show fundamental concepts.
+        14. Use meaningful roots based on actual function, not artificial 
+            groupings.
+        14. Group related concepts under shared root terms to show fundamental 
+            concepts.
 
 3. rule_scope
     a. application
         1. Apply to all identifiers.
-        2. Include files, directories, functions, variables, and anything cursor.ai can name.
+        2. Include files, directories, functions, variables, and anything 
+           cursor.ai can name.
         3. No exceptions allowed.
         4. Apply to every new identifier created.
         5. Apply to every identifier modified.
@@ -75,12 +85,16 @@ NOTE: This file defines core naming conventions for all project identifiers.
         6. Verify boolean variables end with "_is".
         7. Verify circle location variables use "circle_loc" prefix.
         8. Verify all variables use appropriate root terms for grouping.
-        9. Verify term_hierarchy follows root > object_sub > attribute > verb pattern.
-        10. Verify grammatical rules are followed (singular, present tense, no -ing).
+        9. Verify term_hierarchy follows root > object_sub > attribute > verb 
+           pattern.
+        10. Verify grammatical rules are followed (singular, present tense, 
+            no -ing).
+        11. Verify CSS class names follow codename rules and are informed by 
+            existing codenames in the index.
     c. process_update
         1. Update all affected files when changing codenames.
         2. Update all references to changed codenames.
         3. Update file_index with all codename changes.
         4. Verify no broken references after changes.
 
-//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////// 

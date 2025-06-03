@@ -1,12 +1,13 @@
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 
-NOTE: These rules define how to format code files for readability.
+NOTE: This file defines code formatting rules for the project.
 
 1. align
     a. symbols
         1. Look for lines with =, :, ;, => that could benefit from alignment.
         2. Group lines with similar patterns to create logical blocks.
         3. Add spaces to create clean vertical lines for better structure.
+        3. But not if it breaks the code's syntax.
     b. scope
         1. Check all of the code files after each edit.
 
@@ -31,8 +32,10 @@ NOTE: These rules define how to format code files for readability.
 
 4. codename_reuse
     a. existing_names
-        1. If index_app is not empty, review existing codenames before generating new ones.
+        1. If index_app is not empty, review existing codenames before 
+           generating new ones.
         2. Use existing codename patterns to inform new codename generation.
-        3. Maintain consistency with established naming conventions in the project.
+        3. Maintain consistency with established naming conventions in the 
+           project.
 
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////

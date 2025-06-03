@@ -1,0 +1,136 @@
+////////////////////////////////////////////////////////////////
+
+NOTE: This file defines specific rules for the codename index.
+These rules extend the general index_format_rule.txt with 
+codename-specific requirements.
+
+1. codename_content
+    a. inclusion_rules
+        1. Include all codenames from all files.
+        2. Include all variable names from all files.
+        3. Include all class names from all files.
+        4. Include all function names from all files.
+        5. Include all folder names from project root.
+        6. Include all file names with extensions.
+        7. Include nested folder structures with path notation.
+        8. Exclude files that start with . from index.
+    b. sorting
+        1. Sort all entries alphabetically.
+        2. Maintain alphabetical order after updates.
+        3. Sort ignoring type indicators.
+        4. Case-insensitive sorting.
+    c. duplicates
+        1. Remove all duplicate entries.
+        2. Keep only first occurrence of each codename.
+        3. Verify no duplicates after each update.
+
+2. type_indicators
+    a. visual_markers
+        1. Add visual type indicators to help identify codename types.
+        2. For folders: append "/" in dark gray (#6e7681) at the end.
+        3. For files: make the file extension including period dark gray.
+        4. For functions: append "()" in dark gray (#6e7681) at the end.
+        5. Apply indicators after duplicate term coloring.
+        6. Keep base filename in normal color for files.
+        7. Preserve alphabetical sorting ignoring indicators.
+    b. formatting
+        1. Format folder names without trailing slash in source.
+        2. Add slash only as visual indicator in HTML.
+        3. Include file extensions as part of the name.
+        4. Color only the extension portion for files.
+
+3. duplicate_term_coloring
+    a. comparison_rules
+        1. Compare each codename term with same position term in line above.
+        2. Split terms by underscores, hyphens, dots, or camelCase.
+        3. Find common prefix between consecutive terms.
+        4. Color common prefix in dim color.
+        5. Keep unique suffix in normal color.
+    b. color_application
+        1. If terms match exactly, color entire term dim.
+        2. For partial matches, color only the matching prefix dim.
+        3. Keep all terms visible, no spaces replacement.
+        4. Apply dim color to underscores in common prefixes.
+        5. Maintain readability with color distinction.
+    c. dynamic_updates
+        1. Recalculate coloring after filtering.
+        2. Base coloring only on visible items.
+        3. First visible occurrence always uses normal color.
+        4. Update coloring when items are hidden/shown.
+
+4. update_triggers
+    a. file_changes
+        1. Update index after every file change.
+        2. Update index after every variable creation.
+        3. Update index after every class name change.
+        4. Update index after every function name change.
+        5. Update index after folder structure changes.
+        6. Update index after file creation or deletion.
+    b. verification
+        1. Verify index is updated before committing changes.
+        2. Verify all new codenames are included.
+        3. Verify alphabetical sorting is maintained.
+        4. Verify no duplicates exist.
+        5. Verify folder names have no trailing slashes.
+        6. Verify file names include proper extensions.
+        7. Verify .DS_Store files are excluded.
+
+5. filter_controls
+    a. button_placement
+        1. Position filter buttons in top right corner.
+        2. Use green background (#2ea043) when active.
+        3. Use gray background (#6e7681) when inactive.
+        4. Float buttons with proper spacing.
+    b. filter_types
+        1. "Functions" button - toggles function visibility.
+        2. "Files and Folders" button - toggles file/folder visibility.
+        3. Both filters default to "on" state.
+        4. Maintain button state across page reloads.
+    c. filter_behavior
+        1. Hide items based on data-type attribute.
+        2. Recalculate numbering after filtering.
+        3. Update duplicate coloring after filtering.
+        4. Preserve original order when re-showing items.
+
+6. codename_examples
+    a. duplicate_coloring_example
+        ```html
+        <li>app</li>
+        <li><span class="codename_part_duplicate">app_</span><span class="codename_part_unique">components</span></li>
+        <li><span class="codename_part_duplicate">app_components_</span><span class="codename_part_unique">header</span></li>
+        ```
+    b. type_indicator_example
+        ```html
+        <li data-type="folder">app<span style="color: #6e7681;">/</span></li>
+        <li data-type="file">index<span style="color: #6e7681;">.html</span></li>
+        <li data-type="function">handleClick<span style="color: #6e7681;">()</span></li>
+        ```
+
+7. css_class_display
+    a. display_format
+        1. Show CSS classes used in each item.
+        2. Display as comma-separated list ending with >.
+        3. Use gray text color (#6e7681) for class names.
+        4. Position after the codename with margin.
+        5. Default state is visible (CSS button on).
+    b. class_types
+        1. codename_part_duplicate - gray duplicate prefixes.
+        2. codename_part_unique - white unique suffixes.
+        3. new-name - items with rename mappings.
+        4. original-name - original names for renamed items.
+    c. filter_button
+        1. "CSS" button in filter controls.
+        2. Toggle CSS class visibility on/off.
+        3. Default to on state (green button).
+        4. Persist state in localStorage.
+    d. display_example
+        ```html
+        <li data-type="file">
+            <span class="codename_part_duplicate">field_</span>
+            <span class="codename_part_unique">mode_exit</span>
+            <span style="color: #6e7681;">()</span>
+            <span class="css-class-display" style="margin-left: 20px; color: #6e7681; font-size: 14px;">codename_part_duplicate, codename_part_unique></span>
+        </li>
+        ```
+
+//////////////////////////////////////////////////////////////// 

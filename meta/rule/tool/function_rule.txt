@@ -1,0 +1,77 @@
+////////////////////////////////////////////////////////////////
+
+HOW TO GENERATE FUNCTION HIERARCHY
+
+1. FILE STRUCTURE
+    a. JavaScript filename as section header (e.g., "sync_server.js")
+    b. NO numbering on filename headers
+    c. Blank line after filename
+    d. Entry points under each file are numbered (1., 2., 3.)
+    e. Blank line between different files
+
+2. ENTRY POINTS (Top-level items under each file)
+    a. Direct method calls (e.g., server.listen)
+    b. Event handlers (e.g., setInterval, fs.watch)
+    c. DOM queries (e.g., getElementById('btn').addEventListener)
+    d. Iterations (e.g., forEach with variable name in parentheses)
+    e. Direct function calls that aren't nested inside others
+
+3. NUMBERING PATTERN
+    a. First level under file: Numbers (1., 2., 3., etc.)
+    b. Second level: Letters (a., b., c., etc.)
+    c. Third level: Numbers again (1., 2., 3., etc.)
+    d. Continue alternating letters/numbers for deeper nesting
+    e. Always include period after number/letter
+
+4. INDENTATION
+    a. Use single tab character for each level
+    b. Entry points (1., 2., 3.) are not indented
+    c. Each nested level gets one additional tab
+    d. Align function names after their number/letter markers
+
+5. GRAY COLORING AND COLLAPSING (For HTML rendering)
+    a. First occurrence of a function - normal/white text with period
+    b. Subsequent occurrences - gray text (#6e7681) with caret
+    c. Replace period with ">" caret for collapsed redundant functions
+    d. In HTML: clicking gray function with > expands it:
+        1. Changes to white text with period
+        2. Shows all children in white
+        3. Clicking again collapses back to gray with >
+    e. Track all function names across entire hierarchy
+
+6. FUNCTION EXPANSION
+    a. First occurrence - always expanded with period (.)
+    b. Subsequent occurrences:
+        1. Show function name in gray with caret (>)
+        2. Initially collapsed (children hidden)
+        3. Click to expand/collapse in HTML version
+        4. When expanded, function and children turn white
+        5. When collapsed, function turns gray again
+
+7. FORMAT DETAILS
+    a. For addEventListener: include event type in parentheses
+    b. For forEach: include variable name in parentheses
+    c. Show actual method/property names (not descriptions)
+    d. One function/method per line
+    e. No comments or explanations
+    f. Use ">" for collapsed repeated functions, "." for expanded
+
+8. WHAT TO INCLUDE
+    a. ONLY custom functions from project
+    b. Built-in methods only as entry points (setInterval, forEach, etc.)
+    c. NO built-in methods in nested calls
+    d. Include inner functions (function_executed, function_later)
+
+9. OUTPUT
+    a. Plain text format for meta/tool/function.txt
+    b. Include ALL JavaScript files in order:
+        1. sync_server.js
+        2. start_client.js
+        3. index_client.js
+        4. html_extract.js
+        5. index_template.js
+        6. outline_template.js
+        7. Any other JS files
+    c. Maximum 250 lines if needed
+
+//////////////////////////////////////////////////////////////// 

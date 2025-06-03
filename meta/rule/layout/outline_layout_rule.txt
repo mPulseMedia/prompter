@@ -1,13 +1,16 @@
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 
 NOTE: This file defines rules for managing and formatting rules in the project.
 
 1. format
     a. numbering
         1. Use outline numbering (1.a.1.a).
-        2. Each level must be indented 4 spaces.
+        2. Each level must be indented with one tab.
         3. Each line must have a number or letter.
         4. Each instruction must end with a period.
+    b. width
+        1. Keep all lines under 80 characters wide.
+        2. Make the wrap look good.
 
 2. manage
     a. rule_add
@@ -23,17 +26,18 @@ NOTE: This file defines rules for managing and formatting rules in the project.
         4. One rule per line.
         5. Never have vague or marketing language.
         6. The more top level, the shorter the line should be.
+        7. Watch for uniform step counts across sections as a sign of fluff.
+        8. Prefer fewer meaningful steps over padded lists.
 
 3. format_file
     a. structure
-        1. Start with NOTE section.
-        2. Start file with divider line /////.
-        3. End file with divider line /////.
-        4. Group related rules together.
+        1. Group related rules together.
+        2. Index files start directly with first entry.
+        3. Index files have no header or footer formatting.
     b. examples
         1. Put examples in a separate section.
         2. Clearly mark examples as examples.
         3. Follow all other rules.
         4. Show before/after if relevant.
 
-//////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////// 

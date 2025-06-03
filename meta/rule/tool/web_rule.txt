@@ -1,0 +1,41 @@
+////////////////////////////////////////////////////////////////
+
+HOW TO GENERATE WEB RELATIONSHIP FILE
+
+1. PURPOSE
+    a. Show which functions call which other functions
+    b. Map relationships between functions across files
+    c. Provide a "who calls whom" reference
+
+2. FORMAT
+    a. Start with the function name (numbered)
+    b. List all callers with indent
+    c. Use "a." prefix for direct callers
+    d. Use "b.", "c." etc. for subsequent callers
+    e. After callers, show "calls >" for functions this one calls
+    f. Number the called functions (1., 2., etc.)
+
+3. EXAMPLE STRUCTURE
+    1. function_name
+        a. caller_function in filename.js
+        b. another_caller in otherfile.js
+        c. calls >
+            1. called_function_one
+            2. called_function_two
+
+4. SPECIAL CASES
+    a. Entry points (not called by other functions) start at top level
+    b. Recursive calls should be noted but not cause infinite loops
+    c. Event handlers show the event type (e.g., addEventListener('click'))
+
+5. ORDERING
+    a. Functions listed in alphabetical order
+    b. Callers listed in order found
+    c. Called functions listed in order they appear in code
+
+6. OUTPUT
+    a. Plain text format for meta/plaintext/web.txt
+    b. Use tabs for indentation
+    c. Include all JavaScript functions found
+
+//////////////////////////////////////////////////////////////// 

@@ -1,0 +1,150 @@
+////////////////////////////////////////////////////////////////
+
+NOTE: This file defines the formatting rules for list layout pages.
+The list format is used for displaying collections of items in
+a simple numbered list structure.
+
+1. list_format_structure
+    a. file_name
+        1. Use [name]_index.html format for HTML indexes.
+        2. Use [name]_index.txt format for text indexes.
+    b. header
+        1. Start with minimal HTML doctype and head.
+        2. Include title with descriptive name.
+        3. Center the title at top of page.
+        4. No divider lines in HTML version.
+    c. index_state_empty
+        1. Keep minimal structure.
+        2. Include empty list item.
+        3. No divider lines.
+
+2. content_format
+    a. Display items in a numbered list.
+    b. Use HTML ordered list (<ol>) for automatic numbering.
+    c. One item per line.
+    d. No sub-items or nesting.
+    e. Left-align all entries.
+    f. Maintain consistent spacing.
+
+3. list_coloring_rules
+    a. duplicate_detection
+        1. Compare each term with previous term.
+        2. Find common prefix between consecutive items.
+        3. Color common parts in dim gray (#4e5561).
+        4. Keep unique parts in white.
+        5. Include underscores in duplicate coloring.
+    b. term_splitting
+        1. Split terms by underscores (_).
+        2. Also split by hyphens (-).
+        3. Also split by dots (.).
+        4. Compare term by term.
+        5. Color matching prefixes appropriately.
+
+4. list_type_indicators
+    a. visual_markers
+        1. Add gray "/" for folders at the end.
+        2. Color file extensions gray including the dot.
+        3. Add gray "()" for functions at the end.
+        4. Apply after duplicate coloring.
+        5. Keep indicators separate from base text.
+    b. data_attributes
+        1. Add data-type="folder" for folders.
+        2. Add data-type="file" for files.
+        3. Add data-type="function" for functions.
+        4. Use for filtering functionality.
+
+5. list_filter_controls
+    a. button_layout
+        1. Position in top right corner.
+        2. Use green (#2ea043) for active state.
+        3. Use gray (#6e7681) for inactive state.
+        4. Include Functions, Files/Folders, CSS buttons.
+    b. filter_behavior
+        1. Toggle visibility of items by type.
+        2. Maintain list numbering after filtering.
+        3. Recalculate duplicate coloring for visible items.
+        4. Save filter state to localStorage.
+
+6. list_editing_features
+    a. click_to_edit
+        1. Make list items editable on click.
+        2. Show full text when editing.
+        3. Exit edit mode on Enter key.
+        4. Auto-sync changes to server.
+    b. visual_feedback
+        1. No border or highlight when editing.
+        2. Seamless transition to edit mode.
+        3. Preserve formatting when not editing.
+        4. Update duplicate coloring after edits.
+
+7. list_navigation
+    a. nav_buttons
+        1. Show Index, Function, Web, Prompt buttons.
+        2. Position above filter controls.
+        3. Highlight current page.
+        4. Navigate between different views.
+
+8. list_css_display
+    a. css_format
+        1. Show CSS classes in gray after items.
+        2. End with ">" symbol.
+        3. Toggle with CSS filter button.
+        4. Extract from actual usage.
+    b. css_classes_used
+        1. list_term_duplicate - gray duplicate parts
+        2. list_term_unique - white unique parts
+        3. list_label_new - editable content
+        4. list_label_old - original names
+        5. list_edit_text - editable text spans
+        6. list_editing_mode - active edit state
+        7. list_filter_btn - filter buttons
+        8. list_filter_controls - filter container
+
+9. html_format
+    a. structure
+        1. Use minimal HTML5 structure.
+        2. Include DOCTYPE, html, head, body tags.
+        3. Use ol tag for numbered lists.
+        4. Apply monospace font for alignment.
+    b. styling
+        1. Use dark background #1e1e1e to match Cursor theme.
+        2. Use white text color #ffffff for main text.
+        3. Set title font size to 18px using h2 tag.
+        4. Set index list font size to 20px in ol tag.
+        5. Use inline styles or style tag in head.
+        6. Keep formatting minimal and clean.
+    c. colors
+        1. Define font_color_light as #ffffff (white).
+        2. Define font_color_dim as #404040 (25% gray).
+        3. Apply font_color_dim to list markers using ol::marker.
+        4. Use CSS variables for color definitions.
+
+10. editable_index
+    a. browser_editing
+        1. Add contenteditable attributes to editable content.
+        2. Default to edit mode for immediate editing.
+        3. Provide toggle between edit and view modes.
+        4. Style editable content with hover highlights.
+        5. Add visual feedback for focused elements.
+    b. sync_system
+        1. Create sync-server.js for local file syncing.
+        2. Run server on port 3002 with CORS enabled.
+        3. Add "Save to Project" button for direct saves.
+        4. Save content to corresponding .txt files.
+        5. Show success/error messages to user.
+    c. controls
+        1. Position control buttons fixed top right.
+        2. Include: Toggle Edit, Save to Browser, Save to Project.
+        3. Add Export and Reset options.
+        4. Highlight primary action button.
+        5. Show current mode in bottom right indicator.
+    d. text_extraction
+        1. Extract all editable content preserving structure.
+        2. Maintain proper indentation for nested items.
+        3. Join text nodes with appropriate spacing.
+        4. Skip UI elements from extraction.
+        5. Format output matching original .txt format.
+
+11. template_structure
+    a. html_template
+        ```

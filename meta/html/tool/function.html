@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        position:         relative;
+    }
+    
+    /* Control buttons in top right */
+    .controls {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1000;
+    }
+    
+    .control-btn {
+        background-color: var(--green);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: opacity 0.2s ease;
+    }
+    
+    .control-btn:hover {
+        opacity: 0.8;
+    }
+    
+    /* Triangle shapes */
+    .triangle-up::after {
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 10px solid white;
+    }
+    
+    .triangle-down::after {
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 10px solid white;
+    }
+    
+    div[style*="margin-left"] {
+        margin-bottom:  0;
+        cursor:         pointer;
+        padding:        2px 4px;  /* Same as li padding in codename_index */
+        transition:     background-color 0.15s ease;
+        position:       relative;  /* For tree lines */
+        line-height:    1.5;  /* Same as li line-height */
+    }
+    
+    div[style*="margin-left"]:hover {
+        background-color: var(--hover);
+    }
+    
+    /* Outline numbers in gray */
+    div span:first-child {
+        color: var(--gray);
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+    
+    .editable-text {
+        color:        var(--text);
+        padding:      0;
+        display:      inline-block;
+        min-width:    50px;
+    }
+    .editable-text.editing {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+    
+    #expand-all-btn:hover {
+        opacity: 0.8;
+    }
+    
+    #content {
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Navigation controls */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    .nav_btn {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .nav_btn:hover {
+        opacity: 0.9;
+    }
+    
+    .nav_btn.active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Push other controls down when nav is present */
+    .nav_controls + .controls {
+        top: 70px;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="nav_btn" data-nav="index" title="View Index">Index</button>
+        <button class="nav_btn" data-nav="function" title="View Functions">Function</button>
+        <button class="nav_btn" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="nav_btn" data-nav="prompt" title="View Prompt">Prompt</button>
+    </div>
+    
+    <div class="controls">
+        <button class="control-btn triangle-up" id="collapse-all-btn" title="Collapse All"></button>
+        <button class="control-btn" id="expand-level-2-btn" title="Expand to Level 2">2</button>
+        <button class="control-btn triangle-down" id="expand-all-btn" title="Expand All"></button>
+    </div>
+    
+    <div id="content">
+        <div style="margin-left: 0px" class="editable-text" data-indent="0">sync_server.js</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="editable-text">server.listen</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text">sync_timestamps_initialize</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="editable-text">prompt_folder_scan</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="editable-text">sync_html_build</span>
+        </div>
+        <div style="margin-left: 180px; display: flex;" data-indent="3" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text">prompt_txt_read</span>
+        </div>
+        <div style="margin-left: 180px; display: flex;" data-indent="3" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="editable-text">prompt_type_detect</span>
+        </div>
+        <div style="margin-left: 180px; display: flex;" data-indent="3" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="editable-text">outline_html_generate</span>
+        </div>
+        <div style="margin-left: 180px; display: flex;" data-indent="3" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="editable-text">index_html_generate</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="editable-text">setInterval</span>
+        </div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">1> prompt_folder_scan</div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="editable-text">fs.watch</span>
+        </div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">1> sync_html_build</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="editable-text">sync_txt_save</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text" style="color: #6e7681;">prompt_txt_read</span>
+        </div>
+        <div style="margin-left: 0px" class="editable-text" data-indent="0">outline_client.js</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="editable-text" style="color: #6e7681;">setInterval</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text">sync_updates_check</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="editable-text">forEach (rowDivs)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text">sync_throttle_buffer</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="editable-text">function_executed</span>
+        </div>
+        <div style="margin-left: 180px; display: flex;" data-indent="3" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text">function_later</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="editable-text">field_mode_exit</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="editable-text">div.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">1> field_mode_exit</div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="editable-text">field_cursor_set</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="editable-text">editableText.addEventListener('input')</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="editable-text">syncDebounced</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="editable-text">editableText.addEventListener('keydown')</span>
+        </div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">1> field_mode_exit</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="editable-text" style="color: #6e7681;">forEach (outlineNumbers)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text">outline_display_update</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="editable-text">outline_initial_state</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="editable-text" style="color: #6e7681;">forEach (outlineNumbers)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text">outline_children_find</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="editable-text">outline_display_set</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="editable-text">outline_click_single_handle</span>
+        </div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">1> outline_display_update</div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">2> outline_display_set</div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="editable-text">outline_click_double_handle</span>
+        </div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">1> outline_children_find</div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">2> outline_display_update</div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">3> outline_display_set</div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="editable-text">outlineNum.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="editable-text" style="color: #6e7681;">outline_click_double_handle</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="editable-text" style="color: #6e7681;">outline_click_single_handle</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="6.">6.</span>
+            <span class="editable-text">getElementById('collapse-all-btn').addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px" class="editable-text" data-indent="1">a> outline_display_update</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="7.">7.</span>
+            <span class="editable-text">getElementById('expand-all-btn').addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px" class="editable-text" data-indent="1">a> outline_display_update</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="8.">8.</span>
+            <span class="editable-text">getElementById('expand-level-2-btn').addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px" class="editable-text" data-indent="1">a> outline_display_update</div>
+        <div style="margin-left: 0px" class="editable-text" data-indent="0">00_index_client.js</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="editable-text">getElementById('prev-btn').addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="editable-text">getElementById('next-btn').addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="editable-text" style="color: #6e7681;">setInterval</span>
+        </div>
+        <div style="margin-left: 60px" class="editable-text" data-indent="1">a> sync_updates_check</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="editable-text" style="color: #6e7681;">forEach (liElements)</span>
+        </div>
+        <div style="margin-left: 60px" class="editable-text" data-indent="1">a> sync_throttle_buffer</div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">1> function_executed</div>
+        <div style="margin-left: 180px" class="editable-text" data-indent="3">a> function_later</div>
+        <div style="margin-left: 60px" class="editable-text" data-indent="1">b> field_mode_exit</div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="editable-text">li.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">1> field_mode_exit</div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">2> field_cursor_set</div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="editable-text">li.addEventListener('input')</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="editable-text" style="color: #6e7681;">syncDebounced</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="editable-text">li.addEventListener('keydown')</span>
+        </div>
+        <div style="margin-left: 120px" class="editable-text" data-indent="2">1> field_mode_exit</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="editable-text">index_filter_apply</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text">index_duplicate_update</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="6.">6.</span>
+            <span class="editable-text">getElementById('functions-filter').addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px" class="editable-text" data-indent="1">a> index_filter_apply</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="7.">7.</span>
+            <span class="editable-text">getElementById('files-folders-filter').addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px" class="editable-text" data-indent="1">a> index_filter_apply</div>
+        <div style="margin-left: 0px" class="editable-text" data-indent="0">8> index_filter_apply</div>
+        <div style="margin-left: 0px" class="editable-text" data-indent="0">html_extract.js</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="editable-text">field_text_extract</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="editable-text">index_html_extract</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="editable-text">outline_html_extract </span>
+        </div>
+    </div>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'functions_file';
+        window.LAST_MODIFIED = 1748971357242;
+    </script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/outline_client.js"></script>
+</body>
+</html>

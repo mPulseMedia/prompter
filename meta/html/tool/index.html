@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        position:         relative;
+    }
+    
+    ul {
+        counter-reset: item;
+        padding-left:  30px;  /* Increased to align text start position with outline format */
+        margin:        0;
+        line-height:   1.5;
+    }
+    li {
+        counter-increment: item;
+        cursor:            pointer;
+        padding:           2px 4px;
+        padding-left:      4px;  /* Reduced from 8px, text will start at 20+30+4=54px matching outline */
+        margin:            0;
+        list-style-type:   none;
+        position:          relative;
+        color:             var(--text);
+        transition:        background-color 0.15s ease;
+        line-height:       inherit;
+    }
+    li.duplicate {
+        color: var(--gray-dark);
+    }
+    li::before {
+        content:  counter(item) ". ";
+        position: absolute;
+        left:     -25px;
+        color:    var(--gray);
+    }
+    li:hover {
+        background-color: var(--hover);
+    }
+    li.editing {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+    
+    /* Split term styling */
+    .codename_part_duplicate {
+        color: var(--gray-dark);
+    }
+    .codename_part_unique {
+        color: var(--text);
+    }
+    
+    /* Two-column layout */
+    .new-name {
+        display: inline-block;
+    }
+    .original-name {
+        color: #0a0a0a;  /* Almost black on dark background */
+        font-family: inherit;
+        display: inline-block;
+        user-select: none;           /* Prevent text selection */
+        -webkit-user-select: none;   /* Safari */
+        -moz-user-select: none;      /* Firefox */
+        -ms-user-select: none;       /* IE/Edge */
+        pointer-events: none;        /* Make completely non-interactive */
+        opacity: 0.3;               /* Make it even less visible */
+    }
+    
+    /* Filter buttons in top right */
+    .index_filter_controls {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1000;
+    }
+    
+    .index_filter_btn {
+        background-color: var(--green);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: opacity 0.2s ease;
+        font-family: inherit;
+    }
+    
+    .index_filter_btn:hover {
+        opacity: 0.9;
+    }
+    
+    .index_filter_btn.off {
+        background-color: var(--gray);
+        opacity: 0.7;
+    }
+    
+    /* Hide filtered items */
+    li.hidden {
+        display: none;
+    }
+    
+    /* Navigation controls */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    .nav_btn {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .nav_btn:hover {
+        opacity: 0.9;
+    }
+    
+    .nav_btn.active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Push filter controls down when nav is present */
+    .nav_controls + .index_filter_controls {
+        top: 70px;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="nav_btn" data-nav="index" title="View Index">Index</button>
+        <button class="nav_btn" data-nav="function" title="View Functions">Function</button>
+        <button class="nav_btn" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="nav_btn" data-nav="prompt" title="View Prompt">Prompt</button>
+    </div>
+    
+    <div class="index_filter_controls">
+        <button class="index_filter_btn" id="functions-filter" data-filter="function" title="Toggle Functions">Functions</button>
+        <button class="index_filter_btn" id="files-folders-filter" data-filter="files-folders" title="Toggle Files and Folders">Files and Folders</button>
+        <button class="index_filter_btn" id="css-filter" data-filter="css" title="Toggle CSS Classes">CSS</button>
+    </div>
+    
+    <ul id="index_list">
+        <li data-fulltext="([^" data-original="" data-type="function">([^<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="01_start.html" data-original="" data-type="file">01_start<span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="01_start.txt" data-original="" data-type="file"><span class="codename_part_duplicate">01_start.</span><span class="codename_part_unique">txt</span></li>
+        <li data-fulltext="app" data-original="" data-type="folder">app<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="button" data-original="" data-type="function">button<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="button_nav" data-original="" data-type="function"><span class="codename_part_duplicate">button_</span><span class="codename_part_unique">nav</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="button_tool" data-original="" data-type="function"><span class="codename_part_duplicate">button_</span><span class="codename_part_unique">tool</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="clientX" data-original="" data-type="function">clientX<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="code" data-original="" data-type="folder">code<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="code_rule.txt" data-original="" data-type="file"><span class="codename_part_duplicate">code_</span><span class="codename_part_unique">rule</span><span style="color: #6e7681;">.txt</span></li>
+        <li data-fulltext="codename_part_duplicate" data-original="" data-type="css">codename_part_duplicate<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="codename_part_unique" data-original="" data-type="css"><span class="codename_part_duplicate">codename_part_</span><span class="codename_part_unique">unique</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="codename_rule.txt" data-original="" data-type="file"><span class="codename_part_duplicate">codename_</span><span class="codename_part_unique">rule</span><span style="color: #6e7681;">.txt</span></li>
+        <li data-fulltext="color" data-original="" data-type="function">color<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="controls" data-original="" data-type="function">controls<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="display" data-original="" data-type="function">display<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="duplicate" data-original="" data-type="css">duplicate<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="exports" data-original="" data-type="function">exports<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="field_cursor_set" data-original="" data-type="function">field_cursor_set<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="field_mode_exit" data-original="" data-type="function"><span class="codename_part_duplicate">field_</span><span class="codename_part_unique">mode_exit</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="field_text_extract" data-original="" data-type="function"><span class="codename_part_duplicate">field_</span><span class="codename_part_unique">text_extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="FILE_NAME" data-original="" data-type="function">FILE_NAME<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_name" data-original="" data-type="function">file_name<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_watcher_setup" data-original="" data-type="function"><span class="codename_part_duplicate">file_</span><span class="codename_part_unique">watcher_setup</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function_rule.txt" data-original="" data-type="file">function_rule<span style="color: #6e7681;">.txt</span></li>
+        <li data-fulltext="function.html" data-original="" data-type="file"><span class="codename_part_duplicate">function.</span><span class="codename_part_unique">html</span></li>
+        <li data-fulltext="function.txt" data-original="" data-type="file"><span class="codename_part_duplicate">function.</span><span class="codename_part_unique">txt</span></li>
+        <li data-fulltext="href" data-original="" data-type="function">href<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="html" data-original="" data-type="folder">html<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="html_extract.js" data-original="" data-type="file"><span class="codename_part_duplicate">html_</span><span class="codename_part_unique">extract</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="html_path" data-original="" data-type="function"><span class="codename_part_duplicate">html_</span><span class="codename_part_unique">path</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="index_rule.txt" data-original="" data-type="file">index_rule<span style="color: #6e7681;">.txt</span></li>
+        <li data-fulltext="innerHTML" data-original="" data-type="function">innerHTML<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="js" data-original="" data-type="folder">js<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="key" data-original="" data-type="function">key<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="last_modified" data-original="" data-type="function">last_modified<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="LAST_MODIFIED" data-original="" data-type="function">LAST_MODIFIED<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="length" data-original="" data-type="function">length<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="line_number" data-original="" data-type="function">line_number<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_client.js" data-original="" data-type="file">list_client<span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="list_duplicate_update" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">duplicate_update</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_edit_text" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">edit_text</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_editing_mode" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">editing_mode</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_filter_btn" data-original="" data-type="css"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">filter_btn</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="list_filter_controls" data-original="" data-type="css"><span class="codename_part_duplicate">list_filter_</span><span class="codename_part_unique">controls</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="list_label_new" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">label_new</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_label_old" data-original="" data-type="function"><span class="codename_part_duplicate">list_label_</span><span class="codename_part_unique">old</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_layout_rule.txt" data-original="" data-type="file"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">layout_rule</span><span style="color: #6e7681;">.txt</span></li>
+        <li data-fulltext="list_term_duplicate" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">term_duplicate</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_term_unique" data-original="" data-type="function"><span class="codename_part_duplicate">list_term_</span><span class="codename_part_unique">unique</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="message" data-original="" data-type="function">message<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="method" data-original="" data-type="function">method<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="nav_controls" data-original="" data-type="css">nav_controls<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="nonCssLines" data-original="" data-type="function">nonCssLines<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="offsetNode" data-original="" data-type="function">offsetNode<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_collapse_icon" data-original="" data-type="function">outline_collapse_icon<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_expand_icon" data-original="" data-type="function"><span class="codename_part_duplicate">outline_</span><span class="codename_part_unique">expand_icon</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_line_number" data-original="" data-type="function"><span class="codename_part_duplicate">outline_</span><span class="codename_part_unique">line_number</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="style_active" data-original="" data-type="function">style_active<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="style_hidden" data-original="" data-type="function"><span class="codename_part_duplicate">style_</span><span class="codename_part_unique">hidden</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="style_inactive" data-original="" data-type="function"><span class="codename_part_duplicate">style_</span><span class="codename_part_unique">inactive</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="textContent" data-original="" data-type="function">textContent<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="txt" data-original="" data-type="function">txt<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="txt_path" data-original="" data-type="function"><span class="codename_part_duplicate">txt_</span><span class="codename_part_unique">path</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="url" data-original="" data-type="function">url<span style="color: #6e7681;">()</span></li>
+    </ul>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'index';
+        window.LAST_MODIFIED = 1748971357249;
+    </script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/index_client.js"></script>
+</body>
+</html>

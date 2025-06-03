@@ -1,0 +1,124 @@
+1. field_cursor_set
+	a. div.addEventListener('click') in outline_client.js
+	b. li.addEventListener('click') in 00_index_client.js
+
+2. field_mode_exit
+	a. div.addEventListener('click') in outline_client.js
+	b. editableText.addEventListener('keydown') in outline_client.js
+	c. li.addEventListener('click') in 00_index_client.js
+	d. li.addEventListener('keydown') in 00_index_client.js
+
+3. field_text_extract
+	a. calls >
+		1. index_html_extract
+		2. outline_html_extract
+
+4. function_executed
+	a. sync_throttle_buffer
+	b. calls >
+		1. function_later
+
+5. function_later
+	a. function_executed
+
+6. index_html_extract
+	a. field_text_extract in html_extract.js
+
+7. index_html_generate
+	a. sync_html_build in sync_server.js
+
+8. index_duplicate_update
+	a. index_filter_apply in index_client.js
+
+9. index_filter_apply
+	a. filter button click handlers in index_client.js
+	b. called at startup in index_client.js
+	c. calls >
+		1. index_duplicate_update
+
+10. outline_children_find
+	a. outline_click_double_handle in outline_client.js
+
+11. outline_click_double_handle
+	a. outlineNum.addEventListener('click') in outline_client.js
+	b. calls >
+		1. outline_children_find
+		2. outline_display_update
+		3. outline_display_set
+
+12. outline_click_single_handle
+	a. outlineNum.addEventListener('click') in outline_client.js
+	b. calls >
+		1. outline_display_update
+		2. outline_display_set
+
+13. outline_display_set
+	a. outline_click_single_handle in outline_client.js
+	b. outline_click_double_handle in outline_client.js
+	c. getElementById('expand-all-btn').addEventListener('click') in outline_client.js
+	d. getElementById('expand-level-2-btn').addEventListener('click') in outline_client.js
+
+14. outline_display_update
+	a. outline_click_single_handle in outline_client.js
+	b. outline_click_double_handle in outline_client.js
+	c. forEach (outlineNumbers) in outline_client.js
+	d. getElementById('collapse-all-btn').addEventListener('click') in outline_client.js
+	e. getElementById('expand-all-btn').addEventListener('click') in outline_client.js
+	f. getElementById('expand-level-2-btn').addEventListener('click') in outline_client.js
+
+15. outline_html_extract
+	a. field_text_extract in html_extract.js
+
+16. outline_html_generate
+	a. sync_html_build in sync_server.js
+
+17. outline_initial_state
+	a. called at startup in outline_client.js
+
+18. prompt_folder_scan
+	a. server.listen in sync_server.js
+	b. setInterval in sync_server.js
+	c. calls >
+		1. sync_html_build
+
+19. prompt_txt_read
+	a. sync_html_build in sync_server.js
+	b. sync_txt_save in sync_server.js
+
+20. prompt_type_detect
+	a. sync_html_build in sync_server.js
+
+21. sync_html_build
+	a. prompt_folder_scan in sync_server.js
+	b. fs.watch in sync_server.js
+	c. calls >
+		1. prompt_txt_read
+		2. prompt_type_detect
+		3. outline_html_generate
+		4. index_html_generate
+
+22. sync_throttle_buffer
+	a. forEach (rowDivs) in outline_client.js
+	b. forEach (liElements) in 00_index_client.js
+	c. returns >
+		1. function_executed
+
+23. sync_timestamps_initialize
+	a. server.listen in sync_server.js
+
+24. sync_txt_save
+	a. server POST /sync endpoint
+	b. calls >
+		1. prompt_txt_read
+
+25. sync_updates_check
+	a. setInterval in outline_client.js
+	b. setInterval in 00_index_client.js
+
+26. tool_folder_scan
+	a. server.listen in sync_server.js
+	b. setInterval in sync_server.js
+	c. calls >
+		1. sync_html_build
+		2. sync_txt_save
+		3. sync_updates_check 

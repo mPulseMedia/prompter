@@ -1,0 +1,220 @@
+////////////////////////////////////////////////////////////////
+
+NOTE: This file defines rules for managing and formatting rules in the project.
+
+1. format
+    a. numbering
+        1. Use outline numbering (1.a.1.a).
+        2. Each level must be indented with one tab.
+        3. Each line must have a number or letter.
+        4. Each instruction must end with a period.
+    b. width
+        1. Keep all lines under 80 characters wide.
+        2. Make the wrap look good.
+
+2. manage
+    a. rule_add
+        1. Check existing rules before creating new ones.
+        2. Add to existing rule file if topic matches.
+        3. Create new rules only if necessary.
+        4. Use simple one-line rules when sub-items are not needed.
+        5. Pick the correct file to add new rules in.
+    b. content
+        1. Make rules that are conventions, yet specific and actionable.
+        2. Start with a verb.
+        3. End with a period.
+        4. One rule per line.
+        5. Never have vague or marketing language.
+        6. The more top level, the shorter the line should be.
+        7. Watch for uniform step counts across sections as a sign of fluff.
+        8. Prefer fewer meaningful steps over padded lists.
+
+3. format_file
+    a. structure
+        1. Group related rules together.
+        2. Index files start directly with first entry.
+        3. Index files have no header or footer formatting.
+    b. examples
+        1. Put examples in a separate section.
+        2. Clearly mark examples as examples.
+        3. Follow all other rules.
+        4. Show before/after if relevant.
+
+////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////
+
+NOTE: This file defines the process for executing prompts from 
+the meta files.
+
+1. commands
+    a. rule_check
+        1. List the unchecked set of rule files that you will 
+           review while executing the prompt.
+        2. This must be the first step for ANY prompt execution.
+        3. This includes both user commands and app prompt 
+           executions.
+    b. run
+        1. Find prompt_marker position in app_prompt files.
+        2. Execute next prompt after prompt_marker per execution 
+           rules.
+        3. Update prompt_marker location per prompt_marker rules.
+    c. reset
+        1. Delete all files in meta/browser2/ except the folder 
+           itself.
+        2. Delete all files in app_prompt/html/ except the 
+           folder itself.
+        3. Remove prompt_marker from current location.
+        4. Place prompt_marker at top of 01_start.txt before 
+           first prompt.
+        5. Do not delete files in app/ folder.
+        6. Do not delete or modify contents of app_index.txt.
+        7. Do not delete or modify contents of meta_index.txt.
+    d. meta
+        1. Start the sync server for HTML/TXT file generation 
+           and synchronization.
+        2. Kill any existing node processes on port 3002.
+        3. Start node sync_server.js from meta/code/sync/ directory.
+        4. Server runs on http://localhost:3002.
+        5. Generates HTML files from all .txt files in prompt/.
+        6. Opens browser windows/tabs for:
+           - index.html (identifier mappings)
+           - function.html (function outline)
+           - 01_start.html (project prompts)
+           - 03_web.html (function call relationships)
+        7. Watches txt files for changes and auto-refreshes HTML.
+        8. Stop any existing sync servers before starting.
+
+2. output_prompt_marker
+    a. format
+        1. Use text "/////////////////// YOU ARE HERE 
+           ///////////////////////////////".
+        2. Add one blank line before marker.
+        3. Subject to theseexecuted prompt.
+        2. Move to next file if current file complete.
+        3. Always mark next prompt to execute.
+    c. reset_behavior
+        1. Place marker in initial position.
+        2. Place in first prompt file in app_prompt/.
+        3. Place after NOTE section.
+        4. Place before first prompt.
+        5. Add blank lines before and after.
+    d. file_rules
+        1. Place marker in app_prompt/ directory.
+
+3. rule_execute
+    a. overview
+        1. List rule files to be reviewed (rule_check) as the 
+           first step.
+        2. Review existing codenames in code files and 
+           app_prompt/index_app.txt.
+        3. Select new codenames per codename.txt rules.
+        4. Apply format_code.txt rules to changed files.
+        5. Follow index update rules.
+        6. Verify all rules are followed before marking prompt 
+           complete.
+    b. simplicity_rule
+        1. Implement the simplest solution that meets the 
+           requirement.
+        2. Do not add features not explicitly requested.
+        3. Avoid over-engineering or anticipating future needs.
+        4. Use existing tools and patterns when possible.
+        5. Minimize dependencies and complexity.
+        6. Follow the exact specifications without embellishment.
+        7. If a simple solution exists, use it even if a more 
+           sophisticated approach is possible.
+    c. terminal_rules
+        1. Use delete_file for all deletions.
+        2. Use edit_file for all creations/modifications.
+        3. Never use terminal for file operations.
+        4. Never use commands requiring [yn] input.
+        5. Always pipe to cat if pager possible.
+        6. Never use commands that show pager.
+        7. Always use -f or --force flags for rm, mv, cp.
+        8. Never use interactive flags (-i) on any command.
+        9. Always use non-interactive flags (-n) when available.
+        10. Always use --no-interactive when available.
+        11. Always use -y for commands that might prompt.
+        12. Never use commands that might wait for input.
+        13. Always verify command flags prevent prompts before 
+            running.
+    d. edit_file_rules
+        1. Check current state of target file if edit_file 
+           returns "No changes were made".
+        2. Try another method if needed.
+        3. Report current state in chat if different from 
+           desired.
+
+4. output_chat
+    a. format
+        1. Be brief and direct.
+        2. Use codenames to describe changes.
+        3. Group related changes together.
+        4. Skip obvious details.
+        5. Document every process that requires checking 
+           multiple files or updating multiple references as a 
+           numbered list of explicit steps.
+        6. Include verification steps for every multi-step 
+           process.
+        7. List all affected files for every change.
+    b. rule_file_checkmarks
+        1. Mark [x] for each rule file that was applied during 
+           the operation.
+        2. Mark [x] for each rule file that was reviewed for 
+           compliance.
+        3. Mark [ ] for each rule file that was not needed for 
+           the operation.
+        4. Mark [ ] for each rule file that was not reviewed.
+        5. Format checkmarks exactly as shown:
+            [ ] rule
+            [ ] codename
+            [ ] format_code
+            [ ] field_exit_mode
+            [ ] field_text_extract
+            [ ] field_focus_set
+            [ ] index_rule
+            [ ] html_extract
+            [ ] index_html_extract
+        6. Include checkmarks even if no rule files were needed.
+
+5. index_rule_update
+    a. timing
+        1. Update index_app.txt after every prompt execution.
+        2. Verify index_app.txt is updated before marking prompt 
+           as complete.
+        3. Update index_meta.txt after any changes to meta 
+           folder files.
+        4. Verify index_meta.txt is updated before marking prompt 
+           as complete.
+    b. content
+        1. List all files created/modified/deleted in 
+           index_app.txt.
+        2. Follow index_rule.txt rules for structure and 
+           formatting.
+        3. Use codenames per codename.txt rules.
+        4. List all codenames from meta files in index_meta.txt.
+        5. Apply same formatting rules to index_meta.txt as 
+           index_app.txt.
+    c. verification
+        1. Verify index update before proceeding.
+        2. Check for duplicate entries.
+        3. Verify both index_app.txt and index_meta.txt are 
+           current.
+
+6. prompt_acknowledgment
+    a. first_act
+        1. Always print the prompt being executed as the first 
+           act of any response.
+        2. This applies to all prompts regardless of source.
+        3. Format: "Executing prompt: [prompt text]"
+        4. Include full context if relevant.
+        5. Makes the AI touchpoint explicit and visible.
+    b. ai_touchpoint
+        1. The AI touchpoint is where JavaScript hands off to 
+           Cursor AI.
+        2. JavaScript's role: get data into the project files.
+        3. Cursor AI's role: read those files and execute.
+        4. Clear separation of concerns at this boundary.
+        5. The handoff is the key interface point.
+
+//////////////////////////////////////////////////////////////// 
