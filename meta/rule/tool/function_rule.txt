@@ -3,75 +3,86 @@
 HOW TO GENERATE FUNCTION HIERARCHY
 
 1. FILE STRUCTURE
-    a. JavaScript filename as section header (e.g., "sync_server.js")
-    b. NO numbering on filename headers
-    c. Blank line after filename
-    d. Entry points under each file are numbered (1., 2., 3.)
-    e. Blank line between different files
+    a. NO JavaScript filenames as headers
+    b. Functions listed directly in the outline
+    c. Each function is a top-level numbered item (1., 2., 3., etc.)
+    d. Blank line between major function groups if needed
 
-2. ENTRY POINTS (Top-level items under each file)
-    a. Direct method calls (e.g., server.listen)
-    b. Event handlers (e.g., setInterval, fs.watch)
-    c. DOM queries (e.g., getElementById('btn').addEventListener)
-    d. Iterations (e.g., forEach with variable name in parentheses)
-    e. Direct function calls that aren't nested inside others
+2. FUNCTION STRUCTURE
+    a. Function name as the main entry (e.g., "sync_updates_check")
+    b. Under each function:
+        - First: List all functions that CALL this function (as b>, c>, d>, etc.)
+        - These should be marked with ">" to show they're references
+        - Last: "z. calls" section listing functions THIS function calls
+    c. Under "z. calls", indent and list the called functions
 
 3. NUMBERING PATTERN
-    a. First level under file: Numbers (1., 2., 3., etc.)
-    b. Second level: Letters (a., b., c., etc.)
-    c. Third level: Numbers again (1., 2., 3., etc.)
-    d. Continue alternating letters/numbers for deeper nesting
-    e. Always include period after number/letter
+    a. Top-level functions: Numbers (1., 2., 3., etc.)
+    b. Functions that call this function: Letters with periods (a., b., c., etc.)
+    c. The "calls" section: Next letter after called-by references (e.g., if a., b., c. then use "d. calls")
+    d. Functions under "calls": Numbers (1., 2., 3., etc.)
+    e. Deeper nesting continues alternating letters/numbers
+    f. UI BEHAVIOR: When collapsed shows periods (.), when expanded shows carets (>)
 
 4. INDENTATION
     a. Use single tab character for each level
-    b. Entry points (1., 2., 3.) are not indented
-    c. Each nested level gets one additional tab
-    d. Align function names after their number/letter markers
+    b. Top-level functions (1., 2., 3.) are not indented
+    c. Called-by functions (a., b.) get one tab
+    d. "calls" section gets one tab
+    e. Functions under "calls" get two tabs
 
 5. GRAY COLORING AND COLLAPSING (For HTML rendering)
     a. First occurrence of a function - normal/white text with period
-    b. Subsequent occurrences - gray text (#6e7681) with caret
-    c. Replace period with ">" caret for collapsed redundant functions
-    d. In HTML: clicking gray function with > expands it:
-        1. Changes to white text with period
-        2. Shows all children in white
-        3. Clicking again collapses back to gray with >
-    e. Track all function names across entire hierarchy
+    b. Functions marked as references - gray text (#6e7681) and collapsed
+    c. References to functions defined elsewhere start collapsed
+    d. In HTML: clicking gray function expands it
+    e. "calls" section is always in normal text (not gray)
 
-6. FUNCTION EXPANSION
-    a. First occurrence - always expanded with period (.)
-    b. Subsequent occurrences:
-        1. Show function name in gray with caret (>)
-        2. Initially collapsed (children hidden)
-        3. Click to expand/collapse in HTML version
-        4. When expanded, function and children turn white
-        5. When collapsed, function turns gray again
+6. FUNCTION REFERENCE TRACKING
+    a. Track all function definitions (top-level numbered items)
+    b. When listing "called by" functions (a., b.), they are references
+    c. These references are shown in gray and collapsed
+    d. The "calls" section shows what this function calls
 
 7. FORMAT DETAILS
     a. For addEventListener: include event type in parentheses
     b. For forEach: include variable name in parentheses
-    c. Show actual method/property names (not descriptions)
+    c. Show actual method/property names
     d. One function/method per line
     e. No comments or explanations
-    f. Use ">" for collapsed repeated functions, "." for expanded
 
 8. WHAT TO INCLUDE
-    a. ONLY custom functions from project
-    b. Built-in methods only as entry points (setInterval, forEach, etc.)
-    c. NO built-in methods in nested calls
+    a. ALL custom functions from the project
+    b. Entry points (server.listen, setInterval, etc.) as top-level
+    c. NO built-in JavaScript methods except as entry points
     d. Include inner functions (function_executed, function_later)
 
 9. OUTPUT
     a. Plain text format for meta/tool/function.txt
-    b. Include ALL JavaScript files in order:
-        1. sync_server.js
-        2. start_client.js
-        3. index_client.js
-        4. html_extract.js
-        5. index_template.js
-        6. outline_template.js
-        7. Any other JS files
-    c. Maximum 250 lines if needed
+    b. Include functions from ALL JavaScript files in the project
+    c. Organize by logical grouping or alphabetically
+    d. Maximum 250 lines if needed
+
+10. EXAMPLE FORMAT
+    1. sync_updates_check
+        a. sync_throttle_buffer
+        b. layout_list_filter_apply
+        c. calls
+            1. fetch
+            2. reload_modification_get
+    
+    2. sync_throttle_buffer
+        a. calls
+            1. clearTimeout
+            2. setTimeout
+            3. function_executed
+    
+    3. field_mode_exit
+        a. layout_list_client.js
+        b. layout_outline_client.js
+        c. another_function
+        d. calls
+            1. removeAttribute
+            2. classList.remove
 
 //////////////////////////////////////////////////////////////// 

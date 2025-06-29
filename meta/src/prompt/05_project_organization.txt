@@ -1,0 +1,63 @@
+22. folder_reorganization
+	a. Move folders to new structure
+		1. meta/tool → meta/src/tool
+		2. meta/html/tool → meta/html/tool (no change)
+		3. prompt → meta/src/prompt
+		4. Create meta/rule for layout rules
+		5. Create meta/code/layout and meta/code/sync
+	b. Move files to appropriate folders
+		1. Template and client files → meta/code/layout
+		2. sync_server.js, meta.sh, html_extract.js → meta/code/sync
+		3. Update all path references in code
+	c. Split rules into specific files
+		1. Create layout rules and tool rules separately
+		2. Create web_rule.txt in meta/rule/tool
+
+23. navigation_buttons
+	a. Create nav_client.js in meta/code/layout
+		1. Add four navigation buttons above filter buttons
+		2. Index, Function, Web, Prompt buttons
+		3. Active button shows blue (#007AFF), others gray
+		4. Navigate between tool and prompt HTML pages
+	b. Active state management
+		1. Only one button active at a time
+		2. Active button indicates current page
+		3. Update active state based on current URL
+
+24. filter_state_persistence
+	a. Implement localStorage for filter buttons
+		1. filter_state_save stores button states
+		2. filter_state_load retrieves or uses defaults
+		3. filter_state_update_buttons syncs appearance
+		4. States persist across reloads and navigation
+
+25. outline_state_persistence
+	a. Add localStorage for collapse/expand states
+		1. outline_state_save stores collapsed states by key
+		2. outline_state_key_generate creates unique keys
+		3. outline_state_restore loads saved states on page load
+		4. Each page maintains separate collapse states
+
+26. file_watcher_dynamic
+	a. Remove hardcoded file entries
+		1. Delete static entries from storage_file_config
+		2. Create prompt_folder_scan and tool_folder_scan functions
+		3. Dynamically scan folders and set up watchers
+		4. Fix 01_start.txt instant update issue
+
+27. css_class_display
+	a. Add CSS class indicators to index
+		1. Show CSS classes used in each codename
+		2. Display as comma-separated list ending with >
+		3. Gray text (#6e7681) positioned after codename
+		4. Classes shown: list_term_duplicate, list_term_unique
+	b. CSS filter button
+		1. Third button in filter controls
+		2. Toggle CSS class visibility on/off
+		3. Default to on state (green button, classes visible)
+		4. State persists in localStorage
+	c. Display format
+		1. Example: field_mode_exit( list_term_duplicate, list_term_unique>
+		2. Classes update dynamically with filtering
+		3. Only show classes for items that use them
+		4. Position with margin-left: 20px 

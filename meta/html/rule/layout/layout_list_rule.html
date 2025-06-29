@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        padding-top:      140px;  /* Space for nav + filter buttons */
+        position:         relative;
+    }
+    
+    /* Navigation controls - left justified */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    .button_nav {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .button_nav:hover {
+        opacity: 0.9;
+    }
+    
+    .button_nav.style_active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Outline Control Panel - left justified below nav */
+    .outline_controls {
+        position: fixed;
+        top: 70px;  /* Below nav buttons */
+        left: 20px;
+        display: flex;
+        gap: 12px;
+        z-index: 1000;
+        background-color: rgba(30, 30, 30, 0.95);  /* Subtle background */
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Green control buttons */
+    .control_button {
+        background-color: #2ea043;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .control_button:hover {
+        background-color: #3fb654;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+    
+    .control_button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Button text styling */
+    .control_button {
+        font-size: 18px;
+        line-height: 1;
+    }
+    
+    /* Make "All" button slightly wider */
+    .control_button:last-child {
+        width: auto;
+        min-width: 60px;
+        padding: 12px 16px;
+    }
+    
+    /* Outline specific styles */
+    .outline_line_number {
+        min-width: 30px;
+        flex-shrink: 0;
+        cursor: pointer;
+        user-select: none;
+        margin-right: 4px;
+        text-align: right;
+    }
+    
+    .list_edit_text {
+        flex: 1;
+    }
+    
+    .list_editing_mode {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+    
+    /* Version number display - top right */
+    .page_version {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--gray);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: inherit;
+        font-weight: 500;
+        z-index: 1002;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .page_version:hover {
+        opacity: 1;
+    }
+    
+    .change_name {
+        color: var(--green);
+        font-weight: 600;
+    }
+    
+    .version_number {
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+        <button class="button_nav" data-nav="tree" title="View Tree">Tree</button>
+    </div>
+    
+    <!-- Version number display -->
+    <div class="page_version" title="Page Version">
+        <span class="change_name">layout_tool_web</span>
+        <span class="version_number">v01.16.00</span>
+    </div>
+    
+    <!-- Outline Control Buttons -->
+    <div class="outline_controls">
+        <button class="control_button" id="button_expand_level_1" title="Show Level 1 Only">1</button>
+        <button class="control_button" id="button_expand_level_2" title="Show Levels 1-2">2</button>
+        <button class="control_button" id="button_expand_all" title="Show All Levels">All</button>
+    </div>
+    
+    <div id="content">        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">////////////////////////////////////////////////////////////////</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">NOTE: This file defines the formatting rules for list layout pages.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">The list format is used for displaying collections of items in</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">a simple numbered list structure.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="1.">1.</span>
+            <span class="list_edit_text">list_format_structure</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. file_name</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Use [name]_index.html format for HTML indexes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use [name]_index.txt format for text indexes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. header</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Start with minimal HTML doctype and head.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Include title with descriptive name.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Center the title at top of page.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. No divider lines in HTML version.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. index_state_empty</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Keep minimal structure.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Include empty list item.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. No divider lines.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="2.">2.</span>
+            <span class="list_edit_text">content_format</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. Display items in a numbered list.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. Use HTML ordered list (<ol>) for automatic numbering.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. One item per line.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    d. No sub-items or nesting.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    e. Left-align all entries.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    f. Maintain consistent spacing.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="3.">3.</span>
+            <span class="list_edit_text">list_coloring_rules</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. duplicate_detection</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Compare each term with previous term.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Find common prefix between consecutive items.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Color common parts in dim gray (#4e5561).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Keep unique parts in white.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Include underscores in duplicate coloring.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. term_splitting</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Split terms by underscores (_).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Also split by hyphens (-).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Also split by dots (.).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Compare term by term.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Color matching prefixes appropriately.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="4.">4.</span>
+            <span class="list_edit_text">list_type_indicators</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. visual_markers</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Add gray "/" for folders at the end.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Color file extensions gray including the dot.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Add gray "()" for functions at the end.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Apply after duplicate coloring.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Keep indicators separate from base text.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. data_attributes</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Add data-type="folder" for folders.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Add data-type="file" for files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Add data-type="function" for functions.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Use for filtering functionality.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="5.">5.</span>
+            <span class="list_edit_text">list_filter_controls</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. button_layout</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Position in top right corner.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use green (#2ea043) for active state.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Use gray (#6e7681) for inactive state.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Include Functions, Files/Folders, CSS buttons.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. filter_behavior</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Toggle visibility of items by type.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Maintain list numbering after filtering.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Recalculate duplicate coloring for visible items.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Save filter state to localStorage.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="6.">6.</span>
+            <span class="list_edit_text">list_editing_features</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. click_to_edit</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Make list items editable on click.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Show full text when editing.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Exit edit mode on Enter key.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Auto-sync changes to server.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. visual_feedback</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. No border or highlight when editing.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Seamless transition to edit mode.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Preserve formatting when not editing.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Update duplicate coloring after edits.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="7.">7.</span>
+            <span class="list_edit_text">list_navigation</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. nav_buttons</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Show Index, Function, Web, Prompt buttons.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Position above filter controls.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Highlight current page.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Navigate between different views.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="8.">8.</span>
+            <span class="list_edit_text">list_css_display</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. css_format</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Show CSS classes in gray after items.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. End with ">" symbol.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Toggle with CSS filter button.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Extract from actual usage.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. css_classes_used</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. list_term_duplicate - gray duplicate parts</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. list_term_unique - white unique parts</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. list_label_new - editable content</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. list_label_old - original names</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. list_edit_text - editable text spans</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. list_editing_mode - active edit state</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. list_filter_btn - filter buttons</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        8. list_filter_controls - filter container</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="9.">9.</span>
+            <span class="list_edit_text">html_format</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. structure</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Use minimal HTML5 structure.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Include DOCTYPE, html, head, body tags.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Use ol tag for numbered lists.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Apply monospace font for alignment.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. styling</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Use dark background #1e1e1e to match Cursor theme.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use white text color #ffffff for main text.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Set title font size to 18px using h2 tag.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Set index list font size to 20px in ol tag.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Use inline styles or style tag in head.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Keep formatting minimal and clean.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. colors</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Define font_color_light as #ffffff (white).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Define font_color_dim as #404040 (25% gray).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Apply font_color_dim to list markers using ol::marker.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Use CSS variables for color definitions.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="10.">10.</span>
+            <span class="list_edit_text">editable_index</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. browser_editing</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Add contenteditable attributes to editable content.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Default to edit mode for immediate editing.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Provide toggle between edit and view modes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Style editable content with hover highlights.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Add visual feedback for focused elements.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. sync_system</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Create sync-server.js for local file syncing.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Run server on port 3002 with CORS enabled.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Add "Save to Project" button for direct saves.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Save content to corresponding .txt files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Show success/error messages to user.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. controls</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Position control buttons fixed top right.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Include: Toggle Edit, Save to Browser, Save to Project.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Add Export and Reset options.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Highlight primary action button.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Show current mode in bottom right indicator.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    d. text_extraction</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Extract all editable content preserving structure.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Maintain proper indentation for nested items.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Join text nodes with appropriate spacing.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Skip UI elements from extraction.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Format output matching original .txt format.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="11.">11.</span>
+            <span class="list_edit_text">template_structure</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. html_template</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        ```</div>
+    </div>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'meta_rule_layout_layout_list_rule';
+        window.LAST_MODIFIED = 1748935488617.1;
+    </script>
+    <script src="/js/layout_shared_client.js"></script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/layout_outline_client.js"></script>
+</body>
+</html>

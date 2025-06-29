@@ -17,13 +17,19 @@ const nav_config_map = {
     'web_file': { button: 'web', url: '/tool/web.html' },
     
     // Prompt pages
-    'start_file': { button: 'prompt', url: '/prompt/01_start.html' },
-    '01_start': { button: 'prompt', url: '/prompt/01_start.html' }
+    'prompt': { button: 'prompt', url: '/tool/prompt.html' },
+    'start_file': { button: 'prompt', url: '/tool/prompt.html' },
+    '01_start': { button: 'prompt', url: '/tool/prompt.html' },
+    
+    // Tree pages
+    'tree': { button: 'tree', url: '/tool/tree.html' },
+    'tree_file': { button: 'tree', url: '/tool/tree.html' }
 };
 
 // Initialize navigation when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     nav_init();
+    version_websocket_init();
 });
 
 // Initialize navigation buttons
@@ -37,13 +43,13 @@ function nav_init() {
     const currentButton = currentConfig ? currentConfig.button : 'index';
     
     // Update active state
-    const buttons = navControls.querySelectorAll('.nav_btn');
+    const buttons = navControls.querySelectorAll('.button_nav');
     buttons.forEach(btn => {
         const buttonType = btn.getAttribute('data-nav');
         if (buttonType === currentButton) {
-            btn.classList.add('active');
+            btn.classList.add('style_active');
         } else {
-            btn.classList.remove('active');
+            btn.classList.remove('style_active');
         }
         
         // Add click handler
@@ -67,13 +73,80 @@ function nav_button_click(buttonType) {
             targetUrl = '/tool/web.html';
             break;
         case 'prompt':
-            targetUrl = '/prompt/01_start.html';
+            targetUrl = '/tool/prompt.html';
+            break;
+        case 'tree':
+            targetUrl = '/tool/tree.html';
             break;
     }
     
     if (targetUrl) {
         // Navigate to the new page
         window.location.href = `http://localhost:3002${targetUrl}`;
+    }
+}
+
+// Initialize WebSocket for version updates
+function version_websocket_init() {
+    const ws = new WebSocket('ws://localhost:3002');
+    
+    ws.addEventListener('open', () => {
+        console.log('WebSocket connected for version updates');
+    });
+    
+    ws.addEventListener('message', (event) => {
+        try {
+            const data = JSON.parse(event.data);
+            
+            // Handle version update messages
+            if (data.type === 'version_update') {
+                version_display_update(data.version, data.details);
+            }
+        } catch (error) {
+            console.error('Error parsing WebSocket message:', error);
+        }
+    });
+    
+    ws.addEventListener('error', (error) => {
+        console.error('WebSocket error:', error);
+    });
+    
+    ws.addEventListener('close', () => {
+        console.log('WebSocket disconnected, attempting reconnect...');
+        // Reconnect after 2 seconds
+        setTimeout(version_websocket_init, 2000);
+    });
+}
+
+// Update version display
+function version_display_update(version, details) {
+    const versionElement = document.querySelector('.page_version');
+    if (versionElement) {
+        versionElement.textContent = version;
+        
+        // Log details to console for monitoring
+        if (details) {
+            console.log(`Version Update Details:
+- Page: ${details.page}
+- HTML lines changed: ${details.html_lines_changed}
+- Source file lines: ${details.source_lines}
+- Time: ${details.timestamp}`);
+        }
+        
+        // Add a brief highlight effect
+        versionElement.style.transition = 'all 0.3s ease';
+        versionElement.style.backgroundColor = '#2ea043';
+        versionElement.style.opacity = '1';
+        
+        // Add tooltip with details
+        if (details) {
+            versionElement.title = `Last update: ${details.page} (${details.html_lines_changed} lines) at ${details.timestamp}`;
+        }
+        
+        setTimeout(() => {
+            versionElement.style.backgroundColor = '';
+            versionElement.style.opacity = '';
+        }, 1000);
     }
 }
 

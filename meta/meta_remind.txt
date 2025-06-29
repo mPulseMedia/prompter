@@ -1,0 +1,19 @@
+1. In your (cursor.ai) chat responses
+    a. use the outline 1.a.1.a as described and used in meta for
+        1. your chat response
+        2. your chat thought bubbles (what's within Thought for 5 seconds)
+    c. use established codenames from the project whenever possible
+
+2. Review rule/
+    a. Periodically review the rule/ folder as it pertains to how you respond to my prompts
+
+3. meta_note
+    a. Open or create meta/meta_note.txt
+    b. As soon as you have your first thought bubble -- what you show in chat and is later shown under Thought for 5 seconds.
+    c, Insert the thought bubble at the top of meta/meta_note.txt.
+
+4. 
+
+
+     
+    

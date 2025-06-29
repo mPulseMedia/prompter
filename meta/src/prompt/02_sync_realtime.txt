@@ -1,0 +1,111 @@
+7. sync_foundation
+	a. Create sync endpoint
+		1. Add POST /sync route to sync_server.js
+		2. Accept JSON body with file_name, line_number, text
+		3. Log received sync data for verification
+		4. Return success response
+	b. Add CORS headers
+		1. Add Access-Control-Allow-Origin: * to all responses
+		2. Add OPTIONS method handling for preflight
+		3. Test POST from browser console works
+	c. Prepare for inline edit sync
+		1. Endpoint will receive edits from inline editing
+		2. Line numbers will come from data attributes
+		3. Text will be the edited content
+
+8. html_extract_module
+	a. Create extraction module
+		1. Create meta/code/sync/html_extract.js
+		2. Export extract_lines function that takes HTML string
+		3. For index files: extract text from li elements
+		4. For outline files: extract text from div elements with indentation
+		5. Preserve original formatting and spacing
+		6. Handle inline edited content extraction
+		7. Use regex to parse HTML elements and extract text content
+		8. Calculate tab indentation from margin-left pixels (60px per tab)
+		9. Handle both simple divs and divs with outline number spans
+	b. Test extraction
+		1. Import module in sync_server.js
+		2. Add test endpoint /test-extract
+		3. Verify it extracts lines correctly
+		4. Remove test endpoint after verification
+
+9. html_to_txt_sync
+	a. Create sync function
+		1. Add sync_txt_save function in sync_server.js
+		2. Use html_extract to get lines from HTML (not needed - sync receives edited text directly)
+		3. Update specific line in txt file array
+		4. Write updated content back to txt file
+		5. Handle empty line filtering for index files (map visible line to actual line)
+		6. Preserve indentation for outline files (tabs and outline numbers)
+		7. Set sync_in_progress flag to prevent reload loops
+	b. Connect to sync endpoint
+		1. Update /sync endpoint to call sync_txt_save
+		2. Find correct file config based on file_name
+		3. Update the txt file with new content
+		4. Log "Synced to txt" on success
+	c. Handle inline edits
+		1. Receive edits from inline editing feature
+		2. Update txt files with edited content
+		3. Preserve formatting and indentation
+
+10. realtime_sync
+	a. Add input event listeners
+		1. Change from blur event to input event for real-time updates
+		2. Debounce sync requests using sync_throttle_buffer (100ms delay)
+		3. Send sync request on every keystroke after debounce
+		4. Maintain cursor position during updates
+		5. Track current editing element and cursor position
+		6. Continue syncing even when element loses focus - no blur handler
+		7. Only Enter key exits edit mode and stops syncing
+	b. Implement cursor preservation
+		1. Before sync, save cursor position using Selection API
+		2. After DOM update, restore cursor to correct position
+		3. Handle edge cases like deleted text affecting cursor
+		4. Account for text length changes from other sources
+	c. Handle concurrent edits
+		1. Add version tracking to prevent overwrite conflicts
+		2. Implement operational transformation basics
+		3. If both sides edit simultaneously, merge changes intelligently
+		4. Maintain edit state flags for both browser and txt sides
+	d. Optimize performance
+		1. Only sync the changed line, not entire file (implemented)
+		2. Use WebSockets for lower latency (future enhancement)
+		3. Batch rapid changes into single sync request (implemented via debounce)
+
+11. audit_architecture
+	a. Review current architecture
+		1. Verify sync_server.js supports multiple HTML files efficiently
+		2. Check that storage_file_config is scalable for adding new pages
+		3. Ensure sync_html_build function is modular
+		4. Confirm file watching works independently for each file
+		5. Review shared code patterns across HTML generation
+	b. Identify shared modules
+		1. Common JavaScript for inline editing across all pages
+		2. Shared CSS styles for consistent look and feel
+		3. Debounce function used by all editable elements
+		4. Auto-reload polling logic shared across pages
+		5. Sync endpoint handling for all file types
+	c. Verify extensibility
+		1. Adding new files only requires storage_file_config entry
+		2. HTML generation follows consistent patterns
+		3. Event handlers are attached dynamically
+		4. No hardcoded file names in core logic
+
+12. add_index
+	a. Create index configuration
+		1. Add index entry to storage_file_config in sync_server.js
+		2. Set txt_path to 'meta/src/tool/index.txt'
+		3. Set html_path to 'meta/html/tool/index.html'
+		4. Use same li element generation as other index files
+	b. Create index.txt file
+		1. Create index.txt with initial codenames from meta folder
+		2. Include identifiers used in sync_server.js and html_extract.js
+		3. Format as simple list like other index files
+		4. This will track codenames used in the meta-app itself
+	c. Verify index works
+		1. Check that index.html is generated on server start
+		2. Verify inline editing works on index
+		3. Confirm sync back to index.txt functions
+		4. Test auto-reload on file changes
+		5. Access via http://localhost:3002/index.html 

@@ -23,105 +23,66 @@
         position:         relative;
     }
     
-    /* Control buttons in top right */
-    .controls {
+    /* Outline Control Panel - left justified below nav */
+    .outline_controls {
         position: fixed;
-        top: 20px;
-        right: 20px;
+        top: 70px;  /* Below nav buttons */
+        left: 20px;
         display: flex;
-        gap: 10px;
+        gap: 12px;
         z-index: 1000;
+        background-color: rgba(30, 30, 30, 0.95);  /* Subtle background */
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     
-    .control-btn {
-        background-color: var(--green);
+    /* Green control buttons */
+    .control_button {
+        background-color: #2ea043;
         color: white;
         border: none;
-        padding: 8px 12px;
+        padding: 12px;
+        width: 48px;
+        height: 48px;
         cursor: pointer;
-        border-radius: 4px;
-        font-size: 16px;
-        transition: opacity 0.2s ease;
-    }
-    
-    .control-btn:hover {
-        opacity: 0.8;
-    }
-    
-    /* Triangle shapes */
-    .triangle-up::after {
-        content: '';
-        display: inline-block;
-        width: 0;
-        height: 0;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-bottom: 10px solid white;
-    }
-    
-    .triangle-down::after {
-        content: '';
-        display: inline-block;
-        width: 0;
-        height: 0;
-        border-left: 6px solid transparent;
-        border-right: 6px solid transparent;
-        border-top: 10px solid white;
-    }
-    
-    div[style*="margin-left"] {
-        margin-bottom:  0;
-        cursor:         pointer;
-        padding:        2px 4px;  /* Same as li padding in codename_index */
-        transition:     background-color 0.15s ease;
-        position:       relative;  /* For tree lines */
-        line-height:    1.5;  /* Same as li line-height */
-    }
-    
-    div[style*="margin-left"]:hover {
-        background-color: var(--hover);
-    }
-    
-    /* Outline numbers in gray */
-    div span:first-child {
-        color: var(--gray);
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-    }
-    
-    .editable-text {
-        color:        var(--text);
-        padding:      0;
-        display:      inline-block;
-        min-width:    50px;
-    }
-    .editable-text.editing {
-        /* No visual difference in edit mode - seamless editing */
-        outline: none;
-    }
-    
-    #expand-all-btn:hover {
-        opacity: 0.8;
-    }
-    
-    #content {
-        margin: 0;
-        padding: 0;
-    }
-    
-    /* Navigation controls */
-    .nav_controls {
-        position: fixed;
-        top: 20px;
-        right: 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        font-family: inherit;
         display: flex;
-        gap: 10px;
-        z-index: 1001;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
     
-    .nav_btn {
+    .control_button:hover {
+        background-color: #3fb654;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+    
+    .control_button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Button text styling */
+    .control_button {
+        font-size: 18px;
+        line-height: 1;
+    }
+    
+    /* Make "All" button slightly wider */
+    .control_button:last-child {
+        width: auto;
+        min-width: 60px;
+        padding: 12px 16px;
+    }
+    
+    
+    .button_nav {
         background-color: var(--gray);
         color: white;
         border: none;
@@ -134,439 +95,1445 @@
         opacity: 0.7;
     }
     
-    .nav_btn:hover {
+    .button_nav:hover {
         opacity: 0.9;
     }
     
-    .nav_btn.active {
+    .button_nav.style_active {
         background-color: var(--edit-border);
         opacity: 1;
         font-weight: 500;
     }
     
-    /* Push other controls down when nav is present */
-    .nav_controls + .controls {
-        top: 70px;
+    /* Version display in upper right */
+    .version_display {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        color: var(--gray);
+        font-size: 14px;
+        font-family: inherit;
+        z-index: 1001;
+        opacity: 0.7;
+    }
+    
+    /* Navigation controls - left justified */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    /* Outline specific styles */
+    .outline_line_number {
+        min-width: 30px;
+        flex-shrink: 0;
+        cursor: pointer;
+        user-select: none;
+        margin-right: 4px;
+        text-align: right;
+    }
+    
+    .list_edit_text {
+        flex: 1;
+    }
+    
+    .list_editing_mode {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
     }
 </style>
 </head>
 <body>
     <div class="nav_controls">
-        <button class="nav_btn" data-nav="index" title="View Index">Index</button>
-        <button class="nav_btn" data-nav="function" title="View Functions">Function</button>
-        <button class="nav_btn" data-nav="web" title="View Web Relationships">Web</button>
-        <button class="nav_btn" data-nav="prompt" title="View Prompt">Prompt</button>
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
     </div>
     
-    <div class="controls">
-        <button class="control-btn triangle-up" id="collapse-all-btn" title="Collapse All"></button>
-        <button class="control-btn" id="expand-level-2-btn" title="Expand to Level 2">2</button>
-        <button class="control-btn triangle-down" id="expand-all-btn" title="Expand All"></button>
+    <div class="version_display">v1.1.0</div>
+    
+    <!-- Outline Control Buttons -->
+    <div class="outline_controls">
+        <button class="control_button" id="button_expand_level_1" title="Show Level 1 Only">1</button>
+        <button class="control_button" id="button_expand_level_2" title="Show Levels 1-2">2</button>
+        <button class="control_button" id="button_expand_all" title="Show All Levels">All</button>
     </div>
     
     <div id="content">
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">field_cursor_set</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">css_class_name_is</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">div.addEventListener('click') in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">li.addEventListener('click') in 00_index_client.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">sync_html_build</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
-            <span class="editable-text">field_mode_exit</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">css_classes</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">div.addEventListener('click') in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">editableText.addEventListener('keydown') in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
-            <span class="editable-text">li.addEventListener('click') in 00_index_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
-            <span class="editable-text">li.addEventListener('keydown') in 00_index_client.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">sync_html_build</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
-            <span class="editable-text">field_text_extract</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">extract_run</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">calls ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">forEach (EXTRACTORS)</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">field_cursor_set</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">field_cursor_set</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">li.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">field_cursor_set</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">div.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">index_html_extract</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">field_cursor_set</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">field_mode_exit</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">field_mode_exit</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">li.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">li.addEventListener('keydown')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">field_mode_exit</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="list_edit_text">div.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="f.">f.</span>
+            <span class="list_edit_text">editableText.addEventListener('keydown')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="g.">g.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
-            <span class="editable-text">outline_html_extract</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">field_mode_exit</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
-            <span class="editable-text">function_executed</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="6.">6.</span>
+            <span class="list_edit_text">field_text_extract</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">sync_throttle_buffer</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">field_text_extract</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">calls ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">function_later</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
-            <span class="editable-text">function_later</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">function_executed</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="6.">6.</span>
-            <span class="editable-text">index_html_extract</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">field_text_extract in html_extract.js</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="7.">7.</span>
-            <span class="editable-text">index_html_generate</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">sync_html_build in sync_server.js</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="8.">8.</span>
-            <span class="editable-text">index_duplicate_update</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">index_filter_apply in index_client.js</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="9.">9.</span>
-            <span class="editable-text">index_filter_apply</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">filter button click handlers in index_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">called at startup in index_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
-            <span class="editable-text">calls ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">field_text_extract</span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">index_duplicate_update</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="10.">10.</span>
-            <span class="editable-text">outline_children_find</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">outline_click_double_handle in outline_client.js</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="11.">11.</span>
-            <span class="editable-text">outline_click_double_handle</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">outlineNum.addEventListener('click') in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">calls ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">index_html_extract</span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">outline_children_find</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">outline_html_extract</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="7.">7.</span>
+            <span class="list_edit_text">file</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="8.">8.</span>
+            <span class="list_edit_text">file_watcher_setup</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">file_watcher_setup</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">forEach (files)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
-            <span class="editable-text">outline_display_update</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">file_watcher_setup</span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
-            <span class="editable-text">outline_display_set</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">sync_html_build</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="12.">12.</span>
-            <span class="editable-text">outline_click_single_handle</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="9.">9.</span>
+            <span class="list_edit_text">files</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="10.">10.</span>
+            <span class="list_edit_text">for</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">outlineNum.addEventListener('click') in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">calls ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">outline_display_update</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">sync_throttle_buffer</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="11.">11.</span>
+            <span class="list_edit_text">function_executed</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">function_executed</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">function_executed</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
-            <span class="editable-text">outline_display_set</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">function_executed</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="13.">13.</span>
-            <span class="editable-text">outline_display_set</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">outline_click_single_handle in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">outline_click_double_handle in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
-            <span class="editable-text">getElementById('expand-all-btn').addEventListener('click') in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
-            <span class="editable-text">getElementById('expand-level-2-btn').addEventListener('click') in outline_client.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="12.">12.</span>
+            <span class="list_edit_text">function_later</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="14.">14.</span>
-            <span class="editable-text">outline_display_update</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">outline_click_single_handle in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">outline_click_double_handle in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
-            <span class="editable-text">forEach (outlineNumbers) in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
-            <span class="editable-text">getElementById('collapse-all-btn').addEventListener('click') in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
-            <span class="editable-text">getElementById('expand-all-btn').addEventListener('click') in outline_client.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="f.">f.</span>
-            <span class="editable-text">getElementById('expand-level-2-btn').addEventListener('click') in outline_client.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="13.">13.</span>
+            <span class="list_edit_text">has</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="15.">15.</span>
-            <span class="editable-text">outline_html_extract</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="14.">14.</span>
+            <span class="list_edit_text">index_html_extract</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">field_text_extract in html_extract.js</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="16.">16.</span>
-            <span class="editable-text">outline_html_generate</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">index_html_extract</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">sync_html_build in sync_server.js</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="17.">17.</span>
-            <span class="editable-text">outline_initial_state</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">field_text_extract</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">called at startup in outline_client.js</span>
-        </div>
-        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="18.">18.</span>
-            <span class="editable-text">prompt_folder_scan</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">server.listen in sync_server.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">setInterval in sync_server.js</span>
-        </div>
-        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
-            <span class="editable-text">calls ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">sync_html_build</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">index_html_extract</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="19.">19.</span>
-            <span class="editable-text">prompt_txt_read</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="15.">15.</span>
+            <span class="list_edit_text">layout_list_duplicate_update</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">sync_html_build in sync_server.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">layout_list_filter_apply</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">sync_txt_save in sync_server.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">layout_list_duplicate_update</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">layout_list_duplicate_update</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="20.">20.</span>
-            <span class="editable-text">prompt_type_detect</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="16.">16.</span>
+            <span class="list_edit_text">layout_list_filter_apply</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">sync_html_build in sync_server.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">layout_list_filter_apply</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">functionsBtn.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">filesFoldersBtn.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">cssBtn.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="list_edit_text">global</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="f.">f.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">layout_list_duplicate_update</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">layout_list_filter_apply</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="21.">21.</span>
-            <span class="editable-text">sync_html_build</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="17.">17.</span>
+            <span class="list_edit_text">layout_list_filter_update_buttons</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">prompt_folder_scan in sync_server.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">layout_list_filter_update_buttons</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">fs.watch in sync_server.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">global</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
-            <span class="editable-text">calls ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">prompt_txt_read</span>
-        </div>
-        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
-            <span class="editable-text">prompt_type_detect</span>
-        </div>
-        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
-            <span class="editable-text">outline_html_generate</span>
-        </div>
-        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
-            <span class="editable-text">index_html_generate</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">layout_list_filter_update_buttons</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="22.">22.</span>
-            <span class="editable-text">sync_throttle_buffer</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="18.">18.</span>
+            <span class="list_edit_text">layout_list_html_generate</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">forEach (rowDivs) in outline_client.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">sync_html_build</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">forEach (liElements) in 00_index_client.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">layout_list_html_generate</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
-            <span class="editable-text">returns ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">function_executed</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">layout_list_html_generate</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="23.">23.</span>
-            <span class="editable-text">sync_timestamps_initialize</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="19.">19.</span>
+            <span class="list_edit_text">list_filter_load</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">server.listen in sync_server.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">list_filter_load</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">global</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">list_filter_load</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="24.">24.</span>
-            <span class="editable-text">sync_txt_save</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="20.">20.</span>
+            <span class="list_edit_text">list_filter_save</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">server POST /sync endpoint</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">list_filter_save</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">calls ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">functionsBtn.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">filesFoldersBtn.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">cssBtn.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">prompt_txt_read</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">list_filter_save</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="25.">25.</span>
-            <span class="editable-text">sync_updates_check</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="21.">21.</span>
+            <span class="list_edit_text">manual_refresh</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">setInterval in outline_client.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">manual_refresh</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">setInterval in 00_index_client.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">document.addEventListener('keydown')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">manual_refresh</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">outline_state_save</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">reload_notification_show</span>
         </div>
         <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="26.">26.</span>
-            <span class="editable-text">tool_folder_scan</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="22.">22.</span>
+            <span class="list_edit_text">[REMOVED] meta_extract - deleted (was broken, missing dependencies)</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="23.">23.</span>
+            <span class="list_edit_text">name</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="24.">24.</span>
+            <span class="list_edit_text">names</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="25.">25.</span>
+            <span class="list_edit_text">nav_button_click</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
-            <span class="editable-text">server.listen in sync_server.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">btn.addEventListener('click')</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
-            <span class="editable-text">setInterval in sync_server.js</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">nav_button_click</span>
         </div>
         <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
-            <span class="editable-text">calls ></span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
-            <span class="editable-text">sync_html_build</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">nav_button_click</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="26.">26.</span>
+            <span class="list_edit_text">nav_init</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">document.addEventListener('DOMContentLoaded')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">nav_init</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
-            <span class="editable-text">sync_txt_save</span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">nav_init</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="27.">27.</span>
+            <span class="list_edit_text">outline_children_find</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_children_find</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">outline_click_double_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
         </div>
         <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
-            <span class="outline-number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
-            <span class="editable-text">sync_updates_check </span>
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_children_find</span>
         </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="28.">28.</span>
+            <span class="list_edit_text">outline_click_double_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_click_double_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">outlineNum.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_children_find</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">outline_click_double_handle</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">outline_display_update</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">outline_state_save</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="29.">29.</span>
+            <span class="list_edit_text">outline_click_single_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_click_single_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">outlineNum.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_click_single_handle</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">outline_display_set</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">outline_display_update</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">outline_state_save</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="30.">30.</span>
+            <span class="list_edit_text">outline_display_set</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_display_set</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">outline_click_single_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">forEach (descendants)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_display_set</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="31.">31.</span>
+            <span class="list_edit_text">outline_display_update</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">forEach (array)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">outline_display_update</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">outline_click_single_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">outline_click_double_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="list_edit_text">forEach (descendants)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="f.">f.</span>
+            <span class="list_edit_text">forEach (outlineNumbers)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="g.">g.</span>
+            <span class="list_edit_text">forEach (allOutlineDivs)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="h.">h.</span>
+            <span class="list_edit_text">forEach (allDivs)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="i.">i.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_display_update</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="32.">32.</span>
+            <span class="list_edit_text">outline_html_extract</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_html_extract</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">field_text_extract</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_html_extract</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="33.">33.</span>
+            <span class="list_edit_text">outline_html_generate</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">sync_html_build</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">outline_html_generate</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_html_generate</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="34.">34.</span>
+            <span class="list_edit_text">outline_initial_state</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_state_restore</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">outline_initial_state</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">outline_visibility_apply</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_initial_state</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="35.">35.</span>
+            <span class="list_edit_text">outline_state_key_generate</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_state_key_generate</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">forEach (array)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_state_key_generate</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="36.">36.</span>
+            <span class="list_edit_text">outline_state_restore</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_state_restore</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">global</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_initial_state</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">outline_state_restore</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">outline_visibility_apply</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="37.">37.</span>
+            <span class="list_edit_text">outline_state_save</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_state_save</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">outline_click_single_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">outline_click_double_handle</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">sync_updates_check</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="list_edit_text">manual_refresh</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="f.">f.</span>
+            <span class="list_edit_text">collapse-all-btn.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="g.">g.</span>
+            <span class="list_edit_text">expand-all-btn.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="h.">h.</span>
+            <span class="list_edit_text">expand-level-2-btn.addEventListener('click')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="i.">i.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_state_save</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="38.">38.</span>
+            <span class="list_edit_text">outline_visibility_apply</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">outline_state_restore</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">outline_visibility_apply</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_initial_state</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">outline_visibility_apply</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="39.">39.</span>
+            <span class="list_edit_text">prompt_folder_scan</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">prompt_folder_scan</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">global</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">prompt_folder_scan</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="40.">40.</span>
+            <span class="list_edit_text">prompt_txt_read</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">prompt_txt_read</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">sync_html_build</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">sync_txt_save</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">prompt_txt_read</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="41.">41.</span>
+            <span class="list_edit_text">prompt_type_detect</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">prompt_type_detect</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">sync_html_build</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">prompt_type_detect</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="42.">42.</span>
+            <span class="list_edit_text">reload_notification_show</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">reload_notification_show</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">sync_updates_check</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">manual_refresh</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">reload_notification_show</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="43.">43.</span>
+            <span class="list_edit_text">scroll_position_restore</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">scroll_position_restore</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">document.addEventListener('DOMContentLoaded')</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">global</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">scroll_position_restore</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="44.">44.</span>
+            <span class="list_edit_text">sync_html_build</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">file_watcher_setup</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">sync_html_build</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">css_class_name_is</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">css_classes</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">layout_list_html_generate</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">outline_html_generate</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">prompt_txt_read</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="6.">6.</span>
+            <span class="list_edit_text">prompt_type_detect</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="7.">7.</span>
+            <span class="list_edit_text">sync_html_build</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="45.">45.</span>
+            <span class="list_edit_text">sync_throttle_buffer</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">sync_throttle_buffer</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">for</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">sync_throttle_buffer</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">for</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">sync_throttle_buffer</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="46.">46.</span>
+            <span class="list_edit_text">sync_timestamps_initialize</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">sync_timestamps_initialize</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">global</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">sync_timestamps_initialize</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="47.">47.</span>
+            <span class="list_edit_text">sync_txt_save</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">sync_txt_save</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">global</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">prompt_txt_read</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">sync_txt_save</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="48.">48.</span>
+            <span class="list_edit_text">sync_updates_check</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">sync_updates_check</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">sync_updates_check</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">outline_state_save</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">reload_notification_show</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">sync_updates_check</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="49.">49.</span>
+            <span class="list_edit_text">to</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="50.">50.</span>
+            <span class="list_edit_text">tool_folder_scan</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">tool_folder_scan</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">global</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">tool_folder_scan</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="51.">51.</span>
+            <span class="list_edit_text">version_test_function_1</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_1</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_1</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="52.">52.</span>
+            <span class="list_edit_text">version_test_function_2</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_2</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_2</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="53.">53.</span>
+            <span class="list_edit_text">version_test_function_3</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_3</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_3</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="54.">54.</span>
+            <span class="list_edit_text">version_test_function_4</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_4</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_4</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="55.">55.</span>
+            <span class="list_edit_text">version_test_function_5</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_5</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_5</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="56.">56.</span>
+            <span class="list_edit_text">version_test_function_6</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_6</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_6</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="57.">57.</span>
+            <span class="list_edit_text">version_test_function_7</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_7</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_7</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="58.">58.</span>
+            <span class="list_edit_text">version_test_function_8</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_8</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_8</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="59.">59.</span>
+            <span class="list_edit_text">version_test_function_9</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_9</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_9</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="60.">60.</span>
+            <span class="list_edit_text">version_test_function_10</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_10</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_10</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="61.">61.</span>
+            <span class="list_edit_text">version_test_function_11</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_11</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_11</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="62.">62.</span>
+            <span class="list_edit_text">version_test_function_12</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_12</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_12</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="63.">63.</span>
+            <span class="list_edit_text">version_test_function_13</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_13</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_13</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="64.">64.</span>
+            <span class="list_edit_text">version_test_function_14</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_14</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_14</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="65.">65.</span>
+            <span class="list_edit_text">version_test_function_15</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_15</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_15</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="66.">66.</span>
+            <span class="list_edit_text">version_test_function_16</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_16</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_16</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="67.">67.</span>
+            <span class="list_edit_text">version_test_function_17</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_17</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_17</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="68.">68.</span>
+            <span class="list_edit_text">version_test_function_18</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_18</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_18</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="69.">69.</span>
+            <span class="list_edit_text">version_test_function_19</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_19</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_19</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="70.">70.</span>
+            <span class="list_edit_text">version_test_function_20</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">version_test_function_20</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">calls ></span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">version_test_function_20</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">web later: I need to use create a web view showing relationships</div>
     </div>
     <script>
         // Configuration for the external script
         window.FILE_NAME = 'web';
-        window.LAST_MODIFIED = 1748971357250;
+        window.LAST_MODIFIED = 1751231775430;
     </script>
+    <script src="/js/shared_client.js"></script>
     <script src="/js/nav_client.js"></script>
     <script src="/js/outline_client.js"></script>
 </body>

@@ -1,72 +1,14 @@
 const http         = require('http');
 const fs           = require('fs');
 const path         = require('path');
+const WebSocket    = require('ws');
 const html_extract = require('./html_extract');
 const { list_html_generate } = require('../layout/list_template');
 const { outline_html_generate } = require('../layout/outline_template');
+const { tree_html_generate } = require('../layout/tree_template');
+const { timestamp_get_or_create, timestamp_update_modified } = require('../layout/timestamp_manager');
+const { version_current, version_initialize } = require('./version_manager');
 
-// Function to extract CSS classes from template files
-function css_classes_extract() {
-    const cssClasses = new Set();
-    const layoutDir = path.join(__dirname, '../layout');
-    
-    try {
-        const files = fs.readdirSync(layoutDir);
-        files.forEach(file => {
-            if (file.endsWith('.js')) { // Check all JS files, not just templates
-                const content = fs.readFileSync(path.join(layoutDir, file), 'utf8');
-                
-                // Extract class names from class="" attributes
-                const classMatches = content.matchAll(/class="([^"]+)"/g);
-                for (const match of classMatches) {
-                    const classes = match[1].split(/\s+/);
-                    classes.forEach(cls => {
-                        if (cls && !cls.startsWith('$')) { // Skip template variables
-                            cssClasses.add(cls);
-                        }
-                    });
-                }
-                
-                // Extract class names from CSS definitions
-                const cssMatches = content.matchAll(/\.([a-zA-Z_-][a-zA-Z0-9_-]*)\s*\{/g);
-                for (const match of cssMatches) {
-                    cssClasses.add(match[1]);
-                }
-                
-                // Extract class names from classList operations
-                const classListMatches = content.matchAll(/classList\.(add|remove|toggle)\(['"]([^'"]+)['"]\)/g);
-                for (const match of classListMatches) {
-                    cssClasses.add(match[2]);
-                }
-                
-                // Extract from className assignments
-                const classNameMatches = content.matchAll(/className\s*=\s*["']([^"']+)["']/g);
-                for (const match of classNameMatches) {
-                    const classes = match[1].split(/\s+/);
-                    classes.forEach(cls => {
-                        if (cls && !cls.startsWith('$')) {
-                            cssClasses.add(cls);
-                        }
-                    });
-                }
-                
-                // Extract from getElementById with hyphenated IDs that might be CSS classes
-                const idMatches = content.matchAll(/getElementById\(['"]([a-zA-Z0-9_-]+)['"]\)/g);
-                for (const match of idMatches) {
-                    const id = match[1];
-                    // Common pattern: IDs that end with -filter, -btn, -controls are often CSS classes too
-                    if (id.includes('-')) {
-                        cssClasses.add(id);
-                    }
-                }
-            }
-        });
-    } catch (err) {
-        console.error('Error extracting CSS classes:', err);
-    }
-    
-    return Array.from(cssClasses).sort();
-}
 
 const storage_file_config = {};
 
@@ -76,7 +18,108 @@ const reload_modification_get = {};
 // Flag to prevent reload loops during sync
 let sync_in_progress = false;
 
+// Auto-reload mode tracking
+let reload_mode_auto = {
+    active: false,
+    activated_at: 0,
+    expires_at: 0
+};
+
+// WebSocket connections for real-time updates
+let websocket_connections = new Set();
+
+// WebSocket utility functions
+function sync_message_broadcast(message) {
+    console.log(`Broadcasting to ${websocket_connections.size} clients:`, message);
+    
+    websocket_connections.forEach(ws => {
+        if (ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify(message));
+        }
+    });
+}
+
+// Activate auto-reload mode for 1 hour
+function reload_auto_activate() {
+    const now = Date.now();
+    const one_hour = 60 * 60 * 1000; // 1 hour in milliseconds
+    
+    reload_mode_auto.active = true;
+    reload_mode_auto.activated_at = now;
+    reload_mode_auto.expires_at = now + one_hour;
+    
+    console.log(`Auto-reload mode activated until ${new Date(reload_mode_auto.expires_at).toLocaleTimeString()}`);
+    
+    // Broadcast activation to all clients
+    sync_message_broadcast({
+        type: 'auto_reload_activated',
+        expires_at: reload_mode_auto.expires_at,
+        interval: 60000 // Reload every 60 seconds
+    });
+    
+    // Set timeout to deactivate after 1 hour
+    setTimeout(() => {
+        reload_mode_auto.active = false;
+        console.log('Auto-reload mode deactivated');
+        
+        // Broadcast deactivation to all clients
+        sync_message_broadcast({
+            type: 'auto_reload_deactivated'
+        });
+    }, one_hour);
+}
+
+function sync_connection_remove(ws) {
+    websocket_connections.delete(ws);
+    console.log(`WebSocket client disconnected. Remaining: ${websocket_connections.size}`);
+}
+
 // Initialize modification times
+// Auto-update index when JavaScript files change  
+function index_auto_update() {
+    const { spawn } = require('child_process');
+    const indexExtractPath = path.join(__dirname, '../extract/index_extract.js');
+    
+    // Only run if the extractor exists
+    if (!fs.existsSync(indexExtractPath)) {
+        console.log('Index extractor not found, skipping auto-update');
+        return;
+    }
+    
+    console.log('Auto-updating index...');
+    const child = spawn('node', [indexExtractPath], { 
+        stdio: 'pipe',  // Capture output instead of inheriting
+        cwd: path.dirname(indexExtractPath)
+    });
+    
+    // Capture output
+    let output = '';
+    child.stdout.on('data', (data) => {
+        output += data.toString();
+    });
+    
+    child.stderr.on('data', (data) => {
+        console.error('Index update error:', data.toString());
+    });
+    
+    child.on('close', (code) => {
+        if (code === 0) {
+            console.log('Index auto-update completed successfully');
+            console.log('Index stats:', output.split('\n').find(line => line.includes('Extracted')) || 'Updated');
+            
+            // Trigger HTML regeneration for index.txt
+            const indexTxtPath = path.join(__dirname, '../../src/tool/index.txt');
+            if (fs.existsSync(indexTxtPath)) {
+                // Touch the file to trigger regeneration
+                fs.utimesSync(indexTxtPath, new Date(), new Date());
+                console.log('Index HTML regeneration triggered');
+            }
+        } else {
+            console.error('Index auto-update failed with code:', code);
+        }
+    });
+}
+
 function sync_timestamps_initialize() {
     Object.keys(storage_file_config).forEach(key => {
         try {
@@ -111,6 +154,16 @@ function file_watcher_setup(key) {
             reload_modification_get[key] = Date.now();
             sync_html_build(key);
             console.log(`File changed: ${key}, new timestamp: ${reload_modification_get[key]}`);
+            
+            // Activate auto-reload mode
+            reload_auto_activate();
+            
+            // Broadcast file change to all WebSocket clients
+            sync_message_broadcast({
+                type: 'file_changed',
+                file: key,
+                timestamp: reload_modification_get[key]
+            });
         }
     });
     console.log(`Watching ${key} txt file`);
@@ -269,6 +322,9 @@ function sync_html_build(config_key) {
     // Detect format type
     const formatType = prompt_type_detect(lines);
     
+    // Get current version
+    const current_version = version_current();
+    
     // Debug log for functions_file
     if (config_key === 'functions_file') {
         console.log(`Processing ${config_key}:`);
@@ -280,7 +336,10 @@ function sync_html_build(config_key) {
     let html_content = '';
     
     // Check format type first, then specific config keys
-    if (formatType === 'outline' || config_key === 'start_file' || config_key === 'functions_file' || config_key === 'function') {
+    if (config_key === 'tree' || config_key === 'tree_file') {
+        // Special handling for tree page - use tree template
+        html_content = tree_html_generate('', config_key, reload_modification_get[config_key], current_version);
+    } else if (formatType === 'outline' || config_key === 'start_file' || config_key === 'functions_file' || config_key === 'function') {
         // Track defined functions for graying out references
         const definedFunctions = new Set();
         
@@ -366,7 +425,7 @@ function sync_html_build(config_key) {
         .filter(Boolean)  // Filter out null values (empty lines)
         .join('\n');
         
-        html_content = outline_html_generate(div_elements, config_key, reload_modification_get[config_key]);
+        html_content = outline_html_generate(div_elements, config_key, reload_modification_get[config_key], current_version);
     } else if (formatType === 'index' || config_key === 'index' || config_key.startsWith('index_')) {
         // Generate li elements for each line with gray coloring for duplicates
         let previousTerm = '';
@@ -442,23 +501,31 @@ function sync_html_build(config_key) {
                 let typeIndicator = '';
                 let dataType = '';
                 
-                // Check if it's a CSS class entry (using same logic as extract_css_classes.js)
-                const css_class_name_is = (name) => {
-                    // CSS class names typically contain hyphens or are known CSS classes
-                    if (name.includes('-')) return true;
-                    if (name.includes('_') && (name.includes('part') || name.includes('btn') || 
-                        name.includes('control') || name.includes('filter'))) return true;
-                    const knownCssClasses = ['style_active', 'style_hidden', 'index_editing_mode', 'style_inactive', 'duplicate'];
-                    if (knownCssClasses.includes(name)) return true;
-                    return false;
-                };
-                
-                if (css_class_name_is(currentTerm)) {
-                    // It's a CSS class - add > indicator
-                    typeIndicator = '<span style="color: #6e7681;">></span>';
-                    displayContent += typeIndicator;
-                    dataType = 'css';
+                // Check if it's a comment entry (starts with __)
+                if (currentTerm.startsWith('__')) {
+                    // It's a comment - add # indicator
+                    typeIndicator = '<span style="color: #6e7681;">#</span>';
+                    dataType = 'comment';
+                    // For comments, show the full text including the description
+                    displayContent = currentTerm;
                 } else {
+                    // Check if it's a CSS class entry (using same logic as extract_css_classes.js)
+                    const css_class_name_is = (name) => {
+                        // CSS class names typically contain hyphens or are known CSS classes
+                        if (name.includes('-')) return true;
+                        if (name.includes('_') && (name.includes('part') || name.includes('btn') || 
+                            name.includes('control') || name.includes('filter'))) return true;
+                        const knownCssClasses = ['style_active', 'style_hidden', 'index_editing_mode', 'style_inactive', 'duplicate'];
+                        if (knownCssClasses.includes(name)) return true;
+                        return false;
+                    };
+                    
+                    if (css_class_name_is(currentTerm)) {
+                        // It's a CSS class - add > indicator
+                        typeIndicator = '<span style="color: #6e7681;">></span>';
+                        displayContent += typeIndicator;
+                        dataType = 'css';
+                    } else {
                     // Check if it's a folder name (no extension and exists as directory)
                     // Common folder names in the project
                     const commonFolders = ['app', 'meta', 'prompt', 'rule', 'tool', 'html', 'code', 'js'];
@@ -504,14 +571,23 @@ function sync_html_build(config_key) {
                         displayContent += typeIndicator;
                         dataType = 'function';
                     }
+                    }
                 }
                 
-                return `        <li data-fulltext="${currentTerm}" data-original="" data-type="${dataType}">${displayContent}</li>`;
+                // Add type indicator for comments
+                if (dataType === 'comment') {
+                    displayContent += typeIndicator;
+                }
+                
+                // Get timestamps for this entry
+                const timestamps = timestamp_get_or_create(currentTerm);
+                
+                return `        <li data-fulltext="${currentTerm}" data-original="" data-type="${dataType}" data-created="${timestamps.created}" data-modified="${timestamps.modified}">${displayContent}</li>`;
             })
             .filter(Boolean)
             .join('\n');
         
-        html_content = list_html_generate(li_elements, config_key, reload_modification_get[config_key]);
+        html_content = list_html_generate(li_elements, config_key, reload_modification_get[config_key], current_version);
     }
     
     fs.writeFileSync(config.html_path, html_content);
@@ -678,6 +754,7 @@ const server = http.createServer((req, res) => {
             } else if (req.url.match(/^\/js\/.+\.js$/)) {
                 // Serve JavaScript files
                 const jsFilename = req.url.replace('/js/', '');
+                console.log('Requested JS file:', jsFilename);
                 
                 // Try multiple locations for JavaScript files
                 const possiblePaths = [
@@ -686,8 +763,10 @@ const server = http.createServer((req, res) => {
                     path.join(__dirname, '..', jsFilename),         // Parent code directory
                 ];
                 
+                console.log('Checking paths for JS file:');
                 let jsPath = null;
                 for (const possiblePath of possiblePaths) {
+                    console.log('  Checking:', possiblePath, 'exists:', fs.existsSync(possiblePath));
                     if (fs.existsSync(possiblePath)) {
                         jsPath = possiblePath;
                         break;
@@ -695,8 +774,10 @@ const server = http.createServer((req, res) => {
                 }
                 
                 if (jsPath) {
+                    console.log('Serving JS file from:', jsPath);
                     fs.readFile(jsPath, 'utf8', (err, data) => {
                         if (err) {
+                            console.log('Error reading JS file:', err);
                             res.writeHead(404, { 'Content-Type': 'text/plain' });
                             res.end('JavaScript file not found');
                         } else {
@@ -708,6 +789,7 @@ const server = http.createServer((req, res) => {
                         }
                     });
                 } else {
+                    console.log('JS file not found in any path');
                     res.writeHead(404, { 'Content-Type': 'text/plain' });
                     res.end('JavaScript file not found');
                 }
@@ -744,8 +826,30 @@ const server = http.createServer((req, res) => {
     }
 });
 
+// Create WebSocket server
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', (ws) => {
+    console.log('New WebSocket client connected');
+    websocket_connections.add(ws);
+    
+    ws.on('close', () => {
+        sync_connection_remove(ws);
+    });
+    
+    ws.on('error', (error) => {
+        console.error('WebSocket error:', error);
+        sync_connection_remove(ws);
+    });
+});
+
 server.listen(3002, () => {
     console.log('Server running on port 3002');
+    console.log('WebSocket server running on ws://localhost:3002');
+    
+    // Initialize version system
+    const current_version = version_initialize();
+    console.log('Version system initialized:', current_version);
     
     // Initialize modification times
     sync_timestamps_initialize();
@@ -761,4 +865,9 @@ server.listen(3002, () => {
         prompt_folder_scan();
         tool_folder_scan();
     }, 5000); // Check every 5 seconds
+    
+    // Auto-update index when JavaScript files change
+    setInterval(() => {
+        index_auto_update();
+    }, 30000); // Update index every 30 seconds
 }); 

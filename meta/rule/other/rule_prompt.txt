@@ -69,19 +69,18 @@ the meta files.
            first prompt.
         5. Do not delete files in app/ folder.
         6. Do not delete or modify contents of app_index.txt.
-        7. Do not delete or modify contents of meta_index.txt.
     d. meta
         1. Start the sync server for HTML/TXT file generation 
            and synchronization.
         2. Kill any existing node processes on port 3002.
         3. Start node sync_server.js from meta/code/sync/ directory.
         4. Server runs on http://localhost:3002.
-        5. Generates HTML files from all .txt files in prompt/.
+        5. Generates HTML files from all .txt files in meta/src/.
         6. Opens browser windows/tabs for:
            - index.html (identifier mappings)
            - function.html (function outline)
            - 01_start.html (project prompts)
-           - 03_web.html (function call relationships)
+           - web.html (function call relationships)
         7. Watches txt files for changes and auto-refreshes HTML.
         8. Stop any existing sync servers before starting.
 
@@ -100,14 +99,14 @@ the meta files.
         4. Place before first prompt.
         5. Add blank lines before and after.
     d. file_rules
-        1. Place marker in app_prompt/ directory.
+        1. Place marker in meta/src/prompt/ directory.
 
 3. rule_execute
     a. overview
         1. List rule files to be reviewed (rule_check) as the 
            first step.
         2. Review existing codenames in code files and 
-           app_prompt/index_app.txt.
+           meta/src/tool/index.txt.
         3. Select new codenames per codename.txt rules.
         4. Apply format_code.txt rules to changed files.
         5. Follow index update rules.
@@ -179,26 +178,25 @@ the meta files.
 
 5. index_rule_update
     a. timing
-        1. Update index_app.txt after every prompt execution.
-        2. Verify index_app.txt is updated before marking prompt 
+        1. Update meta/src/tool/index.txt after every prompt execution.
+        2. Verify index.txt is updated before marking prompt 
            as complete.
-        3. Update index_meta.txt after any changes to meta 
+        3. Update function.txt and web.txt after any changes to meta 
            folder files.
-        4. Verify index_meta.txt is updated before marking prompt 
+        4. Verify all index files are updated before marking prompt 
            as complete.
     b. content
         1. List all files created/modified/deleted in 
-           index_app.txt.
+           index.txt.
         2. Follow index_rule.txt rules for structure and 
            formatting.
         3. Use codenames per codename.txt rules.
-        4. List all codenames from meta files in index_meta.txt.
-        5. Apply same formatting rules to index_meta.txt as 
-           index_app.txt.
+        4. List all codenames from meta files in index.txt.
+        5. Apply same formatting rules to all index files.
     c. verification
         1. Verify index update before proceeding.
         2. Check for duplicate entries.
-        3. Verify both index_app.txt and index_meta.txt are 
+        3. Verify all index files in meta/src/tool/ are 
            current.
 
 6. prompt_acknowledgment

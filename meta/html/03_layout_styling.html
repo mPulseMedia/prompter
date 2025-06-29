@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        position:         relative;
+    }
+    
+    /* Outline Control Panel - left justified below nav */
+    .outline_controls {
+        position: fixed;
+        top: 70px;  /* Below nav buttons */
+        left: 20px;
+        display: flex;
+        gap: 12px;
+        z-index: 1000;
+        background-color: rgba(30, 30, 30, 0.95);  /* Subtle background */
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Green control buttons */
+    .control_button {
+        background-color: #2ea043;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .control_button:hover {
+        background-color: #3fb654;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+    
+    .control_button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Button text styling */
+    .control_button {
+        font-size: 18px;
+        line-height: 1;
+    }
+    
+    /* Make "All" button slightly wider */
+    .control_button:last-child {
+        width: auto;
+        min-width: 60px;
+        padding: 12px 16px;
+    }
+    
+    
+    .button_nav {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .button_nav:hover {
+        opacity: 0.9;
+    }
+    
+    .button_nav.style_active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Version display in upper right */
+    .version_display {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        color: var(--gray);
+        font-size: 14px;
+        font-family: inherit;
+        z-index: 1001;
+        opacity: 0.7;
+    }
+    
+    /* Navigation controls - left justified */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    /* Outline specific styles */
+    .outline_line_number {
+        min-width: 30px;
+        flex-shrink: 0;
+        cursor: pointer;
+        user-select: none;
+        margin-right: 4px;
+        text-align: right;
+    }
+    
+    .list_edit_text {
+        flex: 1;
+    }
+    
+    .list_editing_mode {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+    </div>
+    
+    <div class="version_display">v1.1.0</div>
+    
+    <!-- Outline Control Buttons -->
+    <div class="outline_controls">
+        <button class="control_button" id="button_expand_level_1" title="Show Level 1 Only">1</button>
+        <button class="control_button" id="button_expand_level_2" title="Show Levels 1-2">2</button>
+        <button class="control_button" id="button_expand_all" title="Show All Levels">All</button>
+    </div>
+    
+    <div id="content">
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="13.">13.</span>
+            <span class="list_edit_text">style_colors_setup</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Define Cursor.ai color scheme</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">CSS variables: --text: #dcdcaa, --gray: #6e7681, --bg: #1e1e1e</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Additional: --hover: #2d2d2d, --active: #007AFF, --green: #2ea043</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Font: "SF Mono" and monospace fallbacks, size: 18px, line-height: 1.5</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Apply dark theme to index files</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Body background and text color</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Counter numbers (::before) use gray</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Hover and edit mode styling with defined colors</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Ensure hover regions touch with no gaps (padding: 2px 4px, margin: 0)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">Apply dark theme to outline files</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Same body styling as index files</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Outline numbers in gray, content text in function yellow</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Consistent hover and edit states</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Ensure hover regions touch with no gaps (margin-bottom: 0)</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">Make edit mode seamless</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Remove border during edit mode - no visual difference</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Keep same background color when editing</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">No green flash on sync - remove visual feedback</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Maintain exact same appearance in edit vs non-edit</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Only cursor position indicates edit mode</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="14.">14.</span>
+            <span class="list_edit_text">gray_duplicate_terms</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Apply gray coloring to duplicate term prefixes</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Modify sync_html_build for index files</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Compare terms separated by underscores</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Split li into list_term_duplicate (gray) and list_term_unique (white) spans</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Store full text in data-fulltext for editing</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Handle tab-separated format in index files</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Edit behavior for split terms</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Click replaces split display with full text in white</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Click on different row exits previous edit mode</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Enter key exits edit mode and restores split display</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Edit state persists when switching windows</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">Multiple index files</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Add function, web entries to storage_file_config</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Extract left column for display, preserve right column when syncing</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Apply same duplicate detection to all variants</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">Navigation buttons</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Create nav_controls with Index, Function, Web, Prompt buttons</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Position fixed top-right with button_nav styling</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Navigate between tool and prompt HTML files</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="15.">15.</span>
+            <span class="list_edit_text">outline_collapse_expand</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Add click handler to outline numbers</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Single click on outline number/letter toggles collapse/expand</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Store collapsed state in data-collapsed attribute on parent div</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Hide/show all children at deeper indent levels</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">No visual effects beyond content movement</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Cursor changes to pointer when hovering outline numbers</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="6.">6.</span>
+            <span class="list_edit_text">Make outline numbers non-selectable with user-select: none</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Implement collapse logic</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Single click toggles visibility while preserving nested states</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">When collapsing, hide all descendants regardless of their state</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">When expanding, show immediate children and recursively show their descendants based on each element's collapsed state</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Use a stack-based approach to track which levels should be visible</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Elements maintain their own collapsed/expanded state even when hidden</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">Add double-click handler</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Double-click expands/collapses all descendants recursively</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">If any descendant is collapsed, expand all</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">If all descendants expanded, collapse all</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Apply to all nested levels beneath clicked item</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Prevent text selection on double-click with preventDefault</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">Visual feedback</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">No animations or transitions</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Instant show/hide of content</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Outline number stays clickable in both states</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Text content remains editable when visible</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="list_edit_text">Standard click detection</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Use single click handler with 250ms delay timer</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">If second click occurs within 250ms, cancel timer and treat as double-click</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Single click toggles immediate children only</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Double-click recursively expands/collapses all descendants</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">No complex state tracking - simple and standard approach</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="16.">16.</span>
+            <span class="list_edit_text">control_buttons</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Add control buttons in top right</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Fixed position div with control_button styling</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Background color: #2ea043 green</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">White symbols and text, no borders</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Buttons have 8px 12px padding, 4px border-radius</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">10px gap between buttons</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Collapse All button (left)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">White minus symbol (-)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Clicking collapses all outline items at every level</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Sets data-collapsed="true" on all outline divs</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Updates all outline displays to show carets for items with children</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Hides all content except top-level items</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">Expand to Level 2 button (middle)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Contains white number "2"</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Opens all first-level items (shows their children)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Closes all second-level items (hides their children)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Leaves third-level and deeper items unchanged</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Only affects open/close state of first and second level items</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">Expand All button (right)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">White plus symbol (+)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Clicking expands all outline items at every level</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Sets data-collapsed="false" on all outline divs</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Updates all outline displays to show periods</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Shows all content with proper flex/block display</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="e.">e.</span>
+            <span class="list_edit_text">Default state on page load</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">All top-level items start collapsed (data-collapsed="true")</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">All other levels start expanded (data-collapsed="false")</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Only first-level content visible initially</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Users can expand to see deeper content</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Provides clean initial view of major sections</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="17.">17.</span>
+            <span class="list_edit_text">index_filter_buttons</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Add filter buttons to index.html</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Create fixed position div in top right with green buttons</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">"Functions" button - toggles function item visibility</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">"Files and Folders" button - toggles file/folder visibility</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Both default to "on" state, turn gray (#6e7681) when "off"</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Use data-type attributes on li elements: function, file, folder</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Implement layout_list_filter_apply function</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Check filter state object for button states</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Show/hide li elements based on data-type and filter state</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Call layout_list_duplicate_update after filtering</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Ensure smooth visual transition</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="18.">18.</span>
+            <span class="list_edit_text">index_type_indicators</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Add visual type indicators</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Folders: append "/" in dark gray (#6e7681)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Files: file extension in dark gray</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Functions: append "(" in dark gray</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Apply during li element generation in sync_server.js</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Detect item types</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Check for common folder names (app, meta, prompt, etc.)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Check for dots to identify files with extensions</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Default to function if neither folder nor file </span>
+        </div>
+    </div>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'layout_styling';
+        window.LAST_MODIFIED = 1751192321410.988;
+    </script>
+    <script src="/js/shared_client.js"></script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/outline_client.js"></script>
+</body>
+</html>

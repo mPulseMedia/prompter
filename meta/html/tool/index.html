@@ -10,6 +10,12 @@
         --hover:       #2d2d2d;
         --edit-border: #007AFF;
         --green:       #2ea043;
+        
+        /* Cursor.ai syntax colors */
+        --function-yellow: #dcdcaa;  /* Function name yellow */
+        --file-blue:       #9cdcfe;  /* Variable/file light blue */
+        --css-pink:        #ce9178;  /* String/class pinkish */
+        --comment-gray:    #8a8a8a;  /* Lighter gray for comments */
     }
     
     body {
@@ -49,6 +55,70 @@
         position: absolute;
         left:     -25px;
         color:    var(--gray);
+        cursor: pointer;
+    }
+    
+    /* Expandable function items */
+    li[data-type="function"] {
+        cursor: pointer;
+        position: relative;
+    }
+    
+    li[data-type="function"].expanded::before {
+        content: counter(item) "> ";
+    }
+    
+    /* Visual feedback for hovering over function numbers */
+    li[data-type="function"]:hover::before {
+        color: var(--function-yellow);
+    }
+    
+    /* Function relationship outline */
+    .function_relationships {
+        margin-left: 30px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        display: none;
+    }
+    
+    li.expanded .function_relationships {
+        display: block;
+    }
+    
+    .function_outline_item {
+        margin: 4px 0;
+        color: var(--text);
+        display: flex;
+        align-items: baseline;
+    }
+    
+    .function_outline_number {
+        color: var(--gray);
+        margin-right: 8px;
+        min-width: 20px;
+    }
+    
+    .function_outline_item.indent1 {
+        margin-left: 20px;
+    }
+    
+    .function_outline_item.indent2 {
+        margin-left: 40px;
+    }
+    
+    .function_relationship_type {
+        color: var(--comment-gray);
+        font-style: italic;
+    }
+    
+    .function_reference {
+        color: var(--function-yellow);
+    }
+    
+    .exogenous_reference {
+        color: var(--gray);
+        font-style: italic;
     }
     li:hover {
         background-color: var(--hover);
@@ -58,19 +128,44 @@
         outline: none;
     }
     
-    /* Split term styling */
-    .codename_part_duplicate {
-        color: var(--gray-dark);
+    /* Split term styling - duplicate parts always gray */
+    .list_term_duplicate {
+        color: var(--gray) !important;  /* Always gray, override parent color */
     }
-    .codename_part_unique {
-        color: var(--text);
+    .list_term_unique {
+        /* Color inherited from parent li based on data-type */
+    }
+    
+    /* Item type colors - apply to whole item or unique part */
+    li[data-type="function"]:not(:has(.list_term_duplicate)),
+    li[data-type="function"] > span.list_term_unique {
+        color: var(--function-yellow);
+    }
+    li[data-type="file"]:not(:has(.list_term_duplicate)),
+    li[data-type="file"] > span.list_term_unique,
+    li[data-type="folder"]:not(:has(.list_term_duplicate)),
+    li[data-type="folder"] > span.list_term_unique {
+        color: var(--file-blue);
+    }
+    li[data-type="css"]:not(:has(.list_term_duplicate)),
+    li[data-type="css"] > span.list_term_unique {
+        color: var(--css-pink);
+    }
+    li[data-type="comment"]:not(:has(.list_term_duplicate)),
+    li[data-type="comment"] > span.list_term_unique {
+        color: var(--comment-gray);
+    }
+    
+    /* Type indicators (extensions, slashes, parentheses) always darker gray */
+    li span[style*="color: #6e7681"] {
+        color: var(--gray) !important;
     }
     
     /* Two-column layout */
-    .new-name {
+    .list_label_new {
         display: inline-block;
     }
-    .original-name {
+    .list_label_old {
         color: #0a0a0a;  /* Almost black on dark background */
         font-family: inherit;
         display: inline-block;
@@ -82,53 +177,308 @@
         opacity: 0.3;               /* Make it even less visible */
     }
     
-    /* Filter buttons in top right */
-    .index_filter_controls {
+    /* Filter checkboxes - left justified below nav */
+    .list_filter_controls {
         position: fixed;
-        top: 20px;
-        right: 20px;
+        top: 70px;  /* Below nav controls */
+        left: 20px;
         display: flex;
-        gap: 10px;
+        gap: 20px;
         z-index: 1000;
     }
     
-    .index_filter_btn {
-        background-color: var(--green);
-        color: white;
-        border: none;
-        padding: 8px 16px;
+    .filter_checkbox_container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         cursor: pointer;
-        border-radius: 4px;
         font-size: 16px;
-        transition: opacity 0.2s ease;
         font-family: inherit;
     }
     
-    .index_filter_btn:hover {
-        opacity: 0.9;
+    .filter_checkbox {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s ease;
     }
     
-    .index_filter_btn.off {
-        background-color: var(--gray);
-        opacity: 0.7;
+    /* Simple X styling with two lines */
+    .filter_checkbox:checked::before,
+    .filter_checkbox:checked::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 2px;
+        background-color: currentColor;
+        top: 50%;
+        left: 50%;
+    }
+    
+    .filter_checkbox:checked::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    
+    .filter_checkbox:checked::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    
+    /* Individual checkbox colors */
+    #filter_files_folders {
+        border-color: var(--file-blue);
+        background-color: transparent;
+    }
+    #filter_files_folders:checked {
+        background-color: var(--file-blue);
+        border-color: var(--file-blue);
+    }
+    #filter_files_folders:checked::after {
+        color: #1e1e1e;
+    }
+    .filter_checkbox_container:has(#filter_files_folders) .filter_label {
+        color: var(--file-blue);
+    }
+    
+    #filter_functions {
+        border-color: var(--function-yellow);
+        background-color: transparent;
+    }
+    #filter_functions:checked {
+        background-color: var(--function-yellow);
+        border-color: var(--function-yellow);
+    }
+    #filter_functions:checked::after {
+        color: #1e1e1e;
+    }
+    .filter_checkbox_container:has(#filter_functions) .filter_label {
+        color: var(--function-yellow);
+    }
+    
+    #filter_css {
+        border-color: var(--css-pink);
+        background-color: transparent;
+    }
+    #filter_css:checked {
+        background-color: var(--css-pink);
+        border-color: var(--css-pink);
+    }
+    #filter_css:checked::after {
+        color: white;
+    }
+    .filter_checkbox_container:has(#filter_css) .filter_label {
+        color: var(--css-pink);
+    }
+    
+    #filter_comments {
+        border-color: var(--comment-gray);
+        background-color: transparent;
+    }
+    #filter_comments:checked {
+        background-color: var(--comment-gray);
+        border-color: var(--comment-gray);
+    }
+    #filter_comments:checked::after {
+        color: #1e1e1e;
+    }
+    .filter_checkbox_container:has(#filter_comments) .filter_label {
+        color: var(--comment-gray);
+    }
+    
+    .filter_checkbox:hover {
+        opacity: 0.8;
     }
     
     /* Hide filtered items */
-    li.hidden {
+    li.style_hidden {
         display: none;
     }
     
-    /* Navigation controls */
+    /* Hide time-filtered items */
+    li.style_time_hidden {
+        display: none;
+    }
+    
+    /* Search and time filter controls - side by side on left */
+    .search_controls {
+        position: fixed;
+        top: 120px;  /* Below type filter buttons */
+        left: 20px;
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .search_input_container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .search_input {
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--gray);
+        padding: 8px 40px 8px 12px;  /* Extra padding on right for clear button */
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: inherit;
+        width: 300px;
+        transition: border-color 0.2s ease;
+    }
+    
+    .search_input:focus {
+        outline: none;
+        border-color: var(--edit-border);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    }
+    
+    .search_input::placeholder {
+        color: var(--gray);
+    }
+    
+    .search_clear {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--gray);
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: none;  /* Hidden by default */
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s ease;
+        line-height: 1;
+    }
+    
+    .search_clear:hover {
+        color: var(--text);
+    }
+    
+    .search_clear.search_clear_visible {
+        display: flex;
+    }
+    
+    /* Time filter dropdown - same size as search */
+    .time_filter_select {
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--gray);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        width: 150px;  /* Fixed width to match search proportion */
+        transition: border-color 0.2s ease;
+    }
+    
+    .time_filter_select:hover {
+        border-color: var(--edit-border);
+    }
+    
+    .time_filter_select:focus {
+        outline: none;
+        border-color: var(--edit-border);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    }
+    
+    /* Radio button styling for time type */
+    .time_type_radio_group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .time_type_radio_container {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: inherit;
+        color: var(--text);
+    }
+    
+    .time_type_radio {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid var(--gray);
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s ease;
+    }
+    
+    .time_type_radio:checked {
+        border-color: var(--edit-border);
+        background-color: var(--edit-border);
+    }
+    
+    .time_type_radio:checked::after {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .time_type_radio:hover {
+        border-color: var(--edit-border);
+    }
+    
+    .time_type_label {
+        user-select: none;
+    }
+    
+    /* Time indicator styling */
+    li.time_recent {
+        border-left: 3px solid var(--green);
+        padding-left: 8px;
+    }
+    
+    li.time_modified_recent {
+        border-left: 3px solid var(--edit-border);
+        padding-left: 8px;
+    }
+    
+    /* Hide search-filtered items */
+    li.search_hidden {
+        display: none;
+    }
+    
+    /* Push content down - reduced spacing with new layout */
+    #list_content {
+        margin-top: 170px;  /* Account for three control rows */
+    }
+    
+    /* Navigation controls - left justified */
     .nav_controls {
         position: fixed;
         top: 20px;
-        right: 20px;
+        left: 20px;
         display: flex;
         gap: 10px;
         z-index: 1001;
     }
     
-    .nav_btn {
+    .button_nav {
         background-color: var(--gray);
         color: white;
         border: none;
@@ -141,109 +491,341 @@
         opacity: 0.7;
     }
     
-    .nav_btn:hover {
+    .button_nav:hover {
         opacity: 0.9;
     }
     
-    .nav_btn.active {
+    .button_nav.style_active {
         background-color: var(--edit-border);
         opacity: 1;
         font-weight: 500;
     }
     
-    /* Push filter controls down when nav is present */
-    .nav_controls + .index_filter_controls {
-        top: 70px;
+    /* Version display in upper right */
+    .version_display {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        color: var(--gray);
+        font-size: 14px;
+        font-family: inherit;
+        z-index: 1001;
+        opacity: 0.7;
     }
 </style>
 </head>
 <body>
     <div class="nav_controls">
-        <button class="nav_btn" data-nav="index" title="View Index">Index</button>
-        <button class="nav_btn" data-nav="function" title="View Functions">Function</button>
-        <button class="nav_btn" data-nav="web" title="View Web Relationships">Web</button>
-        <button class="nav_btn" data-nav="prompt" title="View Prompt">Prompt</button>
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
     </div>
     
-    <div class="index_filter_controls">
-        <button class="index_filter_btn" id="functions-filter" data-filter="function" title="Toggle Functions">Functions</button>
-        <button class="index_filter_btn" id="files-folders-filter" data-filter="files-folders" title="Toggle Files and Folders">Files and Folders</button>
-        <button class="index_filter_btn" id="css-filter" data-filter="css" title="Toggle CSS Classes">CSS</button>
+    <div class="version_display">v1.1.0</div>
+    
+    <div class="list_filter_controls">
+        <label class="filter_checkbox_container">
+            <input type="checkbox" class="filter_checkbox" id="filter_files_folders" data-filter="files-folders" checked>
+            <span class="filter_label">Files & Folders</span>
+        </label>
+        <label class="filter_checkbox_container">
+            <input type="checkbox" class="filter_checkbox" id="filter_functions" data-filter="function" checked>
+            <span class="filter_label">Functions</span>
+        </label>
+        <label class="filter_checkbox_container">
+            <input type="checkbox" class="filter_checkbox" id="filter_css" data-filter="css" checked>
+            <span class="filter_label">CSS Classes</span>
+        </label>
+        <label class="filter_checkbox_container">
+            <input type="checkbox" class="filter_checkbox" id="filter_comments" data-filter="comment" checked>
+            <span class="filter_label">Comments</span>
+        </label>
     </div>
     
-    <ul id="index_list">
-        <li data-fulltext="([^" data-original="" data-type="function">([^<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="01_start.html" data-original="" data-type="file">01_start<span style="color: #6e7681;">.html</span></li>
-        <li data-fulltext="01_start.txt" data-original="" data-type="file"><span class="codename_part_duplicate">01_start.</span><span class="codename_part_unique">txt</span></li>
-        <li data-fulltext="app" data-original="" data-type="folder">app<span style="color: #6e7681;">/</span></li>
-        <li data-fulltext="button" data-original="" data-type="function">button<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="button_nav" data-original="" data-type="function"><span class="codename_part_duplicate">button_</span><span class="codename_part_unique">nav</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="button_tool" data-original="" data-type="function"><span class="codename_part_duplicate">button_</span><span class="codename_part_unique">tool</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="clientX" data-original="" data-type="function">clientX<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="code" data-original="" data-type="folder">code<span style="color: #6e7681;">/</span></li>
-        <li data-fulltext="code_rule.txt" data-original="" data-type="file"><span class="codename_part_duplicate">code_</span><span class="codename_part_unique">rule</span><span style="color: #6e7681;">.txt</span></li>
-        <li data-fulltext="codename_part_duplicate" data-original="" data-type="css">codename_part_duplicate<span style="color: #6e7681;">></span></li>
-        <li data-fulltext="codename_part_unique" data-original="" data-type="css"><span class="codename_part_duplicate">codename_part_</span><span class="codename_part_unique">unique</span><span style="color: #6e7681;">></span></li>
-        <li data-fulltext="codename_rule.txt" data-original="" data-type="file"><span class="codename_part_duplicate">codename_</span><span class="codename_part_unique">rule</span><span style="color: #6e7681;">.txt</span></li>
-        <li data-fulltext="color" data-original="" data-type="function">color<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="controls" data-original="" data-type="function">controls<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="display" data-original="" data-type="function">display<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="duplicate" data-original="" data-type="css">duplicate<span style="color: #6e7681;">></span></li>
-        <li data-fulltext="exports" data-original="" data-type="function">exports<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="field_cursor_set" data-original="" data-type="function">field_cursor_set<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="field_mode_exit" data-original="" data-type="function"><span class="codename_part_duplicate">field_</span><span class="codename_part_unique">mode_exit</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="field_text_extract" data-original="" data-type="function"><span class="codename_part_duplicate">field_</span><span class="codename_part_unique">text_extract</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="FILE_NAME" data-original="" data-type="function">FILE_NAME<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_name" data-original="" data-type="function">file_name<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_watcher_setup" data-original="" data-type="function"><span class="codename_part_duplicate">file_</span><span class="codename_part_unique">watcher_setup</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="function_rule.txt" data-original="" data-type="file">function_rule<span style="color: #6e7681;">.txt</span></li>
-        <li data-fulltext="function.html" data-original="" data-type="file"><span class="codename_part_duplicate">function.</span><span class="codename_part_unique">html</span></li>
-        <li data-fulltext="function.txt" data-original="" data-type="file"><span class="codename_part_duplicate">function.</span><span class="codename_part_unique">txt</span></li>
-        <li data-fulltext="href" data-original="" data-type="function">href<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="html" data-original="" data-type="folder">html<span style="color: #6e7681;">/</span></li>
-        <li data-fulltext="html_extract.js" data-original="" data-type="file"><span class="codename_part_duplicate">html_</span><span class="codename_part_unique">extract</span><span style="color: #6e7681;">.js</span></li>
-        <li data-fulltext="html_path" data-original="" data-type="function"><span class="codename_part_duplicate">html_</span><span class="codename_part_unique">path</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="index_rule.txt" data-original="" data-type="file">index_rule<span style="color: #6e7681;">.txt</span></li>
-        <li data-fulltext="innerHTML" data-original="" data-type="function">innerHTML<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="js" data-original="" data-type="folder">js<span style="color: #6e7681;">/</span></li>
-        <li data-fulltext="key" data-original="" data-type="function">key<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="last_modified" data-original="" data-type="function">last_modified<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="LAST_MODIFIED" data-original="" data-type="function">LAST_MODIFIED<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="length" data-original="" data-type="function">length<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="line_number" data-original="" data-type="function">line_number<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="list_client.js" data-original="" data-type="file">list_client<span style="color: #6e7681;">.js</span></li>
-        <li data-fulltext="list_duplicate_update" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">duplicate_update</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="list_edit_text" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">edit_text</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="list_editing_mode" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">editing_mode</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="list_filter_btn" data-original="" data-type="css"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">filter_btn</span><span style="color: #6e7681;">></span></li>
-        <li data-fulltext="list_filter_controls" data-original="" data-type="css"><span class="codename_part_duplicate">list_filter_</span><span class="codename_part_unique">controls</span><span style="color: #6e7681;">></span></li>
-        <li data-fulltext="list_label_new" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">label_new</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="list_label_old" data-original="" data-type="function"><span class="codename_part_duplicate">list_label_</span><span class="codename_part_unique">old</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="list_layout_rule.txt" data-original="" data-type="file"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">layout_rule</span><span style="color: #6e7681;">.txt</span></li>
-        <li data-fulltext="list_term_duplicate" data-original="" data-type="function"><span class="codename_part_duplicate">list_</span><span class="codename_part_unique">term_duplicate</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="list_term_unique" data-original="" data-type="function"><span class="codename_part_duplicate">list_term_</span><span class="codename_part_unique">unique</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="message" data-original="" data-type="function">message<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="method" data-original="" data-type="function">method<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="nav_controls" data-original="" data-type="css">nav_controls<span style="color: #6e7681;">></span></li>
-        <li data-fulltext="nonCssLines" data-original="" data-type="function">nonCssLines<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="offsetNode" data-original="" data-type="function">offsetNode<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="outline_collapse_icon" data-original="" data-type="function">outline_collapse_icon<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="outline_expand_icon" data-original="" data-type="function"><span class="codename_part_duplicate">outline_</span><span class="codename_part_unique">expand_icon</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="outline_line_number" data-original="" data-type="function"><span class="codename_part_duplicate">outline_</span><span class="codename_part_unique">line_number</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="style_active" data-original="" data-type="function">style_active<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="style_hidden" data-original="" data-type="function"><span class="codename_part_duplicate">style_</span><span class="codename_part_unique">hidden</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="style_inactive" data-original="" data-type="function"><span class="codename_part_duplicate">style_</span><span class="codename_part_unique">inactive</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="textContent" data-original="" data-type="function">textContent<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="txt" data-original="" data-type="function">txt<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="txt_path" data-original="" data-type="function"><span class="codename_part_duplicate">txt_</span><span class="codename_part_unique">path</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="url" data-original="" data-type="function">url<span style="color: #6e7681;">()</span></li>
+    <div class="search_controls">
+        <div class="search_input_container">
+            <input type="text" class="search_input" id="search_input" placeholder="">
+            <button class="search_clear" id="search_clear">X</button>
+        </div>
+        <select class="time_filter_select" id="time_filter_select">
+            <option value="0" selected>All time</option>
+            <option value="1">1 minute</option>
+            <option value="5">5 minutes</option>
+            <option value="15">15 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="1440">1 day</option>
+            <option value="10080">1 week</option>
+        </select>
+        <div class="time_type_radio_group">
+            <label class="time_type_radio_container">
+                <input type="radio" name="time_type" value="created" id="time_type_created" class="time_type_radio">
+                <span class="time_type_label">Created</span>
+            </label>
+            <label class="time_type_radio_container">
+                <input type="radio" name="time_type" value="modified" id="time_type_modified" class="time_type_radio" checked>
+                <span class="time_type_label">Modified</span>
+            </label>
+        </div>
+    </div>
+    
+    <ul id="list_content">
+        <li data-fulltext="01_prompt_foundation.html" data-original="" data-type="file" data-created="1749053122689" data-modified="1751223853551">01_prompt_foundation<span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="01_prompt_foundation.txt" data-original="" data-type="file" data-created="1749053122687" data-modified="1751223853549"><span class="list_term_duplicate">01_prompt_foundation.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="02_sync_realtime.html" data-original="" data-type="file" data-created="1749053122690" data-modified="1751223853552">02_sync_realtime<span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="02_sync_realtime.txt" data-original="" data-type="file" data-created="1749053122687" data-modified="1751223853549"><span class="list_term_duplicate">02_sync_realtime.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="03_layout_styling.html" data-original="" data-type="file" data-created="1749053122690" data-modified="1751223853553">03_layout_styling<span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="03_layout_styling.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751223853549"><span class="list_term_duplicate">03_layout_styling.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="04_layout_advanced.html" data-original="" data-type="file" data-created="1749053122690" data-modified="1751223853553">04_layout_advanced<span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="04_layout_advanced.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751223853549"><span class="list_term_duplicate">04_layout_advanced.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="05_project_organization.html" data-original="" data-type="file" data-created="1749053122691" data-modified="1751223853554">05_project_organization<span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="05_project_organization.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751223853549"><span class="list_term_duplicate">05_project_organization.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="06_filter_timestamp.html" data-original="" data-type="css" data-created="1749053122691" data-modified="1751223853554">06_filter_timestamp.html<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="06_filter_timestamp.txt" data-original="" data-type="css" data-created="1749053122688" data-modified="1751223853549"><span class="list_term_duplicate">06_filter_timestamp.</span><span class="list_term_unique">txt</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="app" data-original="" data-type="folder" data-created="1751225140127" data-modified="1751225140127">app<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="apply_time_filter" data-original="" data-type="css" data-created="1749053122686" data-modified="1751219220037">apply_time_filter<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="button_nav" data-original="" data-type="function" data-created="1749053122698" data-modified="1749053122698">button_nav<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="calls" data-original="" data-type="function" data-created="1751182339433" data-modified="1751183426036">calls<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="change_name" data-original="" data-type="function" data-created="1751193704207" data-modified="1751193704207">change_name<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="code" data-original="" data-type="folder" data-created="1751225140128" data-modified="1751225140128">code<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="codename_analysis.html" data-original="" data-type="file" data-created="1751155929636" data-modified="1751223853560">codename_analysis<span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="codename_analysis.txt" data-original="" data-type="file" data-created="1751155924610" data-modified="1751223853549"><span class="list_term_duplicate">codename_analysis.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="collapse_icon" data-original="" data-type="function" data-created="1749053122698" data-modified="1749053122698">collapse_icon<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="color" data-original="" data-type="function" data-created="1751225140129" data-modified="1751225140129">color<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="console" data-original="" data-type="function" data-created="1749053122680" data-modified="1749053122680">console<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="control_button" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">control_button<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="css_class_extract" data-original="" data-type="function" data-created="1751180401581" data-modified="1751180401581">css_class_extract<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="css_class_name_is" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539"><span class="list_term_duplicate">css_class_</span><span class="list_term_unique">name_is</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="css-class-display" data-original="" data-type="css" data-created="1751230539568" data-modified="1751230539568"><span class="list_term_duplicate">css-class-</span><span class="list_term_unique">display</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="directory_scanner" data-original="" data-type="function" data-created="1749053122681" data-modified="1751180401581">directory_scanner<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="display" data-original="" data-type="function" data-created="1751225140131" data-modified="1751225140131">display<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="document" data-original="" data-type="function" data-created="1749053122681" data-modified="1749053122681">document<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="expand_icon" data-original="" data-type="function" data-created="1749053122698" data-modified="1749053122698">expand_icon<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="expanded" data-original="" data-type="function" data-created="1751230957329" data-modified="1751230957329">expanded<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="exports" data-original="" data-type="function" data-created="1751225140131" data-modified="1751225140131">exports<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="extract" data-original="" data-type="function" data-created="1751180281582" data-modified="1751223853536">extract<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="field_cursor_set" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547">field_cursor_set<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="field_mode_exit" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547"><span class="list_term_duplicate">field_</span><span class="list_term_unique">mode_exit</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="field_text_extract" data-original="" data-type="function" data-created="1749053122686" data-modified="1749053122686"><span class="list_term_duplicate">field_</span><span class="list_term_unique">text_extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_watcher_setup" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539">file_watcher_setup<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="filter_checkbox" data-original="" data-type="css" data-created="1751194820250" data-modified="1751194820250">filter_checkbox<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="filter_checkbox_container" data-original="" data-type="css" data-created="1751194820250" data-modified="1751194820250"><span class="list_term_duplicate">filter_checkbox_</span><span class="list_term_unique">container</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="filter_label" data-original="" data-type="css" data-created="1751194820250" data-modified="1751194820250"><span class="list_term_duplicate">filter_</span><span class="list_term_unique">label</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="filters_apply_all" data-original="" data-type="css" data-created="1751230539604" data-modified="1751230539604">filters_apply_all<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="function_analyzer" data-original="" data-type="function" data-created="1749053122679" data-modified="1751183426036">function_analyzer<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function_event_extract" data-original="" data-type="function" data-created="1751183036692" data-modified="1751183426036"><span class="list_term_duplicate">function_</span><span class="list_term_unique">event_extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function_executed" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547"><span class="list_term_duplicate">function_</span><span class="list_term_unique">executed</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function_extract" data-original="" data-type="function" data-created="1751180351581" data-modified="1751183426036"><span class="list_term_duplicate">function_</span><span class="list_term_unique">extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function_extract.js" data-original="" data-type="file" data-created="1751180341577" data-modified="1751223853536"><span class="list_term_duplicate">function_extract.</span><span class="list_term_unique">js</span></li>
+        <li data-fulltext="function_hierarchy_build" data-original="" data-type="function" data-created="1751180351581" data-modified="1751183426036"><span class="list_term_duplicate">function_</span><span class="list_term_unique">hierarchy_build</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function_later" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547"><span class="list_term_duplicate">function_</span><span class="list_term_unique">later</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function_names_extract" data-original="" data-type="function" data-created="1751180401581" data-modified="1751180401581"><span class="list_term_duplicate">function_</span><span class="list_term_unique">names_extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function_rule.html" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223853561"><span class="list_term_duplicate">function_</span><span class="list_term_unique">rule</span><span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="function_rule.txt" data-original="" data-type="file" data-created="1749053122695" data-modified="1751223853564"><span class="list_term_duplicate">function_rule.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="function_toggle_expansion" data-original="" data-type="function" data-created="1751230539621" data-modified="1751230539621"><span class="list_term_duplicate">function_</span><span class="list_term_unique">toggle_expansion</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function_user_defined_check" data-original="" data-type="function" data-created="1751182632774" data-modified="1751183426036"><span class="list_term_duplicate">function_</span><span class="list_term_unique">user_defined_check</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="function.html" data-original="" data-type="file" data-created="1749053122693" data-modified="1751223853561"><span class="list_term_duplicate">function.</span><span class="list_term_unique">html</span></li>
+        <li data-fulltext="function.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751223853549"><span class="list_term_duplicate">function.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="href" data-original="" data-type="function" data-created="1751225140132" data-modified="1751225140132">href<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="html" data-original="" data-type="folder" data-created="1751225140132" data-modified="1751225140132">html<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="html_extract.js" data-original="" data-type="file" data-created="1749053122686" data-modified="1751223853546"><span class="list_term_duplicate">html_</span><span class="list_term_unique">extract</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="index_auto_update" data-original="" data-type="function" data-created="1751230957331" data-modified="1751230957331">index_auto_update<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="index_extract" data-original="" data-type="function" data-created="1751180401581" data-modified="1751180401581"><span class="list_term_duplicate">index_</span><span class="list_term_unique">extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="index_extract.js" data-original="" data-type="file" data-created="1751180391577" data-modified="1751223853537"><span class="list_term_duplicate">index_extract.</span><span class="list_term_unique">js</span></li>
+        <li data-fulltext="index_html_extract" data-original="" data-type="function" data-created="1749053122686" data-modified="1749053122686"><span class="list_term_duplicate">index_</span><span class="list_term_unique">html_extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="index_rule.html" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223853562"><span class="list_term_duplicate">index_</span><span class="list_term_unique">rule</span><span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="index_rule.txt" data-original="" data-type="file" data-created="1749053122695" data-modified="1751223853564"><span class="list_term_duplicate">index_rule.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="index.html" data-original="" data-type="file" data-created="1749053122693" data-modified="1751223853561"><span class="list_term_duplicate">index.</span><span class="list_term_unique">html</span></li>
+        <li data-fulltext="index.txt" data-original="" data-type="file" data-created="1749053122687" data-modified="1751223853549"><span class="list_term_duplicate">index.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="innerHTML" data-original="" data-type="function" data-created="1749053122681" data-modified="1749053122681">innerHTML<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="js" data-original="" data-type="folder" data-created="1749053122688" data-modified="1751223853550">js<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="key" data-original="" data-type="function" data-created="1751225140133" data-modified="1751225140133">key<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="layout" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223853564">layout<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="layout_index_html_extract" data-original="" data-type="function" data-created="1751225140133" data-modified="1751225140133"><span class="list_term_duplicate">layout_</span><span class="list_term_unique">index_html_extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="layout_list_rule.html" data-original="" data-type="file" data-created="1749053122688" data-modified="1751223853557"><span class="list_term_duplicate">layout_</span><span class="list_term_unique">list_rule</span><span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="layout_list_rule.txt" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223853564"><span class="list_term_duplicate">layout_list_rule.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="layout_outline_rule.html" data-original="" data-type="file" data-created="1749053122689" data-modified="1751223853557"><span class="list_term_duplicate">layout_</span><span class="list_term_unique">outline_rule</span><span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="layout_outline_rule.txt" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223853564"><span class="list_term_duplicate">layout_outline_rule.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="length" data-original="" data-type="function" data-created="1751225140134" data-modified="1751225140134">length<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_client.js" data-original="" data-type="file" data-created="1751223826547" data-modified="1751223853541">list_client<span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="list_duplicate_update" data-original="" data-type="function" data-created="1751223826547" data-modified="1751223826547"><span class="list_term_duplicate">list_</span><span class="list_term_unique">duplicate_update</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_edit_text" data-original="" data-type="function" data-created="1751217806816" data-modified="1751217806816"><span class="list_term_duplicate">list_</span><span class="list_term_unique">edit_text</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_editing_mode" data-original="" data-type="function" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">list_</span><span class="list_term_unique">editing_mode</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_filter_apply" data-original="" data-type="css" data-created="1751223826547" data-modified="1751223826547"><span class="list_term_duplicate">list_</span><span class="list_term_unique">filter_apply</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="list_filter_controls" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">list_filter_</span><span class="list_term_unique">controls</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="list_filter_init" data-original="" data-type="css" data-created="1751230539659" data-modified="1751230539659"><span class="list_term_duplicate">list_filter_</span><span class="list_term_unique">init</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="list_filter_load" data-original="" data-type="css" data-created="1749053122684" data-modified="1751223826547"><span class="list_term_duplicate">list_filter_</span><span class="list_term_unique">load</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="list_filter_save" data-original="" data-type="css" data-created="1749053122684" data-modified="1751223826547"><span class="list_term_duplicate">list_filter_</span><span class="list_term_unique">save</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="list_filter_setup_handlers" data-original="" data-type="css" data-created="1751230539659" data-modified="1751230539659"><span class="list_term_duplicate">list_filter_</span><span class="list_term_unique">setup_handlers</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="list_filter_update_checkboxes" data-original="" data-type="css" data-created="1751230539660" data-modified="1751230539660"><span class="list_term_duplicate">list_filter_</span><span class="list_term_unique">update_checkboxes</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="list_html_generate" data-original="" data-type="function" data-created="1751223826548" data-modified="1751223826548"><span class="list_term_duplicate">list_</span><span class="list_term_unique">html_generate</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_init" data-original="" data-type="function" data-created="1751230539661" data-modified="1751230539661"><span class="list_term_duplicate">list_</span><span class="list_term_unique">init</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_template.js" data-original="" data-type="file" data-created="1751223826548" data-modified="1751223853543"><span class="list_term_duplicate">list_</span><span class="list_term_unique">template</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="list_term_duplicate" data-original="" data-type="function" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">list_</span><span class="list_term_unique">term_duplicate</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="list_term_unique" data-original="" data-type="function" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">list_term_</span><span class="list_term_unique">unique</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="message" data-original="" data-type="function" data-created="1751225140134" data-modified="1751225140134">message<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="meta" data-original="" data-type="folder" data-created="1749053122689" data-modified="1751223853550">meta<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="meta_files_scan_js" data-original="" data-type="function" data-created="1751165053514" data-modified="1751183426036"><span class="list_term_duplicate">meta_</span><span class="list_term_unique">files_scan_js</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="meta_remind.html" data-original="" data-type="file" data-created="1749053122689" data-modified="1751223853551"><span class="list_term_duplicate">meta_</span><span class="list_term_unique">remind</span><span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="method" data-original="" data-type="function" data-created="1751225140135" data-modified="1751225140135">method<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="module" data-original="" data-type="function" data-created="1751225140135" data-modified="1751225140135">module<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="name" data-original="" data-type="function" data-created="1751182339434" data-modified="1751223775540">name<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="nav_button_click" data-original="" data-type="function" data-created="1749053122686" data-modified="1751195579461">nav_button_click<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="nav_client.js" data-original="" data-type="file" data-created="1749053122686" data-modified="1751223853543"><span class="list_term_duplicate">nav_</span><span class="list_term_unique">client</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="nav_controls" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">nav_</span><span class="list_term_unique">controls</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="nav_init" data-original="" data-type="function" data-created="1749053122686" data-modified="1751195579461"><span class="list_term_duplicate">nav_</span><span class="list_term_unique">init</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="other" data-original="" data-type="function" data-created="1749053122694" data-modified="1751223853564">other<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_children_find" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_children_find<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_click_double_handle" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549"><span class="list_term_duplicate">outline_</span><span class="list_term_unique">click_double_handle</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_click_single_handle" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549"><span class="list_term_duplicate">outline_click_</span><span class="list_term_unique">single_handle</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_client.js" data-original="" data-type="file" data-created="1751223826549" data-modified="1751223853544"><span class="list_term_duplicate">outline_</span><span class="list_term_unique">client</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="outline_controls" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">outline_</span><span class="list_term_unique">controls</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="outline_display_set" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549"><span class="list_term_duplicate">outline_</span><span class="list_term_unique">display_set</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_display_update" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549"><span class="list_term_duplicate">outline_display_</span><span class="list_term_unique">update</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_html_extract" data-original="" data-type="function" data-created="1749053122686" data-modified="1749053122686"><span class="list_term_duplicate">outline_</span><span class="list_term_unique">html_extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_html_generate" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826550"><span class="list_term_duplicate">outline_html_</span><span class="list_term_unique">generate</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_initial_state" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549"><span class="list_term_duplicate">outline_</span><span class="list_term_unique">initial_state</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_line_number" data-original="" data-type="function" data-created="1751217806816" data-modified="1751217806816"><span class="list_term_duplicate">outline_</span><span class="list_term_unique">line_number</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_state_key_generate" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549"><span class="list_term_duplicate">outline_</span><span class="list_term_unique">state_key_generate</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_state_restore" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549"><span class="list_term_duplicate">outline_state_</span><span class="list_term_unique">restore</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_state_save" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549"><span class="list_term_duplicate">outline_state_</span><span class="list_term_unique">save</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="outline_template.js" data-original="" data-type="file" data-created="1751223826550" data-modified="1751223853545"><span class="list_term_duplicate">outline_</span><span class="list_term_unique">template</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="output" data-original="" data-type="function" data-created="1751182339433" data-modified="1751183426037">output<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="package-lock.json" data-original="" data-type="css" data-created="1751165412252" data-modified="1751223853546">package-lock.json<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="package.json" data-original="" data-type="file" data-created="1751165412252" data-modified="1751223853546"><span class="list_term_duplicate">package.</span><span class="list_term_unique">json</span></li>
+        <li data-fulltext="page_version" data-original="" data-type="function" data-created="1751189056266" data-modified="1751189056266">page_version<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="persistence_manager.js" data-original="" data-type="file" data-created="1751161101904" data-modified="1751223853545">persistence_manager<span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="prompt" data-original="" data-type="folder" data-created="1749053122687" data-modified="1751223853551">prompt<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="prompt_folder_scan" data-original="" data-type="function" data-created="1751223775539" data-modified="1751223775539"><span class="list_term_duplicate">prompt_</span><span class="list_term_unique">folder_scan</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="prompt_txt_read" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539"><span class="list_term_duplicate">prompt_</span><span class="list_term_unique">txt_read</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="prompt_type_detect" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539"><span class="list_term_duplicate">prompt_</span><span class="list_term_unique">type_detect</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="prompt.html" data-original="" data-type="file" data-created="1751170549637" data-modified="1751223853562"><span class="list_term_duplicate">prompt.</span><span class="list_term_unique">html</span></li>
+        <li data-fulltext="prompt.txt" data-original="" data-type="file" data-created="1751170534640" data-modified="1751223853549"><span class="list_term_duplicate">prompt.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="README.md" data-original="" data-type="file" data-created="1751230539532" data-modified="1751230539532">README<span style="color: #6e7681;">.md</span></li>
+        <li data-fulltext="reload_auto_activate" data-original="" data-type="function" data-created="1751220923367" data-modified="1751222818233">reload_auto_activate<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="reload_auto_activation_handle" data-original="" data-type="function" data-created="1751220858212" data-modified="1751222326068"><span class="list_term_duplicate">reload_auto_</span><span class="list_term_unique">activation_handle</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="reload_auto_deactivation_handle" data-original="" data-type="function" data-created="1751220864215" data-modified="1751222101003"><span class="list_term_duplicate">reload_auto_</span><span class="list_term_unique">deactivation_handle</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="reload_auto_notification_show" data-original="" data-type="function" data-created="1751220870214" data-modified="1751222101003"><span class="list_term_duplicate">reload_auto_</span><span class="list_term_unique">notification_show</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="reload_notification_show" data-original="" data-type="function" data-created="1749053122685" data-modified="1751222326068"><span class="list_term_duplicate">reload_</span><span class="list_term_unique">notification_show</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="reload-notification" data-original="" data-type="css" data-created="1751230539702" data-modified="1751230539702">reload-notification<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="require" data-original="" data-type="function" data-created="1751225140136" data-modified="1751225140136">require<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="rule" data-original="" data-type="folder" data-created="1751155095325" data-modified="1751223853557">rule<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="rule_code.html" data-original="" data-type="file" data-created="1749053122692" data-modified="1751223853558"><span class="list_term_duplicate">rule_</span><span class="list_term_unique">code</span><span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="rule_code.txt" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223853564"><span class="list_term_duplicate">rule_code.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="rule_codename.html" data-original="" data-type="file" data-created="1749053122692" data-modified="1751223853558"><span class="list_term_duplicate">rule_</span><span class="list_term_unique">codename</span><span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="rule_codename.txt" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223853564"><span class="list_term_duplicate">rule_codename.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="rule_prompt.html" data-original="" data-type="file" data-created="1749053122693" data-modified="1751223853558"><span class="list_term_duplicate">rule_</span><span class="list_term_unique">prompt</span><span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="rule_prompt.txt" data-original="" data-type="file" data-created="1749053122695" data-modified="1751223853564"><span class="list_term_duplicate">rule_prompt.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="scroll_position_restore" data-original="" data-type="function" data-created="1749053122685" data-modified="1751222326068">scroll_position_restore<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="search_apply" data-original="" data-type="function" data-created="1751230539719" data-modified="1751230539719">search_apply<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="search_apply_simple" data-original="" data-type="function" data-created="1751230539720" data-modified="1751230539720"><span class="list_term_duplicate">search_apply_</span><span class="list_term_unique">simple</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="search_clear" data-original="" data-type="function" data-created="1751159235744" data-modified="1751159235744"><span class="list_term_duplicate">search_</span><span class="list_term_unique">clear</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="search_clear_visible" data-original="" data-type="function" data-created="1751159395753" data-modified="1751159395753"><span class="list_term_duplicate">search_clear_</span><span class="list_term_unique">visible</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="search_controls" data-original="" data-type="css" data-created="1751159235744" data-modified="1751159235744"><span class="list_term_duplicate">search_</span><span class="list_term_unique">controls</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="search_hidden" data-original="" data-type="function" data-created="1751230957332" data-modified="1751230957332"><span class="list_term_duplicate">search_</span><span class="list_term_unique">hidden</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="search_init" data-original="" data-type="function" data-created="1751230539720" data-modified="1751230539720"><span class="list_term_duplicate">search_</span><span class="list_term_unique">init</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="search_input" data-original="" data-type="function" data-created="1751159235744" data-modified="1751159235744"><span class="list_term_duplicate">search_</span><span class="list_term_unique">input</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="search_input_container" data-original="" data-type="function" data-created="1751159235744" data-modified="1751159235744"><span class="list_term_duplicate">search_input_</span><span class="list_term_unique">container</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="shared_client.js" data-original="" data-type="file" data-created="1751230539726" data-modified="1751230539726">shared_client<span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="simple_filters.js" data-original="" data-type="css" data-created="1751230539727" data-modified="1751230539727">simple_filters.js<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="snake_case_name" data-original="" data-type="function" data-created="1749053122681" data-modified="1751222818233">snake_case_name<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="src" data-original="" data-type="function" data-created="1749053122689" data-modified="1751223853559">src<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="style_active" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">style_active<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="style_hidden" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">style_</span><span class="list_term_unique">hidden</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="style_inactive" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">style_</span><span class="list_term_unique">inactive</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="style_time_hidden" data-original="" data-type="function" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">style_</span><span class="list_term_unique">time_hidden</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223853546">sync<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_connection_fallback" data-original="" data-type="function" data-created="1751168691002" data-modified="1751222101003"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">connection_fallback</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_connection_initialize" data-original="" data-type="function" data-created="1751168691002" data-modified="1751222101003"><span class="list_term_duplicate">sync_connection_</span><span class="list_term_unique">initialize</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_connection_remove" data-original="" data-type="function" data-created="1751168691004" data-modified="1751222818233"><span class="list_term_duplicate">sync_connection_</span><span class="list_term_unique">remove</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_debounce_create" data-original="" data-type="function" data-created="1751183396037" data-modified="1751222091995"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">debounce_create</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_file_handle" data-original="" data-type="function" data-created="1751168691002" data-modified="1751222326068"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">file_handle</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_function_create" data-original="" data-type="function" data-created="1751221858839" data-modified="1751221858839"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">function_create</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_html_build" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">html_build</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_message_broadcast" data-original="" data-type="function" data-created="1751168691004" data-modified="1751222818233"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">message_broadcast</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_server.js" data-original="" data-type="file" data-created="1749053122686" data-modified="1751223853546"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">server</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="sync_throttle_buffer" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">throttle_buffer</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_timeout_callback" data-original="" data-type="function" data-created="1751183456027" data-modified="1751222091996"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">timeout_callback</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_timeout_execute" data-original="" data-type="function" data-created="1751183456027" data-modified="1751222091995"><span class="list_term_duplicate">sync_timeout_</span><span class="list_term_unique">execute</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_timestamps_initialize" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">timestamps_initialize</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_txt_save" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">txt_save</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="sync_updates_check" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826547"><span class="list_term_duplicate">sync_</span><span class="list_term_unique">updates_check</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="textContent" data-original="" data-type="function" data-created="1749053122681" data-modified="1749053122681">textContent<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="time_filter_client.js" data-original="" data-type="css" data-created="1751230539752" data-modified="1751230539752">time_filter_client.js<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="time_filter_init" data-original="" data-type="css" data-created="1751230539753" data-modified="1751230539753"><span class="list_term_duplicate">time_filter_</span><span class="list_term_unique">init</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="time_filter_load" data-original="" data-type="css" data-created="1751230539754" data-modified="1751230539754"><span class="list_term_duplicate">time_filter_</span><span class="list_term_unique">load</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="time_filter_save" data-original="" data-type="css" data-created="1751230539755" data-modified="1751230539755"><span class="list_term_duplicate">time_filter_</span><span class="list_term_unique">save</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="time_filter_select" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">time_filter_</span><span class="list_term_unique">select</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="time_modified_recent" data-original="" data-type="function" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">time_</span><span class="list_term_unique">modified_recent</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="time_recent" data-original="" data-type="function" data-created="1749053122698" data-modified="1749053122698"><span class="list_term_duplicate">time_</span><span class="list_term_unique">recent</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="time_type_label" data-original="" data-type="function" data-created="1751196159387" data-modified="1751196159387"><span class="list_term_duplicate">time_</span><span class="list_term_unique">type_label</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="time_type_radio" data-original="" data-type="function" data-created="1751196159387" data-modified="1751196159387"><span class="list_term_duplicate">time_type_</span><span class="list_term_unique">radio</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="time_type_radio_container" data-original="" data-type="function" data-created="1751196159387" data-modified="1751196159387"><span class="list_term_duplicate">time_type_radio_</span><span class="list_term_unique">container</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="time_type_radio_group" data-original="" data-type="function" data-created="1751196159387" data-modified="1751196159387"><span class="list_term_duplicate">time_type_radio_</span><span class="list_term_unique">group</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="timestamp_get_or_create" data-original="" data-type="function" data-created="1751230539756" data-modified="1751230539756">timestamp_get_or_create<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="timestamp_manager.js" data-original="" data-type="file" data-created="1751230539756" data-modified="1751230539756"><span class="list_term_duplicate">timestamp_</span><span class="list_term_unique">manager</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="timestamp_update_modified" data-original="" data-type="function" data-created="1751230539757" data-modified="1751230539757"><span class="list_term_duplicate">timestamp_</span><span class="list_term_unique">update_modified</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="timestamps_get_all" data-original="" data-type="function" data-created="1751230539759" data-modified="1751230539759">timestamps_get_all<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="timestamps_load" data-original="" data-type="function" data-created="1751230539759" data-modified="1751230539759"><span class="list_term_duplicate">timestamps_</span><span class="list_term_unique">load</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="timestamps_save" data-original="" data-type="function" data-created="1749053122686" data-modified="1751222818233"><span class="list_term_duplicate">timestamps_</span><span class="list_term_unique">save</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tool" data-original="" data-type="folder" data-created="1749053122688" data-modified="1751223853564">tool<span style="color: #6e7681;">/</span></li>
+        <li data-fulltext="tool_folder_scan" data-original="" data-type="function" data-created="1751223775539" data-modified="1751223775539"><span class="list_term_duplicate">tool_</span><span class="list_term_unique">folder_scan</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_called_by_display" data-original="" data-type="function" data-created="1751230957332" data-modified="1751230957332">tree_called_by_display<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_calls_display" data-original="" data-type="function" data-created="1751230539763" data-modified="1751230539763"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">calls_display</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_client.js" data-original="" data-type="file" data-created="1751230539765" data-modified="1751230539765"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">client</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="tree_controls" data-original="" data-type="css" data-created="1751180851666" data-modified="1751180851666"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">controls</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="tree_display_hide" data-original="" data-type="function" data-created="1751230539766" data-modified="1751230539766"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">display_hide</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_dropdown_populate" data-original="" data-type="function" data-created="1751230539767" data-modified="1751230539767"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">dropdown_populate</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_dropdown_setup" data-original="" data-type="function" data-created="1751230539767" data-modified="1751230539767"><span class="list_term_duplicate">tree_dropdown_</span><span class="list_term_unique">setup</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_empty_state" data-original="" data-type="function" data-created="1751230539768" data-modified="1751230539768"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">empty_state</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_function_details" data-original="" data-type="function" data-created="1751230539769" data-modified="1751230539769"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">function_details</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_function_display" data-original="" data-type="function" data-created="1751230539769" data-modified="1751230539769"><span class="list_term_duplicate">tree_function_</span><span class="list_term_unique">display</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_function_item" data-original="" data-type="function" data-created="1751230539770" data-modified="1751230539770"><span class="list_term_duplicate">tree_function_</span><span class="list_term_unique">item</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_function_load" data-original="" data-type="function" data-created="1751187786366" data-modified="1751190685708"><span class="list_term_duplicate">tree_function_</span><span class="list_term_unique">load</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_function_name" data-original="" data-type="function" data-created="1751230539770" data-modified="1751230539770"><span class="list_term_duplicate">tree_function_</span><span class="list_term_unique">name</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_function_navigate" data-original="" data-type="function" data-created="1751230957333" data-modified="1751230957333"><span class="list_term_duplicate">tree_function_</span><span class="list_term_unique">navigate</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_function_select" data-original="" data-type="function" data-created="1751230539770" data-modified="1751230539770"><span class="list_term_duplicate">tree_function_</span><span class="list_term_unique">select</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_html_generate" data-original="" data-type="function" data-created="1751230539771" data-modified="1751230539771"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">html_generate</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_init" data-original="" data-type="function" data-created="1751230539771" data-modified="1751230539771"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">init</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_loading" data-original="" data-type="function" data-created="1751230539772" data-modified="1751230539772"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">loading</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_mock_data_generate" data-original="" data-type="function" data-created="1751230539772" data-modified="1751230539772"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">mock_data_generate</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_section" data-original="" data-type="function" data-created="1751230539773" data-modified="1751230539773"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">section</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_section_title" data-original="" data-type="function" data-created="1751230539773" data-modified="1751230539773"><span class="list_term_duplicate">tree_section_</span><span class="list_term_unique">title</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="tree_template.js" data-original="" data-type="file" data-created="1751230539774" data-modified="1751230539774"><span class="list_term_duplicate">tree_</span><span class="list_term_unique">template</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="tree.html" data-original="" data-type="file" data-created="1751178640435" data-modified="1751223853563"><span class="list_term_duplicate">tree.</span><span class="list_term_unique">html</span></li>
+        <li data-fulltext="tree.txt" data-original="" data-type="file" data-created="1751178630414" data-modified="1751223853549"><span class="list_term_duplicate">tree.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="url" data-original="" data-type="function" data-created="1751225140137" data-modified="1751225140137">url<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_current" data-original="" data-type="function" data-created="1751230539784" data-modified="1751230539784">version_current<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_display" data-original="" data-type="function" data-created="1751230539785" data-modified="1751230539785"><span class="list_term_duplicate">version_</span><span class="list_term_unique">display</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_display_update" data-original="" data-type="function" data-created="1751193192989" data-modified="1751195579461"><span class="list_term_duplicate">version_display_</span><span class="list_term_unique">update</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_format" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086"><span class="list_term_duplicate">version_</span><span class="list_term_unique">format</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_history" data-original="" data-type="function" data-created="1751230539785" data-modified="1751230539785"><span class="list_term_duplicate">version_</span><span class="list_term_unique">history</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_increment" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086"><span class="list_term_duplicate">version_</span><span class="list_term_unique">increment</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_initialize" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086"><span class="list_term_duplicate">version_</span><span class="list_term_unique">initialize</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_load" data-original="" data-type="function" data-created="1751230539785" data-modified="1751230539785"><span class="list_term_duplicate">version_</span><span class="list_term_unique">load</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_manager.js" data-original="" data-type="file" data-created="1751188990240" data-modified="1751223853548"><span class="list_term_duplicate">version_</span><span class="list_term_unique">manager</span><span style="color: #6e7681;">.js</span></li>
+        <li data-fulltext="version_number" data-original="" data-type="function" data-created="1751193704207" data-modified="1751193704207"><span class="list_term_duplicate">version_</span><span class="list_term_unique">number</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_save" data-original="" data-type="function" data-created="1751230539786" data-modified="1751230539786"><span class="list_term_duplicate">version_</span><span class="list_term_unique">save</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="version_websocket_init" data-original="" data-type="function" data-created="1751193192989" data-modified="1751195579461"><span class="list_term_duplicate">version_</span><span class="list_term_unique">websocket_init</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="web_analyzer" data-original="" data-type="function" data-created="1749053122683" data-modified="1751180371580">web_analyzer<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="web_build" data-original="" data-type="function" data-created="1751180371580" data-modified="1751180371580"><span class="list_term_duplicate">web_</span><span class="list_term_unique">build</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="web_extract" data-original="" data-type="function" data-created="1751180371580" data-modified="1751180371580"><span class="list_term_duplicate">web_</span><span class="list_term_unique">extract</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="web_extract.js" data-original="" data-type="file" data-created="1751180371580" data-modified="1751223853538"><span class="list_term_duplicate">web_extract.</span><span class="list_term_unique">js</span></li>
+        <li data-fulltext="web_rule.html" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223853564"><span class="list_term_duplicate">web_</span><span class="list_term_unique">rule</span><span style="color: #6e7681;">.html</span></li>
+        <li data-fulltext="web_rule.txt" data-original="" data-type="file" data-created="1749053122695" data-modified="1751223853564"><span class="list_term_duplicate">web_rule.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="web.html" data-original="" data-type="file" data-created="1749053126055" data-modified="1751223853563"><span class="list_term_duplicate">web.</span><span class="list_term_unique">html</span></li>
+        <li data-fulltext="web.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751223853549"><span class="list_term_duplicate">web.</span><span class="list_term_unique">txt</span></li>
+        <li data-fulltext="window" data-original="" data-type="function" data-created="1749053122681" data-modified="1749053122681">window<span style="color: #6e7681;">()</span></li>
     </ul>
     <script>
         // Configuration for the external script
         window.FILE_NAME = 'index';
-        window.LAST_MODIFIED = 1748971357249;
+        window.LAST_MODIFIED = 1751231880486;
     </script>
+    <script src="/js/shared_client.js"></script>
     <script src="/js/nav_client.js"></script>
-    <script src="/js/index_client.js"></script>
+    <script src="/js/simple_filters.js"></script>
+    <script src="/js/time_filter_client.js"></script>
 </body>
 </html>

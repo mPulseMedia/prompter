@@ -54,8 +54,16 @@ NOTE: This file defines core naming conventions for all project identifiers.
         13. Use "behavior" as attribute, not root term.
         14. Use meaningful roots based on actual function, not artificial 
             groupings.
-        14. Group related concepts under shared root terms to show fundamental 
-            concepts.
+        15. Group related concepts under shared root terms to show fundamental 
+            concepts in this project.
+        16. Use "sync" as root for file synchronization functions in this 
+            project.
+        17. Use "layout" as root for HTML generation functions in this project.
+        18. Use "prompt" as root for prompt execution functions in this project.
+        19. Use "tool" as root for utility functions in this project.
+        20. Use "nav" as root for page navigation functions in this project.
+        21. Use "outline" as root for outline content functions in this project.
+        22. Use "filter" as root for content filtering functions in this project.
 
 3. rule_scope
     a. application

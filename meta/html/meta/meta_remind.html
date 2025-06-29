@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        padding-top:      140px;  /* Space for nav + filter buttons */
+        position:         relative;
+    }
+    
+    /* Navigation controls - left justified */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    .button_nav {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .button_nav:hover {
+        opacity: 0.9;
+    }
+    
+    .button_nav.style_active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Outline Control Panel - left justified below nav */
+    .outline_controls {
+        position: fixed;
+        top: 70px;  /* Below nav buttons */
+        left: 20px;
+        display: flex;
+        gap: 12px;
+        z-index: 1000;
+        background-color: rgba(30, 30, 30, 0.95);  /* Subtle background */
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Green control buttons */
+    .control_button {
+        background-color: #2ea043;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .control_button:hover {
+        background-color: #3fb654;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+    
+    .control_button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Button text styling */
+    .control_button {
+        font-size: 18px;
+        line-height: 1;
+    }
+    
+    /* Make "All" button slightly wider */
+    .control_button:last-child {
+        width: auto;
+        min-width: 60px;
+        padding: 12px 16px;
+    }
+    
+    /* Outline specific styles */
+    .outline_line_number {
+        min-width: 30px;
+        flex-shrink: 0;
+        cursor: pointer;
+        user-select: none;
+        margin-right: 4px;
+        text-align: right;
+    }
+    
+    .list_edit_text {
+        flex: 1;
+    }
+    
+    .list_editing_mode {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+    
+    /* Version number display - top right */
+    .page_version {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--gray);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: inherit;
+        font-weight: 500;
+        z-index: 1002;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .page_version:hover {
+        opacity: 1;
+    }
+    
+    .change_name {
+        color: var(--green);
+        font-weight: 600;
+    }
+    
+    .version_number {
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+        <button class="button_nav" data-nav="tree" title="View Tree">Tree</button>
+    </div>
+    
+    <!-- Version number display -->
+    <div class="page_version" title="Page Version">
+        <span class="change_name">layout_tool_web</span>
+        <span class="version_number">v01.16.00</span>
+    </div>
+    
+    <!-- Outline Control Buttons -->
+    <div class="outline_controls">
+        <button class="control_button" id="button_expand_level_1" title="Show Level 1 Only">1</button>
+        <button class="control_button" id="button_expand_level_2" title="Show Levels 1-2">2</button>
+        <button class="control_button" id="button_expand_all" title="Show All Levels">All</button>
+    </div>
+    
+    <div id="content">        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="1.">1.</span>
+            <span class="list_edit_text">In your (cursor.ai) chat responses</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. use the outline 1.a.1.a as described and used in meta for</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. your chat response</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. your chat thought bubbles (what's within Thought for 5 seconds)</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. use established codenames from the project whenever possible</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="2.">2.</span>
+            <span class="list_edit_text">Review rule/</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. Periodically review the rule/ folder as it pertains to how you respond to my prompts</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="3.">3.</span>
+            <span class="list_edit_text">meta_note</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. Open or create meta/meta_note.txt</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. As soon as you have your first thought bubble -- what you show in chat and is later shown under Thought for 5 seconds.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c, Insert the thought bubble at the top of meta/meta_note.txt.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="4.">4.</span>
+            <span class="list_edit_text"></span>
+        </div>
+    </div>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'meta_meta_remind';
+        window.LAST_MODIFIED = 1749027956758.3027;
+    </script>
+    <script src="/js/layout_shared_client.js"></script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/layout_outline_client.js"></script>
+</body>
+</html>

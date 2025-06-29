@@ -1,0 +1,81 @@
+28. timestamp_tracking_system
+	a. Add timestamp tracking to sync_server
+		1. Create entry_timestamps Map in sync_server.js for real-time tracking
+		2. Add timestamps_file_path pointing to meta/data/entry_timestamps.json
+		3. Implement timestamps_load and timestamps_save functions with Node.js compatibility
+		4. Track creation time (birthtimeMs) and modification time (mtimeMs) from filesystem stats
+		5. Store timestamps during index_content_extract_live scanning
+		6. Add 5-second save interval with automatic persistence
+	b. Create persistent timestamp storage
+		1. Create meta/data/ directory for data files
+		2. Store timestamps in JSON format with codename as key
+		3. Load existing timestamps on server startup to preserve data
+		4. Handle Node.js compatibility issues with Object.fromEntries fallback
+	c. Add timestamp attributes to HTML generation
+		1. Add data-created and data-modified attributes to li elements
+		2. Include timestamps in milliseconds since epoch
+		3. Apply during sync_html_build function
+		4. Handle missing timestamps gracefully with current time fallback
+
+29. time_filter_dropdown
+	a. Create time filter interface
+		1. Add time_filter_controls div positioned below type filter buttons
+		2. Create dropdown with options: All time, 1 minute, 5 minutes, 15 minutes, 1 hour, 1 day, 1 week
+		3. Position dropdown under CSS button with minimal styling
+		4. Apply scrollbar compensation to prevent shifting
+	b. Implement time-based filtering logic
+		1. Use existing time_filter_client.js in meta/code/layout
+		2. Add apply_time_filter function that checks data-created attributes
+		3. Filter items created within selected timeframe (not modified)
+		4. Hide non-matching items with style_time_hidden class
+		5. Integrate with existing type filters
+	c. Template integration
+		1. Add time filter dropdown to layout_list_template.js
+		2. Include time_filter_client.js script in template
+		3. Remove visual indicators (green/blue borders) for clean appearance
+		4. Update list content margin-top to accommodate control rows 
+
+30. comment_detection_system
+	a. Add comment code name extraction to sync_server
+		1. Create extractCommentCodeNames function in sync_server.js
+		2. Add regex patterns for different comment styles (//,/**/,<!---->,#)
+		3. Match __codename patterns in comments (double underscore prefix)
+		4. Extract substantial snake_case code names (3+ chars, includes _)
+		5. Store in comments Map with name, type:'comment', timestamps, filePath
+		6. Filter out common keywords (if, for, while, switch, etc.)
+	b. Integrate comment scanning into directory scanning
+		1. Add comments parameter to scanDirectoryRecursive function
+		2. Scan all supported file types (.js, .html, .txt, .css, .md, .py, .sh)
+		3. Call extractCommentCodeNames for each file in addition to function extraction
+		4. Log extraction count for debugging
+		5. Handle file read errors gracefully
+	c. Update index generation for comment entries
+		1. Add comments Map to index_content_extract_live function
+		2. Include comments in allEntries combination with other types
+		3. Update console logging to show comment count in breakdown
+		4. Sort comments alphabetically with other entries
+
+// __this_is_wt
+// __webpage_sync_test
+31. comment_filter_interface
+	a. Add comment button to filter controls
+		1. Update layout_list_template.js button order: Files/Folders, Functions, CSS, Comments
+		2. Set comment button background to --comment-gray (lighter gray)
+		3. Add #filter_comments button with data-filter="comment" attribute
+		4. Position in correct sequence for logical flow
+	b. that_is_a_test
+		1. Change --gray to #4a4a4a (darker gray for alphanumeric, parentheses, carets)
+		2. Add --comment-gray: #8a8a8a (lighter gray for comment code names)
+		3. Update existing gray references to use darker gray
+		4. Add comment type coloring with lighter gray
+	c. Add comment type indicators and styling
+		1. Add comment case to sync_html_build type indicator logic
+		2. Use # symbol as comment indicator (colored with darker gray)
+		3. Add li[data-type="comment"] CSS styling for comment entries
+		4. Display comment code names without __ prefix
+	d. Update client-side filtering for comment support
+		1. Add 'comment' to list_filter_load default state
+		2. Add commentsBtn getElementById and event listener
+		3. Include comment handling in layout_list_filter_apply function
+		4. Add comment case to layout_list_duplicate_update type indicators
+		5. Save/load comment filter state in localStorage 

@@ -1,0 +1,63 @@
+1. prompt_foundation.
+	a. 01_prompt_foundation.
+		1. index_html_create.
+		2. sync_server foundation.
+		3. sync_html_build.
+		4. file_watcher_setup.
+		5. sync_file_handle.
+		6. sync_html_regenerate.
+		7. sync_timestamps_initialize.
+
+2. sync_realtime.
+	a. 02_sync_realtime.
+		1. sync_connection_websocket.
+		2. sync_message_broadcast.
+		3. sync_connection_initialize.
+		4. sync_connection_remove.
+		5. sync_connection_fallback.
+		6. sync_updates_check_fallback.
+		7. reload_notification_show.
+
+3. layout_styling.
+	a. 03_layout_styling.
+		1. layout_list_html_generate.
+		2. layout_list_filter_apply.
+		3. layout_list_filter_update_buttons.
+		4. layout_list_duplicate_update.
+		5. layout_outline_html_generate.
+		6. outline_visibility_apply.
+		7. outline_state_save.
+		8. outline_state_restore.
+
+4. layout_advanced.
+	a. 04_layout_advanced.
+		1. outline_click_single_handle.
+		2. outline_click_double_handle.
+		3. outline_children_find.
+		4. outline_display_set.
+		5. outline_display_update.
+		6. outline_initial_state.
+		7. outline_state_key_generate.
+
+5. project_organization.
+	a. 05_project_organization.
+		1. meta_folder_scan_recursive.
+		2. index_content_extract_live.
+		3. css_classes_extract_live.
+		4. batch_index_update.
+		5. function_later.
+		6. sync_throttle_buffer.
+		7. list_filter_save.
+
+6. filter_timestamp.
+	a. 06_filter_timestamp.
+		1. apply_time_filter.
+		2. filter_time_load.
+		3. filter_time_save.
+		4. filter_time_set.
+		5. filter_time_type_set.
+		6. filter_time_refresh_start.
+		7. filter_time_refresh_stop.
+		8. layout_time_dropdown_update.
+
+7. test_realtime_version.

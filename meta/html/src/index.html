@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #4a4a4a;  /* Darker gray for alphanumeric, parentheses, carets */
+        --gray-light:  #8a8a8a;  /* Lighter gray for comment code names */
+        --gray-dark:   #4a4a4a;  /* Darker gray for existing elements */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+        
+        /* Cursor.ai syntax colors */
+        --function-yellow: #dcdcaa;  /* Function name yellow */
+        --file-blue:       #9cdcfe;  /* Variable/file light blue */
+        --css-pink:        #ce9178;  /* String/class pinkish */
+        --comment-gray:    #8a8a8a;  /* Lighter gray for comments */
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        position:         relative;
+    }
+    
+    ul {
+        counter-reset: item;
+        padding-left:  30px;  /* Increased to align text start position with outline format */
+        margin:        0;
+        line-height:   1.5;
+    }
+    li {
+        counter-increment: item;
+        cursor:            pointer;
+        padding:           2px 4px;
+        padding-left:      4px;  /* Reduced from 8px, text will start at 20+30+4=54px matching outline */
+        margin:            0;
+        list-style-type:   none;
+        position:          relative;
+        color:             var(--text);
+        transition:        background-color 0.15s ease;
+        line-height:       inherit;
+    }
+    
+    /* Split term styling - duplicate parts always gray */
+    .list_term_duplicate {
+        color: var(--gray) !important;  /* Always gray, override parent color */
+    }
+    .list_term_unique {
+        /* Color inherited from parent li based on data-type */
+    }
+    
+    /* Item type colors - apply to whole item or unique part */
+    li[data-type="function"]:not(:has(.list_term_duplicate)),
+    li[data-type="function"] > span.list_term_unique {
+        color: var(--function-yellow);
+    }
+    li[data-type="file"]:not(:has(.list_term_duplicate)),
+    li[data-type="file"] > span.list_term_unique,
+    li[data-type="folder"]:not(:has(.list_term_duplicate)),
+    li[data-type="folder"] > span.list_term_unique {
+        color: var(--file-blue);
+    }
+    li[data-type="css"]:not(:has(.list_term_duplicate)),
+    li[data-type="css"] > span.list_term_unique {
+        color: var(--css-pink);
+    }
+    li[data-type="comment"]:not(:has(.list_term_duplicate)),
+    li[data-type="comment"] > span.list_term_unique {
+        color: var(--comment-gray);
+    }
+    
+    /* Type indicators (extensions, slashes, parentheses) always darker gray */
+    li span[style*="color: #4a4a4a"] {
+        color: var(--gray) !important;
+    }
+    
+    li.duplicate {
+        color: var(--gray);
+    }
+    li::before {
+        content:  counter(item) ". ";
+        position: absolute;
+        left:     -25px;
+        color:    var(--gray);
+        cursor: pointer;
+    }
+    
+    /* Expandable function items */
+    li[data-type="function"] {
+        cursor: pointer;
+        position: relative;
+    }
+    
+    li[data-type="function"].expanded::before {
+        content: counter(item) "> ";
+    }
+    
+    /* Visual feedback for hovering over function numbers */
+    li[data-type="function"]:hover::before {
+        color: var(--function-yellow);
+    }
+    
+    /* Function relationship outline */
+    .function_relationships {
+        margin-left: 30px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        font-size: 14px;
+        display: none;
+    }
+    
+    li.expanded .function_relationships {
+        display: block;
+    }
+    
+    .function_outline_item {
+        margin: 4px 0;
+        color: var(--text);
+        display: flex;
+        align-items: baseline;
+    }
+    
+    .function_outline_number {
+        color: var(--gray);
+        margin-right: 8px;
+        min-width: 20px;
+    }
+    
+    .function_outline_item.indent1 {
+        margin-left: 20px;
+    }
+    
+    .function_outline_item.indent2 {
+        margin-left: 40px;
+    }
+    
+    .function_relationship_type {
+        color: var(--comment-gray);
+        font-style: italic;
+    }
+    
+    .function_reference {
+        color: var(--function-yellow);
+    }
+    
+    .exogenous_reference {
+        color: var(--gray);
+        font-style: italic;
+    }
+    li:hover {
+        background-color: var(--hover);
+    }
+    li.editing {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+    
+    /* Two-column layout */
+    .list_label_new {
+        display: inline-block;
+    }
+    .list_label_old {
+        color: #0a0a0a;  /* Almost black on dark background */
+        font-family: inherit;
+        display: inline-block;
+        user-select: none;           /* Prevent text selection */
+        -webkit-user-select: none;   /* Safari */
+        -moz-user-select: none;      /* Firefox */
+        -ms-user-select: none;       /* IE/Edge */
+        pointer-events: none;        /* Make completely non-interactive */
+        opacity: 0.3;               /* Make it even less visible */
+    }
+    
+    /* Navigation controls - left justified */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    .button_nav {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .button_nav:hover {
+        opacity: 0.9;
+    }
+    
+    .button_nav.style_active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Filter checkboxes - left justified below nav */
+    .list_filter_controls {
+        position: fixed;
+        top: 70px;  /* Below nav controls */
+        left: 20px;
+        display: flex;
+        gap: 20px;
+        z-index: 1000;
+    }
+    
+    .filter_checkbox_container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: inherit;
+    }
+    
+    .filter_checkbox {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s ease;
+    }
+    
+    /* Simple X styling with two lines */
+    .filter_checkbox:checked::before,
+    .filter_checkbox:checked::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 2px;
+        background-color: currentColor;
+        top: 50%;
+        left: 50%;
+    }
+    
+    .filter_checkbox:checked::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+    
+    .filter_checkbox:checked::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    
+    /* Individual checkbox colors */
+    #filter_files_folders {
+        border-color: var(--file-blue);
+        background-color: transparent;
+    }
+    #filter_files_folders:checked {
+        background-color: var(--file-blue);
+        border-color: var(--file-blue);
+    }
+    #filter_files_folders:checked::after {
+        color: #1e1e1e;
+    }
+    .filter_checkbox_container:has(#filter_files_folders) .filter_label {
+        color: var(--file-blue);
+    }
+    
+    #filter_functions {
+        border-color: var(--function-yellow);
+        background-color: transparent;
+    }
+    #filter_functions:checked {
+        background-color: var(--function-yellow);
+        border-color: var(--function-yellow);
+    }
+    #filter_functions:checked::after {
+        color: #1e1e1e;
+    }
+    .filter_checkbox_container:has(#filter_functions) .filter_label {
+        color: var(--function-yellow);
+    }
+    
+    #filter_css {
+        border-color: var(--css-pink);
+        background-color: transparent;
+    }
+    #filter_css:checked {
+        background-color: var(--css-pink);
+        border-color: var(--css-pink);
+    }
+    #filter_css:checked::after {
+        color: white;
+    }
+    .filter_checkbox_container:has(#filter_css) .filter_label {
+        color: var(--css-pink);
+    }
+    
+    #filter_comments {
+        border-color: var(--comment-gray);
+        background-color: transparent;
+    }
+    #filter_comments:checked {
+        background-color: var(--comment-gray);
+        border-color: var(--comment-gray);
+    }
+    #filter_comments:checked::after {
+        color: #1e1e1e;
+    }
+    .filter_checkbox_container:has(#filter_comments) .filter_label {
+        color: var(--comment-gray);
+    }
+    
+    .filter_checkbox:hover {
+        opacity: 0.8;
+    }
+    
+    /* Hide filtered items */
+    li.style_hidden {
+        display: none;
+    }
+    
+    /* Hide time-filtered items */
+    li.style_time_hidden {
+        display: none;
+    }
+    
+    /* Search and time filter controls - side by side on left */
+    .search_controls {
+        position: fixed;
+        top: 120px;  /* Below type filter buttons */
+        left: 20px;
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .search_input_container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .search_input {
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--gray);
+        padding: 8px 40px 8px 12px;  /* Extra padding on right for clear button */
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: inherit;
+        width: 300px;
+        transition: border-color 0.2s ease;
+    }
+    
+    .search_input:focus {
+        outline: none;
+        border-color: var(--edit-border);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    }
+    
+    .search_input::placeholder {
+        color: var(--gray);
+    }
+    
+    .search_clear {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--gray);
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: none;  /* Hidden by default */
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s ease;
+        line-height: 1;
+    }
+    
+    .search_clear:hover {
+        color: var(--text);
+    }
+    
+    .search_clear.search_clear_visible {
+        display: flex;
+    }
+    
+    /* Time filter dropdown - same size as search */
+    .time_filter_select {
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--gray);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        width: 150px;  /* Fixed width to match search proportion */
+        transition: border-color 0.2s ease;
+    }
+    
+    .time_filter_select:hover {
+        border-color: var(--edit-border);
+    }
+    
+    .time_filter_select:focus {
+        outline: none;
+        border-color: var(--edit-border);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    }
+    
+    /* Radio button styling for time type */
+    .time_type_radio_group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .time_type_radio_container {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: inherit;
+        color: var(--text);
+    }
+    
+    .time_type_radio {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 2px solid var(--gray);
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s ease;
+    }
+    
+    .time_type_radio:checked {
+        border-color: var(--edit-border);
+        background-color: var(--edit-border);
+    }
+    
+    .time_type_radio:checked::after {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .time_type_radio:hover {
+        border-color: var(--edit-border);
+    }
+    
+    .time_type_label {
+        user-select: none;
+    }
+    
+    /* Time indicator styling */
+    li.time_recent {
+        border-left: 3px solid var(--green);
+        padding-left: 8px;
+    }
+    
+    li.time_modified_recent {
+        border-left: 3px solid var(--edit-border);
+        padding-left: 8px;
+    }
+    
+    /* Hide search-filtered items */
+    li.search_hidden {
+        display: none;
+    }
+    
+    /* Push content down - reduced spacing with new layout */
+    #list_content {
+        margin-top: 170px;  /* Account for three control rows */
+    }
+    
+    /* Version number display - top right */
+    .page_version {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--gray);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: inherit;
+        font-weight: 500;
+        z-index: 1002;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .page_version:hover {
+        opacity: 1;
+    }
+    
+    .change_name {
+        color: var(--green);
+        font-weight: 600;
+    }
+    
+    .version_number {
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+        <button class="button_nav" data-nav="tree" title="View Tree">Tree</button>
+    </div>
+    
+    <!-- Version number display -->
+    <div class="page_version" title="Page Version">
+        <span class="change_name">layout_tool_web</span>
+        <span class="version_number">v01.16.00</span>
+    </div>
+    
+    <div class="list_filter_controls">
+        <label class="filter_checkbox_container">
+            <input type="checkbox" class="filter_checkbox" id="filter_files_folders" data-filter="files-folders" checked>
+            <span class="filter_label">Files & Folders</span>
+        </label>
+        <label class="filter_checkbox_container">
+            <input type="checkbox" class="filter_checkbox" id="filter_functions" data-filter="function" checked>
+            <span class="filter_label">Functions</span>
+        </label>
+        <label class="filter_checkbox_container">
+            <input type="checkbox" class="filter_checkbox" id="filter_css" data-filter="css" checked>
+            <span class="filter_label">CSS Classes</span>
+        </label>
+        <label class="filter_checkbox_container">
+            <input type="checkbox" class="filter_checkbox" id="filter_comments" data-filter="comment" checked>
+            <span class="filter_label">Comments</span>
+        </label>
+    </div>
+    
+    <div class="search_controls">
+        <div class="search_input_container">
+            <input type="text" class="search_input" id="search_input" placeholder="">
+            <button class="search_clear" id="search_clear">✕</button>
+        </div>
+        <select class="time_filter_select" id="time_filter_select">
+            <option value="0" selected>All time</option>
+            <option value="1">1 minute</option>
+            <option value="5">5 minutes</option>
+            <option value="15">15 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="1440">1 day</option>
+            <option value="10080">1 week</option>
+        </select>
+        <div class="time_type_radio_group">
+            <label class="time_type_radio_container">
+                <input type="radio" name="time_type" value="created" id="time_type_created" class="time_type_radio">
+                <span class="time_type_label">Created</span>
+            </label>
+            <label class="time_type_radio_container">
+                <input type="radio" name="time_type" value="modified" id="time_type_modified" class="time_type_radio" checked>
+                <span class="time_type_label">Modified</span>
+            </label>
+        </div>
+    </div>
+    
+    <ul id="list_content">
+        <li data-fulltext="01_prompt_foundation.html" data-original="" data-type="file" data-created="1749053122689" data-modified="1751223853566.1958">01_prompt_foundation.html</li>
+        <li data-fulltext="01_prompt_foundation.txt" data-original="" data-type="file" data-created="1749053122687" data-modified="1751194309122.4058">01_prompt_foundation.txt</li>
+        <li data-fulltext="02_sync_realtime.html" data-original="" data-type="file" data-created="1749053122690" data-modified="1751223853566.5059">02_sync_realtime.html</li>
+        <li data-fulltext="02_sync_realtime.txt" data-original="" data-type="file" data-created="1749053122687" data-modified="1751192321410.86">02_sync_realtime.txt</li>
+        <li data-fulltext="03_layout_styling.html" data-original="" data-type="file" data-created="1749053122690" data-modified="1751223853566.818">03_layout_styling.html</li>
+        <li data-fulltext="03_layout_styling.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751192321410.988">03_layout_styling.txt</li>
+        <li data-fulltext="04_layout_advanced.html" data-original="" data-type="file" data-created="1749053122690" data-modified="1751223853567.065">04_layout_advanced.html</li>
+        <li data-fulltext="04_layout_advanced.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751192321411.212">04_layout_advanced.txt</li>
+        <li data-fulltext="05_project_organization.html" data-original="" data-type="file" data-created="1749053122691" data-modified="1751223853567.4426">05_project_organization.html</li>
+        <li data-fulltext="05_project_organization.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751192321411.246">05_project_organization.txt</li>
+        <li data-fulltext="06_filter_timestamp.html" data-original="" data-type="file" data-created="1749053122691" data-modified="1751223853567.7031">06_filter_timestamp.html</li>
+        <li data-fulltext="06_filter_timestamp.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751192321411.386">06_filter_timestamp.txt</li>
+        <li data-fulltext="apply_time_filter" data-original="" data-type="function" data-created="1749053122686" data-modified="1751219220037">apply_time_filter</li>
+        <li data-fulltext="button_nav" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">button_nav</li>
+        <li data-fulltext="button_tool" data-original="" data-type="css" data-created="1751223826570" data-modified="1751223826570">button_tool</li>
+        <li data-fulltext="callee_data" data-original="" data-type="function" data-created="1751182339433" data-modified="1751183426037">callee_data</li>
+        <li data-fulltext="caller_data" data-original="" data-type="function" data-created="1751182339433" data-modified="1751183426037">caller_data</li>
+        <li data-fulltext="calls" data-original="" data-type="function" data-created="1751182339433" data-modified="1751183426036">calls</li>
+        <li data-fulltext="change_name" data-original="" data-type="css" data-created="1751193704207" data-modified="1751193704207">change_name</li>
+        <li data-fulltext="change_name_generate" data-original="" data-type="function" data-created="1751193620167" data-modified="1751197220086">change_name_generate</li>
+        <li data-fulltext="change_name_get" data-original="" data-type="function" data-created="1751193620167" data-modified="1751197220086">change_name_get</li>
+        <li data-fulltext="change_name_save" data-original="" data-type="function" data-created="1751193620167" data-modified="1751197220086">change_name_save</li>
+        <li data-fulltext="changename_history_extract" data-original="" data-type="function" data-created="1751196924370" data-modified="1751197220086">changename_history_extract</li>
+        <li data-fulltext="codename_analysis.html" data-original="" data-type="file" data-created="1751155929636" data-modified="1751223853568.4265">codename_analysis.html</li>
+        <li data-fulltext="codename_analysis.txt" data-original="" data-type="file" data-created="1751155924610" data-modified="1751169243051.878">codename_analysis.txt</li>
+        <li data-fulltext="codename_recent_extract" data-original="" data-type="function" data-created="1751196915369" data-modified="1751197220086">codename_recent_extract</li>
+        <li data-fulltext="css_class_extract" data-original="" data-type="function" data-created="1751180401581" data-modified="1751180401581">css_class_extract</li>
+        <li data-fulltext="css_class_name_is" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539">css_class_name_is</li>
+        <li data-fulltext="css_classes_extract" data-original="" data-type="function" data-created="1751223775539" data-modified="1751223775539">css_classes_extract</li>
+        <li data-fulltext="directory_scanner" data-original="" data-type="function" data-created="1749053122681" data-modified="1751180401581">directory_scanner</li>
+        <li data-fulltext="extract" data-original="" data-type="folder" data-created="1751180281582" data-modified="1751183752825.242">extract</li>
+        <li data-fulltext="field" data-original="" data-type="function" data-created="1751182339438" data-modified="1751182339438">field</li>
+        <li data-fulltext="field_cursor_set" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547">field_cursor_set</li>
+        <li data-fulltext="field_mode_exit" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547">field_mode_exit</li>
+        <li data-fulltext="field_text_extract" data-original="" data-type="function" data-created="1749053122686" data-modified="1749053122686">field_text_extract</li>
+        <li data-fulltext="file_watcher_setup" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539">file_watcher_setup</li>
+        <li data-fulltext="filter_comments" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">filter_comments</li>
+        <li data-fulltext="filter_css" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">filter_css</li>
+        <li data-fulltext="filter_files_folders" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">filter_files_folders</li>
+        <li data-fulltext="filter_functions" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">filter_functions</li>
+        <li data-fulltext="filter_time_load" data-original="" data-type="function" data-created="1751170109582" data-modified="1751219220037">filter_time_load</li>
+        <li data-fulltext="filter_time_refresh_start" data-original="" data-type="function" data-created="1751170109582" data-modified="1751219220037">filter_time_refresh_start</li>
+        <li data-fulltext="filter_time_refresh_stop" data-original="" data-type="function" data-created="1751170109582" data-modified="1751219220037">filter_time_refresh_stop</li>
+        <li data-fulltext="filter_time_save" data-original="" data-type="function" data-created="1751170109582" data-modified="1751219220037">filter_time_save</li>
+        <li data-fulltext="filter_time_set" data-original="" data-type="function" data-created="1751170109582" data-modified="1751219220037">filter_time_set</li>
+        <li data-fulltext="filter_time_type_set" data-original="" data-type="function" data-created="1751170109582" data-modified="1751219220037">filter_time_type_set</li>
+        <li data-fulltext="found_functions" data-original="" data-type="function" data-created="1751182339434" data-modified="1751182339434">found_functions</li>
+        <li data-fulltext="func_data" data-original="" data-type="function" data-created="1751182339433" data-modified="1751183426036">func_data</li>
+        <li data-fulltext="function_analyzer" data-original="" data-type="function" data-created="1749053122679" data-modified="1751183426036">function_analyzer</li>
+        <li data-fulltext="function_event_extract" data-original="" data-type="function" data-created="1751183036692" data-modified="1751183426036">function_event_extract</li>
+        <li data-fulltext="function_executed" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547">function_executed</li>
+        <li data-fulltext="function_extract" data-original="" data-type="function" data-created="1751180351581" data-modified="1751183426036">function_extract</li>
+        <li data-fulltext="function_extract.js" data-original="" data-type="file" data-created="1751180341577" data-modified="1751183425441.0466">function_extract.js</li>
+        <li data-fulltext="function_hierarchy_build" data-original="" data-type="function" data-created="1751180351581" data-modified="1751183426036">function_hierarchy_build</li>
+        <li data-fulltext="function_later" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547">function_later</li>
+        <li data-fulltext="function_names_extract" data-original="" data-type="function" data-created="1751180401581" data-modified="1751180401581">function_names_extract</li>
+        <li data-fulltext="function_rule.html" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223856535.948">function_rule.html</li>
+        <li data-fulltext="function_rule.txt" data-original="" data-type="file" data-created="1749053122695" data-modified="1748996090326.8274">function_rule.txt</li>
+        <li data-fulltext="function_select" data-original="" data-type="css" data-created="1751180851666" data-modified="1751180851666">function_select</li>
+        <li data-fulltext="function_user_defined_check" data-original="" data-type="function" data-created="1751182632774" data-modified="1751183426036">function_user_defined_check</li>
+        <li data-fulltext="function.html" data-original="" data-type="file" data-created="1749053122693" data-modified="1751223853568.6885">function.html</li>
+        <li data-fulltext="function.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751194062077.6882">function.txt</li>
+        <li data-fulltext="html_extract.js" data-original="" data-type="file" data-created="1749053122686" data-modified="1748980121635.583">html_extract.js</li>
+        <li data-fulltext="index_extract" data-original="" data-type="function" data-created="1751180401581" data-modified="1751180401581">index_extract</li>
+        <li data-fulltext="index_extract.js" data-original="" data-type="file" data-created="1751180391577" data-modified="1751180401020.5815">index_extract.js</li>
+        <li data-fulltext="index_html_extract" data-original="" data-type="function" data-created="1749053122686" data-modified="1749053122686">index_html_extract</li>
+        <li data-fulltext="index_rule.html" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223856536.8354">index_rule.html</li>
+        <li data-fulltext="index_rule.txt" data-original="" data-type="file" data-created="1749053122695" data-modified="1749017599018.585">index_rule.txt</li>
+        <li data-fulltext="index_tree_client.js" data-original="" data-type="file" data-created="1751217806736" data-modified="1751217804942.2551">index_tree_client.js</li>
+        <li data-fulltext="index_tree_close" data-original="" data-type="css" data-created="1751217806816" data-modified="1751217806816">index_tree_close</li>
+        <li data-fulltext="index_tree_content" data-original="" data-type="css" data-created="1751217806816" data-modified="1751217806816">index_tree_content</li>
+        <li data-fulltext="index_tree_content_update" data-original="" data-type="function" data-created="1751217806736" data-modified="1751217806736">index_tree_content_update</li>
+        <li data-fulltext="index_tree_function_name" data-original="" data-type="css" data-created="1751217806816" data-modified="1751217806816">index_tree_function_name</li>
+        <li data-fulltext="index_tree_function_show" data-original="" data-type="function" data-created="1751217806736" data-modified="1751217806736">index_tree_function_show</li>
+        <li data-fulltext="index_tree_header" data-original="" data-type="css" data-created="1751217806816" data-modified="1751217806816">index_tree_header</li>
+        <li data-fulltext="index_tree_hierarchy_generate" data-original="" data-type="function" data-created="1751217806736" data-modified="1751217806736">index_tree_hierarchy_generate</li>
+        <li data-fulltext="index_tree_panel" data-original="" data-type="css" data-created="1751217806816" data-modified="1751217806816">index_tree_panel</li>
+        <li data-fulltext="index_tree_panel_create" data-original="" data-type="function" data-created="1751217806736" data-modified="1751217806736">index_tree_panel_create</li>
+        <li data-fulltext="index_tree_panel_hide" data-original="" data-type="function" data-created="1751217806736" data-modified="1751217806736">index_tree_panel_hide</li>
+        <li data-fulltext="index_tree_title" data-original="" data-type="css" data-created="1751217806816" data-modified="1751217806816">index_tree_title</li>
+        <li data-fulltext="index_tree_view_initialize" data-original="" data-type="function" data-created="1751217806736" data-modified="1751217806736">index_tree_view_initialize</li>
+        <li data-fulltext="index.html" data-original="" data-type="file" data-created="1749053122693" data-modified="1751223853569.6704">index.html</li>
+        <li data-fulltext="index.txt" data-original="" data-type="file" data-created="1749053122687" data-modified="1751180513006.3198">index.txt</li>
+        <li data-fulltext="js" data-original="" data-type="folder" data-created="1749053122688" data-modified="1749028859000">js</li>
+        <li data-fulltext="layout" data-original="" data-type="folder" data-created="1749053122684" data-modified="1751197324000">layout</li>
+        <li data-fulltext="layout_list_rule.html" data-original="" data-type="file" data-created="1749053122688" data-modified="1751223856531.5234">layout_list_rule.html</li>
+        <li data-fulltext="layout_list_rule.txt" data-original="" data-type="file" data-created="1749053122694" data-modified="1748935488617.1">layout_list_rule.txt</li>
+        <li data-fulltext="layout_outline_rule.html" data-original="" data-type="file" data-created="1749053122689" data-modified="1751223856532.3333">layout_outline_rule.html</li>
+        <li data-fulltext="layout_outline_rule.txt" data-original="" data-type="file" data-created="1749053122694" data-modified="1751197320588.3582">layout_outline_rule.txt</li>
+        <li data-fulltext="layout_time_dropdown_update" data-original="" data-type="function" data-created="1751170109582" data-modified="1751219220037">layout_time_dropdown_update</li>
+        <li data-fulltext="layout_time_filter_client.js" data-original="" data-type="file" data-created="1749053122686" data-modified="1751219219125.0825">layout_time_filter_client.js</li>
+        <li data-fulltext="layout_tree_client.js" data-original="" data-type="file" data-created="1751187566345" data-modified="1751190685390.2485">layout_tree_client.js</li>
+        <li data-fulltext="layout_tree_html_generate" data-original="" data-type="function" data-created="1751180851656" data-modified="1751195699495">layout_tree_html_generate</li>
+        <li data-fulltext="layout_tree_template.js" data-original="" data-type="file" data-created="1751180851656" data-modified="1751195697852.0603">layout_tree_template.js</li>
+        <li data-fulltext="line_history_load" data-original="" data-type="function" data-created="1751192639585" data-modified="1751197220086">line_history_load</li>
+        <li data-fulltext="line_history_save" data-original="" data-type="function" data-created="1751192639585" data-modified="1751197220086">line_history_save</li>
+        <li data-fulltext="list" data-original="" data-type="function" data-created="1751223826549" data-modified="1751223826549">list</li>
+        <li data-fulltext="list_client.js" data-original="" data-type="file" data-created="1751223826547" data-modified="1751223824920.2708">list_client.js</li>
+        <li data-fulltext="list_content" data-original="" data-type="css" data-created="1751217806816" data-modified="1751217806816">list_content</li>
+        <li data-fulltext="list_duplicate_update" data-original="" data-type="function" data-created="1751223826547" data-modified="1751223826547">list_duplicate_update</li>
+        <li data-fulltext="list_edit_text" data-original="" data-type="css" data-created="1751217806816" data-modified="1751217806816">list_edit_text</li>
+        <li data-fulltext="list_editing_mode" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">list_editing_mode</li>
+        <li data-fulltext="list_filter_apply" data-original="" data-type="function" data-created="1751223826547" data-modified="1751223826547">list_filter_apply</li>
+        <li data-fulltext="list_filter_btn" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">list_filter_btn</li>
+        <li data-fulltext="list_filter_controls" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">list_filter_controls</li>
+        <li data-fulltext="list_filter_load" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547">list_filter_load</li>
+        <li data-fulltext="list_filter_save" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547">list_filter_save</li>
+        <li data-fulltext="list_filter_update_buttons" data-original="" data-type="function" data-created="1751223826547" data-modified="1751223826547">list_filter_update_buttons</li>
+        <li data-fulltext="list_html_generate" data-original="" data-type="function" data-created="1751223826548" data-modified="1751223826548">list_html_generate</li>
+        <li data-fulltext="list_template.js" data-original="" data-type="file" data-created="1751223826548" data-modified="1751223824920.4658">list_template.js</li>
+        <li data-fulltext="list_term_duplicate" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">list_term_duplicate</li>
+        <li data-fulltext="list_term_unique" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">list_term_unique</li>
+        <li data-fulltext="meta" data-original="" data-type="folder" data-created="1749053122689" data-modified="1751223839000">meta</li>
+        <li data-fulltext="meta_extract" data-original="" data-type="function" data-created="1751180441593" data-modified="1751180441593">meta_extract</li>
+        <li data-fulltext="meta_extract.js" data-original="" data-type="file" data-created="1751180431588" data-modified="1751180432486.195">meta_extract.js</li>
+        <li data-fulltext="meta_files_scan_js" data-original="" data-type="function" data-created="1751165053514" data-modified="1751183426036">meta_files_scan_js</li>
+        <li data-fulltext="meta_remind.html" data-original="" data-type="file" data-created="1749053122689" data-modified="1751223856530.3213">meta_remind.html</li>
+        <li data-fulltext="name" data-original="" data-type="function" data-created="1751182339434" data-modified="1751223775540">name</li>
+        <li data-fulltext="nav_button_click" data-original="" data-type="function" data-created="1749053122686" data-modified="1751195579461">nav_button_click</li>
+        <li data-fulltext="nav_client.js" data-original="" data-type="file" data-created="1749053122686" data-modified="1751195579010.5117">nav_client.js</li>
+        <li data-fulltext="nav_controls" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">nav_controls</li>
+        <li data-fulltext="nav_init" data-original="" data-type="function" data-created="1749053122686" data-modified="1751195579461">nav_init</li>
+        <li data-fulltext="other" data-original="" data-type="folder" data-created="1749053122694" data-modified="1749017679000">other</li>
+        <li data-fulltext="outline" data-original="" data-type="function" data-created="1751182339437" data-modified="1751223826550">outline</li>
+        <li data-fulltext="outline_children_find" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_children_find</li>
+        <li data-fulltext="outline_click_double_handle" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_click_double_handle</li>
+        <li data-fulltext="outline_click_single_handle" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_click_single_handle</li>
+        <li data-fulltext="outline_client.js" data-original="" data-type="file" data-created="1751223826549" data-modified="1751223824920.6167">outline_client.js</li>
+        <li data-fulltext="outline_collapse_icon" data-original="" data-type="css" data-created="1751223826570" data-modified="1751223826570">outline_collapse_icon</li>
+        <li data-fulltext="outline_display_set" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_display_set</li>
+        <li data-fulltext="outline_display_update" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_display_update</li>
+        <li data-fulltext="outline_expand_icon" data-original="" data-type="css" data-created="1751223826570" data-modified="1751223826570">outline_expand_icon</li>
+        <li data-fulltext="outline_html_extract" data-original="" data-type="function" data-created="1749053122686" data-modified="1749053122686">outline_html_extract</li>
+        <li data-fulltext="outline_html_generate" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826550">outline_html_generate</li>
+        <li data-fulltext="outline_initial_state" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_initial_state</li>
+        <li data-fulltext="outline_line_number" data-original="" data-type="css" data-created="1751217806816" data-modified="1751217806816">outline_line_number</li>
+        <li data-fulltext="outline_state_key_generate" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_state_key_generate</li>
+        <li data-fulltext="outline_state_restore" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_state_restore</li>
+        <li data-fulltext="outline_state_save" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826549">outline_state_save</li>
+        <li data-fulltext="outline_template.js" data-original="" data-type="file" data-created="1751223826550" data-modified="1751223824920.765">outline_template.js</li>
+        <li data-fulltext="output" data-original="" data-type="function" data-created="1751182339433" data-modified="1751183426037">output</li>
+        <li data-fulltext="package-lock.json" data-original="" data-type="file" data-created="1751165412252" data-modified="1751165408603.118">package-lock.json</li>
+        <li data-fulltext="package.json" data-original="" data-type="file" data-created="1751165412252" data-modified="1751165408602.3467">package.json</li>
+        <li data-fulltext="page_version" data-original="" data-type="css" data-created="1751189056266" data-modified="1751189056266">page_version</li>
+        <li data-fulltext="parent_trigger_description" data-original="" data-type="function" data-created="1751183016695" data-modified="1751183426037">parent_trigger_description</li>
+        <li data-fulltext="persistence_manager.js" data-original="" data-type="file" data-created="1751161101904" data-modified="1751161505050.0627">persistence_manager.js</li>
+        <li data-fulltext="prompt" data-original="" data-type="folder" data-created="1749053122687" data-modified="1751223848000">prompt</li>
+        <li data-fulltext="prompt_folder_scan" data-original="" data-type="function" data-created="1751223775539" data-modified="1751223775539">prompt_folder_scan</li>
+        <li data-fulltext="prompt_txt_read" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539">prompt_txt_read</li>
+        <li data-fulltext="prompt_type_detect" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539">prompt_type_detect</li>
+        <li data-fulltext="prompt.html" data-original="" data-type="file" data-created="1751170549637" data-modified="1751223853569.8965">prompt.html</li>
+        <li data-fulltext="prompt.txt" data-original="" data-type="file" data-created="1751170534640" data-modified="1751195440636.261">prompt.txt</li>
+        <li data-fulltext="rule" data-original="" data-type="folder" data-created="1751155095325" data-modified="1751223848000">rule</li>
+        <li data-fulltext="rule_code.html" data-original="" data-type="file" data-created="1749053122692" data-modified="1751171239831.4387">rule_code.html</li>
+        <li data-fulltext="rule_code.txt" data-original="" data-type="file" data-created="1749053122694" data-modified="1748575331270.7612">rule_code.txt</li>
+        <li data-fulltext="rule_codename.html" data-original="" data-type="file" data-created="1749053122692" data-modified="1749088144468.8035">rule_codename.html</li>
+        <li data-fulltext="rule_codename.txt" data-original="" data-type="file" data-created="1749053122694" data-modified="1749017682776.203">rule_codename.txt</li>
+        <li data-fulltext="rule_prompt.html" data-original="" data-type="file" data-created="1749053122693" data-modified="1749088144469.3855">rule_prompt.html</li>
+        <li data-fulltext="rule_prompt.txt" data-original="" data-type="file" data-created="1749053122695" data-modified="1749017539826.5518">rule_prompt.txt</li>
+        <li data-fulltext="search_clear" data-original="" data-type="css" data-created="1751159235744" data-modified="1751159235744">search_clear</li>
+        <li data-fulltext="search_clear_visible" data-original="" data-type="css" data-created="1751159395753" data-modified="1751159395753">search_clear_visible</li>
+        <li data-fulltext="search_input" data-original="" data-type="css" data-created="1751159235744" data-modified="1751159235744">search_input</li>
+        <li data-fulltext="snake_case_name" data-original="" data-type="function" data-created="1749053122681" data-modified="1751222818233">snake_case_name</li>
+        <li data-fulltext="src" data-original="" data-type="folder" data-created="1749053122689" data-modified="1751223844000">src</li>
+        <li data-fulltext="style_active" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">style_active</li>
+        <li data-fulltext="style_hidden" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">style_hidden</li>
+        <li data-fulltext="style_inactive" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">style_inactive</li>
+        <li data-fulltext="style_time_hidden" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">style_time_hidden</li>
+        <li data-fulltext="sync" data-original="" data-type="folder" data-created="1749053122686" data-modified="1751223848000">sync</li>
+        <li data-fulltext="sync_html_build" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539">sync_html_build</li>
+        <li data-fulltext="sync_server.js" data-original="" data-type="file" data-created="1749053122686" data-modified="1751223774150.296">sync_server.js</li>
+        <li data-fulltext="sync_throttle_buffer" data-original="" data-type="function" data-created="1749053122684" data-modified="1751223826547">sync_throttle_buffer</li>
+        <li data-fulltext="sync_timestamps_initialize" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539">sync_timestamps_initialize</li>
+        <li data-fulltext="sync_txt_save" data-original="" data-type="function" data-created="1749053122686" data-modified="1751223775539">sync_txt_save</li>
+        <li data-fulltext="sync_updates_check" data-original="" data-type="function" data-created="1749053122685" data-modified="1751223826547">sync_updates_check</li>
+        <li data-fulltext="this_is_wt" data-original="" data-type="comment" data-created="1749059167334" data-modified="1751223853567.7031">this_is_wt</li>
+        <li data-fulltext="time_filter_select" data-original="" data-type="css" data-created="1749053122698" data-modified="1749053122698">time_filter_select</li>
+        <li data-fulltext="time_type_created" data-original="" data-type="css" data-created="1751196204406" data-modified="1751196204406">time_type_created</li>
+        <li data-fulltext="time_type_modified" data-original="" data-type="css" data-created="1751196204406" data-modified="1751196204406">time_type_modified</li>
+        <li data-fulltext="tool" data-original="" data-type="folder" data-created="1749053122688" data-modified="1749016893000">tool</li>
+        <li data-fulltext="tool_folder_scan" data-original="" data-type="function" data-created="1751223775539" data-modified="1751223775539">tool_folder_scan</li>
+        <li data-fulltext="tree_content" data-original="" data-type="css" data-created="1751187566369" data-modified="1751187566369">tree_content</li>
+        <li data-fulltext="tree_content_update" data-original="" data-type="function" data-created="1751187566346" data-modified="1751190685708">tree_content_update</li>
+        <li data-fulltext="tree_controls" data-original="" data-type="css" data-created="1751180851666" data-modified="1751180851666">tree_controls</li>
+        <li data-fulltext="tree_exogenous" data-original="" data-type="css" data-created="1751180851666" data-modified="1751180851666">tree_exogenous</li>
+        <li data-fulltext="tree_function" data-original="" data-type="css" data-created="1751180851666" data-modified="1751180851666">tree_function</li>
+        <li data-fulltext="tree_function_dropdown_populate" data-original="" data-type="function" data-created="1751187566346" data-modified="1751190685708">tree_function_dropdown_populate</li>
+        <li data-fulltext="tree_function_load" data-original="" data-type="function" data-created="1751187786366" data-modified="1751190685708">tree_function_load</li>
+        <li data-fulltext="tree_function_selection_handle" data-original="" data-type="function" data-created="1751187566346" data-modified="1751190685708">tree_function_selection_handle</li>
+        <li data-fulltext="tree_hierarchy_generate" data-original="" data-type="function" data-created="1751187566346" data-modified="1751190685708">tree_hierarchy_generate</li>
+        <li data-fulltext="tree_indent" data-original="" data-type="css" data-created="1751180851666" data-modified="1751180851666">tree_indent</li>
+        <li data-fulltext="tree_line" data-original="" data-type="css" data-created="1751180851666" data-modified="1751180851666">tree_line</li>
+        <li data-fulltext="tree.html" data-original="" data-type="file" data-created="1751178640435" data-modified="1751223853570.0935">tree.html</li>
+        <li data-fulltext="tree.txt" data-original="" data-type="file" data-created="1751178630414" data-modified="1751195955314.949">tree.txt</li>
+        <li data-fulltext="trigger_description" data-original="" data-type="function" data-created="1751183016695" data-modified="1751183426037">trigger_description</li>
+        <li data-fulltext="version" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220087">version</li>
+        <li data-fulltext="version_data_load" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086">version_data_load</li>
+        <li data-fulltext="version_data_save" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086">version_data_save</li>
+        <li data-fulltext="version_display_update" data-original="" data-type="function" data-created="1751193192989" data-modified="1751195579461">version_display_update</li>
+        <li data-fulltext="version_format" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086">version_format</li>
+        <li data-fulltext="version_get" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086">version_get</li>
+        <li data-fulltext="version_get_stats" data-original="" data-type="function" data-created="1751192639585" data-modified="1751197220086">version_get_stats</li>
+        <li data-fulltext="version_history_add" data-original="" data-type="function" data-created="1751193390339" data-modified="1751193390339">version_history_add</li>
+        <li data-fulltext="version_history_load" data-original="" data-type="function" data-created="1751193390339" data-modified="1751193390339">version_history_load</li>
+        <li data-fulltext="version_history_recent" data-original="" data-type="function" data-created="1751193390339" data-modified="1751193390339">version_history_recent</li>
+        <li data-fulltext="version_history_save" data-original="" data-type="function" data-created="1751193390339" data-modified="1751193390339">version_history_save</li>
+        <li data-fulltext="version_history.js" data-original="" data-type="file" data-created="1751193390338" data-modified="1751193389820.5132">version_history.js</li>
+        <li data-fulltext="version_increment" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086">version_increment</li>
+        <li data-fulltext="version_initialize" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086">version_initialize</li>
+        <li data-fulltext="version_manager.js" data-original="" data-type="file" data-created="1751188990240" data-modified="1751197215304.8623">version_manager.js</li>
+        <li data-fulltext="version_number" data-original="" data-type="css" data-created="1751193704207" data-modified="1751193704207">version_number</li>
+        <li data-fulltext="version_update_all" data-original="" data-type="function" data-created="1751188990240" data-modified="1751197220086">version_update_all</li>
+        <li data-fulltext="version_update_by_lines" data-original="" data-type="function" data-created="1751192639585" data-modified="1751197220086">version_update_by_lines</li>
+        <li data-fulltext="version_websocket_init" data-original="" data-type="function" data-created="1751193192989" data-modified="1751195579461">version_websocket_init</li>
+        <li data-fulltext="web_analyzer" data-original="" data-type="function" data-created="1749053122683" data-modified="1751180371580">web_analyzer</li>
+        <li data-fulltext="web_build" data-original="" data-type="function" data-created="1751180371580" data-modified="1751180371580">web_build</li>
+        <li data-fulltext="web_extract" data-original="" data-type="function" data-created="1751180371580" data-modified="1751180371580">web_extract</li>
+        <li data-fulltext="web_extract.js" data-original="" data-type="file" data-created="1751180371580" data-modified="1751180370650.4478">web_extract.js</li>
+        <li data-fulltext="web_rule.html" data-original="" data-type="file" data-created="1749053122694" data-modified="1751223856537.503">web_rule.html</li>
+        <li data-fulltext="web_rule.txt" data-original="" data-type="file" data-created="1749053122695" data-modified="1748903057197.377">web_rule.txt</li>
+        <li data-fulltext="web.html" data-original="" data-type="file" data-created="1749053126055" data-modified="1751223853570.7026">web.html</li>
+        <li data-fulltext="web.txt" data-original="" data-type="file" data-created="1749053122688" data-modified="1751194259326.6155">web.txt</li>
+        <li data-fulltext="webpage_sync_test" data-original="" data-type="comment" data-created="1749059137279" data-modified="1751223853567.7031">webpage_sync_test</li>
+    </ul>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'meta_src_index';
+        window.LAST_MODIFIED = 1748984823980.7615;
+    </script>
+    <script src="/js/persistence_manager.js"></script>
+    <script src="/js/layout_shared_client.js"></script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/layout_list_client.js"></script>
+    <script src="/js/layout_time_filter_client.js"></script>
+</body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        position:         relative;
+    }
+    
+    /* Outline Control Panel - left justified below nav */
+    .outline_controls {
+        position: fixed;
+        top: 70px;  /* Below nav buttons */
+        left: 20px;
+        display: flex;
+        gap: 12px;
+        z-index: 1000;
+        background-color: rgba(30, 30, 30, 0.95);  /* Subtle background */
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Green control buttons */
+    .control_button {
+        background-color: #2ea043;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .control_button:hover {
+        background-color: #3fb654;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+    
+    .control_button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Button text styling */
+    .control_button {
+        font-size: 18px;
+        line-height: 1;
+    }
+    
+    /* Make "All" button slightly wider */
+    .control_button:last-child {
+        width: auto;
+        min-width: 60px;
+        padding: 12px 16px;
+    }
+    
+    
+    .button_nav {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .button_nav:hover {
+        opacity: 0.9;
+    }
+    
+    .button_nav.style_active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Version display in upper right */
+    .version_display {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        color: var(--gray);
+        font-size: 14px;
+        font-family: inherit;
+        z-index: 1001;
+        opacity: 0.7;
+    }
+    
+    /* Navigation controls - left justified */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    /* Outline specific styles */
+    .outline_line_number {
+        min-width: 30px;
+        flex-shrink: 0;
+        cursor: pointer;
+        user-select: none;
+        margin-right: 4px;
+        text-align: right;
+    }
+    
+    .list_edit_text {
+        flex: 1;
+    }
+    
+    .list_editing_mode {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+    </div>
+    
+    <div class="version_display">v1.1.0</div>
+    
+    <!-- Outline Control Buttons -->
+    <div class="outline_controls">
+        <button class="control_button" id="button_expand_level_1" title="Show Level 1 Only">1</button>
+        <button class="control_button" id="button_expand_level_2" title="Show Levels 1-2">2</button>
+        <button class="control_button" id="button_expand_all" title="Show All Levels">All</button>
+    </div>
+    
+    <div id="content">
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="7.">7.</span>
+            <span class="list_edit_text">sync_foundation</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Create sync endpoint</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Add POST /sync route to sync_server.js</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Accept JSON body with file_name, line_number, text</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Log received sync data for verification</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Return success response</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Add CORS headers</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Add Access-Control-Allow-Origin: * to all responses</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Add OPTIONS method handling for preflight</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Test POST from browser console works</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">Prepare for inline edit sync</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Endpoint will receive edits from inline editing</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Line numbers will come from data attributes</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Text will be the edited content</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="8.">8.</span>
+            <span class="list_edit_text">html_extract_module</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Create extraction module</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Create meta/code/sync/html_extract.js</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Export extract_lines function that takes HTML string</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">For index files: extract text from li elements</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">For outline files: extract text from div elements with indentation</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Preserve original formatting and spacing</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="6.">6.</span>
+            <span class="list_edit_text">Handle inline edited content extraction</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="7.">7.</span>
+            <span class="list_edit_text">Use regex to parse HTML elements and extract text content</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="8.">8.</span>
+            <span class="list_edit_text">Calculate tab indentation from margin-left pixels (60px per tab)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="9.">9.</span>
+            <span class="list_edit_text">Handle both simple divs and divs with outline number spans</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Test extraction</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Import module in sync_server.js</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Add test endpoint /test-extract</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Verify it extracts lines correctly</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Remove test endpoint after verification</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="9.">9.</span>
+            <span class="list_edit_text">html_to_txt_sync</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Create sync function</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Add sync_txt_save function in sync_server.js</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Use html_extract to get lines from HTML (not needed - sync receives edited text directly)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Update specific line in txt file array</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Write updated content back to txt file</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Handle empty line filtering for index files (map visible line to actual line)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="6.">6.</span>
+            <span class="list_edit_text">Preserve indentation for outline files (tabs and outline numbers)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="7.">7.</span>
+            <span class="list_edit_text">Set sync_in_progress flag to prevent reload loops</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Connect to sync endpoint</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Update /sync endpoint to call sync_txt_save</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Find correct file config based on file_name</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Update the txt file with new content</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Log "Synced to txt" on success</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">Handle inline edits</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Receive edits from inline editing feature</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Update txt files with edited content</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Preserve formatting and indentation</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="10.">10.</span>
+            <span class="list_edit_text">realtime_sync</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Add input event listeners</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Change from blur event to input event for real-time updates</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Debounce sync requests using sync_throttle_buffer (100ms delay)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Send sync request on every keystroke after debounce</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Maintain cursor position during updates</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Track current editing element and cursor position</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="6.">6.</span>
+            <span class="list_edit_text">Continue syncing even when element loses focus - no blur handler</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="7.">7.</span>
+            <span class="list_edit_text">Only Enter key exits edit mode and stops syncing</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Implement cursor preservation</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Before sync, save cursor position using Selection API</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">After DOM update, restore cursor to correct position</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Handle edge cases like deleted text affecting cursor</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Account for text length changes from other sources</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">Handle concurrent edits</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Add version tracking to prevent overwrite conflicts</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Implement operational transformation basics</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">If both sides edit simultaneously, merge changes intelligently</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Maintain edit state flags for both browser and txt sides</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="d.">d.</span>
+            <span class="list_edit_text">Optimize performance</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Only sync the changed line, not entire file (implemented)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Use WebSockets for lower latency (future enhancement)</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Batch rapid changes into single sync request (implemented via debounce)</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="11.">11.</span>
+            <span class="list_edit_text">audit_architecture</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Review current architecture</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Verify sync_server.js supports multiple HTML files efficiently</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Check that storage_file_config is scalable for adding new pages</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Ensure sync_html_build function is modular</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Confirm file watching works independently for each file</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Review shared code patterns across HTML generation</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Identify shared modules</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Common JavaScript for inline editing across all pages</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Shared CSS styles for consistent look and feel</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Debounce function used by all editable elements</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Auto-reload polling logic shared across pages</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Sync endpoint handling for all file types</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">Verify extensibility</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Adding new files only requires storage_file_config entry</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">HTML generation follows consistent patterns</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Event handlers are attached dynamically</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">No hardcoded file names in core logic</span>
+        </div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="12.">12.</span>
+            <span class="list_edit_text">add_index</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="a.">a.</span>
+            <span class="list_edit_text">Create index configuration</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Add index entry to storage_file_config in sync_server.js</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Set txt_path to 'meta/src/tool/index.txt'</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Set html_path to 'meta/html/tool/index.html'</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Use same li element generation as other index files</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="b.">b.</span>
+            <span class="list_edit_text">Create index.txt file</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Create index.txt with initial codenames from meta folder</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Include identifiers used in sync_server.js and html_extract.js</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Format as simple list like other index files</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">This will track codenames used in the meta-app itself</span>
+        </div>
+        <div style="margin-left: 60px; display: flex;" data-indent="1" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="c.">c.</span>
+            <span class="list_edit_text">Verify index works</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="1.">1.</span>
+            <span class="list_edit_text">Check that index.html is generated on server start</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="2.">2.</span>
+            <span class="list_edit_text">Verify inline editing works on index</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="3.">3.</span>
+            <span class="list_edit_text">Confirm sync back to index.txt functions</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="4.">4.</span>
+            <span class="list_edit_text">Test auto-reload on file changes</span>
+        </div>
+        <div style="margin-left: 120px; display: flex;" data-indent="2" data-collapsed="false">
+            <span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="5.">5.</span>
+            <span class="list_edit_text">Access via http://localhost:3002/index.html </span>
+        </div>
+    </div>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'functions_file';
+        window.LAST_MODIFIED = 1751192321410.86;
+    </script>
+    <script src="/js/shared_client.js"></script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/outline_client.js"></script>
+</body>
+</html>

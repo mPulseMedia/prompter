@@ -535,70 +535,42 @@ outlineNumbers.forEach(outlineNum => {
     });
 });
 
-// Collapse All button functionality
-document.getElementById('collapse-all-btn').addEventListener('click', function() {
+// Level 1 button functionality (show only level 1)
+document.getElementById('button_expand_level_1').addEventListener('click', function() {
     // Get all divs with outline numbers
     const allOutlineDivs = document.querySelectorAll('div[data-indent]');
     
     allOutlineDivs.forEach(div => {
-        if (div.querySelector('.outline_line_number')) {
-            // Mark as collapsed
-            div.setAttribute('data-collapsed', 'true');
+        const indent = parseInt(div.getAttribute('data-indent'));
+        
+        if (indent === 0) {
+            // Show level 1 items
+            const hasOutline = div.querySelector('.outline_line_number');
+            div.style.display = hasOutline ? 'flex' : 'block';
             
-            // Update outline display
-            const outlineNum = div.querySelector('.outline_line_number');
-            if (outlineNum) outline_display_update(outlineNum);
-            
-            // Hide all descendants
-            const parentIndent = parseInt(div.getAttribute('data-indent'));
-            let current = div.nextElementSibling;
-            
-            while (current) {
-                const currentIndent = parseInt(current.getAttribute('data-indent'));
-                if (currentIndent <= parentIndent) {
-                    break;
-                }
-                current.style.display = 'none';
-                if (current.querySelector('.outline_line_number')) {
-                    current.setAttribute('data-collapsed', 'true');
-                    const currOutlineNum = current.querySelector('.outline_line_number');
-                    if (currOutlineNum) outline_display_update(currOutlineNum);
-                }
-                current = current.nextElementSibling;
+            // Collapse all level 1 items
+            if (hasOutline) {
+                div.setAttribute('data-collapsed', 'true');
+                const outlineNum = div.querySelector('.outline_line_number');
+                if (outlineNum) outline_display_update(outlineNum);
+            }
+        } else {
+            // Hide all items below level 1
+            div.style.display = 'none';
+            if (div.querySelector('.outline_line_number')) {
+                div.setAttribute('data-collapsed', 'true');
+                const outlineNum = div.querySelector('.outline_line_number');
+                if (outlineNum) outline_display_update(outlineNum);
             }
         }
     });
     
-    // Save state after collapsing all
+    // Save state after collapsing to level 1
     outline_state_save();
 });
 
-// Expand All button functionality
-document.getElementById('expand-all-btn').addEventListener('click', function() {
-    // Get all divs
-    const allDivs = document.querySelectorAll('div[data-indent]');
-    
-    // First, mark all outline divs as expanded
-    allDivs.forEach(div => {
-        if (div.querySelector('.outline_line_number')) {
-            div.setAttribute('data-collapsed', 'false');
-            const outlineNum = div.querySelector('.outline_line_number');
-            if (outlineNum) outline_display_update(outlineNum);
-        }
-    });
-    
-    // Then show all divs with proper display type
-    allDivs.forEach(div => {
-        const hasOutline = div.querySelector('.outline_line_number');
-        div.style.display = hasOutline ? 'flex' : 'block';
-    });
-    
-    // Save state after expanding all
-    outline_state_save();
-});
-
-// Expand to Level 2 button functionality
-document.getElementById('expand-level-2-btn').addEventListener('click', function() {
+// Level 2 button functionality (show levels 1-2)
+document.getElementById('button_expand_level_2').addEventListener('click', function() {
     // Get all divs
     const allDivs = document.querySelectorAll('div[data-indent]');
     
@@ -673,5 +645,29 @@ document.getElementById('expand-level-2-btn').addEventListener('click', function
     });
     
     // Save state after expanding to level 2
+    outline_state_save();
+});
+
+// Expand All button functionality
+document.getElementById('button_expand_all').addEventListener('click', function() {
+    // Get all divs
+    const allDivs = document.querySelectorAll('div[data-indent]');
+    
+    // First, mark all outline divs as expanded
+    allDivs.forEach(div => {
+        if (div.querySelector('.outline_line_number')) {
+            div.setAttribute('data-collapsed', 'false');
+            const outlineNum = div.querySelector('.outline_line_number');
+            if (outlineNum) outline_display_update(outlineNum);
+        }
+    });
+    
+    // Then show all divs with proper display type
+    allDivs.forEach(div => {
+        const hasOutline = div.querySelector('.outline_line_number');
+        div.style.display = hasOutline ? 'flex' : 'block';
+    });
+    
+    // Save state after expanding all
     outline_state_save();
 }); 

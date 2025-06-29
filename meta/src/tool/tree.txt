@@ -1,0 +1,26 @@
+1. tree_function_load.
+	a. called_by.
+		1. tree_page_initialize.
+			a. > dom_ready_event.
+			b. > page_load_complete.
+		2. tree_function_dropdown_populate.
+			a. > user_function_selection.
+			b. > dropdown_refresh_trigger.
+	b. calls.
+		1. index_html_fetch.
+			a. fetch_api_call.
+				1. http_request_send.
+				2. response_handler_setup.
+					a. dom_parser_create.
+					b. function_element_extract.
+						1. data_attribute_read.
+						2. function_name_parse.
+							a. parentheses_remove.
+							b. > function_list_populate.
+2. tree_function_display.
+	a. called_by.
+		1. tree_function_navigate.
+		2. tree_dropdown_setup.
+	b. calls.
+		1. tree_calls_display.
+		2. tree_called_by_display.

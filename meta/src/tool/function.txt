@@ -1,102 +1,15 @@
-sync_server.js
+1. apply_time_filter [USER_INTERACTION] Time filter dropdown changed
+    a. filter_time_refresh_start [TIMER] Auto-refresh timer started
+    b. filter_time_refresh_stop [TIMER] Auto-refresh timer stopped
+    c. filter_time_set
+    d. filter_time_type_set
+2. filter_button_click_handler [USER_CLICK] Filter button clicked
+    a. filter_button_click_handler [USER_CLICK] Filter button clicked
+    b. layout_list_duplicate_update
 
-1. server.listen
-	a. sync_timestamps_initialize
-	b. prompt_folder_scan
-		1. sync_html_build
-			a. prompt_txt_read
-			b. prompt_type_detect
-			c. outline_html_generate
-			d. index_html_generate
-	c. setInterval
-		1> prompt_folder_scan
-	d. fs.watch
-		1> sync_html_build
+◄── apply_all_filters ◄── TARGET FUNCTION
 
-2. sync_txt_save
-	a. prompt_txt_read
-
-outline_client.js
-
-1. setInterval
-	a. sync_updates_check
-
-2. forEach (rowDivs)
-	a. sync_throttle_buffer
-		1. function_executed
-			a. function_later
-	b. field_mode_exit
-	c. div.addEventListener('click')
-		1> field_mode_exit
-		2. field_cursor_set
-	d. editableText.addEventListener('input')
-		1. syncDebounced
-	e. editableText.addEventListener('keydown')
-		1> field_mode_exit
-
-3. forEach (outlineNumbers)
-	a. outline_display_update
-
-4. outline_initial_state
-
-5. forEach (outlineNumbers)
-	a. outline_children_find
-	b. outline_display_set
-	c. outline_click_single_handle
-		1> outline_display_update
-		2> outline_display_set
-	d. outline_click_double_handle
-		1> outline_children_find
-		2> outline_display_update
-		3> outline_display_set
-	e. outlineNum.addEventListener('click')
-		1. outline_click_double_handle
-		2. outline_click_single_handle
-
-6. getElementById('collapse-all-btn').addEventListener('click')
-	a> outline_display_update
-
-7. getElementById('expand-all-btn').addEventListener('click')
-	a> outline_display_update
-
-8. getElementById('expand-level-2-btn').addEventListener('click')
-	a> outline_display_update
-
-00_index_client.js
-
-1. getElementById('prev-btn').addEventListener('click')
-
-2. getElementById('next-btn').addEventListener('click')
-
-3. setInterval
-	a> sync_updates_check
-
-4. forEach (liElements)
-	a> sync_throttle_buffer
-		1> function_executed
-			a> function_later
-	b> field_mode_exit
-	c. li.addEventListener('click')
-		1> field_mode_exit
-		2> field_cursor_set
-	d. li.addEventListener('input')
-		1. syncDebounced
-	e. li.addEventListener('keydown')
-		1> field_mode_exit
-
-5. index_filter_apply
-	a. index_duplicate_update
-
-6. getElementById('functions-filter').addEventListener('click')
-	a> index_filter_apply
-
-7. getElementById('files-folders-filter').addEventListener('click')
-	a> index_filter_apply
-
-8> index_filter_apply
-
-html_extract.js
-
-1. field_text_extract
-	a. index_html_extract
-	b. outline_html_extract 
+3. ensure_combined_filtering
+4. test_version_tracking 
+5. change_name_generate
+6. version_update_by_lines

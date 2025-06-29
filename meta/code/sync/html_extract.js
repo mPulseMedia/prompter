@@ -61,7 +61,7 @@ function field_text_extract(html_content, file_type) {
 
 // Export the functions
 module.exports = {
-    index_html_extract,
-    outline_html_extract,
     field_text_extract,
+    index_html_extract,
+    outline_html_extract
 }; 

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        padding-top:      140px;  /* Space for nav + filter buttons */
+        position:         relative;
+    }
+    
+    /* Navigation controls - left justified */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    .button_nav {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .button_nav:hover {
+        opacity: 0.9;
+    }
+    
+    .button_nav.style_active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Outline Control Panel - left justified below nav */
+    .outline_controls {
+        position: fixed;
+        top: 70px;  /* Below nav buttons */
+        left: 20px;
+        display: flex;
+        gap: 12px;
+        z-index: 1000;
+        background-color: rgba(30, 30, 30, 0.95);  /* Subtle background */
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Green control buttons */
+    .control_button {
+        background-color: #2ea043;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .control_button:hover {
+        background-color: #3fb654;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+    
+    .control_button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Button text styling */
+    .control_button {
+        font-size: 18px;
+        line-height: 1;
+    }
+    
+    /* Make "All" button slightly wider */
+    .control_button:last-child {
+        width: auto;
+        min-width: 60px;
+        padding: 12px 16px;
+    }
+    
+    /* Outline specific styles */
+    .outline_line_number {
+        min-width: 30px;
+        flex-shrink: 0;
+        cursor: pointer;
+        user-select: none;
+        margin-right: 4px;
+        text-align: right;
+    }
+    
+    .list_edit_text {
+        flex: 1;
+    }
+    
+    .list_editing_mode {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+    
+    /* Version number display - top right */
+    .page_version {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--gray);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: inherit;
+        font-weight: 500;
+        z-index: 1002;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .page_version:hover {
+        opacity: 1;
+    }
+    
+    .change_name {
+        color: var(--green);
+        font-weight: 600;
+    }
+    
+    .version_number {
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+        <button class="button_nav" data-nav="tree" title="View Tree">Tree</button>
+    </div>
+    
+    <!-- Version number display -->
+    <div class="page_version" title="Page Version">
+        <span class="change_name">layout_tool_web</span>
+        <span class="version_number">v01.16.00</span>
+    </div>
+    
+    <!-- Outline Control Buttons -->
+    <div class="outline_controls">
+        <button class="control_button" id="button_expand_level_1" title="Show Level 1 Only">1</button>
+        <button class="control_button" id="button_expand_level_2" title="Show Levels 1-2">2</button>
+        <button class="control_button" id="button_expand_all" title="Show All Levels">All</button>
+    </div>
+    
+    <div id="content">        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">////////////////////////////////////////////////////////////////</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">NOTE: This file defines core naming conventions for all project identifiers.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="1.">1.</span>
+            <span class="list_edit_text">terminology</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. definitions</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Define codename as unique name for a concept, object, file, folder, </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           function, variable in the project.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Define term as one or more terms make up the codename, separated by _.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Define root as the first term in a codename.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Define root_list as the list of all roots used throughout the </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           project.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="2.">2.</span>
+            <span class="list_edit_text">rule_format</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. style</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Use snake_case.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Keep under 4 terms.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. No special characters.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Use common abbreviations consistently.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. root_term_reuse</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Start codenames with existing root terms whenever possible.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Only introduce new root terms when absolutely necessary.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. term_hierarchy</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Structure terms from left to right as: root > sub_object > </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           attribute > verb.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use leftmost terms for root terms and primary objects.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Use next term for term_object_sub or sub-concept if needed.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Use next term for attribute if needed.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Use last term for verb actions needed, like get, put, set, is.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Example: circle_border_color_set (root_object_sub_attribute_verb).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    d. rule_grammar</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Use singular forms, not plural.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use present tense, not past or future.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Never use -ing endings (gerunds).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Use base verb forms for actions.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Keep terms concise and clear.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    e. naming_semantic_prefix</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Start all circle-related codenames with "circle".</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use "circle" as the root for any identifier related to circle </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           functionality.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Use "circle_loc" for circle location-related variables to group them </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           adjacently.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Use "loc" as abbreviation for location in second term position.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Use "ui" as root for user interface elements.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Use "color" as root for color calculation variables.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. Use "file" as root for file-related identifiers.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        8. Use "mouse" as root for mouse tracking variables.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        9. Use "window" as root for window/viewport related variables.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        10. Use "page" as root for page layout variables.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        11. Use "file" and "list" as attributes when they are objects being </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            acted upon.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        12. Use "file" as root when referring to file operations or file </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            management.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        13. Use "behavior" as attribute, not root term.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        14. Use meaningful roots based on actual function, not artificial </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            groupings.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        15. Group related concepts under shared root terms to show fundamental </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            concepts in this project.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        16. Use "sync" as root for file synchronization functions in this </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            project.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        17. Use "layout" as root for HTML generation functions in this project.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        18. Use "prompt" as root for prompt execution functions in this project.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        19. Use "tool" as root for utility functions in this project.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        20. Use "nav" as root for page navigation functions in this project.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        21. Use "outline" as root for outline content functions in this project.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        22. Use "filter" as root for content filtering functions in this project.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="3.">3.</span>
+            <span class="list_edit_text">rule_scope</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. application</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Apply to all identifiers.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Include files, directories, functions, variables, and anything </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           cursor.ai can name.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. No exceptions allowed.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Apply to every new identifier created.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Apply to every identifier modified.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="4.">4.</span>
+            <span class="list_edit_text">rule_path</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. naming</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Create codename from file path, ignoring extensions and numbers.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use established roots to shorten path names.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="5.">5.</span>
+            <span class="list_edit_text">rule_application</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. timing</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Apply codename rules before creating any identifier.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Apply codename rules before modifying any identifier.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Apply codename rules before committing any changes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. verification</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Verify all identifiers follow codename rules.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Verify all variables use snake_case.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Verify all class names use snake_case.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Verify all function names use snake_case.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Verify circle-related names start with "circle".</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Verify boolean variables end with "_is".</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. Verify circle location variables use "circle_loc" prefix.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        8. Verify all variables use appropriate root terms for grouping.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        9. Verify term_hierarchy follows root > object_sub > attribute > verb </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           pattern.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        10. Verify grammatical rules are followed (singular, present tense, </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            no -ing).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        11. Verify CSS class names follow codename rules and are informed by </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            existing codenames in the index.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. process_update</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Update all affected files when changing codenames.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Update all references to changed codenames.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Update file_index with all codename changes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Verify no broken references after changes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">//////////////////////////////////////////////////////////////// </div>
+    </div>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'meta_rule_other_rule_codename';
+        window.LAST_MODIFIED = 1749017682776.203;
+    </script>
+    <script src="/js/layout_shared_client.js"></script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/layout_outline_client.js"></script>
+</body>
+</html>

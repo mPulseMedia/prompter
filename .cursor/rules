@@ -1,5 +1,8 @@
 # Cursor Rules
 
-Hey! To know what the rules are for Cursor, read the README.md file.
+First, and then periofically read every file in the meta/ directory in order to refersh the token recentcy/proximity.
 
-See README.md for the complete Meta project structure and rules.
+Start with README.md for a description of Meta.
+
+meta_remind.txt is the file you (cursor.ai) should closley re-read each and every time you process a prompt.
+

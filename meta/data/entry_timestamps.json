@@ -1,0 +1,4746 @@
+{
+  "extractor": {
+    "created": 1749053122676,
+    "modified": 1751180271572
+  },
+  "function_extractor.js": {
+    "created": 1749053122676,
+    "modified": 1751180331577
+  },
+  "function_analyzer": {
+    "created": 1749053122679,
+    "modified": 1751183426036
+  },
+  "javascript_files_scan": {
+    "created": 1749053122679,
+    "modified": 1749053122679
+  },
+  "outline_builder": {
+    "created": 1749053122679,
+    "modified": 1751176530193
+  },
+  "function_extractor": {
+    "created": 1749053122679,
+    "modified": 1751178050337
+  },
+  "console": {
+    "created": 1749053122680,
+    "modified": 1749053122680
+  },
+  "index_extractor.js": {
+    "created": 1749053122681,
+    "modified": 1751180381581
+  },
+  "function_names_extractor": {
+    "created": 1749053122681,
+    "modified": 1749053122681
+  },
+  "snake_case_name": {
+    "created": 1749053122681,
+    "modified": 1751222818233
+  },
+  "css_class_extractor": {
+    "created": 1749053122681,
+    "modified": 1749053122681
+  },
+  "directory_scanner": {
+    "created": 1749053122681,
+    "modified": 1751180401581
+  },
+  "index_extractor": {
+    "created": 1749053122681,
+    "modified": 1749053122681
+  },
+  "innerHTML": {
+    "created": 1749053122681,
+    "modified": 1749053122681
+  },
+  "textContent": {
+    "created": 1749053122681,
+    "modified": 1749053122681
+  },
+  "document": {
+    "created": 1749053122681,
+    "modified": 1749053122681
+  },
+  "window": {
+    "created": 1749053122681,
+    "modified": 1749053122681
+  },
+  "meta_extractor.js": {
+    "created": 1749053122682,
+    "modified": 1751180421582
+  },
+  "meta_extractor": {
+    "created": 1749053122682,
+    "modified": 1749053122682
+  },
+  "web_extractor.js": {
+    "created": 1749053122683,
+    "modified": 1751180361581
+  },
+  "web_analyzer": {
+    "created": 1749053122683,
+    "modified": 1751180371580
+  },
+  "web_builder": {
+    "created": 1749053122683,
+    "modified": 1751165053515
+  },
+  "web_extractor": {
+    "created": 1749053122683,
+    "modified": 1751165053515
+  },
+  "layout": {
+    "created": 1749053122684,
+    "modified": 1751223853564
+  },
+  "layout_list_client.js": {
+    "created": 1749053122684,
+    "modified": 1751223832536
+  },
+  "field_cursor_set": {
+    "created": 1749053122684,
+    "modified": 1751223826547
+  },
+  "sync_throttle_buffer": {
+    "created": 1749053122684,
+    "modified": 1751223826547
+  },
+  "function_executed": {
+    "created": 1749053122684,
+    "modified": 1751223826547
+  },
+  "field_mode_exit": {
+    "created": 1749053122684,
+    "modified": 1751223826547
+  },
+  "list_filter_load": {
+    "created": 1749053122684,
+    "modified": 1751223826547
+  },
+  "list_filter_save": {
+    "created": 1749053122684,
+    "modified": 1751223826547
+  },
+  "layout_list_filter_update_buttons": {
+    "created": 1749053122684,
+    "modified": 1751220405160
+  },
+  "layout_list_filter_apply": {
+    "created": 1749053122684,
+    "modified": 1751221663280
+  },
+  "layout_list_duplicate_update": {
+    "created": 1749053122684,
+    "modified": 1751221663280
+  },
+  "apply_all_filters": {
+    "created": 1749053122684,
+    "modified": 1751221663280
+  },
+  "filter_toggle": {
+    "created": 1749053122684,
+    "modified": 1751165947579
+  },
+  "original_filter_toggle": {
+    "created": 1749053122684,
+    "modified": 1751165947579
+  },
+  "function_later": {
+    "created": 1749053122684,
+    "modified": 1751223826547
+  },
+  "layout_list_template.js": {
+    "created": 1749053122684,
+    "modified": 1751223832539
+  },
+  "layout_list_html_generate": {
+    "created": 1749053122684,
+    "modified": 1751221861890
+  },
+  "layout_outline_client.js": {
+    "created": 1749053122685,
+    "modified": 1751223832541
+  },
+  "outline_children_find": {
+    "created": 1749053122685,
+    "modified": 1751223826549
+  },
+  "outline_display_set": {
+    "created": 1749053122685,
+    "modified": 1751223826549
+  },
+  "outline_state_key_generate": {
+    "created": 1749053122685,
+    "modified": 1751223826549
+  },
+  "outline_state_save": {
+    "created": 1749053122685,
+    "modified": 1751223826549
+  },
+  "outline_state_restore": {
+    "created": 1749053122685,
+    "modified": 1751223826549
+  },
+  "outline_display_update": {
+    "created": 1749053122685,
+    "modified": 1751223826549
+  },
+  "outline_initial_state": {
+    "created": 1749053122685,
+    "modified": 1751223826549
+  },
+  "outline_visibility_apply": {
+    "created": 1749053122685,
+    "modified": 1751222326068
+  },
+  "outline_click_single_handle": {
+    "created": 1749053122685,
+    "modified": 1751223826549
+  },
+  "outline_click_double_handle": {
+    "created": 1749053122685,
+    "modified": 1751223826549
+  },
+  "reload_notification_show": {
+    "created": 1749053122685,
+    "modified": 1751222326068
+  },
+  "sync_updates_check": {
+    "created": 1749053122685,
+    "modified": 1751223826547
+  },
+  "scroll_position_restore": {
+    "created": 1749053122685,
+    "modified": 1751222326068
+  },
+  "manual_refresh": {
+    "created": 1749053122685,
+    "modified": 1751165003470
+  },
+  "layout_outline_template.js": {
+    "created": 1749053122685,
+    "modified": 1751223832543
+  },
+  "outline_html_generate": {
+    "created": 1749053122685,
+    "modified": 1751223826550
+  },
+  "layout_time_filter_client.js": {
+    "created": 1749053122686,
+    "modified": 1751223853540
+  },
+  "apply_time_filter": {
+    "created": 1749053122686,
+    "modified": 1751219220037
+  },
+  "passes_time_filter": {
+    "created": 1749053122686,
+    "modified": 1751166723205
+  },
+  "format_time_ago": {
+    "created": 1749053122686,
+    "modified": 1751161543068
+  },
+  "nav_client.js": {
+    "created": 1749053122686,
+    "modified": 1751223853543
+  },
+  "nav_init": {
+    "created": 1749053122686,
+    "modified": 1751195579461
+  },
+  "nav_button_click": {
+    "created": 1749053122686,
+    "modified": 1751195579461
+  },
+  "sync": {
+    "created": 1749053122686,
+    "modified": 1751223853546
+  },
+  "html_extract.js": {
+    "created": 1749053122686,
+    "modified": 1751223853546
+  },
+  "index_html_extract": {
+    "created": 1749053122686,
+    "modified": 1749053122686
+  },
+  "outline_html_extract": {
+    "created": 1749053122686,
+    "modified": 1749053122686
+  },
+  "field_text_extract": {
+    "created": 1749053122686,
+    "modified": 1749053122686
+  },
+  "sync_server.js": {
+    "created": 1749053122686,
+    "modified": 1751223853546
+  },
+  "sync_timestamps_initialize": {
+    "created": 1749053122686,
+    "modified": 1751223775539
+  },
+  "timestamps_initialize": {
+    "created": 1749053122686,
+    "modified": 1751222818233
+  },
+  "timestamps_save": {
+    "created": 1749053122686,
+    "modified": 1751222818233
+  },
+  "timestamp_update": {
+    "created": 1749053122686,
+    "modified": 1751222818233
+  },
+  "file_watcher_setup": {
+    "created": 1749053122686,
+    "modified": 1751223775539
+  },
+  "prompt_type_detect": {
+    "created": 1749053122686,
+    "modified": 1751223775539
+  },
+  "meta_folder_scan_recursive": {
+    "created": 1749053122686,
+    "modified": 1751222818233
+  },
+  "prompt_txt_read": {
+    "created": 1749053122686,
+    "modified": 1751223775539
+  },
+  "sync_html_build": {
+    "created": 1749053122686,
+    "modified": 1751223775539
+  },
+  "sync_txt_save": {
+    "created": 1749053122686,
+    "modified": 1751223775539
+  },
+  "css_classes_extract_live": {
+    "created": 1749053122686,
+    "modified": 1751222818233
+  },
+  "index_content_extract_live": {
+    "created": 1749053122686,
+    "modified": 1751222818233
+  },
+  "file_watchers_rebuild": {
+    "created": 1749053122686,
+    "modified": 1751222818233
+  },
+  "css_class_name_is": {
+    "created": 1749053122686,
+    "modified": 1751223775539
+  },
+  "index.txt": {
+    "created": 1749053122687,
+    "modified": 1751223853549
+  },
+  "prompt": {
+    "created": 1749053122687,
+    "modified": 1751223853551
+  },
+  "01_prompt_foundation.txt": {
+    "created": 1749053122687,
+    "modified": 1751223853549
+  },
+  "02_sync_realtime.txt": {
+    "created": 1749053122687,
+    "modified": 1751223853549
+  },
+  "03_layout_styling.txt": {
+    "created": 1749053122688,
+    "modified": 1751223853549
+  },
+  "04_layout_advanced.txt": {
+    "created": 1749053122688,
+    "modified": 1751223853549
+  },
+  "05_project_organization.txt": {
+    "created": 1749053122688,
+    "modified": 1751223853549
+  },
+  "06_filter_timestamp.txt": {
+    "created": 1749053122688,
+    "modified": 1751223853549
+  },
+  "this_is_a_codename_t": {
+    "created": 1749053122688,
+    "modified": 1749055987520
+  },
+  "tool": {
+    "created": 1749053122688,
+    "modified": 1751223853564
+  },
+  "function.txt": {
+    "created": 1749053122688,
+    "modified": 1751223853549
+  },
+  "web.txt": {
+    "created": 1749053122688,
+    "modified": 1751223853549
+  },
+  "js": {
+    "created": 1749053122688,
+    "modified": 1751223853550
+  },
+  "layout_list_rule.html": {
+    "created": 1749053122688,
+    "modified": 1751223853557
+  },
+  "layout_outline_rule.html": {
+    "created": 1749053122689,
+    "modified": 1751223853557
+  },
+  "meta": {
+    "created": 1749053122689,
+    "modified": 1751223853550
+  },
+  "src": {
+    "created": 1749053122689,
+    "modified": 1751223853559
+  },
+  "meta_remind.html": {
+    "created": 1749053122689,
+    "modified": 1751223853551
+  },
+  "01_prompt_foundation.html": {
+    "created": 1749053122689,
+    "modified": 1751223853551
+  },
+  "02_sync_realtime.html": {
+    "created": 1749053122690,
+    "modified": 1751223853552
+  },
+  "03_layout_styling.html": {
+    "created": 1749053122690,
+    "modified": 1751223853553
+  },
+  "04_layout_advanced.html": {
+    "created": 1749053122690,
+    "modified": 1751223853553
+  },
+  "05_project_organization.html": {
+    "created": 1749053122691,
+    "modified": 1751223853554
+  },
+  "06_filter_timestamp.html": {
+    "created": 1749053122691,
+    "modified": 1751223853554
+  },
+  "rule_code.html": {
+    "created": 1749053122692,
+    "modified": 1751223853558
+  },
+  "rule_codename.html": {
+    "created": 1749053122692,
+    "modified": 1751223853558
+  },
+  "rule_prompt.html": {
+    "created": 1749053122693,
+    "modified": 1751223853558
+  },
+  "index.html": {
+    "created": 1749053122693,
+    "modified": 1751223853561
+  },
+  "function.html": {
+    "created": 1749053122693,
+    "modified": 1751223853561
+  },
+  "function_rule.html": {
+    "created": 1749053122694,
+    "modified": 1751223853561
+  },
+  "index_rule.html": {
+    "created": 1749053122694,
+    "modified": 1751223853562
+  },
+  "web_rule.html": {
+    "created": 1749053122694,
+    "modified": 1751223853564
+  },
+  "layout_list_rule.txt": {
+    "created": 1749053122694,
+    "modified": 1751223853564
+  },
+  "layout_outline_rule.txt": {
+    "created": 1749053122694,
+    "modified": 1751223853564
+  },
+  "other": {
+    "created": 1749053122694,
+    "modified": 1751223853564
+  },
+  "rule_code.txt": {
+    "created": 1749053122694,
+    "modified": 1751223853564
+  },
+  "rule_codename.txt": {
+    "created": 1749053122694,
+    "modified": 1751223853564
+  },
+  "rule_prompt.txt": {
+    "created": 1749053122695,
+    "modified": 1751223853564
+  },
+  "function_rule.txt": {
+    "created": 1749053122695,
+    "modified": 1751223853564
+  },
+  "index_rule.txt": {
+    "created": 1749053122695,
+    "modified": 1751223853564
+  },
+  "web_rule.txt": {
+    "created": 1749053122695,
+    "modified": 1751223853564
+  },
+  "list_term_duplicate": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "list_term_unique": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "list_editing_mode": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "style_inactive": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "style_hidden": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "filter_files_folders": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "filter_functions": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "filter_css": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "filter_comments": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "nav_controls": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "button_nav": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "list_filter_controls": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "list_filter_btn": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "time_filter_controls": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "time_filter_select": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "button_collapse_all": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "button_expand_all": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "button_expand_level_2": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "outline_controls": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "control_button": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "collapse_icon": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "expand_icon": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "style_time_hidden": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "time_recent": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "time_modified_recent": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "style_active": {
+    "created": 1749053122698,
+    "modified": 1749053122698
+  },
+  "web.html": {
+    "created": 1749053126055,
+    "modified": 1751223853563
+  },
+  "this_is_a_codename_tt": {
+    "created": 1749054785369,
+    "modified": 1749054815428
+  },
+  "this_is_a_codename_ttt": {
+    "created": 1749054845463,
+    "modified": 1749055957474
+  },
+  "this_is_a_codename_tttttt": {
+    "created": 1749054905547,
+    "modified": 1749054905547
+  },
+  "batch_index_update": {
+    "created": 1749055224705,
+    "modified": 1751222818233
+  },
+  "this_is_t": {
+    "created": 1749056017574,
+    "modified": 1749059137279
+  },
+  "this_is_tttt": {
+    "created": 1749056167846,
+    "modified": 1749057575518
+  },
+  "this_is_updated_test": {
+    "created": 1749057154904,
+    "modified": 1749057545479
+  },
+  "this_is_bidirectional_test": {
+    "created": 1749057184959,
+    "modified": 1749057335201
+  },
+  "text_to_web_test": {
+    "created": 1749057245068,
+    "modified": 1749057335201
+  },
+  "final_sync_test": {
+    "created": 1749057275121,
+    "modified": 1749057335201
+  },
+  "clean_sync_test": {
+    "created": 1749057365240,
+    "modified": 1749057515442
+  },
+  "bidirectional_working": {
+    "created": 1749057395280,
+    "modified": 1749057425319
+  },
+  "sync_test_direct": {
+    "created": 1749058063148,
+    "modified": 1749058783866
+  },
+  "this_is_tt": {
+    "created": 1749058843956,
+    "modified": 1749058843956
+  },
+  "webpage_sync_test": {
+    "created": 1749059137279,
+    "modified": 1751223853554
+  },
+  "this_is_wt": {
+    "created": 1749059167334,
+    "modified": 1751223853554
+  },
+  "rule": {
+    "created": 1751155095325,
+    "modified": 1751223853557
+  },
+  "codename_analysis.txt": {
+    "created": 1751155924610,
+    "modified": 1751223853549
+  },
+  "codename_analysis.html": {
+    "created": 1751155929636,
+    "modified": 1751223853560
+  },
+  "search_controls": {
+    "created": 1751159235744,
+    "modified": 1751159235744
+  },
+  "search_input_container": {
+    "created": 1751159235744,
+    "modified": 1751159235744
+  },
+  "search_input": {
+    "created": 1751159235744,
+    "modified": 1751159235744
+  },
+  "search_clear": {
+    "created": 1751159235744,
+    "modified": 1751159235744
+  },
+  "search_clear_visible": {
+    "created": 1751159395753,
+    "modified": 1751159395753
+  },
+  "persistence_manager.js": {
+    "created": 1751161101904,
+    "modified": 1751223853545
+  },
+  "filter_button_click_handler": {
+    "created": 1751162476942,
+    "modified": 1751219978092
+  },
+  "function_execute": {
+    "created": 1751164993472,
+    "modified": 1751183156694
+  },
+  "time_format_ago": {
+    "created": 1751165003470,
+    "modified": 1751166723205
+  },
+  "page_refresh_manual": {
+    "created": 1751165013480,
+    "modified": 1751222326068
+  },
+  "meta_files_scan_js": {
+    "created": 1751165053514,
+    "modified": 1751183426036
+  },
+  "package-lock.json": {
+    "created": 1751165412252,
+    "modified": 1751223853546
+  },
+  "package.json": {
+    "created": 1751165412252,
+    "modified": 1751223853546
+  },
+  "websocket_message_broadcast": {
+    "created": 1751165463563,
+    "modified": 1751165563567
+  },
+  "websocket_connection_remove": {
+    "created": 1751165463563,
+    "modified": 1751165563567
+  },
+  "websocket_initialize": {
+    "created": 1751165603568,
+    "modified": 1751166713208
+  },
+  "websocket_handle_file_change": {
+    "created": 1751165603568,
+    "modified": 1751165603568
+  },
+  "websocket_fallback_to_polling": {
+    "created": 1751165603568,
+    "modified": 1751166713208
+  },
+  "sync_updates_check_fallback": {
+    "created": 1751165603568,
+    "modified": 1751168691003
+  },
+  "dom_inner_html_set": {
+    "created": 1751165716764,
+    "modified": 1751165716764
+  },
+  "dom_text_content_set": {
+    "created": 1751165716764,
+    "modified": 1751165716764
+  },
+  "debug_console_log": {
+    "created": 1751165716764,
+    "modified": 1751165716764
+  },
+  "dom_document_get": {
+    "created": 1751165716764,
+    "modified": 1751165716764
+  },
+  "browser_window_get": {
+    "created": 1751165716764,
+    "modified": 1751165716764
+  },
+  "ensure_combined_filtering": {
+    "created": 1751165957585,
+    "modified": 1751221663280
+  },
+  "update_time_dropdown": {
+    "created": 1751166823213,
+    "modified": 1751169929570
+  },
+  "save_time_filter": {
+    "created": 1751166823213,
+    "modified": 1751169929570
+  },
+  "load_time_filter": {
+    "created": 1751166823213,
+    "modified": 1751169929570
+  },
+  "set_time_filter": {
+    "created": 1751166823213,
+    "modified": 1751169929570
+  },
+  "start_time_filter_refresh": {
+    "created": 1751167103233,
+    "modified": 1751169929570
+  },
+  "stop_time_filter_refresh": {
+    "created": 1751167103233,
+    "modified": 1751169929570
+  },
+  "set_time_type": {
+    "created": 1751168131662,
+    "modified": 1751169929570
+  },
+  "time_type_select": {
+    "created": 1751168131676,
+    "modified": 1751168131676
+  },
+  "sync_connection_initialize": {
+    "created": 1751168691002,
+    "modified": 1751222101003
+  },
+  "sync_file_handle": {
+    "created": 1751168691002,
+    "modified": 1751222326068
+  },
+  "sync_connection_fallback": {
+    "created": 1751168691002,
+    "modified": 1751222101003
+  },
+  "sync_message_broadcast": {
+    "created": 1751168691004,
+    "modified": 1751222818233
+  },
+  "sync_connection_remove": {
+    "created": 1751168691004,
+    "modified": 1751222818233
+  },
+  "layout_time_dropdown_update": {
+    "created": 1751170109582,
+    "modified": 1751219220037
+  },
+  "filter_time_save": {
+    "created": 1751170109582,
+    "modified": 1751219220037
+  },
+  "filter_time_load": {
+    "created": 1751170109582,
+    "modified": 1751219220037
+  },
+  "filter_time_set": {
+    "created": 1751170109582,
+    "modified": 1751219220037
+  },
+  "filter_time_type_set": {
+    "created": 1751170109582,
+    "modified": 1751219220037
+  },
+  "filter_time_refresh_start": {
+    "created": 1751170109582,
+    "modified": 1751219220037
+  },
+  "filter_time_refresh_stop": {
+    "created": 1751170109582,
+    "modified": 1751219220037
+  },
+  "prompt.txt": {
+    "created": 1751170534640,
+    "modified": 1751223853549
+  },
+  "prompt.html": {
+    "created": 1751170549637,
+    "modified": 1751223853562
+  },
+  "function_hierarchy_builder": {
+    "created": 1751176600200,
+    "modified": 1751178050337
+  },
+  "tree_extractor.js": {
+    "created": 1751178554660,
+    "modified": 1751180291573
+  },
+  "tree_view_builder": {
+    "created": 1751178554661,
+    "modified": 1751178554661
+  },
+  "tree_extractor": {
+    "created": 1751178554661,
+    "modified": 1751178554661
+  },
+  "tree.txt": {
+    "created": 1751178630414,
+    "modified": 1751223853549
+  },
+  "tree.html": {
+    "created": 1751178640435,
+    "modified": 1751223853563
+  },
+  "extract": {
+    "created": 1751180281582,
+    "modified": 1751223853536
+  },
+  "tree_extract.js": {
+    "created": 1751180301587,
+    "modified": 1751183746060
+  },
+  "tree_view_build": {
+    "created": 1751180321574,
+    "modified": 1751183426038
+  },
+  "tree_extract": {
+    "created": 1751180321574,
+    "modified": 1751183426038
+  },
+  "function_extract.js": {
+    "created": 1751180341577,
+    "modified": 1751223853536
+  },
+  "function_hierarchy_build": {
+    "created": 1751180351581,
+    "modified": 1751183426036
+  },
+  "function_extract": {
+    "created": 1751180351581,
+    "modified": 1751183426036
+  },
+  "web_extract.js": {
+    "created": 1751180371580,
+    "modified": 1751223853538
+  },
+  "web_build": {
+    "created": 1751180371580,
+    "modified": 1751180371580
+  },
+  "web_extract": {
+    "created": 1751180371580,
+    "modified": 1751180371580
+  },
+  "index_extract.js": {
+    "created": 1751180391577,
+    "modified": 1751223853537
+  },
+  "function_names_extract": {
+    "created": 1751180401581,
+    "modified": 1751180401581
+  },
+  "css_class_extract": {
+    "created": 1751180401581,
+    "modified": 1751180401581
+  },
+  "index_extract": {
+    "created": 1751180401581,
+    "modified": 1751180401581
+  },
+  "meta_extract.js": {
+    "created": 1751180431588,
+    "modified": 1751223853538
+  },
+  "meta_extract": {
+    "created": 1751180441593,
+    "modified": 1751180441593
+  },
+  "layout_tree_template.js": {
+    "created": 1751180851656,
+    "modified": 1751223853541
+  },
+  "layout_tree_html_generate": {
+    "created": 1751180851656,
+    "modified": 1751195699495
+  },
+  "tree_line": {
+    "created": 1751180851666,
+    "modified": 1751180851666
+  },
+  "selected_function": {
+    "created": 1751180851666,
+    "modified": 1751180851666
+  },
+  "tree_indent": {
+    "created": 1751180851666,
+    "modified": 1751180851666
+  },
+  "tree_function": {
+    "created": 1751180851666,
+    "modified": 1751180851666
+  },
+  "tree_arrow": {
+    "created": 1751180851666,
+    "modified": 1751180851666
+  },
+  "tree_exogenous": {
+    "created": 1751180851666,
+    "modified": 1751180851666
+  },
+  "tree_controls": {
+    "created": 1751180851666,
+    "modified": 1751180851666
+  },
+  "function_select": {
+    "created": 1751180851666,
+    "modified": 1751180851666
+  },
+  "extract_functions_from_content": {
+    "created": 1751182240228,
+    "modified": 1751222818233
+  },
+  "camel_to_snake_case": {
+    "created": 1751182250229,
+    "modified": 1751222818233
+  },
+  "extract_comment_code_names": {
+    "created": 1751182290239,
+    "modified": 1751222818233
+  },
+  "find_codename_in_all_files": {
+    "created": 1751182300253,
+    "modified": 1751222818233
+  },
+  "scan_directory_recursive": {
+    "created": 1751182320235,
+    "modified": 1751222818233
+  },
+  "calls": {
+    "created": 1751182339433,
+    "modified": 1751183426036
+  },
+  "is_user_defined_function": {
+    "created": 1751182339433,
+    "modified": 1751182339433
+  },
+  "get_root_cause_annotation": {
+    "created": 1751182339433,
+    "modified": 1751182339433
+  },
+  "func_data": {
+    "created": 1751182339433,
+    "modified": 1751183426036
+  },
+  "caller_data": {
+    "created": 1751182339433,
+    "modified": 1751183426037
+  },
+  "callee_data": {
+    "created": 1751182339433,
+    "modified": 1751183426037
+  },
+  "output": {
+    "created": 1751182339433,
+    "modified": 1751183426037
+  },
+  "found_functions": {
+    "created": 1751182339434,
+    "modified": 1751182339434
+  },
+  "name": {
+    "created": 1751182339434,
+    "modified": 1751223775540
+  },
+  "get_exogenous_trigger": {
+    "created": 1751182339434,
+    "modified": 1751182339434
+  },
+  "build_ancestors": {
+    "created": 1751182339434,
+    "modified": 1751182339434
+  },
+  "build_descendants": {
+    "created": 1751182339434,
+    "modified": 1751182339434
+  },
+  "outline": {
+    "created": 1751182339437,
+    "modified": 1751223826550
+  },
+  "names": {
+    "created": 1751182339437,
+    "modified": 1751222818235
+  },
+  "function_name": {
+    "created": 1751182339438,
+    "modified": 1751182339438
+  },
+  "exogenous_trigger": {
+    "created": 1751182339438,
+    "modified": 1751182339438
+  },
+  "field": {
+    "created": 1751182339438,
+    "modified": 1751182339438
+  },
+  "camel_case": {
+    "created": 1751182339439,
+    "modified": 1751222818235
+  },
+  "before_count": {
+    "created": 1751182339439,
+    "modified": 1751222818236
+  },
+  "after_count": {
+    "created": 1751182339439,
+    "modified": 1751222818236
+  },
+  "snake": {
+    "created": 1751182339440,
+    "modified": 1751222818237
+  },
+  "function_user_defined_check": {
+    "created": 1751182632774,
+    "modified": 1751183426036
+  },
+  "function_trigger_extract": {
+    "created": 1751182632774,
+    "modified": 1751183016695
+  },
+  "tree_trigger_extract": {
+    "created": 1751182632776,
+    "modified": 1751182926683
+  },
+  "tree_ancestors_build": {
+    "created": 1751182632776,
+    "modified": 1751182662784
+  },
+  "tree_descendants_build": {
+    "created": 1751182632776,
+    "modified": 1751182662784
+  },
+  "annotation": {
+    "created": 1751182672785,
+    "modified": 1751182672785
+  },
+  "gp_annotation": {
+    "created": 1751182672785,
+    "modified": 1751182672785
+  },
+  "tree_ancestor_build": {
+    "created": 1751182916668,
+    "modified": 1751183426038
+  },
+  "tree_descendant_build": {
+    "created": 1751182916668,
+    "modified": 1751183426038
+  },
+  "trigger_description": {
+    "created": 1751183016695,
+    "modified": 1751183426037
+  },
+  "parent_trigger_description": {
+    "created": 1751183016695,
+    "modified": 1751183426037
+  },
+  "function_event_extract": {
+    "created": 1751183036692,
+    "modified": 1751183426036
+  },
+  "tree_event_extract": {
+    "created": 1751183046695,
+    "modified": 1751183426038
+  },
+  "edit_delay_manager": {
+    "created": 1751183156694,
+    "modified": 1751183246007
+  },
+  "delay_callback_run": {
+    "created": 1751183156697,
+    "modified": 1751183416044
+  },
+  "connection_polling_backup": {
+    "created": 1751183156697,
+    "modified": 1751183406042
+  },
+  "delay_timeout_clear": {
+    "created": 1751183156697,
+    "modified": 1751183416044
+  },
+  "sync_debounce_create": {
+    "created": 1751183396037,
+    "modified": 1751222091995
+  },
+  "sync_polling_fallback": {
+    "created": 1751183416044,
+    "modified": 1751222101003
+  },
+  "sync_timeout_execute": {
+    "created": 1751183456027,
+    "modified": 1751222091995
+  },
+  "sync_timeout_callback": {
+    "created": 1751183456027,
+    "modified": 1751222091996
+  },
+  "layout_tree_client.js": {
+    "created": 1751187566345,
+    "modified": 1751223853540
+  },
+  "tree_functions_load": {
+    "created": 1751187566346,
+    "modified": 1751187566346
+  },
+  "tree_function_dropdown_populate": {
+    "created": 1751187566346,
+    "modified": 1751190685708
+  },
+  "tree_function_selection_handle": {
+    "created": 1751187566346,
+    "modified": 1751190685708
+  },
+  "tree_content_update": {
+    "created": 1751187566346,
+    "modified": 1751190685708
+  },
+  "tree_hierarchy_generate": {
+    "created": 1751187566346,
+    "modified": 1751190685708
+  },
+  "tree_content": {
+    "created": 1751187566369,
+    "modified": 1751187566369
+  },
+  "tree_function_load": {
+    "created": 1751187786366,
+    "modified": 1751190685708
+  },
+  "version_manager.js": {
+    "created": 1751188990240,
+    "modified": 1751223853548
+  },
+  "version_data_load": {
+    "created": 1751188990240,
+    "modified": 1751197220086
+  },
+  "version_data_save": {
+    "created": 1751188990240,
+    "modified": 1751197220086
+  },
+  "version_increment": {
+    "created": 1751188990240,
+    "modified": 1751197220086
+  },
+  "version_format": {
+    "created": 1751188990240,
+    "modified": 1751197220086
+  },
+  "version_update_all": {
+    "created": 1751188990240,
+    "modified": 1751197220086
+  },
+  "version_get": {
+    "created": 1751188990240,
+    "modified": 1751197220086
+  },
+  "version_initialize": {
+    "created": 1751188990240,
+    "modified": 1751197220086
+  },
+  "version": {
+    "created": 1751188990240,
+    "modified": 1751197220087
+  },
+  "page_version": {
+    "created": 1751189056266,
+    "modified": 1751189056266
+  },
+  "function_list_items": {
+    "created": 1751190664703,
+    "modified": 1751190664703
+  },
+  "clean_function_name": {
+    "created": 1751190664703,
+    "modified": 1751190664703
+  },
+  "line_history_load": {
+    "created": 1751192639585,
+    "modified": 1751197220086
+  },
+  "line_history_save": {
+    "created": 1751192639585,
+    "modified": 1751197220086
+  },
+  "version_update_by_lines": {
+    "created": 1751192639585,
+    "modified": 1751197220086
+  },
+  "version_get_stats": {
+    "created": 1751192639585,
+    "modified": 1751197220086
+  },
+  "version_websocket_init": {
+    "created": 1751193192989,
+    "modified": 1751195579461
+  },
+  "version_display_update": {
+    "created": 1751193192989,
+    "modified": 1751195579461
+  },
+  "version_history.js": {
+    "created": 1751193390338,
+    "modified": 1751223853547
+  },
+  "version_history_load": {
+    "created": 1751193390339,
+    "modified": 1751193390339
+  },
+  "version_history_save": {
+    "created": 1751193390339,
+    "modified": 1751193390339
+  },
+  "version_history_add": {
+    "created": 1751193390339,
+    "modified": 1751193390339
+  },
+  "version_history_recent": {
+    "created": 1751193390339,
+    "modified": 1751193390339
+  },
+  "change_name_generate": {
+    "created": 1751193620167,
+    "modified": 1751197220086
+  },
+  "change_name_get": {
+    "created": 1751193620167,
+    "modified": 1751197220086
+  },
+  "change_name_save": {
+    "created": 1751193620167,
+    "modified": 1751197220086
+  },
+  "change_name": {
+    "created": 1751193704207,
+    "modified": 1751193704207
+  },
+  "version_number": {
+    "created": 1751193704207,
+    "modified": 1751193704207
+  },
+  "filter_checkbox_container": {
+    "created": 1751194820250,
+    "modified": 1751194820250
+  },
+  "filter_checkbox": {
+    "created": 1751194820250,
+    "modified": 1751194820250
+  },
+  "filter_label": {
+    "created": 1751194820250,
+    "modified": 1751194820250
+  },
+  "time_type_radio_group": {
+    "created": 1751196159387,
+    "modified": 1751196159387
+  },
+  "time_type_radio_container": {
+    "created": 1751196159387,
+    "modified": 1751196159387
+  },
+  "time_type_radio": {
+    "created": 1751196159387,
+    "modified": 1751196159387
+  },
+  "time_type_label": {
+    "created": 1751196159387,
+    "modified": 1751196159387
+  },
+  "time_type_created": {
+    "created": 1751196204406,
+    "modified": 1751196204406
+  },
+  "time_type_modified": {
+    "created": 1751196204406,
+    "modified": 1751196204406
+  },
+  "recent_codenames_get": {
+    "created": 1751196853234,
+    "modified": 1751196853234
+  },
+  "previous_changenames_get": {
+    "created": 1751196853234,
+    "modified": 1751196915369
+  },
+  "codename_recent_extract": {
+    "created": 1751196915369,
+    "modified": 1751197220086
+  },
+  "changename_history_extract": {
+    "created": 1751196924370,
+    "modified": 1751197220086
+  },
+  "index_tree_client.js": {
+    "created": 1751217806736,
+    "modified": 1751223853539
+  },
+  "index_tree_view_initialize": {
+    "created": 1751217806736,
+    "modified": 1751217806736
+  },
+  "index_tree_function_show": {
+    "created": 1751217806736,
+    "modified": 1751217806736
+  },
+  "index_tree_panel_create": {
+    "created": 1751217806736,
+    "modified": 1751217806736
+  },
+  "index_tree_panel_hide": {
+    "created": 1751217806736,
+    "modified": 1751217806736
+  },
+  "index_tree_content_update": {
+    "created": 1751217806736,
+    "modified": 1751217806736
+  },
+  "index_tree_hierarchy_generate": {
+    "created": 1751217806736,
+    "modified": 1751217806736
+  },
+  "index_tree_header": {
+    "created": 1751217806816,
+    "modified": 1751217806816
+  },
+  "index_tree_title": {
+    "created": 1751217806816,
+    "modified": 1751217806816
+  },
+  "index_tree_close": {
+    "created": 1751217806816,
+    "modified": 1751217806816
+  },
+  "index_tree_function_name": {
+    "created": 1751217806816,
+    "modified": 1751217806816
+  },
+  "index_tree_content": {
+    "created": 1751217806816,
+    "modified": 1751217806816
+  },
+  "outline_line_number": {
+    "created": 1751217806816,
+    "modified": 1751217806816
+  },
+  "list_edit_text": {
+    "created": 1751217806816,
+    "modified": 1751217806816
+  },
+  "index_tree_panel": {
+    "created": 1751217806816,
+    "modified": 1751217806816
+  },
+  "list_content": {
+    "created": 1751217806816,
+    "modified": 1751217806816
+  },
+  "auto_reload_activate": {
+    "created": 1751218013805,
+    "modified": 1751218028871
+  },
+  "auto_reload_handle_activation": {
+    "created": 1751218224497,
+    "modified": 1751220955485
+  },
+  "auto_reload_handle_deactivation": {
+    "created": 1751218224497,
+    "modified": 1751220955485
+  },
+  "auto_reload_show_notification": {
+    "created": 1751218224497,
+    "modified": 1751220955485
+  },
+  "auto_reload_notification": {
+    "created": 1751218224523,
+    "modified": 1751218224523
+  },
+  "test_trigger.txt": {
+    "created": 1751218339753,
+    "modified": 1751218342806
+  },
+  "time_filter_buttons": {
+    "created": 1751218733940,
+    "modified": 1751218733940
+  },
+  "time_filter_button": {
+    "created": 1751218733940,
+    "modified": 1751218733940
+  },
+  "layout_time_buttons_update": {
+    "created": 1751218763933,
+    "modified": 1751218781935
+  },
+  "time_filter_all": {
+    "created": 1751218763958,
+    "modified": 1751218763958
+  },
+  "time_filter_1": {
+    "created": 1751218763958,
+    "modified": 1751218763958
+  },
+  "time_filter_3": {
+    "created": 1751218763958,
+    "modified": 1751218763958
+  },
+  "time_filter_5": {
+    "created": 1751218763958,
+    "modified": 1751218763958
+  },
+  "test_file.txt": {
+    "created": 1751218861133,
+    "modified": 1751218862095
+  },
+  "button_expand_level_1": {
+    "created": 1751219039645,
+    "modified": 1751219039645
+  },
+  "function_relationships_load": {
+    "created": 1751219617024,
+    "modified": 1751221663280
+  },
+  "create_relationship_html": {
+    "created": 1751219617024,
+    "modified": 1751220425233
+  },
+  "data": {
+    "created": 1751219617025,
+    "modified": 1751222326068
+  },
+  "function_relationships": {
+    "created": 1751219617047,
+    "modified": 1751219617047
+  },
+  "function_outline_item": {
+    "created": 1751219617047,
+    "modified": 1751219617047
+  },
+  "function_outline_number": {
+    "created": 1751219617047,
+    "modified": 1751219617047
+  },
+  "function_relationship_type": {
+    "created": 1751219617047,
+    "modified": 1751219617047
+  },
+  "exogenous_reference": {
+    "created": 1751219617047,
+    "modified": 1751219617047
+  },
+  "function_reference": {
+    "created": 1751219617047,
+    "modified": 1751219617047
+  },
+  "'exogenous_reference'": {
+    "created": 1751219617047,
+    "modified": 1751219617047
+  },
+  "'function_reference'}": {
+    "created": 1751219617047,
+    "modified": 1751219617047
+  },
+  "handle_edit": {
+    "created": 1751219632049,
+    "modified": 1751219632049
+  },
+  "filter_checkbox_change_handler": {
+    "created": 1751220405160,
+    "modified": 1751220911353
+  },
+  "layout_list_filter_update_checkboxes": {
+    "created": 1751220417163,
+    "modified": 1751221000494
+  },
+  "function_relationship_html_create": {
+    "created": 1751220822205,
+    "modified": 1751222326068
+  },
+  "reload_auto_activation_handle": {
+    "created": 1751220858212,
+    "modified": 1751222326068
+  },
+  "reload_auto_deactivation_handle": {
+    "created": 1751220864215,
+    "modified": 1751222101003
+  },
+  "reload_auto_notification_show": {
+    "created": 1751220870214,
+    "modified": 1751222101003
+  },
+  "reload_auto_notification": {
+    "created": 1751220896366,
+    "modified": 1751220896366
+  },
+  "relationship_html": {
+    "created": 1751220911354,
+    "modified": 1751222326068
+  },
+  "reload_auto_activate": {
+    "created": 1751220923367,
+    "modified": 1751222818233
+  },
+  "filter_checkbox_handler_change": {
+    "created": 1751220994493,
+    "modified": 1751221663280
+  },
+  "filter_checkbox_state_update": {
+    "created": 1751221011599,
+    "modified": 1751221663280
+  },
+  "list_elements_initialize": {
+    "created": 1751221593033,
+    "modified": 1751221663280
+  },
+  "layout_shared_client.js": {
+    "created": 1751221858839,
+    "modified": 1751223832543
+  },
+  "sync_function_create": {
+    "created": 1751221858839,
+    "modified": 1751221858839
+  },
+  "filter_type_apply": {
+    "created": 1751222073974,
+    "modified": 1751222326068
+  },
+  "css_classes_extract": {
+    "created": 1751223775539,
+    "modified": 1751223775539
+  },
+  "prompt_folder_scan": {
+    "created": 1751223775539,
+    "modified": 1751223775539
+  },
+  "tool_folder_scan": {
+    "created": 1751223775539,
+    "modified": 1751223775539
+  },
+  "list_client.js": {
+    "created": 1751223826547,
+    "modified": 1751223853541
+  },
+  "list_filter_update_buttons": {
+    "created": 1751223826547,
+    "modified": 1751223826547
+  },
+  "list_filter_apply": {
+    "created": 1751223826547,
+    "modified": 1751223826547
+  },
+  "list_duplicate_update": {
+    "created": 1751223826547,
+    "modified": 1751223826547
+  },
+  "list_template.js": {
+    "created": 1751223826548,
+    "modified": 1751223853543
+  },
+  "list_html_generate": {
+    "created": 1751223826548,
+    "modified": 1751223826548
+  },
+  "list": {
+    "created": 1751223826549,
+    "modified": 1751223826549
+  },
+  "outline_client.js": {
+    "created": 1751223826549,
+    "modified": 1751223853544
+  },
+  "outline_template.js": {
+    "created": 1751223826550,
+    "modified": 1751223853545
+  },
+  "button_tool": {
+    "created": 1751223826570,
+    "modified": 1751223826570
+  },
+  "outline_collapse_icon": {
+    "created": 1751223826570,
+    "modified": 1751223826570
+  },
+  "outline_expand_icon": {
+    "created": 1751223826570,
+    "modified": 1751223826570
+  },
+  "01_start.html": {
+    "created": 1751225140126,
+    "modified": 1751225140126
+  },
+  "01_start.txt": {
+    "created": 1751225140126,
+    "modified": 1751225140126
+  },
+  "app": {
+    "created": 1751225140127,
+    "modified": 1751225140127
+  },
+  "button_control": {
+    "created": 1751225140127,
+    "modified": 1751225140127
+  },
+  "button_filter": {
+    "created": 1751225140127,
+    "modified": 1751225140127
+  },
+  "code": {
+    "created": 1751225140128,
+    "modified": 1751225140128
+  },
+  "color": {
+    "created": 1751225140129,
+    "modified": 1751225140129
+  },
+  "controls_filter": {
+    "created": 1751225140130,
+    "modified": 1751225140130
+  },
+  "controls_nav": {
+    "created": 1751225140131,
+    "modified": 1751225140131
+  },
+  "controls_outline": {
+    "created": 1751225140131,
+    "modified": 1751225140131
+  },
+  "display": {
+    "created": 1751225140131,
+    "modified": 1751225140131
+  },
+  "exports": {
+    "created": 1751225140131,
+    "modified": 1751225140131
+  },
+  "href": {
+    "created": 1751225140132,
+    "modified": 1751225140132
+  },
+  "html": {
+    "created": 1751225140132,
+    "modified": 1751225140132
+  },
+  "icon_collapse": {
+    "created": 1751225140133,
+    "modified": 1751225140133
+  },
+  "icon_expand": {
+    "created": 1751225140133,
+    "modified": 1751225140133
+  },
+  "key": {
+    "created": 1751225140133,
+    "modified": 1751225140133
+  },
+  "layout_index_html_extract": {
+    "created": 1751225140133,
+    "modified": 1751225140133
+  },
+  "length": {
+    "created": 1751225140134,
+    "modified": 1751225140134
+  },
+  "message": {
+    "created": 1751225140134,
+    "modified": 1751225140134
+  },
+  "method": {
+    "created": 1751225140135,
+    "modified": 1751225140135
+  },
+  "mode_edit": {
+    "created": 1751225140135,
+    "modified": 1751225140135
+  },
+  "module": {
+    "created": 1751225140135,
+    "modified": 1751225140135
+  },
+  "number_line": {
+    "created": 1751225140136,
+    "modified": 1751225140136
+  },
+  "outline_build": {
+    "created": 1751225140136,
+    "modified": 1751225140136
+  },
+  "reload_notification": {
+    "created": 1751225140136,
+    "modified": 1751225140136
+  },
+  "require": {
+    "created": 1751225140136,
+    "modified": 1751225140136
+  },
+  "state_hidden": {
+    "created": 1751225140136,
+    "modified": 1751225140136
+  },
+  "state_inactive": {
+    "created": 1751225140136,
+    "modified": 1751225140136
+  },
+  "sync_server_css_updater": {
+    "created": 1751225140137,
+    "modified": 1751225140137
+  },
+  "term_duplicate": {
+    "created": 1751225140137,
+    "modified": 1751225140137
+  },
+  "term_unique": {
+    "created": 1751225140137,
+    "modified": 1751225140137
+  },
+  "text_edit": {
+    "created": 1751225140137,
+    "modified": 1751225140137
+  },
+  "url": {
+    "created": 1751225140137,
+    "modified": 1751225140137
+  },
+  "__test_comment Test comment entry for filtering": {
+    "created": 1751225586498,
+    "modified": 1751225586498
+  },
+  "([^": {
+    "created": 1751230539514,
+    "modified": 1751230539514
+  },
+  ".DS_Store": {
+    "created": 1751230539517,
+    "modified": 1751230539517
+  },
+  ".claude": {
+    "created": 1751230539519,
+    "modified": 1751230539519
+  },
+  ".cursor": {
+    "created": 1751230539519,
+    "modified": 1751230539519
+  },
+  ".vscode": {
+    "created": 1751230539521,
+    "modified": 1751230539521
+  },
+  "CLAUDE.md": {
+    "created": 1751230539522,
+    "modified": 1751230539522
+  },
+  "Cursor.ai": {
+    "created": 1751230539523,
+    "modified": 1751230539523
+  },
+  "EXCLUDE_DIRS": {
+    "created": 1751230539523,
+    "modified": 1751230539523
+  },
+  "EXCLUDE_FILES": {
+    "created": 1751230539524,
+    "modified": 1751230539524
+  },
+  "EXTRACTORS": {
+    "created": 1751230539525,
+    "modified": 1751230539525
+  },
+  "EXTRACT_DIR": {
+    "created": 1751230539526,
+    "modified": 1751230539526
+  },
+  "FUNCTION_PATH": {
+    "created": 1751230539526,
+    "modified": 1751230539526
+  },
+  "INCLUDE_EXTENSIONS": {
+    "created": 1751230539527,
+    "modified": 1751230539527
+  },
+  "INDENT_PX": {
+    "created": 1751230539528,
+    "modified": 1751230539528
+  },
+  "INDEX_PATH": {
+    "created": 1751230539529,
+    "modified": 1751230539529
+  },
+  "KNOWN_FOLDERS": {
+    "created": 1751230539530,
+    "modified": 1751230539530
+  },
+  "Node.js": {
+    "created": 1751230539530,
+    "modified": 1751230539530
+  },
+  "OUTLINE_GAP_PX": {
+    "created": 1751230539531,
+    "modified": 1751230539531
+  },
+  "PROJECT_ROOT": {
+    "created": 1751230539531,
+    "modified": 1751230539531
+  },
+  "README.md": {
+    "created": 1751230539532,
+    "modified": 1751230539532
+  },
+  "SCAN_DIRS": {
+    "created": 1751230539533,
+    "modified": 1751230539533
+  },
+  "Snake_case": {
+    "created": 1751230539534,
+    "modified": 1751230539534
+  },
+  "TIMESTAMPS_FILE": {
+    "created": 1751230539535,
+    "modified": 1751230539535
+  },
+  "VERSION_FILE": {
+    "created": 1751230539535,
+    "modified": 1751230539535
+  },
+  "WEB_PATH": {
+    "created": 1751230539536,
+    "modified": 1751230539536
+  },
+  "WebSocket": {
+    "created": 1751230539537,
+    "modified": 1751230539537
+  },
+  "__": {
+    "created": 1751230539537,
+    "modified": 1751230539537
+  },
+  "__codename": {
+    "created": 1751230539538,
+    "modified": 1751230539538
+  },
+  "add": {
+    "created": 1751230539539,
+    "modified": 1751230539539
+  },
+  "addCodename": {
+    "created": 1751230539539,
+    "modified": 1751230539539
+  },
+  "add_index": {
+    "created": 1751230539540,
+    "modified": 1751230539540
+  },
+  "ai_touchpoint": {
+    "created": 1751230539540,
+    "modified": 1751230539540
+  },
+  "allButtons": {
+    "created": 1751230539541,
+    "modified": 1751230539541
+  },
+  "allCodenames": {
+    "created": 1751230539541,
+    "modified": 1751230539541
+  },
+  "allDivs": {
+    "created": 1751230539541,
+    "modified": 1751230539541
+  },
+  "allEntries": {
+    "created": 1751230539542,
+    "modified": 1751230539542
+  },
+  "allFunctionCalls": {
+    "created": 1751230539542,
+    "modified": 1751230539542
+  },
+  "allFunctions": {
+    "created": 1751230539542,
+    "modified": 1751230539542
+  },
+  "allInputs": {
+    "created": 1751230539542,
+    "modified": 1751230539542
+  },
+  "allItems": {
+    "created": 1751230539542,
+    "modified": 1751230539542
+  },
+  "allOutlineDivs": {
+    "created": 1751230539543,
+    "modified": 1751230539543
+  },
+  "allRows": {
+    "created": 1751230539543,
+    "modified": 1751230539543
+  },
+  "another_caller": {
+    "created": 1751230539543,
+    "modified": 1751230539543
+  },
+  "another_function": {
+    "created": 1751230539543,
+    "modified": 1751230539543
+  },
+  "app_folder": {
+    "created": 1751230539544,
+    "modified": 1751230539544
+  },
+  "app_index.txt": {
+    "created": 1751230539544,
+    "modified": 1751230539544
+  },
+  "app_prompt": {
+    "created": 1751230539545,
+    "modified": 1751230539545
+  },
+  "applyAllFilters": {
+    "created": 1751230539545,
+    "modified": 1751230539545
+  },
+  "async": {
+    "created": 1751230539545,
+    "modified": 1751230539545
+  },
+  "audit_architecture": {
+    "created": 1751230539545,
+    "modified": 1751230539545
+  },
+  "auto_reload": {
+    "created": 1751230539546,
+    "modified": 1751230539546
+  },
+  "baseName": {
+    "created": 1751230539546,
+    "modified": 1751230539546
+  },
+  "basePattern": {
+    "created": 1751230539546,
+    "modified": 1751230539546
+  },
+  "bestMatch": {
+    "created": 1751230539546,
+    "modified": 1751230539546
+  },
+  "body": {
+    "created": 1751230539547,
+    "modified": 1751230539547
+  },
+  "browser_editing": {
+    "created": 1751230539547,
+    "modified": 1751230539547
+  },
+  "browser_interface": {
+    "created": 1751230539547,
+    "modified": 1751230539547
+  },
+  "btn": {
+    "created": 1751230539547,
+    "modified": 1751230539547
+  },
+  "builtInFunctions": {
+    "created": 1751230539547,
+    "modified": 1751230539547
+  },
+  "builtins": {
+    "created": 1751230539547,
+    "modified": 1751230539547
+  },
+  "buttonType": {
+    "created": 1751230539548,
+    "modified": 1751230539548
+  },
+  "button_layout": {
+    "created": 1751230539548,
+    "modified": 1751230539548
+  },
+  "button_placement": {
+    "created": 1751230539548,
+    "modified": 1751230539548
+  },
+  "buttons": {
+    "created": 1751230539549,
+    "modified": 1751230539549
+  },
+  "call": {
+    "created": 1751230539549,
+    "modified": 1751230539549
+  },
+  "callLine": {
+    "created": 1751230539549,
+    "modified": 1751230539549
+  },
+  "callPattern": {
+    "created": 1751230539549,
+    "modified": 1751230539549
+  },
+  "calledFunction": {
+    "created": 1751230539549,
+    "modified": 1751230539549
+  },
+  "called_by": {
+    "created": 1751230539550,
+    "modified": 1751230539550
+  },
+  "called_function_one": {
+    "created": 1751230539550,
+    "modified": 1751230539550
+  },
+  "called_function_two": {
+    "created": 1751230539550,
+    "modified": 1751230539550
+  },
+  "calleeData": {
+    "created": 1751230539550,
+    "modified": 1751230539550
+  },
+  "callees": {
+    "created": 1751230539550,
+    "modified": 1751230539550
+  },
+  "callerData": {
+    "created": 1751230539550,
+    "modified": 1751230539550
+  },
+  "caller_function": {
+    "created": 1751230539551,
+    "modified": 1751230539551
+  },
+  "callers": {
+    "created": 1751230539551,
+    "modified": 1751230539551
+  },
+  "callingFunction": {
+    "created": 1751230539551,
+    "modified": 1751230539551
+  },
+  "callsList": {
+    "created": 1751230539551,
+    "modified": 1751230539551
+  },
+  "change_names.json": {
+    "created": 1751230539551,
+    "modified": 1751230539551
+  },
+  "checkIndent": {
+    "created": 1751230539552,
+    "modified": 1751230539552
+  },
+  "checkMatch": {
+    "created": 1751230539552,
+    "modified": 1751230539552
+  },
+  "checkUrl": {
+    "created": 1751230539553,
+    "modified": 1751230539553
+  },
+  "childCallees": {
+    "created": 1751230539553,
+    "modified": 1751230539553
+  },
+  "childEditableText": {
+    "created": 1751230539553,
+    "modified": 1751230539553
+  },
+  "chunk": {
+    "created": 1751230539554,
+    "modified": 1751230539554
+  },
+  "circle_border_color_set": {
+    "created": 1751230539554,
+    "modified": 1751230539554
+  },
+  "classListMatches": {
+    "created": 1751230539554,
+    "modified": 1751230539554
+  },
+  "classListPattern": {
+    "created": 1751230539554,
+    "modified": 1751230539554
+  },
+  "classMatches": {
+    "created": 1751230539555,
+    "modified": 1751230539555
+  },
+  "classNameMatches": {
+    "created": 1751230539555,
+    "modified": 1751230539555
+  },
+  "classNamePattern": {
+    "created": 1751230539555,
+    "modified": 1751230539555
+  },
+  "classPattern": {
+    "created": 1751230539555,
+    "modified": 1751230539555
+  },
+  "class_types": {
+    "created": 1751230539556,
+    "modified": 1751230539556
+  },
+  "classes": {
+    "created": 1751230539556,
+    "modified": 1751230539556
+  },
+  "clearBtn": {
+    "created": 1751230539556,
+    "modified": 1751230539556
+  },
+  "clickX": {
+    "created": 1751230539558,
+    "modified": 1751230539558
+  },
+  "click_timer": {
+    "created": 1751230539558,
+    "modified": 1751230539558
+  },
+  "click_to_edit": {
+    "created": 1751230539559,
+    "modified": 1751230539559
+  },
+  "cls": {
+    "created": 1751230539559,
+    "modified": 1751230539559
+  },
+  "codename.txt": {
+    "created": 1751230539559,
+    "modified": 1751230539559
+  },
+  "codename_content": {
+    "created": 1751230539559,
+    "modified": 1751230539559
+  },
+  "codename_examples": {
+    "created": 1751230539559,
+    "modified": 1751230539559
+  },
+  "codename_index_rule.txt": {
+    "created": 1751230539560,
+    "modified": 1751230539560
+  },
+  "codename_reuse": {
+    "created": 1751230539560,
+    "modified": 1751230539560
+  },
+  "cognitive_load": {
+    "created": 1751230539560,
+    "modified": 1751230539560
+  },
+  "collaboration_features": {
+    "created": 1751230539560,
+    "modified": 1751230539560
+  },
+  "collapsedAttr": {
+    "created": 1751230539560,
+    "modified": 1751230539560
+  },
+  "color_application": {
+    "created": 1751230539561,
+    "modified": 1751230539561
+  },
+  "comment_detection_system": {
+    "created": 1751230539561,
+    "modified": 1751230539561
+  },
+  "comment_filter_interface": {
+    "created": 1751230539561,
+    "modified": 1751230539561
+  },
+  "commentsBox": {
+    "created": 1751230539561,
+    "modified": 1751230539561
+  },
+  "commonFolders": {
+    "created": 1751230539562,
+    "modified": 1751230539562
+  },
+  "commonParts": {
+    "created": 1751230539562,
+    "modified": 1751230539562
+  },
+  "commonPrefix": {
+    "created": 1751230539562,
+    "modified": 1751230539562
+  },
+  "community_growth": {
+    "created": 1751230539562,
+    "modified": 1751230539562
+  },
+  "comparison_rules": {
+    "created": 1751230539562,
+    "modified": 1751230539562
+  },
+  "component_action_verb": {
+    "created": 1751230539563,
+    "modified": 1751230539563
+  },
+  "comprehensive_index_scan.js": {
+    "created": 1751230539563,
+    "modified": 1751230539563
+  },
+  "config": {
+    "created": 1751230539563,
+    "modified": 1751230539563
+  },
+  "configKey": {
+    "created": 1751230539563,
+    "modified": 1751230539563
+  },
+  "config_key_found": {
+    "created": 1751230539564,
+    "modified": 1751230539564
+  },
+  "config_to_serve": {
+    "created": 1751230539564,
+    "modified": 1751230539564
+  },
+  "const": {
+    "created": 1751230539565,
+    "modified": 1751230539565
+  },
+  "container": {
+    "created": 1751230539566,
+    "modified": 1751230539566
+  },
+  "content": {
+    "created": 1751230539566,
+    "modified": 1751230539566
+  },
+  "content_after_tabs": {
+    "created": 1751230539566,
+    "modified": 1751230539566
+  },
+  "content_format": {
+    "created": 1751230539566,
+    "modified": 1751230539566
+  },
+  "context": {
+    "created": 1751230539566,
+    "modified": 1751230539566
+  },
+  "contextStack": {
+    "created": 1751230539567,
+    "modified": 1751230539567
+  },
+  "contextStr": {
+    "created": 1751230539567,
+    "modified": 1751230539567
+  },
+  "control_buttons": {
+    "created": 1751230539567,
+    "modified": 1751230539567
+  },
+  "core_philosophy": {
+    "created": 1751230539567,
+    "modified": 1751230539567
+  },
+  "createdAgo": {
+    "created": 1751230539567,
+    "modified": 1751230539567
+  },
+  "createdRadio": {
+    "created": 1751230539568,
+    "modified": 1751230539568
+  },
+  "createdTime": {
+    "created": 1751230539568,
+    "modified": 1751230539568
+  },
+  "cron.log": {
+    "created": 1751230539568,
+    "modified": 1751230539568
+  },
+  "css-class-display": {
+    "created": 1751230539568,
+    "modified": 1751230539568
+  },
+  "cssBox": {
+    "created": 1751230539569,
+    "modified": 1751230539569
+  },
+  "cssClasses": {
+    "created": 1751230539569,
+    "modified": 1751230539569
+  },
+  "cssMatches": {
+    "created": 1751230539569,
+    "modified": 1751230539569
+  },
+  "cssPatterns": {
+    "created": 1751230539569,
+    "modified": 1751230539569
+  },
+  "css_class_display": {
+    "created": 1751230539570,
+    "modified": 1751230539570
+  },
+  "css_classes": {
+    "created": 1751230539570,
+    "modified": 1751230539570
+  },
+  "css_classes_used": {
+    "created": 1751230539570,
+    "modified": 1751230539570
+  },
+  "css_format": {
+    "created": 1751230539570,
+    "modified": 1751230539570
+  },
+  "current": {
+    "created": 1751230539571,
+    "modified": 1751230539571
+  },
+  "currentButton": {
+    "created": 1751230539571,
+    "modified": 1751230539571
+  },
+  "currentConfig": {
+    "created": 1751230539571,
+    "modified": 1751230539571
+  },
+  "currentContext": {
+    "created": 1751230539572,
+    "modified": 1751230539572
+  },
+  "currentFile": {
+    "created": 1751230539572,
+    "modified": 1751230539572
+  },
+  "currentIndent": {
+    "created": 1751230539572,
+    "modified": 1751230539572
+  },
+  "currentParts": {
+    "created": 1751230539573,
+    "modified": 1751230539573
+  },
+  "currentTerm": {
+    "created": 1751230539573,
+    "modified": 1751230539573
+  },
+  "current_challenges": {
+    "created": 1751230539573,
+    "modified": 1751230539573
+  },
+  "current_filename": {
+    "created": 1751230539573,
+    "modified": 1751230539573
+  },
+  "current_time_filter": {
+    "created": 1751230539574,
+    "modified": 1751230539574
+  },
+  "current_time_type": {
+    "created": 1751230539575,
+    "modified": 1751230539575
+  },
+  "current_version": {
+    "created": 1751230539575,
+    "modified": 1751230539575
+  },
+  "currently_editing": {
+    "created": 1751230539575,
+    "modified": 1751230539575
+  },
+  "currently_editing_text": {
+    "created": 1751230539575,
+    "modified": 1751230539575
+  },
+  "cursor": {
+    "created": 1751230539576,
+    "modified": 1751230539576
+  },
+  "cursor.ai": {
+    "created": 1751230539576,
+    "modified": 1751230539576
+  },
+  "cursor_workflow": {
+    "created": 1751230539576,
+    "modified": 1751230539576
+  },
+  "dataDir": {
+    "created": 1751230539576,
+    "modified": 1751230539576
+  },
+  "dataType": {
+    "created": 1751230539576,
+    "modified": 1751230539576
+  },
+  "data_attributes": {
+    "created": 1751230539577,
+    "modified": 1751230539577
+  },
+  "declarations": {
+    "created": 1751230539577,
+    "modified": 1751230539577
+  },
+  "defaultCollapsed": {
+    "created": 1751230539577,
+    "modified": 1751230539577
+  },
+  "defaultFunction": {
+    "created": 1751230539577,
+    "modified": 1751230539577
+  },
+  "definedFunctions": {
+    "created": 1751230539578,
+    "modified": 1751230539578
+  },
+  "definitions": {
+    "created": 1751230539578,
+    "modified": 1751230539578
+  },
+  "delete_file": {
+    "created": 1751230539578,
+    "modified": 1751230539578
+  },
+  "delightful_interactions": {
+    "created": 1751230539578,
+    "modified": 1751230539578
+  },
+  "delimMatch": {
+    "created": 1751230539579,
+    "modified": 1751230539579
+  },
+  "delimiters": {
+    "created": 1751230539579,
+    "modified": 1751230539579
+  },
+  "desc": {
+    "created": 1751230539579,
+    "modified": 1751230539579
+  },
+  "descEditableText": {
+    "created": 1751230539579,
+    "modified": 1751230539579
+  },
+  "descOutlineNum": {
+    "created": 1751230539580,
+    "modified": 1751230539580
+  },
+  "descendants": {
+    "created": 1751230539580,
+    "modified": 1751230539580
+  },
+  "developer_experience_improvements": {
+    "created": 1751230539583,
+    "modified": 1751230539583
+  },
+  "dir": {
+    "created": 1751230539584,
+    "modified": 1751230539584
+  },
+  "dirParts": {
+    "created": 1751230539584,
+    "modified": 1751230539584
+  },
+  "discovery_friction": {
+    "created": 1751230539584,
+    "modified": 1751230539584
+  },
+  "displayContent": {
+    "created": 1751230539584,
+    "modified": 1751230539584
+  },
+  "displayOutlineNumber": {
+    "created": 1751230539585,
+    "modified": 1751230539585
+  },
+  "display_example": {
+    "created": 1751230539585,
+    "modified": 1751230539585
+  },
+  "display_format": {
+    "created": 1751230539585,
+    "modified": 1751230539585
+  },
+  "div": {
+    "created": 1751230539585,
+    "modified": 1751230539585
+  },
+  "div_elements": {
+    "created": 1751230539585,
+    "modified": 1751230539585
+  },
+  "div_regex": {
+    "created": 1751230539586,
+    "modified": 1751230539586
+  },
+  "doc": {
+    "created": 1751230539586,
+    "modified": 1751230539586
+  },
+  "dropdown": {
+    "created": 1751230539586,
+    "modified": 1751230539586
+  },
+  "duplicate_coloring_example": {
+    "created": 1751230539587,
+    "modified": 1751230539587
+  },
+  "duplicate_detection": {
+    "created": 1751230539587,
+    "modified": 1751230539587
+  },
+  "duplicate_term_coloring": {
+    "created": 1751230539587,
+    "modified": 1751230539587
+  },
+  "dynamic_updates": {
+    "created": 1751230539587,
+    "modified": 1751230539587
+  },
+  "ecosystem_expansion": {
+    "created": 1751230539587,
+    "modified": 1751230539587
+  },
+  "editTarget": {
+    "created": 1751230539587,
+    "modified": 1751230539587
+  },
+  "edit_file": {
+    "created": 1751230539588,
+    "modified": 1751230539588
+  },
+  "edit_file_rules": {
+    "created": 1751230539588,
+    "modified": 1751230539588
+  },
+  "edit_is_active": {
+    "created": 1751230539588,
+    "modified": 1751230539588
+  },
+  "editableText": {
+    "created": 1751230539588,
+    "modified": 1751230539588
+  },
+  "editable_index": {
+    "created": 1751230539589,
+    "modified": 1751230539589
+  },
+  "editedText": {
+    "created": 1751230539589,
+    "modified": 1751230539589
+  },
+  "el": {
+    "created": 1751230539589,
+    "modified": 1751230539589
+  },
+  "element": {
+    "created": 1751230539589,
+    "modified": 1751230539589
+  },
+  "elementMatch": {
+    "created": 1751230539589,
+    "modified": 1751230539589
+  },
+  "enhancement_suggestions": {
+    "created": 1751230539590,
+    "modified": 1751230539590
+  },
+  "entry": {
+    "created": 1751230539590,
+    "modified": 1751230539590
+  },
+  "entry_timestamps": {
+    "created": 1751230539590,
+    "modified": 1751230539590
+  },
+  "entry_timestamps.json": {
+    "created": 1751230539590,
+    "modified": 1751230539590
+  },
+  "err": {
+    "created": 1751230539590,
+    "modified": 1751230539590
+  },
+  "eventMatch": {
+    "created": 1751230539591,
+    "modified": 1751230539591
+  },
+  "eventType": {
+    "created": 1751230539591,
+    "modified": 1751230539591
+  },
+  "executing_prompts": {
+    "created": 1751230539591,
+    "modified": 1751230539591
+  },
+  "execution_flow_button": {
+    "created": 1751230539591,
+    "modified": 1751230539591
+  },
+  "execution_flow_enhancement": {
+    "created": 1751230539592,
+    "modified": 1751230539592
+  },
+  "existing": {
+    "created": 1751230539594,
+    "modified": 1751230539594
+  },
+  "existing_names": {
+    "created": 1751230539594,
+    "modified": 1751230539594
+  },
+  "expansion": {
+    "created": 1751230539595,
+    "modified": 1751230539595
+  },
+  "expiresTime": {
+    "created": 1751230539595,
+    "modified": 1751230539595
+  },
+  "ext": {
+    "created": 1751230539595,
+    "modified": 1751230539595
+  },
+  "extension": {
+    "created": 1751230539595,
+    "modified": 1751230539595
+  },
+  "extract_lines": {
+    "created": 1751230539596,
+    "modified": 1751230539596
+  },
+  "extract_run": {
+    "created": 1751230539596,
+    "modified": 1751230539596
+  },
+  "extraction": {
+    "created": 1751230539596,
+    "modified": 1751230539596
+  },
+  "extractorPath": {
+    "created": 1751230539596,
+    "modified": 1751230539596
+  },
+  "field_exit_mode": {
+    "created": 1751230539597,
+    "modified": 1751230539597
+  },
+  "field_focus_set": {
+    "created": 1751230539597,
+    "modified": 1751230539597
+  },
+  "file": {
+    "created": 1751230539597,
+    "modified": 1751230539597
+  },
+  "fileName": {
+    "created": 1751230539598,
+    "modified": 1751230539598
+  },
+  "file_changes": {
+    "created": 1751230539598,
+    "modified": 1751230539598
+  },
+  "file_index": {
+    "created": 1751230539598,
+    "modified": 1751230539598
+  },
+  "file_name": {
+    "created": 1751230539598,
+    "modified": 1751230539598
+  },
+  "file_rules": {
+    "created": 1751230539599,
+    "modified": 1751230539599
+  },
+  "file_watcher_dynamic": {
+    "created": 1751230539599,
+    "modified": 1751230539599
+  },
+  "filename": {
+    "created": 1751230539599,
+    "modified": 1751230539599
+  },
+  "filename.js": {
+    "created": 1751230539600,
+    "modified": 1751230539600
+  },
+  "files": {
+    "created": 1751230539600,
+    "modified": 1751230539600
+  },
+  "filesBox": {
+    "created": 1751230539600,
+    "modified": 1751230539600
+  },
+  "filter": {
+    "created": 1751230539600,
+    "modified": 1751230539600
+  },
+  "filterDuration": {
+    "created": 1751230539601,
+    "modified": 1751230539601
+  },
+  "filterState": {
+    "created": 1751230539601,
+    "modified": 1751230539601
+  },
+  "filter_behavior": {
+    "created": 1751230539601,
+    "modified": 1751230539601
+  },
+  "filter_button": {
+    "created": 1751230539602,
+    "modified": 1751230539602
+  },
+  "filter_controls": {
+    "created": 1751230539602,
+    "modified": 1751230539602
+  },
+  "filter_state": {
+    "created": 1751230539602,
+    "modified": 1751230539602
+  },
+  "filter_state_load": {
+    "created": 1751230539602,
+    "modified": 1751230539602
+  },
+  "filter_state_persistence": {
+    "created": 1751230539603,
+    "modified": 1751230539603
+  },
+  "filter_state_save": {
+    "created": 1751230539603,
+    "modified": 1751230539603
+  },
+  "filter_state_update_buttons": {
+    "created": 1751230539603,
+    "modified": 1751230539603
+  },
+  "filter_types": {
+    "created": 1751230539603,
+    "modified": 1751230539603
+  },
+  "filteredCount": {
+    "created": 1751230539604,
+    "modified": 1751230539604
+  },
+  "filters_apply_all": {
+    "created": 1751230539604,
+    "modified": 1751230539604
+  },
+  "first_act": {
+    "created": 1751230539604,
+    "modified": 1751230539604
+  },
+  "focusFunction": {
+    "created": 1751230539605,
+    "modified": 1751230539605
+  },
+  "focused": {
+    "created": 1751230539605,
+    "modified": 1751230539605
+  },
+  "folder_reorganization": {
+    "created": 1751230539605,
+    "modified": 1751230539605
+  },
+  "folders": {
+    "created": 1751230539605,
+    "modified": 1751230539605
+  },
+  "font_color_dim": {
+    "created": 1751230539606,
+    "modified": 1751230539606
+  },
+  "font_color_light": {
+    "created": 1751230539606,
+    "modified": 1751230539606
+  },
+  "for": {
+    "created": 1751230539606,
+    "modified": 1751230539606
+  },
+  "forEachMatch": {
+    "created": 1751230539606,
+    "modified": 1751230539606
+  },
+  "formatType": {
+    "created": 1751230539607,
+    "modified": 1751230539607
+  },
+  "format_code": {
+    "created": 1751230539607,
+    "modified": 1751230539607
+  },
+  "format_code.txt": {
+    "created": 1751230539607,
+    "modified": 1751230539607
+  },
+  "format_file": {
+    "created": 1751230539608,
+    "modified": 1751230539608
+  },
+  "foundClasses": {
+    "created": 1751230539608,
+    "modified": 1751230539608
+  },
+  "foundFunctions": {
+    "created": 1751230539609,
+    "modified": 1751230539609
+  },
+  "foundational_investments": {
+    "created": 1751230539609,
+    "modified": 1751230539609
+  },
+  "from": {
+    "created": 1751230539609,
+    "modified": 1751230539609
+  },
+  "fs": {
+    "created": 1751230539610,
+    "modified": 1751230539610
+  },
+  "fullPath": {
+    "created": 1751230539610,
+    "modified": 1751230539610
+  },
+  "fullText": {
+    "created": 1751230539610,
+    "modified": 1751230539610
+  },
+  "fulltext": {
+    "created": 1751230539611,
+    "modified": 1751230539611
+  },
+  "func": {
+    "created": 1751230539611,
+    "modified": 1751230539611
+  },
+  "funcData": {
+    "created": 1751230539611,
+    "modified": 1751230539611
+  },
+  "funcDefMatch": {
+    "created": 1751230539612,
+    "modified": 1751230539612
+  },
+  "funcName": {
+    "created": 1751230539613,
+    "modified": 1751230539613
+  },
+  "function": {
+    "created": 1751230539614,
+    "modified": 1751230539614
+  },
+  "functionDefPattern": {
+    "created": 1751230539615,
+    "modified": 1751230539615
+  },
+  "functionDefinitions": {
+    "created": 1751230539615,
+    "modified": 1751230539615
+  },
+  "functionElements": {
+    "created": 1751230539616,
+    "modified": 1751230539616
+  },
+  "functionIndex": {
+    "created": 1751230539619,
+    "modified": 1751230539619
+  },
+  "functionItems": {
+    "created": 1751230539619,
+    "modified": 1751230539619
+  },
+  "functionMap": {
+    "created": 1751230539619,
+    "modified": 1751230539619
+  },
+  "functionName": {
+    "created": 1751230539620,
+    "modified": 1751230539620
+  },
+  "functionNameEl": {
+    "created": 1751230539620,
+    "modified": 1751230539620
+  },
+  "functionPatterns": {
+    "created": 1751230539620,
+    "modified": 1751230539620
+  },
+  "function_toggle_expansion": {
+    "created": 1751230539621,
+    "modified": 1751230539621
+  },
+  "functions": {
+    "created": 1751230539621,
+    "modified": 1751230539621
+  },
+  "functionsBox": {
+    "created": 1751230539622,
+    "modified": 1751230539622
+  },
+  "future_potential": {
+    "created": 1751230539622,
+    "modified": 1751230539622
+  },
+  "gray_duplicate_terms": {
+    "created": 1751230539622,
+    "modified": 1751230539622
+  },
+  "green_button_functionality": {
+    "created": 1751230539622,
+    "modified": 1751230539622
+  },
+  "has": {
+    "created": 1751230539623,
+    "modified": 1751230539623
+  },
+  "hasChildren": {
+    "created": 1751230539623,
+    "modified": 1751230539623
+  },
+  "hasExtension": {
+    "created": 1751230539623,
+    "modified": 1751230539623
+  },
+  "hasOutline": {
+    "created": 1751230539624,
+    "modified": 1751230539624
+  },
+  "hasOutlineNumbers": {
+    "created": 1751230539624,
+    "modified": 1751230539624
+  },
+  "hasReference": {
+    "created": 1751230539624,
+    "modified": 1751230539624
+  },
+  "hasTabSeparatedColumns": {
+    "created": 1751230539625,
+    "modified": 1751230539625
+  },
+  "hiddenCount": {
+    "created": 1751230539625,
+    "modified": 1751230539625
+  },
+  "hierarchyHTML": {
+    "created": 1751230539625,
+    "modified": 1751230539625
+  },
+  "how_cursor_should_use_folders": {
+    "created": 1751230539626,
+    "modified": 1751230539626
+  },
+  "how_cursor_uses_it": {
+    "created": 1751230539626,
+    "modified": 1751230539626
+  },
+  "htmlBaseName": {
+    "created": 1751230539627,
+    "modified": 1751230539627
+  },
+  "htmlPattern": {
+    "created": 1751230539627,
+    "modified": 1751230539627
+  },
+  "htmlRelativePath": {
+    "created": 1751230539627,
+    "modified": 1751230539627
+  },
+  "html_content": {
+    "created": 1751230539629,
+    "modified": 1751230539629
+  },
+  "html_extract": {
+    "created": 1751230539629,
+    "modified": 1751230539629
+  },
+  "html_extract_module": {
+    "created": 1751230539629,
+    "modified": 1751230539629
+  },
+  "html_format": {
+    "created": 1751230539630,
+    "modified": 1751230539630
+  },
+  "html_path": {
+    "created": 1751230539630,
+    "modified": 1751230539630
+  },
+  "html_template": {
+    "created": 1751230539631,
+    "modified": 1751230539631
+  },
+  "html_to_txt_sync": {
+    "created": 1751230539631,
+    "modified": 1751230539631
+  },
+  "http": {
+    "created": 1751230539631,
+    "modified": 1751230539631
+  },
+  "human_understanding_guide": {
+    "created": 1751230539632,
+    "modified": 1751230539632
+  },
+  "i": {
+    "created": 1751230539632,
+    "modified": 1751230539632
+  },
+  "id": {
+    "created": 1751230539632,
+    "modified": 1751230539632
+  },
+  "idMatches": {
+    "created": 1751230539632,
+    "modified": 1751230539632
+  },
+  "idPattern": {
+    "created": 1751230539633,
+    "modified": 1751230539633
+  },
+  "if": {
+    "created": 1751230539633,
+    "modified": 1751230539633
+  },
+  "immediate_next_steps": {
+    "created": 1751230539633,
+    "modified": 1751230539633
+  },
+  "in": {
+    "created": 1751230539634,
+    "modified": 1751230539634
+  },
+  "inclusion_rules": {
+    "created": 1751230539634,
+    "modified": 1751230539634
+  },
+  "indent": {
+    "created": 1751230539634,
+    "modified": 1751230539634
+  },
+  "indent_px": {
+    "created": 1751230539635,
+    "modified": 1751230539635
+  },
+  "index": {
+    "created": 1751230539635,
+    "modified": 1751230539635
+  },
+  "index_app": {
+    "created": 1751230539635,
+    "modified": 1751230539635
+  },
+  "index_duplicate_dynamic": {
+    "created": 1751230539638,
+    "modified": 1751230539638
+  },
+  "index_files": {
+    "created": 1751230539638,
+    "modified": 1751230539638
+  },
+  "index_filter_buttons": {
+    "created": 1751230539639,
+    "modified": 1751230539639
+  },
+  "index_format_rule.txt": {
+    "created": 1751230539642,
+    "modified": 1751230539642
+  },
+  "index_html_create": {
+    "created": 1751230539643,
+    "modified": 1751230539643
+  },
+  "index_list": {
+    "created": 1751230539643,
+    "modified": 1751230539643
+  },
+  "index_rule": {
+    "created": 1751230539644,
+    "modified": 1751230539644
+  },
+  "index_rule_update": {
+    "created": 1751230539644,
+    "modified": 1751230539644
+  },
+  "index_state_empty": {
+    "created": 1751230539644,
+    "modified": 1751230539644
+  },
+  "index_tree_current_function": {
+    "created": 1751230539644,
+    "modified": 1751230539644
+  },
+  "index_tree_visible": {
+    "created": 1751230539645,
+    "modified": 1751230539645
+  },
+  "index_txt_read": {
+    "created": 1751230539645,
+    "modified": 1751230539645
+  },
+  "index_txt_to_html": {
+    "created": 1751230539646,
+    "modified": 1751230539646
+  },
+  "index_type_indicators": {
+    "created": 1751230539646,
+    "modified": 1751230539646
+  },
+  "inline_edit_enable": {
+    "created": 1751230539646,
+    "modified": 1751230539646
+  },
+  "intelligence_integration": {
+    "created": 1751230539647,
+    "modified": 1751230539647
+  },
+  "intuitive_navigation": {
+    "created": 1751230539647,
+    "modified": 1751230539647
+  },
+  "isCollapsed": {
+    "created": 1751230539647,
+    "modified": 1751230539647
+  },
+  "isExternalFunction": {
+    "created": 1751230539647,
+    "modified": 1751230539647
+  },
+  "isFolder": {
+    "created": 1751230539648,
+    "modified": 1751230539648
+  },
+  "isFunctionFile": {
+    "created": 1751230539648,
+    "modified": 1751230539648
+  },
+  "isRecentlyCreated": {
+    "created": 1751230539648,
+    "modified": 1751230539648
+  },
+  "isRecentlyModified": {
+    "created": 1751230539651,
+    "modified": 1751230539651
+  },
+  "isRepeated": {
+    "created": 1751230539651,
+    "modified": 1751230539651
+  },
+  "isRepeatedFunction": {
+    "created": 1751230539652,
+    "modified": 1751230539652
+  },
+  "isYouAreHere": {
+    "created": 1751230539652,
+    "modified": 1751230539652
+  },
+  "item": {
+    "created": 1751230539652,
+    "modified": 1751230539652
+  },
+  "items": {
+    "created": 1751230539653,
+    "modified": 1751230539653
+  },
+  "jsFilename": {
+    "created": 1751230539653,
+    "modified": 1751230539653
+  },
+  "jsFiles": {
+    "created": 1751230539653,
+    "modified": 1751230539653
+  },
+  "jsPath": {
+    "created": 1751230539653,
+    "modified": 1751230539653
+  },
+  "jsPattern": {
+    "created": 1751230539654,
+    "modified": 1751230539654
+  },
+  "key_files_and_purposes": {
+    "created": 1751230539654,
+    "modified": 1751230539654
+  },
+  "key_insight": {
+    "created": 1751230539654,
+    "modified": 1751230539654
+  },
+  "knownCssClasses": {
+    "created": 1751230539654,
+    "modified": 1751230539654
+  },
+  "lastDotIndex": {
+    "created": 1751230539655,
+    "modified": 1751230539655
+  },
+  "last_modified": {
+    "created": 1751230539655,
+    "modified": 1751230539655
+  },
+  "layoutDir": {
+    "created": 1751230539655,
+    "modified": 1751230539655
+  },
+  "li": {
+    "created": 1751230539656,
+    "modified": 1751230539656
+  },
+  "liElements": {
+    "created": 1751230539656,
+    "modified": 1751230539656
+  },
+  "li_elements": {
+    "created": 1751230539656,
+    "modified": 1751230539656
+  },
+  "li_regex": {
+    "created": 1751230539657,
+    "modified": 1751230539657
+  },
+  "line": {
+    "created": 1751230539657,
+    "modified": 1751230539657
+  },
+  "lineNumber": {
+    "created": 1751230539657,
+    "modified": 1751230539657
+  },
+  "line_change_history.json": {
+    "created": 1751230539658,
+    "modified": 1751230539658
+  },
+  "lines": {
+    "created": 1751230539658,
+    "modified": 1751230539658
+  },
+  "list_coloring_rules": {
+    "created": 1751230539658,
+    "modified": 1751230539658
+  },
+  "list_css_display": {
+    "created": 1751230539658,
+    "modified": 1751230539658
+  },
+  "list_editing_features": {
+    "created": 1751230539659,
+    "modified": 1751230539659
+  },
+  "list_filter_init": {
+    "created": 1751230539659,
+    "modified": 1751230539659
+  },
+  "list_filter_setup_handlers": {
+    "created": 1751230539659,
+    "modified": 1751230539659
+  },
+  "list_filter_state": {
+    "created": 1751230539660,
+    "modified": 1751230539660
+  },
+  "list_filter_update_checkboxes": {
+    "created": 1751230539660,
+    "modified": 1751230539660
+  },
+  "list_format_structure": {
+    "created": 1751230539660,
+    "modified": 1751230539660
+  },
+  "list_init": {
+    "created": 1751230539661,
+    "modified": 1751230539661
+  },
+  "list_label_new": {
+    "created": 1751230539661,
+    "modified": 1751230539661
+  },
+  "list_label_old": {
+    "created": 1751230539661,
+    "modified": 1751230539661
+  },
+  "list_navigation": {
+    "created": 1751230539662,
+    "modified": 1751230539662
+  },
+  "list_type_indicators": {
+    "created": 1751230539662,
+    "modified": 1751230539662
+  },
+  "long_term_vision": {
+    "created": 1751230539662,
+    "modified": 1751230539662
+  },
+  "low_hanging_fruit": {
+    "created": 1751230539662,
+    "modified": 1751230539662
+  },
+  "main": {
+    "created": 1751230539663,
+    "modified": 1751230539663
+  },
+  "mainContent": {
+    "created": 1751230539663,
+    "modified": 1751230539663
+  },
+  "maintaining_indexes": {
+    "created": 1751230539663,
+    "modified": 1751230539663
+  },
+  "margin_left": {
+    "created": 1751230539664,
+    "modified": 1751230539664
+  },
+  "match": {
+    "created": 1751230539664,
+    "modified": 1751230539664
+  },
+  "matchesSearch": {
+    "created": 1751230539664,
+    "modified": 1751230539664
+  },
+  "matchesType": {
+    "created": 1751230539665,
+    "modified": 1751230539665
+  },
+  "maxDepth": {
+    "created": 1751230539665,
+    "modified": 1751230539665
+  },
+  "maxFirstColumnLength": {
+    "created": 1751230539665,
+    "modified": 1751230539665
+  },
+  "medium_effort_wins": {
+    "created": 1751230539666,
+    "modified": 1751230539666
+  },
+  "meta.sh": {
+    "created": 1751230539666,
+    "modified": 1751230539666
+  },
+  "meta_code_folder": {
+    "created": 1751230539667,
+    "modified": 1751230539667
+  },
+  "meta_folder": {
+    "created": 1751230539667,
+    "modified": 1751230539667
+  },
+  "meta_html_folder": {
+    "created": 1751230539667,
+    "modified": 1751230539667
+  },
+  "meta_layout_folder": {
+    "created": 1751230539668,
+    "modified": 1751230539668
+  },
+  "meta_note": {
+    "created": 1751230539668,
+    "modified": 1751230539668
+  },
+  "meta_remind.txt": {
+    "created": 1751230539668,
+    "modified": 1751230539668
+  },
+  "meta_rule_folder": {
+    "created": 1751230539669,
+    "modified": 1751230539669
+  },
+  "meta_src_folder": {
+    "created": 1751230539669,
+    "modified": 1751230539669
+  },
+  "meta_subfolders_explained": {
+    "created": 1751230539670,
+    "modified": 1751230539670
+  },
+  "might": {
+    "created": 1751230539670,
+    "modified": 1751230539670
+  },
+  "mockData": {
+    "created": 1751230539671,
+    "modified": 1751230539671
+  },
+  "modifiedAgo": {
+    "created": 1751230539671,
+    "modified": 1751230539671
+  },
+  "modifiedRadio": {
+    "created": 1751230539671,
+    "modified": 1751230539671
+  },
+  "modifiedTime": {
+    "created": 1751230539672,
+    "modified": 1751230539672
+  },
+  "nameParts": {
+    "created": 1751230539672,
+    "modified": 1751230539672
+  },
+  "naming_convention_update": {
+    "created": 1751230539672,
+    "modified": 1751230539672
+  },
+  "naming_conventions": {
+    "created": 1751230539673,
+    "modified": 1751230539673
+  },
+  "naming_semantic_prefix": {
+    "created": 1751230539673,
+    "modified": 1751230539673
+  },
+  "navControls": {
+    "created": 1751230539673,
+    "modified": 1751230539673
+  },
+  "nav_buttons": {
+    "created": 1751230539674,
+    "modified": 1751230539674
+  },
+  "nav_config_map": {
+    "created": 1751230539674,
+    "modified": 1751230539674
+  },
+  "navigation_buttons": {
+    "created": 1751230539674,
+    "modified": 1751230539674
+  },
+  "newNameSpan": {
+    "created": 1751230539675,
+    "modified": 1751230539675
+  },
+  "new_version": {
+    "created": 1751230539675,
+    "modified": 1751230539675
+  },
+  "newcomer_mode": {
+    "created": 1751230539675,
+    "modified": 1751230539675
+  },
+  "nextIndent": {
+    "created": 1751230539676,
+    "modified": 1751230539676
+  },
+  "nextSibling": {
+    "created": 1751230539676,
+    "modified": 1751230539676
+  },
+  "notification": {
+    "created": 1751230539676,
+    "modified": 1751230539676
+  },
+  "now": {
+    "created": 1751230539677,
+    "modified": 1751230539677
+  },
+  "numbers": {
+    "created": 1751230539677,
+    "modified": 1751230539677
+  },
+  "object_sub": {
+    "created": 1751230539677,
+    "modified": 1751230539677
+  },
+  "onboarding_magic": {
+    "created": 1751230539678,
+    "modified": 1751230539678
+  },
+  "one_hour": {
+    "created": 1751230539678,
+    "modified": 1751230539678
+  },
+  "option": {
+    "created": 1751230539678,
+    "modified": 1751230539678
+  },
+  "options": {
+    "created": 1751230539679,
+    "modified": 1751230539679
+  },
+  "or": {
+    "created": 1751230539679,
+    "modified": 1751230539679
+  },
+  "originalContent": {
+    "created": 1751230539679,
+    "modified": 1751230539679
+  },
+  "originalName": {
+    "created": 1751230539680,
+    "modified": 1751230539680
+  },
+  "originalOutline": {
+    "created": 1751230539680,
+    "modified": 1751230539680
+  },
+  "originalTerm": {
+    "created": 1751230539680,
+    "modified": 1751230539680
+  },
+  "originalText": {
+    "created": 1751230539681,
+    "modified": 1751230539681
+  },
+  "original_line": {
+    "created": 1751230539681,
+    "modified": 1751230539681
+  },
+  "otherfile.js": {
+    "created": 1751230539681,
+    "modified": 1751230539681
+  },
+  "outlineNum": {
+    "created": 1751230539682,
+    "modified": 1751230539682
+  },
+  "outlineNumbers": {
+    "created": 1751230539682,
+    "modified": 1751230539682
+  },
+  "outlineSpan": {
+    "created": 1751230539682,
+    "modified": 1751230539682
+  },
+  "outlineText": {
+    "created": 1751230539683,
+    "modified": 1751230539683
+  },
+  "outline_collapse_expand": {
+    "created": 1751230539683,
+    "modified": 1751230539683
+  },
+  "outline_match": {
+    "created": 1751230539683,
+    "modified": 1751230539683
+  },
+  "outline_number": {
+    "created": 1751230539684,
+    "modified": 1751230539684
+  },
+  "outline_pixel_alignment": {
+    "created": 1751230539684,
+    "modified": 1751230539684
+  },
+  "outline_state_persistence": {
+    "created": 1751230539684,
+    "modified": 1751230539684
+  },
+  "outputContent": {
+    "created": 1751230539685,
+    "modified": 1751230539685
+  },
+  "outputPath": {
+    "created": 1751230539685,
+    "modified": 1751230539685
+  },
+  "output_chat": {
+    "created": 1751230539685,
+    "modified": 1751230539685
+  },
+  "output_prompt_marker": {
+    "created": 1751230539686,
+    "modified": 1751230539686
+  },
+  "page_versions.json": {
+    "created": 1751230539686,
+    "modified": 1751230539686
+  },
+  "panel": {
+    "created": 1751230539687,
+    "modified": 1751230539687
+  },
+  "parent": {
+    "created": 1751230539687,
+    "modified": 1751230539687
+  },
+  "parentCallers": {
+    "created": 1751230539687,
+    "modified": 1751230539687
+  },
+  "parentDiv": {
+    "created": 1751230539688,
+    "modified": 1751230539688
+  },
+  "parentIndent": {
+    "created": 1751230539688,
+    "modified": 1751230539688
+  },
+  "parentTriggerDescription": {
+    "created": 1751230539688,
+    "modified": 1751230539688
+  },
+  "parentTriggerText": {
+    "created": 1751230539689,
+    "modified": 1751230539689
+  },
+  "parentheses": {
+    "created": 1751230539689,
+    "modified": 1751230539689
+  },
+  "parsed": {
+    "created": 1751230539689,
+    "modified": 1751230539689
+  },
+  "parser": {
+    "created": 1751230539690,
+    "modified": 1751230539690
+  },
+  "part": {
+    "created": 1751230539690,
+    "modified": 1751230539690
+  },
+  "partIndex": {
+    "created": 1751230539690,
+    "modified": 1751230539690
+  },
+  "parts": {
+    "created": 1751230539691,
+    "modified": 1751230539691
+  },
+  "passesSearch": {
+    "created": 1751230539691,
+    "modified": 1751230539691
+  },
+  "passesTimeFilter": {
+    "created": 1751230539691,
+    "modified": 1751230539691
+  },
+  "passesTypeFilter": {
+    "created": 1751230539692,
+    "modified": 1751230539692
+  },
+  "path": {
+    "created": 1751230539692,
+    "modified": 1751230539692
+  },
+  "pathParts": {
+    "created": 1751230539692,
+    "modified": 1751230539692
+  },
+  "persistence_manager": {
+    "created": 1751230539693,
+    "modified": 1751230539693
+  },
+  "pos": {
+    "created": 1751230539693,
+    "modified": 1751230539693
+  },
+  "possiblePaths": {
+    "created": 1751230539693,
+    "modified": 1751230539693
+  },
+  "practical_usage": {
+    "created": 1751230539694,
+    "modified": 1751230539694
+  },
+  "prevFullText": {
+    "created": 1751230539694,
+    "modified": 1751230539694
+  },
+  "prevLi": {
+    "created": 1751230539694,
+    "modified": 1751230539694
+  },
+  "previousParts": {
+    "created": 1751230539695,
+    "modified": 1751230539695
+  },
+  "previousTerm": {
+    "created": 1751230539695,
+    "modified": 1751230539695
+  },
+  "previousTerms": {
+    "created": 1751230539695,
+    "modified": 1751230539695
+  },
+  "process_update": {
+    "created": 1751230539696,
+    "modified": 1751230539696
+  },
+  "productivity_boosters": {
+    "created": 1751230539696,
+    "modified": 1751230539696
+  },
+  "project_folders_explained": {
+    "created": 1751230539696,
+    "modified": 1751230539696
+  },
+  "promptDir": {
+    "created": 1751230539697,
+    "modified": 1751230539697
+  },
+  "prompt_acknowledgment": {
+    "created": 1751230539697,
+    "modified": 1751230539697
+  },
+  "prompt_execution": {
+    "created": 1751230539698,
+    "modified": 1751230539698
+  },
+  "prompt_files": {
+    "created": 1751230539698,
+    "modified": 1751230539698
+  },
+  "prompt_folder": {
+    "created": 1751230539698,
+    "modified": 1751230539698
+  },
+  "prompt_marker": {
+    "created": 1751230539699,
+    "modified": 1751230539699
+  },
+  "radio": {
+    "created": 1751230539699,
+    "modified": 1751230539699
+  },
+  "range": {
+    "created": 1751230539699,
+    "modified": 1751230539699
+  },
+  "reading_rules": {
+    "created": 1751230539700,
+    "modified": 1751230539700
+  },
+  "realtime_sync": {
+    "created": 1751230539700,
+    "modified": 1751230539700
+  },
+  "rect": {
+    "created": 1751230539700,
+    "modified": 1751230539700
+  },
+  "regex": {
+    "created": 1751230539701,
+    "modified": 1751230539701
+  },
+  "relationship": {
+    "created": 1751230539701,
+    "modified": 1751230539701
+  },
+  "relationships": {
+    "created": 1751230539702,
+    "modified": 1751230539702
+  },
+  "relativePath": {
+    "created": 1751230539702,
+    "modified": 1751230539702
+  },
+  "reload-notification": {
+    "created": 1751230539702,
+    "modified": 1751230539702
+  },
+  "reload_interval_auto": {
+    "created": 1751230539702,
+    "modified": 1751230539702
+  },
+  "reload_last_modified": {
+    "created": 1751230539703,
+    "modified": 1751230539703
+  },
+  "reload_mode_auto": {
+    "created": 1751230539703,
+    "modified": 1751230539703
+  },
+  "reload_modification_get": {
+    "created": 1751230539704,
+    "modified": 1751230539704
+  },
+  "remainingTerm": {
+    "created": 1751230539705,
+    "modified": 1751230539705
+  },
+  "remove": {
+    "created": 1751230539705,
+    "modified": 1751230539705
+  },
+  "repeatedAttr": {
+    "created": 1751230539706,
+    "modified": 1751230539706
+  },
+  "requestPath": {
+    "created": 1751230539706,
+    "modified": 1751230539706
+  },
+  "res": {
+    "created": 1751230539706,
+    "modified": 1751230539706
+  },
+  "reset_behavior": {
+    "created": 1751230539707,
+    "modified": 1751230539707
+  },
+  "response": {
+    "created": 1751230539707,
+    "modified": 1751230539707
+  },
+  "root_list": {
+    "created": 1751230539707,
+    "modified": 1751230539707
+  },
+  "root_term_reuse": {
+    "created": 1751230539709,
+    "modified": 1751230539709
+  },
+  "rowDivs": {
+    "created": 1751230539709,
+    "modified": 1751230539709
+  },
+  "rule_add": {
+    "created": 1751230539709,
+    "modified": 1751230539709
+  },
+  "rule_application": {
+    "created": 1751230539710,
+    "modified": 1751230539710
+  },
+  "rule_check": {
+    "created": 1751230539710,
+    "modified": 1751230539710
+  },
+  "rule_execute": {
+    "created": 1751230539711,
+    "modified": 1751230539711
+  },
+  "rule_file_checkmarks": {
+    "created": 1751230539711,
+    "modified": 1751230539711
+  },
+  "rule_files": {
+    "created": 1751230539711,
+    "modified": 1751230539711
+  },
+  "rule_format": {
+    "created": 1751230539712,
+    "modified": 1751230539712
+  },
+  "rule_grammar": {
+    "created": 1751230539712,
+    "modified": 1751230539712
+  },
+  "rule_path": {
+    "created": 1751230539713,
+    "modified": 1751230539713
+  },
+  "rule_scope": {
+    "created": 1751230539713,
+    "modified": 1751230539713
+  },
+  "rules": {
+    "created": 1751230539713,
+    "modified": 1751230539713
+  },
+  "saved": {
+    "created": 1751230539714,
+    "modified": 1751230539714
+  },
+  "savedState": {
+    "created": 1751230539714,
+    "modified": 1751230539714
+  },
+  "savedType": {
+    "created": 1751230539714,
+    "modified": 1751230539714
+  },
+  "saved_filter": {
+    "created": 1751230539715,
+    "modified": 1751230539715
+  },
+  "saved_position": {
+    "created": 1751230539715,
+    "modified": 1751230539715
+  },
+  "saved_value": {
+    "created": 1751230539716,
+    "modified": 1751230539716
+  },
+  "scanDir": {
+    "created": 1751230539716,
+    "modified": 1751230539716
+  },
+  "scanFileSystem": {
+    "created": 1751230539716,
+    "modified": 1751230539716
+  },
+  "scanHtmlFiles": {
+    "created": 1751230539717,
+    "modified": 1751230539717
+  },
+  "scanJavaScriptFiles": {
+    "created": 1751230539717,
+    "modified": 1751230539717
+  },
+  "scanTextFiles": {
+    "created": 1751230539717,
+    "modified": 1751230539717
+  },
+  "scrollPosition": {
+    "created": 1751230539718,
+    "modified": 1751230539718
+  },
+  "searchInput": {
+    "created": 1751230539719,
+    "modified": 1751230539719
+  },
+  "searchTerm": {
+    "created": 1751230539719,
+    "modified": 1751230539719
+  },
+  "search_apply": {
+    "created": 1751230539719,
+    "modified": 1751230539719
+  },
+  "search_apply_simple": {
+    "created": 1751230539720,
+    "modified": 1751230539720
+  },
+  "search_init": {
+    "created": 1751230539720,
+    "modified": 1751230539720
+  },
+  "sectionNumber": {
+    "created": 1751230539720,
+    "modified": 1751230539720
+  },
+  "sel": {
+    "created": 1751230539721,
+    "modified": 1751230539721
+  },
+  "select": {
+    "created": 1751230539721,
+    "modified": 1751230539721
+  },
+  "selectedFunction": {
+    "created": 1751230539722,
+    "modified": 1751230539722
+  },
+  "selection": {
+    "created": 1751230539722,
+    "modified": 1751230539722
+  },
+  "server": {
+    "created": 1751230539723,
+    "modified": 1751230539723
+  },
+  "server.pid": {
+    "created": 1751230539723,
+    "modified": 1751230539723
+  },
+  "server_keepalive.log": {
+    "created": 1751230539724,
+    "modified": 1751230539724
+  },
+  "server_keepalive.sh": {
+    "created": 1751230539724,
+    "modified": 1751230539724
+  },
+  "settings.json": {
+    "created": 1751230539724,
+    "modified": 1751230539724
+  },
+  "settings.local.json": {
+    "created": 1751230539725,
+    "modified": 1751230539725
+  },
+  "shared_client.js": {
+    "created": 1751230539726,
+    "modified": 1751230539726
+  },
+  "shouldShow": {
+    "created": 1751230539726,
+    "modified": 1751230539726
+  },
+  "shown": {
+    "created": 1751230539727,
+    "modified": 1751230539727
+  },
+  "shownCount": {
+    "created": 1751230539727,
+    "modified": 1751230539727
+  },
+  "simple_filters.js": {
+    "created": 1751230539727,
+    "modified": 1751230539727
+  },
+  "simplicity_rule": {
+    "created": 1751230539728,
+    "modified": 1751230539728
+  },
+  "skipWords": {
+    "created": 1751230539728,
+    "modified": 1751230539728
+  },
+  "snakeCaseFunctions": {
+    "created": 1751230539728,
+    "modified": 1751230539728
+  },
+  "snake_case": {
+    "created": 1751230539729,
+    "modified": 1751230539729
+  },
+  "sortedCodenames": {
+    "created": 1751230539729,
+    "modified": 1751230539729
+  },
+  "sortedEntries": {
+    "created": 1751230539730,
+    "modified": 1751230539730
+  },
+  "sortedFunctions": {
+    "created": 1751230539730,
+    "modified": 1751230539730
+  },
+  "stack": {
+    "created": 1751230539731,
+    "modified": 1751230539731
+  },
+  "start_file": {
+    "created": 1751230539731,
+    "modified": 1751230539731
+  },
+  "start_file_add": {
+    "created": 1751230539731,
+    "modified": 1751230539731
+  },
+  "stat": {
+    "created": 1751230539732,
+    "modified": 1751230539732
+  },
+  "state": {
+    "created": 1751230539732,
+    "modified": 1751230539732
+  },
+  "stats": {
+    "created": 1751230539733,
+    "modified": 1751230539733
+  },
+  "storageKey": {
+    "created": 1751230539733,
+    "modified": 1751230539733
+  },
+  "storage_file_config": {
+    "created": 1751230539734,
+    "modified": 1751230539734
+  },
+  "structural_innovation": {
+    "created": 1751230539734,
+    "modified": 1751230539734
+  },
+  "style_colors_setup": {
+    "created": 1751230539735,
+    "modified": 1751230539735
+  },
+  "subIndex": {
+    "created": 1751230539735,
+    "modified": 1751230539735
+  },
+  "sub_object": {
+    "created": 1751230539735,
+    "modified": 1751230539735
+  },
+  "success": {
+    "created": 1751230539736,
+    "modified": 1751230539736
+  },
+  "sync-server.js": {
+    "created": 1751230539736,
+    "modified": 1751230539736
+  },
+  "sync_connection": {
+    "created": 1751230539737,
+    "modified": 1751230539737
+  },
+  "sync_foundation": {
+    "created": 1751230539737,
+    "modified": 1751230539737
+  },
+  "sync_in_progress": {
+    "created": 1751230539738,
+    "modified": 1751230539738
+  },
+  "sync_server": {
+    "created": 1751230539738,
+    "modified": 1751230539738
+  },
+  "sync_system": {
+    "created": 1751230539738,
+    "modified": 1751230539738
+  },
+  "system_overview": {
+    "created": 1751230539739,
+    "modified": 1751230539739
+  },
+  "system_philosophy": {
+    "created": 1751230539739,
+    "modified": 1751230539739
+  },
+  "tab_count": {
+    "created": 1751230539740,
+    "modified": 1751230539740
+  },
+  "tab_match": {
+    "created": 1751230539740,
+    "modified": 1751230539740
+  },
+  "tabs": {
+    "created": 1751230539741,
+    "modified": 1751230539741
+  },
+  "targetElement": {
+    "created": 1751230539741,
+    "modified": 1751230539741
+  },
+  "targetUrl": {
+    "created": 1751230539742,
+    "modified": 1751230539742
+  },
+  "technical_architecture": {
+    "created": 1751230539742,
+    "modified": 1751230539742
+  },
+  "template_structure": {
+    "created": 1751230539743,
+    "modified": 1751230539743
+  },
+  "temporal_visualization": {
+    "created": 1751230539743,
+    "modified": 1751230539743
+  },
+  "term": {
+    "created": 1751230539744,
+    "modified": 1751230539744
+  },
+  "term_hierarchy": {
+    "created": 1751230539744,
+    "modified": 1751230539744
+  },
+  "term_object_sub": {
+    "created": 1751230539744,
+    "modified": 1751230539744
+  },
+  "term_splitting": {
+    "created": 1751230539745,
+    "modified": 1751230539745
+  },
+  "terminal_rules": {
+    "created": 1751230539745,
+    "modified": 1751230539745
+  },
+  "testDiv": {
+    "created": 1751230539746,
+    "modified": 1751230539746
+  },
+  "test_version_tracking": {
+    "created": 1751230539746,
+    "modified": 1751230539746
+  },
+  "text": {
+    "created": 1751230539747,
+    "modified": 1751230539747
+  },
+  "textPattern": {
+    "created": 1751230539747,
+    "modified": 1751230539747
+  },
+  "textStyle": {
+    "created": 1751230539748,
+    "modified": 1751230539748
+  },
+  "text_content": {
+    "created": 1751230539748,
+    "modified": 1751230539748
+  },
+  "text_extraction": {
+    "created": 1751230539749,
+    "modified": 1751230539749
+  },
+  "that": {
+    "created": 1751230539749,
+    "modified": 1751230539749
+  },
+  "that_is_a_test": {
+    "created": 1751230539749,
+    "modified": 1751230539749
+  },
+  "timeFilteredCount": {
+    "created": 1751230539750,
+    "modified": 1751230539750
+  },
+  "timeSelect": {
+    "created": 1751230539750,
+    "modified": 1751230539750
+  },
+  "timeThreshold": {
+    "created": 1751230539751,
+    "modified": 1751230539751
+  },
+  "timeTypeRadios": {
+    "created": 1751230539751,
+    "modified": 1751230539751
+  },
+  "timeUntilExpire": {
+    "created": 1751230539752,
+    "modified": 1751230539752
+  },
+  "time_filter_client.js": {
+    "created": 1751230539752,
+    "modified": 1751230539752
+  },
+  "time_filter_dropdown": {
+    "created": 1751230539753,
+    "modified": 1751230539753
+  },
+  "time_filter_init": {
+    "created": 1751230539753,
+    "modified": 1751230539753
+  },
+  "time_filter_load": {
+    "created": 1751230539754,
+    "modified": 1751230539754
+  },
+  "time_filter_refresh_interval": {
+    "created": 1751230539754,
+    "modified": 1751230539754
+  },
+  "time_filter_save": {
+    "created": 1751230539755,
+    "modified": 1751230539755
+  },
+  "time_filter_state": {
+    "created": 1751230539755,
+    "modified": 1751230539755
+  },
+  "timestamp": {
+    "created": 1751230539755,
+    "modified": 1751230539755
+  },
+  "timestamp_get_or_create": {
+    "created": 1751230539756,
+    "modified": 1751230539756
+  },
+  "timestamp_manager.js": {
+    "created": 1751230539756,
+    "modified": 1751230539756
+  },
+  "timestamp_tracking_system": {
+    "created": 1751230539757,
+    "modified": 1751230539757
+  },
+  "timestamp_update_modified": {
+    "created": 1751230539757,
+    "modified": 1751230539757
+  },
+  "timestamps": {
+    "created": 1751230539758,
+    "modified": 1751230539758
+  },
+  "timestamps_file_path": {
+    "created": 1751230539758,
+    "modified": 1751230539758
+  },
+  "timestamps_get_all": {
+    "created": 1751230539759,
+    "modified": 1751230539759
+  },
+  "timestamps_load": {
+    "created": 1751230539759,
+    "modified": 1751230539759
+  },
+  "to": {
+    "created": 1751230539760,
+    "modified": 1751230539760
+  },
+  "toolDir": {
+    "created": 1751230539760,
+    "modified": 1751230539760
+  },
+  "tree": {
+    "created": 1751230539760,
+    "modified": 1751230539760
+  },
+  "treeContent": {
+    "created": 1751230539761,
+    "modified": 1751230539761
+  },
+  "treeContentEl": {
+    "created": 1751230539761,
+    "modified": 1751230539761
+  },
+  "treePanel": {
+    "created": 1751230539762,
+    "modified": 1751230539762
+  },
+  "tree_called_by_list": {
+    "created": 1751230539762,
+    "modified": 1751230539762
+  },
+  "tree_called_by_section": {
+    "created": 1751230539763,
+    "modified": 1751230539763
+  },
+  "tree_calls_display": {
+    "created": 1751230539763,
+    "modified": 1751230539763
+  },
+  "tree_calls_list": {
+    "created": 1751230539764,
+    "modified": 1751230539764
+  },
+  "tree_calls_section": {
+    "created": 1751230539764,
+    "modified": 1751230539764
+  },
+  "tree_client.js": {
+    "created": 1751230539765,
+    "modified": 1751230539765
+  },
+  "tree_current_function": {
+    "created": 1751230539765,
+    "modified": 1751230539765
+  },
+  "tree_display": {
+    "created": 1751230539766,
+    "modified": 1751230539766
+  },
+  "tree_display_hide": {
+    "created": 1751230539766,
+    "modified": 1751230539766
+  },
+  "tree_dropdown_populate": {
+    "created": 1751230539767,
+    "modified": 1751230539767
+  },
+  "tree_dropdown_setup": {
+    "created": 1751230539767,
+    "modified": 1751230539767
+  },
+  "tree_empty_state": {
+    "created": 1751230539768,
+    "modified": 1751230539768
+  },
+  "tree_function_data": {
+    "created": 1751230539768,
+    "modified": 1751230539768
+  },
+  "tree_function_details": {
+    "created": 1751230539769,
+    "modified": 1751230539769
+  },
+  "tree_function_display": {
+    "created": 1751230539769,
+    "modified": 1751230539769
+  },
+  "tree_function_item": {
+    "created": 1751230539770,
+    "modified": 1751230539770
+  },
+  "tree_function_name": {
+    "created": 1751230539770,
+    "modified": 1751230539770
+  },
+  "tree_function_select": {
+    "created": 1751230539770,
+    "modified": 1751230539770
+  },
+  "tree_html_generate": {
+    "created": 1751230539771,
+    "modified": 1751230539771
+  },
+  "tree_init": {
+    "created": 1751230539771,
+    "modified": 1751230539771
+  },
+  "tree_loading": {
+    "created": 1751230539772,
+    "modified": 1751230539772
+  },
+  "tree_mock_data_generate": {
+    "created": 1751230539772,
+    "modified": 1751230539772
+  },
+  "tree_section": {
+    "created": 1751230539773,
+    "modified": 1751230539773
+  },
+  "tree_section_title": {
+    "created": 1751230539773,
+    "modified": 1751230539773
+  },
+  "tree_template.js": {
+    "created": 1751230539774,
+    "modified": 1751230539774
+  },
+  "triggerDescription": {
+    "created": 1751230539774,
+    "modified": 1751230539774
+  },
+  "triggerText": {
+    "created": 1751230539775,
+    "modified": 1751230539775
+  },
+  "triggers": {
+    "created": 1751230539775,
+    "modified": 1751230539775
+  },
+  "trimmed": {
+    "created": 1751230539776,
+    "modified": 1751230539776
+  },
+  "trimmedLine": {
+    "created": 1751230539776,
+    "modified": 1751230539776
+  },
+  "txt_path": {
+    "created": 1751230539777,
+    "modified": 1751230539777
+  },
+  "type": {
+    "created": 1751230539777,
+    "modified": 1751230539777
+  },
+  "typeIndicator": {
+    "created": 1751230539778,
+    "modified": 1751230539778
+  },
+  "type_indicator_example": {
+    "created": 1751230539778,
+    "modified": 1751230539778
+  },
+  "type_indicators": {
+    "created": 1751230539779,
+    "modified": 1751230539779
+  },
+  "uniqueBase": {
+    "created": 1751230539779,
+    "modified": 1751230539779
+  },
+  "uniqueDotIndex": {
+    "created": 1751230539779,
+    "modified": 1751230539779
+  },
+  "uniqueExt": {
+    "created": 1751230539780,
+    "modified": 1751230539780
+  },
+  "update_triggers": {
+    "created": 1751230539780,
+    "modified": 1751230539780
+  },
+  "using_browser_sync": {
+    "created": 1751230539781,
+    "modified": 1751230539781
+  },
+  "value": {
+    "created": 1751230539781,
+    "modified": 1751230539781
+  },
+  "varMatch": {
+    "created": 1751230539782,
+    "modified": 1751230539782
+  },
+  "varName": {
+    "created": 1751230539782,
+    "modified": 1751230539782
+  },
+  "version.json": {
+    "created": 1751230539783,
+    "modified": 1751230539783
+  },
+  "versionElement": {
+    "created": 1751230539783,
+    "modified": 1751230539783
+  },
+  "version_current": {
+    "created": 1751230539784,
+    "modified": 1751230539784
+  },
+  "version_data": {
+    "created": 1751230539784,
+    "modified": 1751230539784
+  },
+  "version_display": {
+    "created": 1751230539785,
+    "modified": 1751230539785
+  },
+  "version_history": {
+    "created": 1751230539785,
+    "modified": 1751230539785
+  },
+  "version_load": {
+    "created": 1751230539785,
+    "modified": 1751230539785
+  },
+  "version_save": {
+    "created": 1751230539786,
+    "modified": 1751230539786
+  },
+  "version_test_function_1": {
+    "created": 1751230539786,
+    "modified": 1751230539786
+  },
+  "version_test_function_10": {
+    "created": 1751230539787,
+    "modified": 1751230539787
+  },
+  "version_test_function_11": {
+    "created": 1751230539787,
+    "modified": 1751230539787
+  },
+  "version_test_function_12": {
+    "created": 1751230539788,
+    "modified": 1751230539788
+  },
+  "version_test_function_13": {
+    "created": 1751230539788,
+    "modified": 1751230539788
+  },
+  "version_test_function_14": {
+    "created": 1751230539789,
+    "modified": 1751230539789
+  },
+  "version_test_function_15": {
+    "created": 1751230539789,
+    "modified": 1751230539789
+  },
+  "version_test_function_16": {
+    "created": 1751230539790,
+    "modified": 1751230539790
+  },
+  "version_test_function_17": {
+    "created": 1751230539790,
+    "modified": 1751230539790
+  },
+  "version_test_function_18": {
+    "created": 1751230539791,
+    "modified": 1751230539791
+  },
+  "version_test_function_19": {
+    "created": 1751230539791,
+    "modified": 1751230539791
+  },
+  "version_test_function_2": {
+    "created": 1751230539791,
+    "modified": 1751230539791
+  },
+  "version_test_function_20": {
+    "created": 1751230539792,
+    "modified": 1751230539792
+  },
+  "version_test_function_3": {
+    "created": 1751230539792,
+    "modified": 1751230539792
+  },
+  "version_test_function_4": {
+    "created": 1751230539793,
+    "modified": 1751230539793
+  },
+  "version_test_function_5": {
+    "created": 1751230539793,
+    "modified": 1751230539793
+  },
+  "version_test_function_6": {
+    "created": 1751230539794,
+    "modified": 1751230539794
+  },
+  "version_test_function_7": {
+    "created": 1751230539794,
+    "modified": 1751230539794
+  },
+  "version_test_function_8": {
+    "created": 1751230539795,
+    "modified": 1751230539795
+  },
+  "version_test_function_9": {
+    "created": 1751230539795,
+    "modified": 1751230539795
+  },
+  "visibleCount": {
+    "created": 1751230539796,
+    "modified": 1751230539796
+  },
+  "visibleIndex": {
+    "created": 1751230539796,
+    "modified": 1751230539796
+  },
+  "vision_and_achievement": {
+    "created": 1751230539797,
+    "modified": 1751230539797
+  },
+  "visual_feedback": {
+    "created": 1751230539797,
+    "modified": 1751230539797
+  },
+  "visual_markers": {
+    "created": 1751230539798,
+    "modified": 1751230539798
+  },
+  "visual_storytelling": {
+    "created": 1751230539798,
+    "modified": 1751230539798
+  },
+  "wasGray": {
+    "created": 1751230539798,
+    "modified": 1751230539798
+  },
+  "websocket_connections": {
+    "created": 1751230539799,
+    "modified": 1751230539799
+  },
+  "what_is_meta": {
+    "created": 1751230539799,
+    "modified": 1751230539799
+  },
+  "what_works_brilliantly": {
+    "created": 1751230539800,
+    "modified": 1751230539800
+  },
+  "why_this_structure": {
+    "created": 1751230539800,
+    "modified": 1751230539800
+  },
+  "words": {
+    "created": 1751230539801,
+    "modified": 1751230539801
+  },
+  "ws": {
+    "created": 1751230539801,
+    "modified": 1751230539801
+  },
+  "wsProtocol": {
+    "created": 1751230539802,
+    "modified": 1751230539802
+  },
+  "wsUrl": {
+    "created": 1751230539802,
+    "modified": 1751230539802
+  },
+  "wss": {
+    "created": 1751230539803,
+    "modified": 1751230539803
+  },
+  "expanded": {
+    "created": 1751230957329,
+    "modified": 1751230957329
+  },
+  "index_auto_update": {
+    "created": 1751230957331,
+    "modified": 1751230957331
+  },
+  "search_hidden": {
+    "created": 1751230957332,
+    "modified": 1751230957332
+  },
+  "tree_called_by_display": {
+    "created": 1751230957332,
+    "modified": 1751230957332
+  },
+  "tree_function_navigate": {
+    "created": 1751230957333,
+    "modified": 1751230957333
+  }
+}

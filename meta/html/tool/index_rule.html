@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        padding-top:      140px;  /* Space for nav + filter buttons */
+        position:         relative;
+    }
+    
+    /* Navigation controls - left justified */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    .button_nav {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .button_nav:hover {
+        opacity: 0.9;
+    }
+    
+    .button_nav.style_active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Outline Control Panel - left justified below nav */
+    .outline_controls {
+        position: fixed;
+        top: 70px;  /* Below nav buttons */
+        left: 20px;
+        display: flex;
+        gap: 12px;
+        z-index: 1000;
+        background-color: rgba(30, 30, 30, 0.95);  /* Subtle background */
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Green control buttons */
+    .control_button {
+        background-color: #2ea043;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .control_button:hover {
+        background-color: #3fb654;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+    
+    .control_button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Button text styling */
+    .control_button {
+        font-size: 18px;
+        line-height: 1;
+    }
+    
+    /* Make "All" button slightly wider */
+    .control_button:last-child {
+        width: auto;
+        min-width: 60px;
+        padding: 12px 16px;
+    }
+    
+    /* Outline specific styles */
+    .outline_line_number {
+        min-width: 30px;
+        flex-shrink: 0;
+        cursor: pointer;
+        user-select: none;
+        margin-right: 4px;
+        text-align: right;
+    }
+    
+    .list_edit_text {
+        flex: 1;
+    }
+    
+    .list_editing_mode {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+    
+    /* Version number display - top right */
+    .page_version {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--gray);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: inherit;
+        font-weight: 500;
+        z-index: 1002;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .page_version:hover {
+        opacity: 1;
+    }
+    
+    .change_name {
+        color: var(--green);
+        font-weight: 600;
+    }
+    
+    .version_number {
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+        <button class="button_nav" data-nav="tree" title="View Tree">Tree</button>
+    </div>
+    
+    <!-- Version number display -->
+    <div class="page_version" title="Page Version">
+        <span class="change_name">layout_tool_web</span>
+        <span class="version_number">v01.16.00</span>
+    </div>
+    
+    <!-- Outline Control Buttons -->
+    <div class="outline_controls">
+        <button class="control_button" id="button_expand_level_1" title="Show Level 1 Only">1</button>
+        <button class="control_button" id="button_expand_level_2" title="Show Levels 1-2">2</button>
+        <button class="control_button" id="button_expand_all" title="Show All Levels">All</button>
+    </div>
+    
+    <div id="content">        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">////////////////////////////////////////////////////////////////</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">NOTE: This file defines specific rules for the codename index.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">These rules extend the general index_format_rule.txt with </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">codename-specific requirements.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="1.">1.</span>
+            <span class="list_edit_text">codename_content</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. inclusion_rules</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Include all codenames from all files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Include all variable names from all files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Include all class names from all files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Include all function names from all files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Include all folder names from project root.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Include all file names with extensions.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. Include nested folder structures with path notation.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        8. Exclude files that start with . from index.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. sorting</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Sort all entries alphabetically.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Maintain alphabetical order after updates.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Sort ignoring type indicators.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Case-insensitive sorting.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. duplicates</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Remove all duplicate entries.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Keep only first occurrence of each codename.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Verify no duplicates after each update.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="2.">2.</span>
+            <span class="list_edit_text">type_indicators</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. visual_markers</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Add visual type indicators to help identify codename types.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. For folders: append "/" in dark gray (#6e7681) at the end.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. For files: make the file extension including period dark gray.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. For functions: append "()" in dark gray (#6e7681) at the end.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Apply indicators after duplicate term coloring.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Keep base filename in normal color for files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. Preserve alphabetical sorting ignoring indicators.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. formatting</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Format folder names without trailing slash in source.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Add slash only as visual indicator in HTML.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Include file extensions as part of the name.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Color only the extension portion for files.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="3.">3.</span>
+            <span class="list_edit_text">duplicate_term_coloring</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. comparison_rules</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Compare each codename term with same position term in line above.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Split terms by underscores, hyphens, dots, or camelCase.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Find common prefix between consecutive terms.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Color common prefix in dim color.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Keep unique suffix in normal color.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. color_application</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. If terms match exactly, color entire term dim.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. For partial matches, color only the matching prefix dim.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Keep all terms visible, no spaces replacement.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Apply dim color to underscores in common prefixes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Maintain readability with color distinction.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. dynamic_updates</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Recalculate coloring after filtering.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Base coloring only on visible items.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. First visible occurrence always uses normal color.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Update coloring when items are hidden/shown.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="4.">4.</span>
+            <span class="list_edit_text">update_triggers</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. file_changes</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Update index after every file change.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Update index after every variable creation.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Update index after every class name change.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Update index after every function name change.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Update index after folder structure changes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Update index after file creation or deletion.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. verification</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Verify index is updated before committing changes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Verify all new codenames are included.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Verify alphabetical sorting is maintained.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Verify no duplicates exist.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Verify folder names have no trailing slashes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Verify file names include proper extensions.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. Verify .DS_Store files are excluded.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="5.">5.</span>
+            <span class="list_edit_text">filter_controls</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. button_placement</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Position filter buttons in top right corner.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use green background (#2ea043) when active.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Use gray background (#6e7681) when inactive.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Float buttons with proper spacing.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. filter_types</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. "Functions" button - toggles function visibility.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. "Files and Folders" button - toggles file/folder visibility.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Both filters default to "on" state.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Maintain button state across page reloads.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. filter_behavior</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Hide items based on data-type attribute.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Recalculate numbering after filtering.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Update duplicate coloring after filtering.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Preserve original order when re-showing items.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="6.">6.</span>
+            <span class="list_edit_text">codename_examples</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. duplicate_coloring_example</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        ```html</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        <li>app</li></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        <li><span class="list_term_duplicate">app_</span><span class="list_term_unique">components</span></li></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        <li><span class="list_term_duplicate">app_components_</span><span class="list_term_unique">header</span></li></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        ```</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. type_indicator_example</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        ```html</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        <li data-type="folder">app<span style="color: #6e7681;">/</span></li></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        <li data-type="file">index<span style="color: #6e7681;">.html</span></li></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        <li data-type="function">handleClick<span style="color: #6e7681;">(</span></li></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        ```</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="7.">7.</span>
+            <span class="list_edit_text">css_class_display</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. display_format</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Show CSS classes used in each item.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Display as comma-separated list ending with >.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Use gray text color (#6e7681) for class names.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Position after the codename with margin.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Default state is visible (CSS button on).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. class_types</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. list_term_duplicate - gray duplicate prefixes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. list_term_unique - white unique suffixes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. new-name - items with rename mappings.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. original-name - original names for renamed items.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. filter_button</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. "CSS" button in filter controls.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Toggle CSS class visibility on/off.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Default to on state (green button).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Persist state in localStorage.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    d. display_example</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        ```html</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        <li data-type="function"></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            <span class="list_term_duplicate">field_</span></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            <span class="list_term_unique">mode_exit</span></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            <span style="color: #6e7681;">(</span></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            <span class="css-class-display" style="margin-left: 20px; color: #6e7681; font-size: 14px;">list_term_duplicate, list_term_unique></span></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        </li></div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        ```</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">//////////////////////////////////////////////////////////////// </div>
+    </div>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'index_rule';
+        window.LAST_MODIFIED = 1751223857561;
+    </script>
+    <script src="/js/layout_shared_client.js"></script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/layout_outline_client.js"></script>
+</body>
+</html>

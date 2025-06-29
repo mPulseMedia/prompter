@@ -1,124 +1,342 @@
-1. field_cursor_set
-	a. div.addEventListener('click') in outline_client.js
-	b. li.addEventListener('click') in 00_index_client.js
-
-2. field_mode_exit
-	a. div.addEventListener('click') in outline_client.js
-	b. editableText.addEventListener('keydown') in outline_client.js
-	c. li.addEventListener('click') in 00_index_client.js
-	d. li.addEventListener('keydown') in 00_index_client.js
-
-3. field_text_extract
+1. css_class_name_is
+	a. sync_html_build
+2. css_classes
+	a. sync_html_build
+3. extract_run
+	a. forEach (EXTRACTORS)
+4. field_cursor_set
+	a. field_cursor_set
+	b. li.addEventListener('click')
+	c. field_cursor_set
+	d. div.addEventListener('click')
+	e. calls >
+		1. field_cursor_set
+5. field_mode_exit
+	a. field_mode_exit
+	b. li.addEventListener('click')
+	c. li.addEventListener('keydown')
+	d. field_mode_exit
+	e. div.addEventListener('click')
+	f. editableText.addEventListener('keydown')
+	g. calls >
+		1. field_mode_exit
+6. field_text_extract
+	a. field_text_extract
+	b. calls >
+		1. field_text_extract
+		2. index_html_extract
+		3. outline_html_extract
+7. file
+8. file_watcher_setup
+	a. file_watcher_setup
+	b. forEach (files)
+	c. calls >
+		1. file_watcher_setup
+		2. sync_html_build
+9. files
+10. for
 	a. calls >
-		1. index_html_extract
-		2. outline_html_extract
-
-4. function_executed
-	a. sync_throttle_buffer
-	b. calls >
-		1. function_later
-
-5. function_later
+		1. sync_throttle_buffer
+11. function_executed
 	a. function_executed
-
-6. index_html_extract
-	a. field_text_extract in html_extract.js
-
-7. index_html_generate
-	a. sync_html_build in sync_server.js
-
-8. index_duplicate_update
-	a. index_filter_apply in index_client.js
-
-9. index_filter_apply
-	a. filter button click handlers in index_client.js
-	b. called at startup in index_client.js
+	b. function_executed
 	c. calls >
-		1. index_duplicate_update
-
-10. outline_children_find
-	a. outline_click_double_handle in outline_client.js
-
-11. outline_click_double_handle
-	a. outlineNum.addEventListener('click') in outline_client.js
-	b. calls >
-		1. outline_children_find
-		2. outline_display_update
-		3. outline_display_set
-
-12. outline_click_single_handle
-	a. outlineNum.addEventListener('click') in outline_client.js
-	b. calls >
-		1. outline_display_update
-		2. outline_display_set
-
-13. outline_display_set
-	a. outline_click_single_handle in outline_client.js
-	b. outline_click_double_handle in outline_client.js
-	c. getElementById('expand-all-btn').addEventListener('click') in outline_client.js
-	d. getElementById('expand-level-2-btn').addEventListener('click') in outline_client.js
-
-14. outline_display_update
-	a. outline_click_single_handle in outline_client.js
-	b. outline_click_double_handle in outline_client.js
-	c. forEach (outlineNumbers) in outline_client.js
-	d. getElementById('collapse-all-btn').addEventListener('click') in outline_client.js
-	e. getElementById('expand-all-btn').addEventListener('click') in outline_client.js
-	f. getElementById('expand-level-2-btn').addEventListener('click') in outline_client.js
-
-15. outline_html_extract
-	a. field_text_extract in html_extract.js
-
-16. outline_html_generate
-	a. sync_html_build in sync_server.js
-
-17. outline_initial_state
-	a. called at startup in outline_client.js
-
-18. prompt_folder_scan
-	a. server.listen in sync_server.js
-	b. setInterval in sync_server.js
-	c. calls >
-		1. sync_html_build
-
-19. prompt_txt_read
-	a. sync_html_build in sync_server.js
-	b. sync_txt_save in sync_server.js
-
-20. prompt_type_detect
-	a. sync_html_build in sync_server.js
-
-21. sync_html_build
-	a. prompt_folder_scan in sync_server.js
-	b. fs.watch in sync_server.js
-	c. calls >
-		1. prompt_txt_read
-		2. prompt_type_detect
-		3. outline_html_generate
-		4. index_html_generate
-
-22. sync_throttle_buffer
-	a. forEach (rowDivs) in outline_client.js
-	b. forEach (liElements) in 00_index_client.js
-	c. returns >
 		1. function_executed
-
-23. sync_timestamps_initialize
-	a. server.listen in sync_server.js
-
-24. sync_txt_save
-	a. server POST /sync endpoint
-	b. calls >
-		1. prompt_txt_read
-
-25. sync_updates_check
-	a. setInterval in outline_client.js
-	b. setInterval in 00_index_client.js
-
-26. tool_folder_scan
-	a. server.listen in sync_server.js
-	b. setInterval in sync_server.js
+12. function_later
+13. has
+14. index_html_extract
+	a. index_html_extract
+	b. field_text_extract
 	c. calls >
-		1. sync_html_build
+		1. index_html_extract
+15. layout_list_duplicate_update
+	a. layout_list_filter_apply
+	b. layout_list_duplicate_update
+	c. calls >
+		1. layout_list_duplicate_update
+16. layout_list_filter_apply
+	a. layout_list_filter_apply
+	b. functionsBtn.addEventListener('click')
+	c. filesFoldersBtn.addEventListener('click')
+	d. cssBtn.addEventListener('click')
+	e. global
+	f. calls >
+		1. layout_list_duplicate_update
+		2. layout_list_filter_apply
+17. layout_list_filter_update_buttons
+	a. layout_list_filter_update_buttons
+	b. global
+	c. calls >
+		1. layout_list_filter_update_buttons
+18. layout_list_html_generate
+	a. sync_html_build
+	b. layout_list_html_generate
+	c. calls >
+		1. layout_list_html_generate
+19. list_filter_load
+	a. list_filter_load
+	b. global
+	c. calls >
+		1. list_filter_load
+20. list_filter_save
+	a. list_filter_save
+	b. functionsBtn.addEventListener('click')
+	c. filesFoldersBtn.addEventListener('click')
+	d. cssBtn.addEventListener('click')
+	e. calls >
+		1. list_filter_save
+21. manual_refresh
+	a. manual_refresh
+	b. document.addEventListener('keydown')
+	c. calls >
+		1. manual_refresh
+		2. outline_state_save
+		3. reload_notification_show
+22. [REMOVED] meta_extract - deleted (was broken, missing dependencies)
+23. name
+24. names
+25. nav_button_click
+	a. btn.addEventListener('click')
+	b. nav_button_click
+	c. calls >
+		1. nav_button_click
+26. nav_init
+	a. document.addEventListener('DOMContentLoaded')
+	b. nav_init
+	c. calls >
+		1. nav_init
+27. outline_children_find
+	a. outline_children_find
+	b. outline_click_double_handle
+	c. calls >
+		1. outline_children_find
+28. outline_click_double_handle
+	a. outline_click_double_handle
+	b. outlineNum.addEventListener('click')
+	c. calls >
+		1. outline_children_find
+		2. outline_click_double_handle
+		3. outline_display_update
+		4. outline_state_save
+29. outline_click_single_handle
+	a. outline_click_single_handle
+	b. outlineNum.addEventListener('click')
+	c. calls >
+		1. outline_click_single_handle
+		2. outline_display_set
+		3. outline_display_update
+		4. outline_state_save
+30. outline_display_set
+	a. outline_display_set
+	b. outline_click_single_handle
+	c. forEach (descendants)
+	d. calls >
+		1. outline_display_set
+31. outline_display_update
+	a. forEach (array)
+	b. outline_display_update
+	c. outline_click_single_handle
+	d. outline_click_double_handle
+	e. forEach (descendants)
+	f. forEach (outlineNumbers)
+	g. forEach (allOutlineDivs)
+	h. forEach (allDivs)
+	i. calls >
+		1. outline_display_update
+32. outline_html_extract
+	a. outline_html_extract
+	b. field_text_extract
+	c. calls >
+		1. outline_html_extract
+33. outline_html_generate
+	a. sync_html_build
+	b. outline_html_generate
+	c. calls >
+		1. outline_html_generate
+34. outline_initial_state
+	a. outline_state_restore
+	b. outline_initial_state
+	c. outline_visibility_apply
+	d. calls >
+		1. outline_initial_state
+35. outline_state_key_generate
+	a. outline_state_key_generate
+	b. forEach (array)
+	c. calls >
+		1. outline_state_key_generate
+36. outline_state_restore
+	a. outline_state_restore
+	b. global
+	c. calls >
+		1. outline_initial_state
+		2. outline_state_restore
+		3. outline_visibility_apply
+37. outline_state_save
+	a. outline_state_save
+	b. outline_click_single_handle
+	c. outline_click_double_handle
+	d. sync_updates_check
+	e. manual_refresh
+	f. collapse-all-btn.addEventListener('click')
+	g. expand-all-btn.addEventListener('click')
+	h. expand-level-2-btn.addEventListener('click')
+	i. calls >
+		1. outline_state_save
+38. outline_visibility_apply
+	a. outline_state_restore
+	b. outline_visibility_apply
+	c. calls >
+		1. outline_initial_state
+		2. outline_visibility_apply
+39. prompt_folder_scan
+	a. prompt_folder_scan
+	b. global
+	c. calls >
+		1. prompt_folder_scan
+40. prompt_txt_read
+	a. prompt_txt_read
+	b. sync_html_build
+	c. sync_txt_save
+	d. calls >
+		1. prompt_txt_read
+41. prompt_type_detect
+	a. prompt_type_detect
+	b. sync_html_build
+	c. calls >
+		1. prompt_type_detect
+42. reload_notification_show
+	a. reload_notification_show
+	b. sync_updates_check
+	c. manual_refresh
+	d. calls >
+		1. reload_notification_show
+43. scroll_position_restore
+	a. scroll_position_restore
+	b. document.addEventListener('DOMContentLoaded')
+	c. global
+	d. calls >
+		1. scroll_position_restore
+44. sync_html_build
+	a. file_watcher_setup
+	b. sync_html_build
+	c. calls >
+		1. css_class_name_is
+		2. css_classes
+		3. layout_list_html_generate
+		4. outline_html_generate
+		5. prompt_txt_read
+		6. prompt_type_detect
+		7. sync_html_build
+45. sync_throttle_buffer
+	a. sync_throttle_buffer
+	b. for
+	c. sync_throttle_buffer
+	d. for
+	e. calls >
+		1. sync_throttle_buffer
+46. sync_timestamps_initialize
+	a. sync_timestamps_initialize
+	b. global
+	c. calls >
+		1. sync_timestamps_initialize
+47. sync_txt_save
+	a. sync_txt_save
+	b. global
+	c. calls >
+		1. prompt_txt_read
 		2. sync_txt_save
-		3. sync_updates_check 
+48. sync_updates_check
+	a. sync_updates_check
+	b. sync_updates_check
+	c. calls >
+		1. outline_state_save
+		2. reload_notification_show
+		3. sync_updates_check
+49. to
+50. tool_folder_scan
+	a. tool_folder_scan
+	b. global
+	c. calls >
+		1. tool_folder_scan
+51. version_test_function_1
+	a. version_test_function_1
+	b. calls >
+		1. version_test_function_1
+52. version_test_function_2
+	a. version_test_function_2
+	b. calls >
+		1. version_test_function_2
+53. version_test_function_3
+	a. version_test_function_3
+	b. calls >
+		1. version_test_function_3
+54. version_test_function_4
+	a. version_test_function_4
+	b. calls >
+		1. version_test_function_4
+55. version_test_function_5
+	a. version_test_function_5
+	b. calls >
+		1. version_test_function_5
+56. version_test_function_6
+	a. version_test_function_6
+	b. calls >
+		1. version_test_function_6
+57. version_test_function_7
+	a. version_test_function_7
+	b. calls >
+		1. version_test_function_7
+58. version_test_function_8
+	a. version_test_function_8
+	b. calls >
+		1. version_test_function_8
+59. version_test_function_9
+	a. version_test_function_9
+	b. calls >
+		1. version_test_function_9
+60. version_test_function_10
+	a. version_test_function_10
+	b. calls >
+		1. version_test_function_10
+61. version_test_function_11
+	a. version_test_function_11
+	b. calls >
+		1. version_test_function_11
+62. version_test_function_12
+	a. version_test_function_12
+	b. calls >
+		1. version_test_function_12
+63. version_test_function_13
+	a. version_test_function_13
+	b. calls >
+		1. version_test_function_13
+64. version_test_function_14
+	a. version_test_function_14
+	b. calls >
+		1. version_test_function_14
+65. version_test_function_15
+	a. version_test_function_15
+	b. calls >
+		1. version_test_function_15
+66. version_test_function_16
+	a. version_test_function_16
+	b. calls >
+		1. version_test_function_16
+67. version_test_function_17
+	a. version_test_function_17
+	b. calls >
+		1. version_test_function_17
+68. version_test_function_18
+	a. version_test_function_18
+	b. calls >
+		1. version_test_function_18
+69. version_test_function_19
+	a. version_test_function_19
+	b. calls >
+		1. version_test_function_19
+70. version_test_function_20
+	a. version_test_function_20
+	b. calls >
+		1. version_test_function_20
+
+web later: I need to use create a web view showing relationships

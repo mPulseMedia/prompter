@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          20px;
+        padding-top:      140px;  /* Space for nav + filter buttons */
+        position:         relative;
+    }
+    
+    /* Navigation controls - left justified */
+    .nav_controls {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        gap: 10px;
+        z-index: 1001;
+    }
+    
+    .button_nav {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .button_nav:hover {
+        opacity: 0.9;
+    }
+    
+    .button_nav.style_active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    /* Outline Control Panel - left justified below nav */
+    .outline_controls {
+        position: fixed;
+        top: 70px;  /* Below nav buttons */
+        left: 20px;
+        display: flex;
+        gap: 12px;
+        z-index: 1000;
+        background-color: rgba(30, 30, 30, 0.95);  /* Subtle background */
+        padding: 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Green control buttons */
+    .control_button {
+        background-color: #2ea043;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .control_button:hover {
+        background-color: #3fb654;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+    
+    .control_button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Button text styling */
+    .control_button {
+        font-size: 18px;
+        line-height: 1;
+    }
+    
+    /* Make "All" button slightly wider */
+    .control_button:last-child {
+        width: auto;
+        min-width: 60px;
+        padding: 12px 16px;
+    }
+    
+    /* Outline specific styles */
+    .outline_line_number {
+        min-width: 30px;
+        flex-shrink: 0;
+        cursor: pointer;
+        user-select: none;
+        margin-right: 4px;
+        text-align: right;
+    }
+    
+    .list_edit_text {
+        flex: 1;
+    }
+    
+    .list_editing_mode {
+        /* No visual difference in edit mode - seamless editing */
+        outline: none;
+    }
+    
+    /* Version number display - top right */
+    .page_version {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--gray);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-family: inherit;
+        font-weight: 500;
+        z-index: 1002;
+        opacity: 0.8;
+        transition: opacity 0.2s ease;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .page_version:hover {
+        opacity: 1;
+    }
+    
+    .change_name {
+        color: var(--green);
+        font-weight: 600;
+    }
+    
+    .version_number {
+        opacity: 0.7;
+    }
+</style>
+</head>
+<body>
+    <div class="nav_controls">
+        <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+        <button class="button_nav" data-nav="tree" title="View Tree">Tree</button>
+    </div>
+    
+    <!-- Version number display -->
+    <div class="page_version" title="Page Version">
+        <span class="change_name">layout_tool_web</span>
+        <span class="version_number">v01.16.00</span>
+    </div>
+    
+    <!-- Outline Control Buttons -->
+    <div class="outline_controls">
+        <button class="control_button" id="button_expand_level_1" title="Show Level 1 Only">1</button>
+        <button class="control_button" id="button_expand_level_2" title="Show Levels 1-2">2</button>
+        <button class="control_button" id="button_expand_all" title="Show All Levels">All</button>
+    </div>
+    
+    <div id="content">        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">////////////////////////////////////////////////////////////////</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">NOTE: This file defines rules for managing and formatting rules in the project.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="1.">1.</span>
+            <span class="list_edit_text">format</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. numbering</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Use outline numbering (1.a.1.a).</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Each level must be indented with one tab.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Each line must have a number or letter.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Each instruction must end with a period.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. width</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Keep all lines under 80 characters wide.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Make the wrap look good.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="2.">2.</span>
+            <span class="list_edit_text">manage</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. rule_add</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Check existing rules before creating new ones.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Add to existing rule file if topic matches.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Create new rules only if necessary.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Use simple one-line rules when sub-items are not needed.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Pick the correct file to add new rules in.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. content</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Make rules that are conventions, yet specific and actionable.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Start with a verb.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. End with a period.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. One rule per line.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Never have vague or marketing language.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. The more top level, the shorter the line should be.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. Watch for uniform step counts across sections as a sign of fluff.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        8. Prefer fewer meaningful steps over padded lists.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="3.">3.</span>
+            <span class="list_edit_text">format_file</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. structure</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Group related rules together.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Index files start directly with first entry.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Index files have no header or footer formatting.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. examples</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Put examples in a separate section.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Clearly mark examples as examples.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Follow all other rules.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Show before/after if relevant.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">////////////////////////////////////////////////////////////////</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">////////////////////////////////////////////////////////////////</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">NOTE: This file defines the process for executing prompts from </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">the meta files.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="1.">1.</span>
+            <span class="list_edit_text">commands</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. rule_check</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. List the unchecked set of rule files that you will </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           review while executing the prompt.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. This must be the first step for ANY prompt execution.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. This includes both user commands and app prompt </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           executions.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. run</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Find prompt_marker position in app_prompt files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Execute next prompt after prompt_marker per execution </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           rules.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Update prompt_marker location per prompt_marker rules.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. reset</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Delete all files in meta/browser2/ except the folder </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           itself.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Delete all files in app_prompt/html/ except the </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           folder itself.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Remove prompt_marker from current location.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Place prompt_marker at top of 01_start.txt before </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           first prompt.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Do not delete files in app/ folder.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Do not delete or modify contents of app_index.txt.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    d. meta</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Start the sync server for HTML/TXT file generation </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           and synchronization.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Kill any existing node processes on port 3002.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Start node sync_server.js from meta/code/sync/ directory.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Server runs on http://localhost:3002.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Generates HTML files from all .txt files in meta/src/.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Opens browser windows/tabs for:</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           - index.html (identifier mappings)</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           - function.html (function outline)</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           - 01_start.html (project prompts)</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           - web.html (function call relationships)</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. Watches txt files for changes and auto-refreshes HTML.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        8. Stop any existing sync servers before starting.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="2.">2.</span>
+            <span class="list_edit_text">output_prompt_marker</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. format</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0" style="color: #2ea043; font-weight: bold;">        1. Use text "/////////////////// YOU ARE HERE </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           ///////////////////////////////".</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Add one blank line before marker.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Subject to theseexecuted prompt.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Move to next file if current file complete.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Always mark next prompt to execute.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. reset_behavior</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Place marker in initial position.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Place in first prompt file in app_prompt/.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Place after NOTE section.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Place before first prompt.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Add blank lines before and after.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    d. file_rules</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Place marker in meta/src/prompt/ directory.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="3.">3.</span>
+            <span class="list_edit_text">rule_execute</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. overview</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. List rule files to be reviewed (rule_check) as the </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           first step.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Review existing codenames in code files and </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           meta/src/tool/index.txt.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Select new codenames per codename.txt rules.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Apply format_code.txt rules to changed files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Follow index update rules.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Verify all rules are followed before marking prompt </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           complete.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. simplicity_rule</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Implement the simplest solution that meets the </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           requirement.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Do not add features not explicitly requested.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Avoid over-engineering or anticipating future needs.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Use existing tools and patterns when possible.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Minimize dependencies and complexity.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Follow the exact specifications without embellishment.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. If a simple solution exists, use it even if a more </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           sophisticated approach is possible.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. terminal_rules</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Use delete_file for all deletions.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use edit_file for all creations/modifications.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Never use terminal for file operations.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Never use commands requiring [yn] input.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Always pipe to cat if pager possible.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Never use commands that show pager.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. Always use -f or --force flags for rm, mv, cp.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        8. Never use interactive flags (-i) on any command.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        9. Always use non-interactive flags (-n) when available.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        10. Always use --no-interactive when available.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        11. Always use -y for commands that might prompt.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        12. Never use commands that might wait for input.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        13. Always verify command flags prevent prompts before </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            running.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    d. edit_file_rules</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Check current state of target file if edit_file </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           returns "No changes were made".</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Try another method if needed.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Report current state in chat if different from </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           desired.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="4.">4.</span>
+            <span class="list_edit_text">output_chat</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. format</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Be brief and direct.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Use codenames to describe changes.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Group related changes together.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Skip obvious details.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Document every process that requires checking </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           multiple files or updating multiple references as a </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           numbered list of explicit steps.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Include verification steps for every multi-step </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           process.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        7. List all affected files for every change.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. rule_file_checkmarks</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Mark [x] for each rule file that was applied during </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           the operation.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Mark [x] for each rule file that was reviewed for </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           compliance.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Mark [ ] for each rule file that was not needed for </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           the operation.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Mark [ ] for each rule file that was not reviewed.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Format checkmarks exactly as shown:</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            [ ] rule</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            [ ] codename</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            [ ] format_code</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            [ ] field_exit_mode</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            [ ] field_text_extract</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            [ ] field_focus_set</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            [ ] index_rule</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            [ ] html_extract</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">            [ ] index_html_extract</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        6. Include checkmarks even if no rule files were needed.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="5.">5.</span>
+            <span class="list_edit_text">index_rule_update</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. timing</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Update meta/src/tool/index.txt after every prompt execution.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Verify index.txt is updated before marking prompt </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           as complete.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Update function.txt and web.txt after any changes to meta </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           folder files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Verify all index files are updated before marking prompt </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           as complete.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. content</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. List all files created/modified/deleted in </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           index.txt.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Follow index_rule.txt rules for structure and </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           formatting.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Use codenames per codename.txt rules.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. List all codenames from meta files in index.txt.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Apply same formatting rules to all index files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    c. verification</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Verify index update before proceeding.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. Check for duplicate entries.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Verify all index files in meta/src/tool/ are </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           current.</div>
+        <div style="margin-left: 0px; display: flex;" data-indent="0" data-collapsed="true">
+            <span class="outline_line_number" style="min-width: 40px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right; color: #4a4a4a;" data-original="6.">6.</span>
+            <span class="list_edit_text">prompt_acknowledgment</span>
+        </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    a. first_act</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. Always print the prompt being executed as the first </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           act of any response.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. This applies to all prompts regardless of source.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Format: "Executing prompt: [prompt text]"</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Include full context if relevant.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. Makes the AI touchpoint explicit and visible.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">    b. ai_touchpoint</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        1. The AI touchpoint is where JavaScript hands off to </div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">           Cursor AI.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        2. JavaScript's role: get data into the project files.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        3. Cursor AI's role: read those files and execute.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        4. Clear separation of concerns at this boundary.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">        5. The handoff is the key interface point.</div>
+        <div style="margin-left: 0px" class="list_edit_text" data-indent="0">//////////////////////////////////////////////////////////////// </div>
+    </div>
+    <script>
+        // Configuration for the external script
+        window.FILE_NAME = 'meta_rule_other_rule_prompt';
+        window.LAST_MODIFIED = 1749017539826.5518;
+    </script>
+    <script src="/js/layout_shared_client.js"></script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/layout_outline_client.js"></script>
+</body>
+</html>

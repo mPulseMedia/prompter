@@ -1,0 +1,23 @@
+19. index_duplicate_dynamic
+	a. Create layout_list_duplicate_update function
+		1. Recalculate gray/white coloring based on visible items only
+		2. Skip hidden items when determining duplicates
+		3. First visible occurrence always white
+		4. Process only visible li elements in sequence
+	b. Call after filter changes
+		1. layout_list_filter_apply calls layout_list_duplicate_update
+		2. Ensures correct coloring after filtering
+		3. Maintains visual consistency
+
+20. naming_convention_update
+	a. Rename functions to component_action_verb pattern
+		1. applyFilters → layout_list_filter_apply
+		2. filterState → filter_state  
+		3. Add layout_list_duplicate_update
+		4. Update all references in code
+
+21. outline_pixel_alignment
+	a. Fix outline number alignment
+		1. Add text-align: right to outline-number spans
+		2. Ensures codenames line up regardless of outline width
+		3. Maintains consistent visual hierarchy 

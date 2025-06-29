@@ -1,0 +1,35 @@
+{
+  "current": {
+    "major": 1,
+    "minor": 16,
+    "patch": 0
+  },
+  "pages": {
+    "index": {
+      "major": 1,
+      "minor": 16,
+      "patch": 0
+    },
+    "function": {
+      "major": 1,
+      "minor": 16,
+      "patch": 0
+    },
+    "web": {
+      "major": 1,
+      "minor": 16,
+      "patch": 0
+    },
+    "prompt": {
+      "major": 1,
+      "minor": 16,
+      "patch": 0
+    },
+    "tree": {
+      "major": 1,
+      "minor": 16,
+      "patch": 0
+    }
+  },
+  "last_update": 1751223835566
+}

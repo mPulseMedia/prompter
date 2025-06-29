@@ -71,13 +71,13 @@
 			b. function_rule.txt for functions.
 			c. web_rule.txt for web relationships.
 		4. other/ has general rules.
-			a. prompt_rule.txt for executing prompts.
-			b. code_rule.txt for JavaScript style.
-			c. codename_rule.txt for naming.
+			a. rule_prompt.txt for executing prompts.
+			b. rule_code.txt for JavaScript style.
+			c. rule_codename.txt for naming.
 	e. meta_layout_folder
 		1. Location is meta/layout/.
 		2. Contains layout format rules.
-		3. outline_layout_rule.txt defines format.
+		3. layout_outline_rule.txt defines format.
 		4. Used for structuring documents.
 		5. Defines numbering and indentation.
 
@@ -96,8 +96,7 @@
 		5. Update all relevant indexes.
 		6. Move marker to next section.
 	c. maintaining_indexes
-		1. Check meta_index.txt for meta names.
-		2. Check app_index.txt for app names.
+		1. Check index.txt for meta names.
 		3. Before creating new names, verify unique.
 		4. Add all new names to appropriate index.
 		5. Keep indexes sorted and organized.
@@ -110,7 +109,6 @@
 
 5. key_files_and_purposes
 	a. index_files
-		1. meta_index.txt tracks meta/ identifiers.
 		2. app_index.txt tracks app/ identifiers.
 		3. Must be updated with every change.
 		4. Prevents naming conflicts.

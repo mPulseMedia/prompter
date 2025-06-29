@@ -1,0 +1,22 @@
+{
+  "major": 1,
+  "minor": 1,
+  "patch": 0,
+  "history": [
+    {
+      "version": "v1.0.0",
+      "type": "initial",
+      "description": "Initial version",
+      "timestamp": 1751227606695,
+      "date": "6/29/2025, 1:06:46 PM"
+    },
+    {
+      "version": "v1.1.0",
+      "type": "minor",
+      "description": "Added version display to all pages",
+      "timestamp": 1751227623351,
+      "date": "6/29/2025, 1:07:03 PM"
+    }
+  ],
+  "last_update": 1751227623361
+}

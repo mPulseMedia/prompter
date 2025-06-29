@@ -1,0 +1,130 @@
+13. style_colors_setup
+	a. Define Cursor.ai color scheme
+		1. CSS variables: --text: #dcdcaa, --gray: #6e7681, --bg: #1e1e1e
+		2. Additional: --hover: #2d2d2d, --active: #007AFF, --green: #2ea043
+		3. Font: "SF Mono" and monospace fallbacks, size: 18px, line-height: 1.5
+	b. Apply dark theme to index files
+		1. Body background and text color
+		2. Counter numbers (::before) use gray
+		3. Hover and edit mode styling with defined colors
+		4. Ensure hover regions touch with no gaps (padding: 2px 4px, margin: 0)
+	c. Apply dark theme to outline files
+		1. Same body styling as index files
+		2. Outline numbers in gray, content text in function yellow
+		3. Consistent hover and edit states
+		4. Ensure hover regions touch with no gaps (margin-bottom: 0)
+	d. Make edit mode seamless
+		1. Remove border during edit mode - no visual difference
+		2. Keep same background color when editing
+		3. No green flash on sync - remove visual feedback
+		4. Maintain exact same appearance in edit vs non-edit
+		5. Only cursor position indicates edit mode
+
+14. gray_duplicate_terms
+	a. Apply gray coloring to duplicate term prefixes
+		1. Modify sync_html_build for index files
+		2. Compare terms separated by underscores
+		3. Split li into list_term_duplicate (gray) and list_term_unique (white) spans
+		4. Store full text in data-fulltext for editing
+		5. Handle tab-separated format in index files
+	b. Edit behavior for split terms
+		1. Click replaces split display with full text in white
+		2. Click on different row exits previous edit mode
+		3. Enter key exits edit mode and restores split display
+		4. Edit state persists when switching windows
+	c. Multiple index files
+		1. Add function, web entries to storage_file_config
+		2. Extract left column for display, preserve right column when syncing
+		3. Apply same duplicate detection to all variants
+	d. Navigation buttons
+		1. Create nav_controls with Index, Function, Web, Prompt buttons
+		2. Position fixed top-right with button_nav styling
+		3. Navigate between tool and prompt HTML files
+
+15. outline_collapse_expand
+	a. Add click handler to outline numbers
+		1. Single click on outline number/letter toggles collapse/expand
+		2. Store collapsed state in data-collapsed attribute on parent div
+		3. Hide/show all children at deeper indent levels
+		4. No visual effects beyond content movement
+		5. Cursor changes to pointer when hovering outline numbers
+		6. Make outline numbers non-selectable with user-select: none
+	b. Implement collapse logic
+		1. Single click toggles visibility while preserving nested states
+		2. When collapsing, hide all descendants regardless of their state
+		3. When expanding, show immediate children and recursively show their descendants based on each element's collapsed state
+		4. Use a stack-based approach to track which levels should be visible
+		5. Elements maintain their own collapsed/expanded state even when hidden
+	c. Add double-click handler
+		1. Double-click expands/collapses all descendants recursively
+		2. If any descendant is collapsed, expand all
+		3. If all descendants expanded, collapse all
+		4. Apply to all nested levels beneath clicked item
+		5. Prevent text selection on double-click with preventDefault
+	d. Visual feedback
+		1. No animations or transitions
+		2. Instant show/hide of content
+		3. Outline number stays clickable in both states
+		4. Text content remains editable when visible
+	e. Standard click detection
+		1. Use single click handler with 250ms delay timer
+		2. If second click occurs within 250ms, cancel timer and treat as double-click
+		3. Single click toggles immediate children only
+		4. Double-click recursively expands/collapses all descendants
+		5. No complex state tracking - simple and standard approach
+
+16. control_buttons
+	a. Add control buttons in top right
+		1. Fixed position div with control_button styling
+		2. Background color: #2ea043 green
+		3. White symbols and text, no borders
+		4. Buttons have 8px 12px padding, 4px border-radius
+		5. 10px gap between buttons
+	b. Collapse All button (left)
+		1. White minus symbol (-)
+		2. Clicking collapses all outline items at every level
+		3. Sets data-collapsed="true" on all outline divs
+		4. Updates all outline displays to show carets for items with children
+		5. Hides all content except top-level items
+	c. Expand to Level 2 button (middle)
+		1. Contains white number "2"
+		2. Opens all first-level items (shows their children)
+		3. Closes all second-level items (hides their children)
+		4. Leaves third-level and deeper items unchanged
+		5. Only affects open/close state of first and second level items
+	d. Expand All button (right)
+		1. White plus symbol (+)
+		2. Clicking expands all outline items at every level
+		3. Sets data-collapsed="false" on all outline divs
+		4. Updates all outline displays to show periods
+		5. Shows all content with proper flex/block display
+	e. Default state on page load
+		1. All top-level items start collapsed (data-collapsed="true")
+		2. All other levels start expanded (data-collapsed="false")
+		3. Only first-level content visible initially
+		4. Users can expand to see deeper content
+		5. Provides clean initial view of major sections
+
+17. index_filter_buttons
+	a. Add filter buttons to index.html
+		1. Create fixed position div in top right with green buttons
+		2. "Functions" button - toggles function item visibility
+		3. "Files and Folders" button - toggles file/folder visibility
+		4. Both default to "on" state, turn gray (#6e7681) when "off"
+		5. Use data-type attributes on li elements: function, file, folder
+	b. Implement layout_list_filter_apply function
+		1. Check filter state object for button states
+		2. Show/hide li elements based on data-type and filter state
+		3. Call layout_list_duplicate_update after filtering
+		4. Ensure smooth visual transition
+
+18. index_type_indicators
+	a. Add visual type indicators
+		1. Folders: append "/" in dark gray (#6e7681)
+		2. Files: file extension in dark gray
+		3. Functions: append "(" in dark gray
+		4. Apply during li element generation in sync_server.js
+	b. Detect item types
+		1. Check for common folder names (app, meta, prompt, etc.)
+		2. Check for dots to identify files with extensions
+		3. Default to function if neither folder nor file 

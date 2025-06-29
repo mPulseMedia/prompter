@@ -96,14 +96,14 @@ codename-specific requirements.
     a. duplicate_coloring_example
         ```html
         <li>app</li>
-        <li><span class="codename_part_duplicate">app_</span><span class="codename_part_unique">components</span></li>
-        <li><span class="codename_part_duplicate">app_components_</span><span class="codename_part_unique">header</span></li>
+        <li><span class="list_term_duplicate">app_</span><span class="list_term_unique">components</span></li>
+        <li><span class="list_term_duplicate">app_components_</span><span class="list_term_unique">header</span></li>
         ```
     b. type_indicator_example
         ```html
         <li data-type="folder">app<span style="color: #6e7681;">/</span></li>
         <li data-type="file">index<span style="color: #6e7681;">.html</span></li>
-        <li data-type="function">handleClick<span style="color: #6e7681;">()</span></li>
+        <li data-type="function">handleClick<span style="color: #6e7681;">(</span></li>
         ```
 
 7. css_class_display
@@ -114,8 +114,8 @@ codename-specific requirements.
         4. Position after the codename with margin.
         5. Default state is visible (CSS button on).
     b. class_types
-        1. codename_part_duplicate - gray duplicate prefixes.
-        2. codename_part_unique - white unique suffixes.
+        1. list_term_duplicate - gray duplicate prefixes.
+        2. list_term_unique - white unique suffixes.
         3. new-name - items with rename mappings.
         4. original-name - original names for renamed items.
     c. filter_button
@@ -125,11 +125,11 @@ codename-specific requirements.
         4. Persist state in localStorage.
     d. display_example
         ```html
-        <li data-type="file">
-            <span class="codename_part_duplicate">field_</span>
-            <span class="codename_part_unique">mode_exit</span>
-            <span style="color: #6e7681;">()</span>
-            <span class="css-class-display" style="margin-left: 20px; color: #6e7681; font-size: 14px;">codename_part_duplicate, codename_part_unique></span>
+        <li data-type="function">
+            <span class="list_term_duplicate">field_</span>
+            <span class="list_term_unique">mode_exit</span>
+            <span style="color: #6e7681;">(</span>
+            <span class="css-class-display" style="margin-left: 20px; color: #6e7681; font-size: 14px;">list_term_duplicate, list_term_unique></span>
         </li>
         ```
 

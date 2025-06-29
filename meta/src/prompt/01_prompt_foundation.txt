@@ -1,0 +1,129 @@
+1. index_html_create
+	a. Create basic HTML index page
+		1. Create meta/html/tool/index.html with minimal structure
+		2. No title. Start with empty ul element with id="index_list"
+		3. No styling or formatting yet
+		4. Test snake_case naming
+		4. Just basic HTML structure with DOCTYPE, html, head, body tags
+	b. Create sync_server foundation
+		1. Create meta/code/sync/sync_server.js
+		2. Add const http = require('http') and const fs = require('fs')
+		3. Add const path = require('path') for file paths
+		4. Create server on port 3002
+		5. Add storage_file_config object for file management
+		6. Use absolute paths from project root
+
+2. index_txt_read
+	a. Add txt file reading
+		1. Add fs module import to sync_server.js (already done in 1b)
+		2. Add prompt_txt_read function that uses fs.readFileSync
+		3. Split content by newlines into array
+		4. Log array to console for verification
+	b. Serve HTML files
+		1. Add route handler for GET requests
+		2. Check if requested path is in storage_file_config
+		3. Read and send the corresponding HTML file
+		4. Set Content-Type: text/html header
+		5. Return 404 for unknown paths
+
+3. index_txt_to_html
+	a. Add txt to HTML update
+		1. Create sync_html_build function in sync_server.js
+		2. Design it to handle different file types appropriately
+		3. For index files: generate li elements for each line
+		4. For outline files: generate div for each line with explicit indentation
+		5. Calculate indent level from tabs (1 tab = 60px margin-left)
+		6. Add style="margin-left: Xpx" where X = level * 60
+		7. Include full line text including numbers/letters
+		8. Write complete HTML file with DOCTYPE, html, head, body tags
+		9. For outline files: separate outline numbers (1., a., etc.) from text content
+		10. Place outline numbers in separate span with fixed width to align wrapped text
+		11. For index files: use CSS counters for automatic numbering
+		12. CSS counter implementation: ul { counter-reset: item }, li { counter-increment: item }
+		13. CSS counter display: li::before { content: counter(item) ". " }
+	b. Add file watching and initial generation
+		1. Call sync_html_build on server startup for all files
+		2. Add file_watcher_setup function for each file in storage_file_config
+		3. Use fs.watch to monitor txt files for changes
+		4. Call sync_html_build when any txt changes
+		5. Log "Updated HTML from txt" on success
+		6. Ensure each file updates independently
+
+4. start_file_add
+	a. Add start_file to file config
+		1. Add start_file entry to storage_file_config in sync_server.js
+		2. Set txt_path to 'meta/src/prompt/01_start.txt'
+		3. Set html_path to 'meta/html/prompt/01_start.html'
+		4. Verify both files sync independently
+		5. URL routing: /01_start.html serves the generated HTML
+		6. Ensure both index and start_file are in storage_file_config object
+	b. Test multiple file handling
+		1. Modify index.txt and verify only index.html updates
+		2. Modify 01_start.txt and verify only 01_start.html updates
+		3. Check console shows correct file being watched
+		4. Confirm server handles both files on same port
+	c. Verify HTML generation
+		1. Ensure both HTML files are created on server startup
+		2. Check index.html contains li elements with codenames
+		3. Check 01_start.html contains div elements with proper indentation
+		4. Confirm both files are populated with content from txt files
+		5. Verify left margin increases by consistent amount (60px) for each deeper indentation level
+		6. Ensure tabs in source txt file map to indent levels (1 tab = 60px left margin)
+		7. Verify outline numbers are in separate spans allowing text to wrap with aligned left edge
+
+5. inline_edit_enable
+	a. Add tap to edit for index
+		1. Add click event listener to li elements in generated HTML
+		2. Make clicked element contenteditable="true" on click using setAttribute
+		3. Add focus to element after making it editable with field_cursor_set
+		4. Keep element editable when clicking outside - do NOT add blur event
+		5. Add keydown event for Enter key to exit edit mode
+		6. Remove contenteditable on Enter only using field_mode_exit
+		7. Add visual feedback with border during edit
+		8. Use getAttribute to check if element is already editable
+		9. Add cursor: pointer and hover effects for better UX
+		10. Focus and place cursor at end of text when entering edit mode
+		11. Element stays editable until Enter is pressed
+		12. Use shared placeCursorAtClick function to place cursor at click position
+	b. Add tap to edit for outline
+		1. Add click event listener to text spans (not outline numbers)
+		2. Make only the text span contenteditable="true" on click using setAttribute
+		3. Ensure outline numbers remain non-editable
+		4. Only Enter key exits edit mode - no blur handler
+		5. Preserve flex layout during editing
+		6. Add visual feedback for active edit
+		7. Use getAttribute/removeAttribute for proper contentEditable handling
+		8. Apply cursor: pointer to editable text spans only
+		9. Keep editable state when focus moves elsewhere
+		10. Use same placeCursorAtClick function as index for consistent behavior
+	c. Note on sync behavior
+		1. Edits will not yet propagate to txt files
+		2. This is preparation for sync functionality
+
+6. auto_reload
+	a. Add modification tracking
+		1. Add reload_modification_get object to track file changes
+		2. Initialize with current timestamps on server start
+		3. Update timestamp when file watcher detects changes
+		4. Store as milliseconds since epoch for easy comparison
+	b. Add check endpoint
+		1. Add GET /check/:filename route to sync_server.js
+		2. Return JSON with last_modified timestamp
+		3. Handle both index and start_file requests
+		4. Return 404 for unknown files
+	c. Browser polling
+		1. Add script to HTML generation for auto-reload
+		2. Store initial timestamp on page load
+		3. Poll /check endpoint every second
+		4. Compare timestamps and reload if changed
+		5. Use fetch API for polling requests
+	d. Preserve edit state
+		1. Add currently_editing flag to track active edits
+		2. Skip reload if currently_editing is true
+		3. Set currently_editing to true when entering edit mode
+		4. Set currently_editing to false on Enter key only
+		5. Ensure continuous editing without interruption
+	e. Add CORS headers
+		1. Add Access-Control-Allow-Origin: * to all responses
+		2. Required for future sync functionality
+		3. Enable cross-origin requests from browser 
