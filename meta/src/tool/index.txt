@@ -40,6 +40,9 @@ filter_checkbox
 filter_checkbox_container
 filter_label
 filters_apply_all
+filters_load
+filters_save
+filters_update_ui
 function_analyzer
 function_event_extract
 function_executed
@@ -91,6 +94,13 @@ list_init
 list_template.js
 list_term_duplicate
 list_term_unique
+location_checkbox
+location_checkbox_container
+location_codename
+location_codenames
+location_item
+location_label
+location_path
 message
 meta
 meta_files_scan_js
@@ -144,6 +154,7 @@ rule_codename.html
 rule_codename.txt
 rule_prompt.html
 rule_prompt.txt
+scope_filter
 scroll_position_restore
 search_apply
 search_apply_simple
@@ -157,6 +168,9 @@ search_input_container
 shared_client.js
 simple_filters.js
 snake_case_name
+sort_controls
+sort_label
+sort_order_select
 src
 style_active
 style_hidden

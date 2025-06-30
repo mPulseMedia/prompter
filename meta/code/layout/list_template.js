@@ -8,7 +8,44 @@
  * @param {string} version - Current version string
  * @returns {string} Complete HTML document
  */
-function list_html_generate(li_elements, config_key, modification_time, version = 'v1.0.0') {
+function list_html_generate(li_elements, config_key, modification_time, version = 'v1.0.0', codenames = []) {
+    // Generate scope options from codenames
+    const files_by_ext = new Map();
+    
+    codenames.forEach(name => {
+        if (name && typeof name === 'string') {
+            // Group all files by extension
+            if (name.includes('.')) {
+                const lastDot = name.lastIndexOf('.');
+                if (lastDot > 0) {
+                    const ext = name.substring(lastDot);
+                    if (!files_by_ext.has(ext)) {
+                        files_by_ext.set(ext, new Set());
+                    }
+                    files_by_ext.get(ext).add(name);
+                }
+            }
+        }
+    });
+    
+    // Generate scope dropdown options
+    let scope_options = '<option value="all" selected>All Scopes</option>';
+    
+    // Add files by extension sections - sorted by extension
+    const sortedExts = Array.from(files_by_ext.keys()).sort();
+    sortedExts.forEach(ext => {
+        const files = Array.from(files_by_ext.get(ext)).sort();
+        if (files.length > 0) {
+            // Create clean extension label (remove the dot)
+            const extLabel = ext.substring(1).toUpperCase();
+            scope_options += `<optgroup label="${extLabel} Files">`;
+            files.forEach(file => {
+                scope_options += `<option value="${file}">${file}</option>`;
+            });
+            scope_options += '</optgroup>';
+        }
+    });
+
     return `<!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +79,7 @@ function list_html_generate(li_elements, config_key, modification_time, version 
     
     ul {
         counter-reset: item;
-        padding-left:  30px;  /* Increased to align text start position with outline format */
+        padding-left:  45px;  /* Increased from 30px to accommodate 3-digit numbers */
         margin:        0;
         line-height:   1.5;
     }
@@ -64,7 +101,7 @@ function list_html_generate(li_elements, config_key, modification_time, version 
     li::before {
         content:  counter(item) ". ";
         position: absolute;
-        left:     -25px;
+        left:     -40px;  /* Increased from -25px to accommodate 3-digit numbers */
         color:    var(--gray);
         cursor: pointer;
     }
@@ -380,6 +417,30 @@ function list_html_generate(li_elements, config_key, modification_time, version 
         display: flex;
     }
     
+    /* Scope filter dropdown */
+    .scope_filter {
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--gray);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        width: 150px;
+        transition: border-color 0.2s ease;
+    }
+    
+    .scope_filter:hover {
+        border-color: var(--edit-border);
+    }
+    
+    .scope_filter:focus {
+        outline: none;
+        border-color: var(--edit-border);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    }
+    
     /* Time filter dropdown - same size as search */
     .time_filter_select {
         background-color: var(--bg);
@@ -474,9 +535,122 @@ function list_html_generate(li_elements, config_key, modification_time, version 
         display: none;
     }
     
-    /* Push content down - reduced spacing with new layout */
+    /* Sort order dropdown - new row */
+    .sort_controls {
+        position: fixed;
+        top: 170px;  /* Below search controls */
+        left: 20px;
+        z-index: 1000;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .sort_order_select {
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--gray);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        width: 200px;
+        transition: border-color 0.2s ease;
+    }
+    
+    .sort_order_select:hover {
+        border-color: var(--edit-border);
+    }
+    
+    .sort_order_select:focus {
+        outline: none;
+        border-color: var(--edit-border);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    }
+    
+    .sort_label {
+        color: var(--gray);
+        font-size: 16px;
+        font-family: inherit;
+    }
+    
+    /* Location checkbox styling */
+    .location_checkbox_container {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 20px;  /* Add space between sort dropdown and location checkbox */
+    }
+    
+    .location_checkbox {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        accent-color: var(--edit-border);
+    }
+    
+    .location_label {
+        color: var(--text);
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+    }
+    
+    /* Push content down - accounting for four control rows now */
     #list_content {
-        margin-top: 170px;  /* Account for three control rows */
+        margin-top: 220px;  /* Account for four control rows */
+    }
+    
+    /* Location view styling */
+    #location_content {
+        margin-top: 220px;  /* Same as list_content */
+        font-family: inherit;
+        line-height: 1.5;
+    }
+    
+    .location_item {
+        margin: 4px 0;
+        padding: 4px 8px;
+        transition: background-color 0.15s ease;
+    }
+    
+    .location_item:hover {
+        background-color: var(--hover);
+    }
+    
+    .location_path {
+        color: var(--file-blue);
+        display: inline-block;
+        min-width: 350px;  /* Fixed width for alignment */
+    }
+    
+    .location_codenames {
+        display: inline-block;
+    }
+    
+    .location_codename {
+        margin-right: 12px;
+    }
+    
+    /* Color coding for different types in location view */
+    .location_codename.type-function {
+        color: var(--function-yellow);
+    }
+    
+    .location_codename.type-css {
+        color: var(--css-pink);
+    }
+    
+    .location_codename.type-comment {
+        color: var(--comment-gray);
+    }
+    
+    .location_codename.type-file,
+    .location_codename.type-folder {
+        color: var(--file-blue);
     }
     
     /* Navigation controls - left justified */
@@ -569,6 +743,9 @@ function list_html_generate(li_elements, config_key, modification_time, version 
             <option value="1440">1 day</option>
             <option value="10080">1 week</option>
         </select>
+        <select class="scope_filter" id="scope_filter">
+            ${scope_options}
+        </select>
         <div class="time_type_radio_group">
             <label class="time_type_radio_container">
                 <input type="radio" name="time_type" value="created" id="time_type_created" class="time_type_radio">
@@ -581,9 +758,26 @@ function list_html_generate(li_elements, config_key, modification_time, version 
         </div>
     </div>
     
+    <div class="sort_controls">
+        <label class="sort_label">Sort:</label>
+        <select class="sort_order_select" id="sort_order_select">
+            <option value="topdown" selected>Top-down (Original)</option>
+            <option value="alphabetical">Alphabetical</option>
+            <option value="sequence">Sequence (First seen)</option>
+        </select>
+        <label class="location_checkbox_container">
+            <input type="checkbox" class="location_checkbox" id="location_view_checkbox">
+            <span class="location_label">Location</span>
+        </label>
+    </div>
+    
     <ul id="list_content">
 ${li_elements}
     </ul>
+    
+    <div id="location_content" style="display: none;">
+        <!-- Location view will be populated dynamically -->
+    </div>
     <script>
         // Configuration for the external script
         window.FILE_NAME = '${config_key}';

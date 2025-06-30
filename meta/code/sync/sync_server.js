@@ -441,6 +441,11 @@ function sync_html_build(config_key) {
             }
         });
         
+        // Extract codenames for scope dropdown
+        const codenames = lines
+            .map(line => line.trim() ? line.split('\t')[0].trim() : null)
+            .filter(Boolean);
+        
         const li_elements = lines
             .map((line, index) => {
                 if (!line.trim()) return null;
@@ -587,7 +592,7 @@ function sync_html_build(config_key) {
             .filter(Boolean)
             .join('\n');
         
-        html_content = list_html_generate(li_elements, config_key, reload_modification_get[config_key], current_version);
+        html_content = list_html_generate(li_elements, config_key, reload_modification_get[config_key], current_version, codenames);
     }
     
     fs.writeFileSync(config.html_path, html_content);
@@ -792,6 +797,80 @@ const server = http.createServer((req, res) => {
                     console.log('JS file not found in any path');
                     res.writeHead(404, { 'Content-Type': 'text/plain' });
                     res.end('JavaScript file not found');
+                }
+            } else if (req.url.startsWith('/file-content/')) {
+                // Serve file content for scope parsing
+                const filename = decodeURIComponent(req.url.substring(14)); // Remove '/file-content/' prefix
+                console.log('Requested file content:', filename);
+                
+                // Security: prevent directory traversal
+                if (filename.includes('..') || filename.includes('~')) {
+                    res.writeHead(403, { 'Content-Type': 'text/plain' });
+                    res.end('Forbidden');
+                    return;
+                }
+                
+                // Search for the file in various locations based on extension
+                const searchPaths = [];
+                
+                if (filename.endsWith('.js')) {
+                    // JavaScript files
+                    searchPaths.push(
+                        path.join(__dirname, '..', 'layout', filename),
+                        path.join(__dirname, filename),
+                        path.join(__dirname, '..', 'extract', filename),
+                        path.join(__dirname, '..', filename)
+                    );
+                } else if (filename.endsWith('.html')) {
+                    // HTML files
+                    searchPaths.push(
+                        path.join(__dirname, '..', '..', 'html', 'tool', filename),
+                        path.join(__dirname, '..', '..', 'html', 'prompt', filename),
+                        path.join(__dirname, '..', '..', 'html', filename)
+                    );
+                } else if (filename.endsWith('.txt')) {
+                    // TXT files
+                    searchPaths.push(
+                        path.join(__dirname, '..', '..', 'src', 'tool', filename),
+                        path.join(__dirname, '..', '..', 'src', 'prompt', filename)
+                    );
+                }
+                
+                let fileFound = false;
+                let filePath = '';
+                
+                for (const checkPath of searchPaths) {
+                    if (fs.existsSync(checkPath)) {
+                        fileFound = true;
+                        filePath = checkPath;
+                        break;
+                    }
+                }
+                
+                if (fileFound) {
+                    fs.readFile(filePath, 'utf8', (err, content) => {
+                        if (err) {
+                            console.error('Error reading file:', err);
+                            res.writeHead(500, { 'Content-Type': 'text/plain' });
+                            res.end('Internal Server Error');
+                        } else {
+                            // Determine content type
+                            let contentType = 'text/plain';
+                            if (filename.endsWith('.js')) contentType = 'application/javascript';
+                            else if (filename.endsWith('.html')) contentType = 'text/html';
+                            else if (filename.endsWith('.json')) contentType = 'application/json';
+                            
+                            res.writeHead(200, { 
+                                'Content-Type': contentType,
+                                'Access-Control-Allow-Origin': '*'
+                            });
+                            res.end(content);
+                        }
+                    });
+                } else {
+                    console.log('File not found:', filename);
+                    res.writeHead(404, { 'Content-Type': 'text/plain' });
+                    res.end('File not found');
                 }
             } else {
                 res.writeHead(404, { 'Content-Type': 'text/plain' });
