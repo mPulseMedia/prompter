@@ -6,7 +6,7 @@ const html_extract = require('./html_extract');
 const { list_html_generate } = require('../layout/list_template');
 const { outline_html_generate } = require('../layout/outline_template');
 const { tree_html_generate } = require('../layout/tree_template');
-const { generate_big_html } = require('../layout/big_template');
+const { big_html_generate } = require('../layout/big_template');
 const { timestamp_get_or_create, timestamp_update_modified } = require('../layout/timestamp_manager');
 const { version_current, version_initialize, version_increment } = require('./version_manager');
 
@@ -430,7 +430,7 @@ function sync_html_build(config_key) {
     } else if (config_key === 'big') {
         // Special handling for big page - function hierarchy viewer
         const content = lines.join('\n');
-        html_content = generate_big_html(content, config.txt_path, reload_modification_get[config_key]);
+        html_content = big_html_generate(content, config.txt_path, reload_modification_get[config_key]);
     } else if (formatType === 'index' || config_key === 'index' || config_key.startsWith('index_')) {
         // Generate li elements for each line with gray coloring for duplicates
         let previousTerm = '';

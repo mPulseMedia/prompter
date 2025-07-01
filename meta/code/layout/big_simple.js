@@ -2,13 +2,13 @@
 const fs = require('fs');
 const path = require('path');
 
-function scan_directory_tree(base_path) {
+function directory_tree_scan(base_path) {
     const result = {
         files: {},
         last_scan: Date.now()
     };
     
-    function scan_recursive(dir_path, relative_path = '') {
+    function directory_scan_recursive(dir_path, relative_path = '') {
         try {
             const items = fs.readdirSync(dir_path);
             
@@ -24,15 +24,17 @@ function scan_directory_tree(base_path) {
                         if (['node_modules', '.git', '.DS_Store'].includes(item) || item.startsWith('.')) {
                             continue;
                         }
-                        scan_recursive(full_path, item_relative);
+                        directory_scan_recursive(full_path, item_relative);
                     } else if (item.endsWith('.js')) {
                         // Process JavaScript files
                         const content = fs.readFileSync(full_path, 'utf8');
-                        const functions = extract_functions(content);
+                        const functions = function_extract_all(content);
                         
                         result.files[item_relative] = {
                             functions: functions,
-                            size: stat.size
+                            size: stat.size,
+                            modified: stat.mtimeMs,
+                            created: stat.ctimeMs
                         };
                     }
                 } catch (e) {
@@ -45,11 +47,11 @@ function scan_directory_tree(base_path) {
         }
     }
     
-    scan_recursive(base_path);
+    directory_scan_recursive(base_path);
     return result;
 }
 
-function extract_functions(content) {
+function function_extract_all(content) {
     const functions = [];
     const lines = content.split('\n');
     
@@ -169,4 +171,4 @@ function extract_functions(content) {
     return functions.sort((a, b) => a.name.localeCompare(b.name));
 }
 
-module.exports = { scan_directory_tree };
+module.exports = { directory_tree_scan };

@@ -5906,5 +5906,117 @@
   "update_functions_visibility": {
     "created": 1751331222490,
     "modified": 1751331222490
+  },
+  "apply_search": {
+    "created": 1751331592181,
+    "modified": 1751331592181
+  },
+  "clear_search": {
+    "created": 1751331592184,
+    "modified": 1751331592184
+  },
+  "debounced_save": {
+    "created": 1751332482362,
+    "modified": 1751332482362
+  },
+  "time_hidden": {
+    "created": 1751332733372,
+    "modified": 1751332733372
+  },
+  "cursor_active": {
+    "created": 1751333147117,
+    "modified": 1751333147117
+  },
+  "cursor_position": {
+    "created": 1751333147124,
+    "modified": 1751333147124
+  },
+  "function_visibility_update": {
+    "created": 1751333249983,
+    "modified": 1751333249983
+  },
+  "method_visibility_update": {
+    "created": 1751333249984,
+    "modified": 1751333249984
+  },
+  "state_all_load": {
+    "created": 1751333249985,
+    "modified": 1751333249985
+  },
+  "state_all_save": {
+    "created": 1751333249985,
+    "modified": 1751333249985
+  },
+  "big_html_generate": {
+    "created": 1751333279973,
+    "modified": 1751333279973
+  },
+  "folder_tree_build": {
+    "created": 1751333279973,
+    "modified": 1751333279973
+  },
+  "function_total_count": {
+    "created": 1751333279974,
+    "modified": 1751333279974
+  },
+  "outline_content_generate": {
+    "created": 1751333279975,
+    "modified": 1751333279975
+  },
+  "tree_node_render": {
+    "created": 1751333279976,
+    "modified": 1751333279976
+  },
+  "directory_scan_recursive": {
+    "created": 1751333340086,
+    "modified": 1751333340086
+  },
+  "directory_tree_scan": {
+    "created": 1751333340087,
+    "modified": 1751333340087
+  },
+  "function_extract_all": {
+    "created": 1751333340088,
+    "modified": 1751333340088
+  },
+  "descendant_toggle": {
+    "created": 1751334595805,
+    "modified": 1751334595805
+  },
+  "function_show_update": {
+    "created": 1751334595808,
+    "modified": 1751334595808
+  },
+  "method_show_update": {
+    "created": 1751334595809,
+    "modified": 1751334595809
+  },
+  "search_big_apply": {
+    "created": 1751334595810,
+    "modified": 1751334595810
+  },
+  "search_big_clear": {
+    "created": 1751334595810,
+    "modified": 1751334595810
+  },
+  "time_filter_big_apply": {
+    "created": 1751334595811,
+    "modified": 1751334595811
+  },
+  "filter_simple.js": {
+    "created": 1751336222991,
+    "modified": 1751336222991
+  },
+  "big_function_call_arrow": {
+    "created": 1751336939543,
+    "modified": 1751336939543
+  },
+  "big_function_call_name": {
+    "created": 1751336939546,
+    "modified": 1751336939546
+  },
+  "function_calls": {
+    "created": 1751336939546,
+    "modified": 1751336939546
   }
 }

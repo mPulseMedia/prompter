@@ -1,15 +1,15 @@
 const path = require('path');
-const { scan_directory_tree } = require('./big_simple');
+const { directory_tree_scan } = require('./big_simple');
 
-function generate_big_html(txt_content, txt_file_path, last_modified) {
+function big_html_generate(txt_content, txt_file_path, last_modified) {
     const relative_path = path.relative(process.cwd(), txt_file_path);
     const file_name = path.basename(txt_file_path, '.txt');
     
     // Scan the project directory for JS files and functions
     // Go up 3 levels from current working directory to reach project root
     const project_root = path.resolve(process.cwd(), '../../..');
-    const scan_result = scan_directory_tree(project_root);
-    const outline_content = generate_outline_content(scan_result);
+    const scan_result = directory_tree_scan(project_root);
+    const outline_content = outline_content_generate(scan_result);
     
     return `<!DOCTYPE html>
 <html>
@@ -28,7 +28,7 @@ function generate_big_html(txt_content, txt_file_path, last_modified) {
         --folder-blue: #569cd6;
         --file-blue:   #569cd6;
         --function-yellow: #dcdcaa;
-        --method-green: #2ea043;
+        --function-green: #2ea043;
     }
     
     body {
@@ -102,7 +102,7 @@ function generate_big_html(txt_content, txt_file_path, last_modified) {
     }
     
     /* Make "All" button slightly wider */
-    .control_button:last-child {
+    .control_button:first-child {
         width: auto;
         min-width: 60px;
         padding: 12px 16px;
@@ -185,11 +185,11 @@ function generate_big_html(txt_content, txt_file_path, last_modified) {
         color: var(--gray);
     }
     
-    .big_method_name {
-        color: var(--method-green);
+    .big_function_call_name {
+        color: var(--function-green);
     }
     
-    .big_method_arrow {
+    .big_function_call_arrow {
         color: var(--gray);
     }
     
@@ -210,11 +210,11 @@ function generate_big_html(txt_content, txt_file_path, last_modified) {
     }
     
     /* Method calls container */
-    .method_calls {
+    .function_calls {
         transition: opacity 0.2s ease;
     }
     
-    .method_calls.hidden {
+    .function_calls.hidden {
         display: none !important;
     }
     
@@ -248,6 +248,107 @@ function generate_big_html(txt_content, txt_file_path, last_modified) {
     .function_line.hidden {
         display: none !important;
     }
+    
+    /* Search controls */
+    .search_controls {
+        margin-top: 10px;
+        margin-left: 20px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 12px;
+        background-color: transparent;
+    }
+    
+    .search_input_container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .search_input {
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--gray);
+        padding: 8px 40px 8px 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: inherit;
+        width: 300px;
+        transition: border-color 0.2s ease;
+    }
+    
+    .search_input:focus {
+        outline: none;
+        border-color: var(--edit-border);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    }
+    
+    .search_input::placeholder {
+        color: var(--gray);
+    }
+    
+    .search_clear {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--gray);
+        font-size: 16px;
+        cursor: pointer;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: none;
+    }
+    
+    .search_clear:hover {
+        color: var(--text);
+    }
+    
+    .search_clear.search_clear_visible {
+        display: block;
+    }
+    
+    /* Hide search filtered items */
+    .search_hidden {
+        display: none !important;
+    }
+    
+    /* Hide time filtered items */
+    .time_hidden {
+        display: none !important;
+    }
+    
+    /* Time filter dropdown */
+    .time_filter_select {
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--gray);
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        width: 150px;
+        transition: border-color 0.2s ease;
+    }
+    
+    .time_filter_select:hover {
+        border-color: var(--edit-border);
+    }
+    
+    .time_filter_select:focus {
+        outline: none;
+        border-color: var(--edit-border);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    }
+    
+    /* Hide time filtered items */
+    .time_hidden {
+        display: none !important;
+    }
 </style>
 </head>
 <body>
@@ -264,21 +365,42 @@ function generate_big_html(txt_content, txt_file_path, last_modified) {
         </div>
         
         <div class="outline_controls">
-            <button class="control_button" onclick="outline_expand_all()" title="Expand All">+</button>
-            <button class="control_button" onclick="outline_collapse_all()" title="Collapse All">-</button>
+            <button class="control_button" onclick="outline_expand_all_handle()" title="All">All</button>
             <button class="control_button" onclick="outline_level_1_handle()" title="Level 1">1</button>
             <button class="control_button" onclick="outline_level_2_handle()" title="Level 2">2</button>
-            <button class="control_button" onclick="outline_expand_all_handle()" title="All">All</button>
+            <button class="control_button" onclick="outline_level_3_handle()" title="Level 3">3</button>
+            <button class="control_button" onclick="outline_collapse_all()" title="Collapse Level">-</button>
+            <button class="control_button" onclick="outline_expand_all()" title="Expand Level">+</button>
+        </div>
+        
+        <div class="search_controls">
+            <div class="search_input_container">
+                <input type="text" 
+                       class="search_input" 
+                       id="search_input" 
+                       placeholder="Search"
+                       autocomplete="off">
+                <button class="search_clear" id="search_clear" title="Clear search">X</button>
+            </div>
+            <select class="time_filter_select" id="time_filter_select">
+                <option value="0" selected>All time</option>
+                <option value="1">1 minute</option>
+                <option value="5">5 minutes</option>
+                <option value="15">15 minutes</option>
+                <option value="60">1 hour</option>
+                <option value="1440">1 day</option>
+                <option value="10080">1 week</option>
+            </select>
+            <div style="display: flex; gap: 10px; margin-left: 20px;">
+                <button class="filter_button active" id="toggle_functions" title="Toggle functions" style="background-color: var(--function-yellow); color: var(--bg);">function(</button>
+                <button class="filter_button active" id="toggle_functions_calls" title="Toggle function calls" style="background-color: var(--function-green);">function--></button>
+            </div>
         </div>
     </div>
     
     <div id="content">
         <div class="big_stats">
-            <span>Files: ${Object.keys(scan_result.files).length} | Functions: ${count_total_functions(scan_result)} | Last scan: ${new Date(scan_result.last_scan).toLocaleTimeString()}</span>
-            <div style="display: flex; gap: 10px;">
-                <button class="filter_button active" id="toggle_functions" title="Toggle functions" style="background-color: var(--function-yellow); color: var(--bg);">function(</button>
-                <button class="filter_button active" id="toggle_methods" title="Toggle method calls" style="background-color: var(--method-green);">function--></button>
-            </div>
+            <span>Files: ${Object.keys(scan_result.files).length} | Functions: ${function_total_count(scan_result)} | Last scan: ${new Date(scan_result.last_scan).toLocaleTimeString()}</span>
         </div>
         ${outline_content}
     </div>
@@ -294,20 +416,20 @@ function generate_big_html(txt_content, txt_file_path, last_modified) {
 </html>`;
 }
 
-function generate_outline_content(scan_result) {
+function outline_content_generate(scan_result) {
     // Build hierarchical structure
-    const tree = build_folder_tree(scan_result.files);
+    const tree = folder_tree_build(scan_result.files);
     
     let html = '';
     let outline_counter = 1;
     
     // Render the tree recursively
-    html = render_tree_node(tree, '', outline_counter, 0);
+    html = tree_node_render(tree, '', outline_counter, 0);
     
     return html;
 }
 
-function build_folder_tree(files) {
+function folder_tree_build(files) {
     const tree = {
         name: '.',
         type: 'folder',
@@ -339,14 +461,16 @@ function build_folder_tree(files) {
         current.files.push({
             name: file_name,
             path: file_path,
-            functions: file_info.functions
+            functions: file_info.functions,
+            modified: file_info.modified,
+            created: file_info.created
         });
     }
     
     return tree;
 }
 
-function render_tree_node(node, parent_outline, counter, indent_level) {
+function tree_node_render(node, parent_outline, counter, indent_level) {
     let html = '';
     let local_counter = counter;
     
@@ -374,7 +498,7 @@ function render_tree_node(node, parent_outline, counter, indent_level) {
         html += `</div>`;
         
         // Render folder contents recursively
-        html += render_tree_node(folder, outline_num, 1, indent_level + 1);
+        html += tree_node_render(folder, outline_num, 1, indent_level + 1);
         
         local_counter++;
     }
@@ -392,7 +516,9 @@ function render_tree_node(node, parent_outline, counter, indent_level) {
             [file.name, ''];
         
         // File div - default to expanded (data-collapsed="false")
-        html += `<div style="margin-left: ${indent}px; display: flex;" data-indent="${indent_level}" data-collapsed="false">`;
+        const modified_attr = file.modified ? ` data-modified="${Math.round(file.modified)}"` : '';
+        const created_attr = file.created ? ` data-created="${Math.round(file.created)}"` : '';
+        html += `<div style="margin-left: ${indent}px; display: flex;" data-indent="${indent_level}" data-collapsed="false"${modified_attr}${created_attr}>`;
         html += `<span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="${outline_num}">${outline_num}</span>`;
         html += `<span class="list_edit_text"><span class="big_file_name">${basename}</span><span class="big_file_ext">${ext}</span></span>`;
         html += `</div>`;
@@ -422,9 +548,9 @@ function render_tree_node(node, parent_outline, counter, indent_level) {
                             `${String.fromCharCode(97 + index)}.` : 
                             `${index + 1}.`;
                         
-                        html += `<div class="method_calls" style="margin-left: ${method_indent}px; display: flex;" data-indent="${indent_level + 2}">`;
+                        html += `<div class="function_calls" style="margin-left: ${method_indent}px; display: flex;" data-indent="${indent_level + 2}">`;
                         html += `<span style="min-width: 30px; flex-shrink: 0; margin-right: 4px; text-align: right; color: var(--gray);">${method_outline}</span>`;
-                        html += `<span class="list_edit_text"><span class="big_method_name">${called_func}</span><span class="big_method_arrow"> -></span></span>`;
+                        html += `<span class="list_edit_text"><span class="big_function_call_name">${called_func}</span><span class="big_function_call_arrow"> -></span></span>`;
                         html += `</div>`;
                     });
                 }
@@ -439,7 +565,7 @@ function render_tree_node(node, parent_outline, counter, indent_level) {
 
 // Removed old outline number functions - no longer needed with new tree structure
 
-function count_total_functions(scan_result) {
+function function_total_count(scan_result) {
     let total = 0;
     for (const file_info of Object.values(scan_result.files)) {
         total += file_info.functions.length;
@@ -447,4 +573,4 @@ function count_total_functions(scan_result) {
     return total;
 }
 
-module.exports = { generate_big_html };
+module.exports = { big_html_generate };
