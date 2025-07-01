@@ -1,0 +1,30 @@
+Server running on port 3002
+WebSocket server running on ws://localhost:3002
+Version system initialized: v1.1.0
+Watching prompt_foundation txt file
+Processing functions_file:
+  Format type: outline
+  Number of lines: 111
+  Config key match: true
+Watching functions_file txt file
+Watching layout_styling txt file
+Watching layout_advanced txt file
+Watching project_organization txt file
+Watching filter_timestamp txt file
+/Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/sync_server.js:432
+        html_content = generate_big_html(content, config.txt_path, reload_modification_get[config_key]);
+                                         ^
+
+ReferenceError: content is not defined
+    at sync_html_build (/Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/sync_server.js:432:42)
+    at file_watcher_setup (/Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/sync_server.js:150:5)
+    at /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/sync_server.js:304:13
+    at Array.forEach (<anonymous>)
+    at tool_folder_scan (/Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/sync_server.js:286:11)
+    at Server.<anonymous> (/Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/sync_server.js:1052:5)
+    at Object.onceWrapper (node:events:621:28)
+    at Server.emit (node:events:519:35)
+    at emitListeningNT (node:net:1983:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+
+Node.js v24.3.0

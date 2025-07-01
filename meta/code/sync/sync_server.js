@@ -6,8 +6,9 @@ const html_extract = require('./html_extract');
 const { list_html_generate } = require('../layout/list_template');
 const { outline_html_generate } = require('../layout/outline_template');
 const { tree_html_generate } = require('../layout/tree_template');
+const { generate_big_html } = require('../layout/big_template');
 const { timestamp_get_or_create, timestamp_update_modified } = require('../layout/timestamp_manager');
-const { version_current, version_initialize } = require('./version_manager');
+const { version_current, version_initialize, version_increment } = require('./version_manager');
 
 
 const storage_file_config = {};
@@ -426,6 +427,10 @@ function sync_html_build(config_key) {
         .join('\n');
         
         html_content = outline_html_generate(div_elements, config_key, reload_modification_get[config_key], current_version);
+    } else if (config_key === 'big') {
+        // Special handling for big page - function hierarchy viewer
+        const content = lines.join('\n');
+        html_content = generate_big_html(content, config.txt_path, reload_modification_get[config_key]);
     } else if (formatType === 'index' || config_key === 'index' || config_key.startsWith('index_')) {
         // Generate li elements for each line with gray coloring for duplicates
         let previousTerm = '';
@@ -877,6 +882,114 @@ const server = http.createServer((req, res) => {
                 res.end('Not found');
             }
         }
+    } else if (req.method === 'GET' && req.url === '/api/list_js_files') {
+        // API endpoint to list all JavaScript files recursively
+        try {
+            const js_files = [];
+            
+            // Function to recursively scan directories for JS files
+            function scan_directory_recursive(dir_path) {
+                if (!fs.existsSync(dir_path)) return;
+                
+                const items = fs.readdirSync(dir_path);
+                
+                for (const item of items) {
+                    const full_path = path.join(dir_path, item);
+                    const stat = fs.statSync(full_path);
+                    
+                    if (stat.isDirectory()) {
+                        // Skip node_modules and .git directories
+                        if (item !== 'node_modules' && item !== '.git' && !item.startsWith('.')) {
+                            scan_directory_recursive(full_path);
+                        }
+                    } else if (item.endsWith('.js')) {
+                        const relative_path = path.relative(process.cwd(), full_path);
+                        js_files.push(relative_path);
+                    }
+                }
+            }
+            
+            // Start scanning from the project root
+            const project_root = process.cwd();
+            scan_directory_recursive(project_root);
+            
+            res.writeHead(200, { 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            });
+            res.end(JSON.stringify({ files: js_files }));
+        } catch (error) {
+            console.error('Error listing JS files:', error);
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: error.message }));
+        }
+    } else if (req.method === 'GET' && req.url.startsWith('/api/read_file?')) {
+        // API endpoint to read file content
+        const url_params = new URLSearchParams(req.url.split('?')[1]);
+        const file_path = url_params.get('path');
+        
+        if (!file_path) {
+            res.writeHead(400, { 'Content-Type': 'text/plain' });
+            res.end('Missing path parameter');
+            return;
+        }
+        
+        // Security check
+        if (file_path.includes('..') || file_path.includes('~')) {
+            res.writeHead(403, { 'Content-Type': 'text/plain' });
+            res.end('Forbidden path');
+            return;
+        }
+        
+        try {
+            const full_path = path.resolve(process.cwd(), file_path);
+            if (fs.existsSync(full_path)) {
+                const content = fs.readFileSync(full_path, 'utf8');
+                res.writeHead(200, { 
+                    'Content-Type': 'text/plain',
+                    'Access-Control-Allow-Origin': '*'
+                });
+                res.end(content);
+            } else {
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('File not found');
+            }
+        } catch (error) {
+            console.error('Error reading file:', error);
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('Server error');
+        }
+    } else if (req.method === 'POST' && req.url === '/api/check_modifications') {
+        // API endpoint to check for file modifications
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString();
+        });
+        req.on('end', () => {
+            try {
+                const data = JSON.parse(body);
+                const since = data.since || 0;
+                
+                // Check if any JS files have been modified since the given timestamp
+                let modified = false;
+                
+                // Simple check - you could enhance this to check actual file mtimes
+                const now = Date.now();
+                if (now - since > 30000) { // If more than 30 seconds have passed, consider checking
+                    modified = true;
+                }
+                
+                res.writeHead(200, { 
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                });
+                res.end(JSON.stringify({ modified }));
+            } catch (error) {
+                console.error('Error checking modifications:', error);
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: error.message }));
+            }
+        });
     } else if (req.method === 'POST' && req.url === '/sync') {
         // Handle sync requests from browser
         let body = '';

@@ -4802,5 +4802,1109 @@
   "01_prompt_foundationnnn.html": {
     "created": 1751242996747,
     "modified": 1751242996747
+  },
+  "list_create_hierarchy": {
+    "created": 1751312770381,
+    "modified": 1751312770381
+  },
+  "list_hierarchical_content": {
+    "created": 1751312770384,
+    "modified": 1751312770384
+  },
+  "list_hierarchical_item": {
+    "created": 1751312770385,
+    "modified": 1751312770385
+  },
+  "list_outline_number": {
+    "created": 1751312770385,
+    "modified": 1751312770385
+  },
+  "01_prompt_foundation_test_item": {
+    "created": 1751313128258,
+    "modified": 1751313128258
+  },
+  "01_prompt_foundation_test_item_nested": {
+    "created": 1751313128264,
+    "modified": 1751313128264
+  },
+  "01_prompt_foundation_test_item_nested_deeper": {
+    "created": 1751313128265,
+    "modified": 1751313128265
+  },
+  "01_prompt_foundation_test_item_nested_deeper_still": {
+    "created": 1751313128266,
+    "modified": 1751313128266
+  },
+  "01_prompt_foundation_test_item_nested_deeper_still_more": {
+    "created": 1751313128266,
+    "modified": 1751313128266
+  },
+  "01_prompt_foundation_test_item_nested_another": {
+    "created": 1751313128267,
+    "modified": 1751313128267
+  },
+  "01_prompt_foundation_test_second": {
+    "created": 1751313128268,
+    "modified": 1751313128268
+  },
+  "01_prompt_foundation_test_second_child": {
+    "created": 1751313128268,
+    "modified": 1751313128268
+  },
+  "02_sync_realtime_module": {
+    "created": 1751313128269,
+    "modified": 1751313128269
+  },
+  "02_sync_realtime_module_handler": {
+    "created": 1751313128270,
+    "modified": 1751313128270
+  },
+  "02_sync_realtime_module_handler_event": {
+    "created": 1751313128270,
+    "modified": 1751313128270
+  },
+  "02_sync_realtime_module_handler_event_listener": {
+    "created": 1751313128271,
+    "modified": 1751313128271
+  },
+  "02_sync_realtime_module_processor": {
+    "created": 1751313128272,
+    "modified": 1751313128272
+  },
+  "02_sync_realtime_module_processor_queue": {
+    "created": 1751313128272,
+    "modified": 1751313128272
+  },
+  "02_sync_realtime_module_processor_queue_manager": {
+    "created": 1751313128273,
+    "modified": 1751313128273
+  },
+  "02_sync_realtime_config": {
+    "created": 1751313128273,
+    "modified": 1751313128273
+  },
+  "02_sync_realtime_config_settings": {
+    "created": 1751313128274,
+    "modified": 1751313128274
+  },
+  "03_layout_styling_components": {
+    "created": 1751313128275,
+    "modified": 1751313128275
+  },
+  "03_layout_styling_components_button": {
+    "created": 1751313128275,
+    "modified": 1751313128275
+  },
+  "03_layout_styling_components_button_primary": {
+    "created": 1751313128276,
+    "modified": 1751313128276
+  },
+  "03_layout_styling_components_button_secondary": {
+    "created": 1751313128276,
+    "modified": 1751313128276
+  },
+  "03_layout_styling_components_form": {
+    "created": 1751313128277,
+    "modified": 1751313128277
+  },
+  "03_layout_styling_components_form_input": {
+    "created": 1751313128277,
+    "modified": 1751313128277
+  },
+  "03_layout_styling_components_form_input_text": {
+    "created": 1751313128278,
+    "modified": 1751313128278
+  },
+  "03_layout_styling_components_form_input_checkbox": {
+    "created": 1751313128278,
+    "modified": 1751313128278
+  },
+  "03_layout_styling_utilities": {
+    "created": 1751313128279,
+    "modified": 1751313128279
+  },
+  "03_layout_styling_utilities_spacing": {
+    "created": 1751313128279,
+    "modified": 1751313128279
+  },
+  "03_layout_styling_utilities_color": {
+    "created": 1751313128280,
+    "modified": 1751313128280
+  },
+  "04_layout_advanced_grid": {
+    "created": 1751313128280,
+    "modified": 1751313128280
+  },
+  "04_layout_advanced_grid_container": {
+    "created": 1751313128281,
+    "modified": 1751313128281
+  },
+  "04_layout_advanced_grid_container_fluid": {
+    "created": 1751313128282,
+    "modified": 1751313128282
+  },
+  "04_layout_advanced_grid_row": {
+    "created": 1751313128284,
+    "modified": 1751313128284
+  },
+  "04_layout_advanced_grid_row_responsive": {
+    "created": 1751313128284,
+    "modified": 1751313128284
+  },
+  "04_layout_advanced_flex": {
+    "created": 1751313128285,
+    "modified": 1751313128285
+  },
+  "04_layout_advanced_flex_container": {
+    "created": 1751313128285,
+    "modified": 1751313128285
+  },
+  "04_layout_advanced_flex_item": {
+    "created": 1751313128286,
+    "modified": 1751313128286
+  },
+  "05_project_organization_structure": {
+    "created": 1751313128286,
+    "modified": 1751313128286
+  },
+  "05_project_organization_structure_folders": {
+    "created": 1751313128287,
+    "modified": 1751313128287
+  },
+  "05_project_organization_structure_folders_meta": {
+    "created": 1751313128288,
+    "modified": 1751313128288
+  },
+  "05_project_organization_structure_folders_meta_code": {
+    "created": 1751313128288,
+    "modified": 1751313128288
+  },
+  "05_project_organization_structure_folders_meta_src": {
+    "created": 1751313128289,
+    "modified": 1751313128289
+  },
+  "05_project_organization_structure_folders_app": {
+    "created": 1751313128289,
+    "modified": 1751313128289
+  },
+  "05_project_organization_structure_files": {
+    "created": 1751313128290,
+    "modified": 1751313128290
+  },
+  "05_project_organization_structure_files_config": {
+    "created": 1751313128290,
+    "modified": 1751313128290
+  },
+  "05_project_organization_structure_files_readme": {
+    "created": 1751313128291,
+    "modified": 1751313128291
+  },
+  "app_config": {
+    "created": 1751313215486,
+    "modified": 1751313215486
+  },
+  "app_config_settings": {
+    "created": 1751313215490,
+    "modified": 1751313215490
+  },
+  "app_config_settings_database": {
+    "created": 1751313215492,
+    "modified": 1751313215492
+  },
+  "app_modules": {
+    "created": 1751313215493,
+    "modified": 1751313215493
+  },
+  "app_modules_auth": {
+    "created": 1751313215494,
+    "modified": 1751313215494
+  },
+  "app_modules_auth_login": {
+    "created": 1751313215496,
+    "modified": 1751313215496
+  },
+  "app_modules_auth_register": {
+    "created": 1751313215498,
+    "modified": 1751313215498
+  },
+  "apply_time_filter_handler": {
+    "created": 1751313215499,
+    "modified": 1751313215499
+  },
+  "apply_time_filter_handler_event": {
+    "created": 1751313215500,
+    "modified": 1751313215500
+  },
+  "button_nav_primary": {
+    "created": 1751313215501,
+    "modified": 1751313215501
+  },
+  "button_nav_secondary": {
+    "created": 1751313215502,
+    "modified": 1751313215502
+  },
+  "list_create_hierarchy_test": {
+    "created": 1751313270155,
+    "modified": 1751313270155
+  },
+  "list_create_hierarchy_test_child": {
+    "created": 1751313270162,
+    "modified": 1751313270162
+  },
+  "list_create_hierarchy_test_child_deep": {
+    "created": 1751313270163,
+    "modified": 1751313270163
+  },
+  "list_duplicate_update_test": {
+    "created": 1751313270165,
+    "modified": 1751313270165
+  },
+  "list_duplicate_update_test_function": {
+    "created": 1751313270166,
+    "modified": 1751313270166
+  },
+  "01_prompt_foundation": {
+    "created": 1751313597941,
+    "modified": 1751313597941
+  },
+  "01_prompt_foundation_config": {
+    "created": 1751313597946,
+    "modified": 1751313597946
+  },
+  "01_prompt_foundation_config_settings": {
+    "created": 1751313597946,
+    "modified": 1751313597946
+  },
+  "01_prompt_foundation_config_settings_database": {
+    "created": 1751313597947,
+    "modified": 1751313597947
+  },
+  "01_prompt_foundation_modules": {
+    "created": 1751313597948,
+    "modified": 1751313597948
+  },
+  "01_prompt_foundation_modules_parser": {
+    "created": 1751313597948,
+    "modified": 1751313597948
+  },
+  "01_prompt_foundation_modules_parser_lexer": {
+    "created": 1751313597949,
+    "modified": 1751313597949
+  },
+  "01_prompt_foundation_modules_validator": {
+    "created": 1751313597949,
+    "modified": 1751313597949
+  },
+  "filter_checkbox_active": {
+    "created": 1751313597950,
+    "modified": 1751313597950
+  },
+  "filter_checkbox_active_state": {
+    "created": 1751313597950,
+    "modified": 1751313597950
+  },
+  "filter_checkbox_container_wrapper": {
+    "created": 1751313597950,
+    "modified": 1751313597950
+  },
+  "filter_checkbox_container_wrapper_inner": {
+    "created": 1751313597951,
+    "modified": 1751313597951
+  },
+  "list_filter_apply_all": {
+    "created": 1751313597951,
+    "modified": 1751313597951
+  },
+  "list_filter_apply_all_types": {
+    "created": 1751313597952,
+    "modified": 1751313597952
+  },
+  "list_filter_apply_all_types_function": {
+    "created": 1751313597952,
+    "modified": 1751313597952
+  },
+  "list_filter_apply_all_types_css": {
+    "created": 1751313597953,
+    "modified": 1751313597953
+  },
+  "list_filter_controls_panel": {
+    "created": 1751313597953,
+    "modified": 1751313597953
+  },
+  "list_filter_controls_panel_header": {
+    "created": 1751313597954,
+    "modified": 1751313597954
+  },
+  "nav_button_click_handler": {
+    "created": 1751313597954,
+    "modified": 1751313597954
+  },
+  "nav_button_click_handler_event": {
+    "created": 1751313597955,
+    "modified": 1751313597955
+  },
+  "nav_button_click_handler_event_listener": {
+    "created": 1751313597955,
+    "modified": 1751313597955
+  },
+  "nav_client": {
+    "created": 1751313597956,
+    "modified": 1751313597956
+  },
+  "nav_client_init": {
+    "created": 1751313597956,
+    "modified": 1751313597956
+  },
+  "nav_client_init_buttons": {
+    "created": 1751313597957,
+    "modified": 1751313597957
+  },
+  "01_prompt_foundation.html_temp": {
+    "created": 1751314230143,
+    "modified": 1751314230143
+  },
+  "01_prompt_foundation.html_temp_test": {
+    "created": 1751314230150,
+    "modified": 1751314230150
+  },
+  "01_prompt_foundation.html_temp_test_nested": {
+    "created": 1751314230152,
+    "modified": 1751314230152
+  },
+  "01_prompt_foundation.html_temp_test_nested_deep": {
+    "created": 1751314230153,
+    "modified": 1751314230153
+  },
+  "01_prompt_foundation.html_temp_another": {
+    "created": 1751314230154,
+    "modified": 1751314230154
+  },
+  "01_prompt_foundation.html_temp_another_branch": {
+    "created": 1751314230156,
+    "modified": 1751314230156
+  },
+  "test_root": {
+    "created": 1751315282305,
+    "modified": 1751315282305
+  },
+  "test_root_child1": {
+    "created": 1751315282313,
+    "modified": 1751315282313
+  },
+  "test_root_child1_nested1": {
+    "created": 1751315282315,
+    "modified": 1751315282315
+  },
+  "test_root_child1_nested2": {
+    "created": 1751315282317,
+    "modified": 1751315282317
+  },
+  "test_root_child2": {
+    "created": 1751315282319,
+    "modified": 1751315282319
+  },
+  "test_root_child2_nested1": {
+    "created": 1751315282320,
+    "modified": 1751315282320
+  },
+  "test_root_child2_nested1_deep1": {
+    "created": 1751315282322,
+    "modified": 1751315282322
+  },
+  "test_root_child2_nested1_deep2": {
+    "created": 1751315282323,
+    "modified": 1751315282323
+  },
+  "test_root_child3": {
+    "created": 1751315282325,
+    "modified": 1751315282325
+  },
+  "another_root": {
+    "created": 1751315282326,
+    "modified": 1751315282326
+  },
+  "another_root_sub1": {
+    "created": 1751315282327,
+    "modified": 1751315282327
+  },
+  "another_root_sub2": {
+    "created": 1751315282328,
+    "modified": 1751315282328
+  },
+  "another_root_sub2_nested": {
+    "created": 1751315282329,
+    "modified": 1751315282329
+  },
+  "file_operations": {
+    "created": 1751315282331,
+    "modified": 1751315282331
+  },
+  "file_operations_read": {
+    "created": 1751315282332,
+    "modified": 1751315282332
+  },
+  "file_operations_read_sync": {
+    "created": 1751315282333,
+    "modified": 1751315282333
+  },
+  "file_operations_read_async": {
+    "created": 1751315282333,
+    "modified": 1751315282333
+  },
+  "file_operations_write": {
+    "created": 1751315282334,
+    "modified": 1751315282334
+  },
+  "file_operations_write_sync": {
+    "created": 1751315282335,
+    "modified": 1751315282335
+  },
+  "file_operations_write_async": {
+    "created": 1751315282336,
+    "modified": 1751315282336
+  },
+  "file_operations_delete": {
+    "created": 1751315282337,
+    "modified": 1751315282337
+  },
+  "test_hierarchy.html": {
+    "created": 1751315307229,
+    "modified": 1751315307229
+  },
+  "test_hierarchy.txt": {
+    "created": 1751315307230,
+    "modified": 1751315307230
+  },
+  "debug_basic": {
+    "created": 1751316003420,
+    "modified": 1751316003420
+  },
+  "debug_config_save": {
+    "created": 1751316003423,
+    "modified": 1751316003423
+  },
+  "debug_filter": {
+    "created": 1751316003423,
+    "modified": 1751316003423
+  },
+  "debug_function": {
+    "created": 1751316003424,
+    "modified": 1751316003424
+  },
+  "debug_group_set": {
+    "created": 1751316003425,
+    "modified": 1751316003425
+  },
+  "debug_is_enabled": {
+    "created": 1751316003425,
+    "modified": 1751316003425
+  },
+  "debug_log": {
+    "created": 1751316003426,
+    "modified": 1751316003426
+  },
+  "debug_manager.js": {
+    "created": 1751316003426,
+    "modified": 1751316003426
+  },
+  "debug_nav": {
+    "created": 1751316003427,
+    "modified": 1751316003427
+  },
+  "debug_perf_end": {
+    "created": 1751316003427,
+    "modified": 1751316003427
+  },
+  "debug_perf_start": {
+    "created": 1751316003428,
+    "modified": 1751316003428
+  },
+  "debug_sync": {
+    "created": 1751316003429,
+    "modified": 1751316003429
+  },
+  "debug_ui": {
+    "created": 1751316003429,
+    "modified": 1751316003429
+  },
+  "Debug Configuration": {
+    "created": 1751316013433,
+    "modified": 1751316013433
+  },
+  "Available Debug Groups:": {
+    "created": 1751316013435,
+    "modified": 1751316013435
+  },
+  "- all: Enable/disable all debug messages": {
+    "created": 1751316013437,
+    "modified": 1751316013437
+  },
+  "- basic: Basic operations and flow": {
+    "created": 1751316013438,
+    "modified": 1751316013438
+  },
+  "- ui: User interface interactions": {
+    "created": 1751316013440,
+    "modified": 1751316013440
+  },
+  "- function: Function calls and returns": {
+    "created": 1751316013442,
+    "modified": 1751316013442
+  },
+  "- sync: Server synchronization and WebSocket": {
+    "created": 1751316013443,
+    "modified": 1751316013443
+  },
+  "- filter: Filter operations and search": {
+    "created": 1751316013445,
+    "modified": 1751316013445
+  },
+  "- nav: Navigation between pages": {
+    "created": 1751316013446,
+    "modified": 1751316013446
+  },
+  "- outline: Outline expand/collapse operations": {
+    "created": 1751316013447,
+    "modified": 1751316013447
+  },
+  "- list: List hierarchy and rendering": {
+    "created": 1751316013448,
+    "modified": 1751316013448
+  },
+  "- state: State management and localStorage": {
+    "created": 1751316013449,
+    "modified": 1751316013449
+  },
+  "- perf: Performance measurements": {
+    "created": 1751316013449,
+    "modified": 1751316013449
+  },
+  "Current Settings:": {
+    "created": 1751316013450,
+    "modified": 1751316013450
+  },
+  "(Enable debug groups to see detailed console output)": {
+    "created": 1751316013450,
+    "modified": 1751316013450
+  },
+  "debug.html": {
+    "created": 1751316069870,
+    "modified": 1751316069870
+  },
+  "debug.txt": {
+    "created": 1751316069872,
+    "modified": 1751316069872
+  },
+  "debug_client.js": {
+    "created": 1751316099886,
+    "modified": 1751316099886
+  },
+  "debug_ui_init": {
+    "created": 1751316099887,
+    "modified": 1751316099887
+  },
+  "debug_messages_clear": {
+    "created": 1751316639899,
+    "modified": 1751316639899
+  },
+  "debug_messages_get": {
+    "created": 1751316639900,
+    "modified": 1751316639900
+  },
+  "debug_html_generate": {
+    "created": 1751316909892,
+    "modified": 1751316909892
+  },
+  "debug_template.js": {
+    "created": 1751316909892,
+    "modified": 1751316909892
+  },
+  "header_area": {
+    "created": 1751317389920,
+    "modified": 1751317389920
+  },
+  "outline_test.js": {
+    "created": 1751318049099,
+    "modified": 1751318049099
+  },
+  "attempt_init": {
+    "created": 1751319973029,
+    "modified": 1751319973029
+  },
+  "handle_level1_click": {
+    "created": 1751319973032,
+    "modified": 1751319973032
+  },
+  "radical_outline_init": {
+    "created": 1751319973032,
+    "modified": 1751319973032
+  },
+  "setup_button_handlers": {
+    "created": 1751319973033,
+    "modified": 1751319973033
+  },
+  "setup_outline_handlers": {
+    "created": 1751319973034,
+    "modified": 1751319973034
+  },
+  "handle_expand_all_click": {
+    "created": 1751320003034,
+    "modified": 1751320003034
+  },
+  "handle_level2_click": {
+    "created": 1751320003035,
+    "modified": 1751320003035
+  },
+  "outline_client_radical.js": {
+    "created": 1751320806439,
+    "modified": 1751320806439
+  },
+  "outline_click_handle": {
+    "created": 1751322009636,
+    "modified": 1751322009636
+  },
+  "outline_collapse_all": {
+    "created": 1751322009639,
+    "modified": 1751322009639
+  },
+  "outline_descendants_get": {
+    "created": 1751322009639,
+    "modified": 1751322009639
+  },
+  "outline_descendants_show": {
+    "created": 1751322009640,
+    "modified": 1751322009640
+  },
+  "outline_double_click_handle": {
+    "created": 1751322009641,
+    "modified": 1751322009641
+  },
+  "outline_expand_all": {
+    "created": 1751322009641,
+    "modified": 1751322009641
+  },
+  "outline_expand_all_handle": {
+    "created": 1751322009642,
+    "modified": 1751322009642
+  },
+  "outline_has_children": {
+    "created": 1751322009642,
+    "modified": 1751322009642
+  },
+  "outline_indent_get": {
+    "created": 1751322009643,
+    "modified": 1751322009643
+  },
+  "outline_init": {
+    "created": 1751322009643,
+    "modified": 1751322009643
+  },
+  "outline_init_try": {
+    "created": 1751322009644,
+    "modified": 1751322009644
+  },
+  "outline_level_1_handle": {
+    "created": 1751322009644,
+    "modified": 1751322009644
+  },
+  "outline_level_2_handle": {
+    "created": 1751322009645,
+    "modified": 1751322009645
+  },
+  "outline_numbers_find": {
+    "created": 1751322009645,
+    "modified": 1751322009645
+  },
+  "outline_parent_div_get": {
+    "created": 1751322009646,
+    "modified": 1751322009646
+  },
+  "outline_state_load": {
+    "created": 1751322009646,
+    "modified": 1751322009646
+  },
+  "Big - Function and File Hierarchy": {
+    "created": 1751323954965,
+    "modified": 1751323954965
+  },
+  "This page shows all JavaScript functions across the entire codebase, organized by folder and file structure.": {
+    "created": 1751323954977,
+    "modified": 1751323954977
+  },
+  "Features:": {
+    "created": 1751323954979,
+    "modified": 1751323954979
+  },
+  "- Displays folders with blue names and gray slashes (folder/)": {
+    "created": 1751323954981,
+    "modified": 1751323954981
+  },
+  "- Shows files with blue names and gray extensions (file.js)": {
+    "created": 1751323954983,
+    "modified": 1751323954983
+  },
+  "- Lists functions with yellow names and gray parentheses (function()": {
+    "created": 1751323954985,
+    "modified": 1751323954985
+  },
+  "- Tracks where each function is called throughout the codebase": {
+    "created": 1751323954986,
+    "modified": 1751323954986
+  },
+  "- Expandable/collapsible outline structure": {
+    "created": 1751323954987,
+    "modified": 1751323954987
+  },
+  "- Real-time updates when files change": {
+    "created": 1751323954989,
+    "modified": 1751323954989
+  },
+  "- Data stored in localStorage for persistence": {
+    "created": 1751323954990,
+    "modified": 1751323954990
+  },
+  "Navigation:": {
+    "created": 1751323954992,
+    "modified": 1751323954992
+  },
+  "- Click to expand/collapse folders and files": {
+    "created": 1751323954993,
+    "modified": 1751323954993
+  },
+  "- Shows functions in order of definition (top to bottom)": {
+    "created": 1751323954994,
+    "modified": 1751323954994
+  },
+  "- Updates automatically when files are modified": {
+    "created": 1751323954994,
+    "modified": 1751323954994
+  },
+  "big.html": {
+    "created": 1751323959615,
+    "modified": 1751323959615
+  },
+  "big.txt": {
+    "created": 1751323959616,
+    "modified": 1751323959616
+  },
+  "big_container": {
+    "created": 1751324019627,
+    "modified": 1751324019627
+  },
+  "big_loading": {
+    "created": 1751324019628,
+    "modified": 1751324019628
+  },
+  "big_refresh": {
+    "created": 1751324019629,
+    "modified": 1751324019629
+  },
+  "big_stats": {
+    "created": 1751324019630,
+    "modified": 1751324019630
+  },
+  "big_template.js": {
+    "created": 1751324019630,
+    "modified": 1751324019630
+  },
+  "generate_big_html": {
+    "created": 1751324019631,
+    "modified": 1751324019631
+  },
+  "nav_bar": {
+    "created": 1751324019632,
+    "modified": 1751324019632
+  },
+  "big_call_count": {
+    "created": 1751324079637,
+    "modified": 1751324079637
+  },
+  "big_children": {
+    "created": 1751324079638,
+    "modified": 1751324079638
+  },
+  "big_client.js": {
+    "created": 1751324079639,
+    "modified": 1751324079639
+  },
+  "big_error": {
+    "created": 1751324079639,
+    "modified": 1751324079639
+  },
+  "big_expand_toggle": {
+    "created": 1751324079640,
+    "modified": 1751324079640
+  },
+  "big_file_ext": {
+    "created": 1751324079640,
+    "modified": 1751324079640
+  },
+  "big_file_name": {
+    "created": 1751324079641,
+    "modified": 1751324079641
+  },
+  "big_folder_name": {
+    "created": 1751324079641,
+    "modified": 1751324079641
+  },
+  "big_folder_slash": {
+    "created": 1751324079642,
+    "modified": 1751324079642
+  },
+  "big_function_name": {
+    "created": 1751324079642,
+    "modified": 1751324079642
+  },
+  "big_function_paren": {
+    "created": 1751324079643,
+    "modified": 1751324079643
+  },
+  "big_indent": {
+    "created": 1751324079643,
+    "modified": 1751324079643
+  },
+  "big_item": {
+    "created": 1751324079644,
+    "modified": 1751324079644
+  },
+  "build_tree_structure": {
+    "created": 1751324079644,
+    "modified": 1751324079644
+  },
+  "call_count": {
+    "created": 1751324079645,
+    "modified": 1751324079645
+  },
+  "check_for_updates": {
+    "created": 1751324079645,
+    "modified": 1751324079645
+  },
+  "init_big": {
+    "created": 1751324079646,
+    "modified": 1751324079646
+  },
+  "load_collapse_state": {
+    "created": 1751324079646,
+    "modified": 1751324079646
+  },
+  "load_function_data": {
+    "created": 1751324079647,
+    "modified": 1751324079647
+  },
+  "render_function": {
+    "created": 1751324079648,
+    "modified": 1751324079648
+  },
+  "render_function_tree": {
+    "created": 1751324079648,
+    "modified": 1751324079648
+  },
+  "render_indent": {
+    "created": 1751324079649,
+    "modified": 1751324079649
+  },
+  "render_tree_node": {
+    "created": 1751324079649,
+    "modified": 1751324079649
+  },
+  "save_collapse_state": {
+    "created": 1751324079650,
+    "modified": 1751324079650
+  },
+  "save_function_data": {
+    "created": 1751324079650,
+    "modified": 1751324079650
+  },
+  "setup_event_listeners": {
+    "created": 1751324079651,
+    "modified": 1751324079651
+  },
+  "show_error": {
+    "created": 1751324079651,
+    "modified": 1751324079651
+  },
+  "split_filename": {
+    "created": 1751324079651,
+    "modified": 1751324079651
+  },
+  "toggle_node": {
+    "created": 1751324079652,
+    "modified": 1751324079652
+  },
+  "update_stats": {
+    "created": 1751324079653,
+    "modified": 1751324079653
+  },
+  "big_scanner.js": {
+    "created": 1751324109628,
+    "modified": 1751324109628
+  },
+  "exists": {
+    "created": 1751324109629,
+    "modified": 1751324109629
+  },
+  "find_line_number": {
+    "created": 1751324109629,
+    "modified": 1751324109629
+  },
+  "is_builtin": {
+    "created": 1751324109630,
+    "modified": 1751324109630
+  },
+  "is_keyword": {
+    "created": 1751324109631,
+    "modified": 1751324109631
+  },
+  "parse_javascript": {
+    "created": 1751324109631,
+    "modified": 1751324109631
+  },
+  "scan_file": {
+    "created": 1751324109632,
+    "modified": 1751324109632
+  },
+  "big_simple.js": {
+    "created": 1751325494418,
+    "modified": 1751325494418
+  },
+  "extract_functions": {
+    "created": 1751325494421,
+    "modified": 1751325494421
+  },
+  "scan_directory_tree": {
+    "created": 1751325494422,
+    "modified": 1751325494422
+  },
+  "scan_recursive": {
+    "created": 1751325494422,
+    "modified": 1751325494422
+  },
+  "big_content": {
+    "created": 1751325524417,
+    "modified": 1751325524417
+  },
+  "count_total_functions": {
+    "created": 1751325554408,
+    "modified": 1751325554408
+  },
+  "generate_tree_html": {
+    "created": 1751325554408,
+    "modified": 1751325554408
+  },
+  "big_file_container": {
+    "created": 1751326594775,
+    "modified": 1751326594775
+  },
+  "big_folder": {
+    "created": 1751326594778,
+    "modified": 1751326594778
+  },
+  "big_function_item": {
+    "created": 1751326594779,
+    "modified": 1751326594779
+  },
+  "big_functions_container": {
+    "created": 1751326594780,
+    "modified": 1751326594780
+  },
+  "big_toggle_icon": {
+    "created": 1751326594780,
+    "modified": 1751326594780
+  },
+  "big_tree_container": {
+    "created": 1751326594781,
+    "modified": 1751326594781
+  },
+  "apply_collapse_state": {
+    "created": 1751326624784,
+    "modified": 1751326624784
+  },
+  "is_collapsed": {
+    "created": 1751326624785,
+    "modified": 1751326624785
+  },
+  "toggle_file_functions": {
+    "created": 1751326624786,
+    "modified": 1751326624786
+  },
+  "big_file_div": {
+    "created": 1751326864748,
+    "modified": 1751326864748
+  },
+  "big_folder_div": {
+    "created": 1751326864749,
+    "modified": 1751326864749
+  },
+  "big_function_div": {
+    "created": 1751326864750,
+    "modified": 1751326864750
+  },
+  "generate_outline_content": {
+    "created": 1751326864751,
+    "modified": 1751326864751
+  },
+  "get_file_outline_number": {
+    "created": 1751326864751,
+    "modified": 1751326864751
+  },
+  "get_function_outline_number": {
+    "created": 1751326864752,
+    "modified": 1751326864752
+  },
+  "get_outline_number": {
+    "created": 1751326864752,
+    "modified": 1751326864752
+  },
+  "build_folder_tree": {
+    "created": 1751328675141,
+    "modified": 1751328675141
+  },
+  "init": {
+    "created": 1751330496393,
+    "modified": 1751330496393
+  },
+  "load_all_states": {
+    "created": 1751330496396,
+    "modified": 1751330496396
+  },
+  "save_all_states": {
+    "created": 1751330496397,
+    "modified": 1751330496397
+  },
+  "toggle_descendants": {
+    "created": 1751330496397,
+    "modified": 1751330496397
+  },
+  "active": {
+    "created": 1751330828504,
+    "modified": 1751330828504
+  },
+  "big_method_arrow": {
+    "created": 1751330856398,
+    "modified": 1751330856398
+  },
+  "big_method_name": {
+    "created": 1751330856399,
+    "modified": 1751330856399
+  },
+  "method_calls": {
+    "created": 1751330856400,
+    "modified": 1751330856400
+  },
+  "hidden": {
+    "created": 1751330937116,
+    "modified": 1751330937116
+  },
+  "update_methods_visibility": {
+    "created": 1751330937119,
+    "modified": 1751330937119
+  },
+  "function_line": {
+    "created": 1751331192483,
+    "modified": 1751331192483
+  },
+  "update_functions_visibility": {
+    "created": 1751331222490,
+    "modified": 1751331222490
   }
 }

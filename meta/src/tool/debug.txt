@@ -1,0 +1,17 @@
+Debug Configuration
+
+Available Debug Groups:
+- all: Enable/disable all debug messages
+- basic: Basic operations and flow
+- ui: User interface interactions  
+- function: Function calls and returns
+- sync: Server synchronization and WebSocket
+- filter: Filter operations and search
+- nav: Navigation between pages
+- outline: Outline expand/collapse operations
+- list: List hierarchy and rendering
+- state: State management and localStorage
+- perf: Performance measurements
+
+Current Settings:
+(Enable debug groups to see detailed console output)

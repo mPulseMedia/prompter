@@ -2,6 +2,22 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## IMPORTANT: First Steps in New Chats
+
+When starting a new chat session with this project:
+1. **Check if sync server is running**: `lsof -i:3002`
+2. **If not running, start it**: 
+   ```bash
+   cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync
+   nohup node sync_server.js > server.log 2>&1 &
+   ```
+3. **Check if keepalive is running**: `ps aux | grep server_keepalive`
+4. **If not running, start keepalive**:
+   ```bash
+   cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync
+   nohup ./server_keepalive.sh 30 8 > /dev/null 2>&1 &
+   ```
+
 ## Development System Overview
 
 This is a Meta development system designed for Cursor.ai that builds web applications through sequential prompts and browser-based editing interfaces. The system enforces naming conventions, provides real-time sync between text and HTML files, and maintains a comprehensive index of all codenames (functions, files, CSS classes).
@@ -33,6 +49,9 @@ node sync_server.js
 
 # Or using the shell script
 ./meta/code/sync/meta.sh
+
+# With auto-restart keepalive (restarts every 30 seconds for 8 hours)
+./meta/code/sync/server_keepalive.sh 30 8
 ```
 
 ### Server Details
@@ -44,6 +63,46 @@ node sync_server.js
 ### Stopping the Server
 ```bash
 lsof -ti:3002 | xargs kill -9
+```
+
+## CRITICAL REMINDERS FOR CLAUDE
+
+### When User Reports Changes Not Visible
+1. **IMMEDIATELY restart the server** - Changes may not be picked up by file watchers
+2. **Check if cron job is running** - The keepalive cron may have stopped
+3. **Verify you're editing template files** - Never edit generated HTML files directly:
+   - ✅ CORRECT: Edit files in `meta/code/layout/` (templates) and `meta/src/` (source)
+   - ❌ WRONG: Edit files in `meta/html/` (these are auto-generated)
+
+### Server Restart Commands
+```bash
+# Kill existing server
+lsof -ti:3002 | xargs kill -9
+
+# Restart server
+cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync && nohup node sync_server.js > server.log 2>&1 &
+
+# Check if running
+lsof -i:3002
+```
+
+### Auto-restart Server (Keepalive)
+The server should automatically restart every X seconds for Y hours to ensure it stays running and picks up changes.
+
+**IMPORTANT**: If user reports that changes aren't showing or outline clicks aren't working:
+1. Check if files have been modified in the last 5 minutes
+2. If yes, start the keepalive script immediately
+
+```bash
+# Start server with auto-restart every 30 seconds for 8 hours
+cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync
+./server_keepalive.sh 30 8
+
+# Check if keepalive is running
+ps aux | grep server_keepalive
+
+# Stop keepalive
+pkill -f server_keepalive.sh
 ```
 
 ## Development Workflow
@@ -100,3 +159,16 @@ Based on .cursor/rules and meta/meta_remind.txt:
 - Re-read meta/rule/ folder periodically to understand current conventions
 - Insert thought bubbles into meta/meta_note.txt when available
 - Follow established codenames from the project whenever possible
+
+## Known Issues and Solutions
+
+### Outline Click Not Working on Prompt Page
+- The Prompt page should have clickable outline numbers (1., a., etc.)
+- Single click: Toggle immediate children
+- Double click: Toggle all descendants  
+- Collapsed items show ">" instead of "."
+- If not working:
+  1. Restart server with keepalive script
+  2. Check browser console for JavaScript errors
+  3. Verify outline_client.js is loaded
+  4. Enable debug mode to see click events

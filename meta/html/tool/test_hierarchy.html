@@ -1,52 +1,4 @@
-// Template for generating list HTML pages
-
-/**
- * Generate HTML content for list files (00_index and similar lists)
- * @param {string} li_elements - The generated <li> elements as HTML string
- * @param {string} config_key - Configuration key (e.g., '00_index')
- * @param {number} modification_time - Last modification timestamp
- * @param {string} version - Current version string
- * @returns {string} Complete HTML document
- */
-function list_html_generate(li_elements, config_key, modification_time, version = 'v1.0.0', codenames = []) {
-    // Generate scope options from codenames
-    const files_by_ext = new Map();
-    
-    codenames.forEach(name => {
-        if (name && typeof name === 'string') {
-            // Group all files by extension
-            if (name.includes('.')) {
-                const lastDot = name.lastIndexOf('.');
-                if (lastDot > 0) {
-                    const ext = name.substring(lastDot);
-                    if (!files_by_ext.has(ext)) {
-                        files_by_ext.set(ext, new Set());
-                    }
-                    files_by_ext.get(ext).add(name);
-                }
-            }
-        }
-    });
-    
-    // Generate scope dropdown options
-    let scope_options = '<option value="all" selected>All Scopes</option>';
-    
-    // Add files by extension sections - sorted by extension
-    const sortedExts = Array.from(files_by_ext.keys()).sort();
-    sortedExts.forEach(ext => {
-        const files = Array.from(files_by_ext.get(ext)).sort();
-        if (files.length > 0) {
-            // Create clean extension label (remove the dot)
-            const extLabel = ext.substring(1).toUpperCase();
-            scope_options += `<optgroup label="${extLabel} Files">`;
-            files.forEach(file => {
-                scope_options += `<option value="${file}">${file}</option>`;
-            });
-            scope_options += '</optgroup>';
-        }
-    });
-
-    return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -751,7 +703,7 @@ function list_html_generate(li_elements, config_key, modification_time, version 
             <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
             <button class="button_nav" data-nav="debug">Debug</button>
             <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
-            <div class="page_version">${version}</div>
+            <div class="page_version">v1.1.0</div>
         </div>
         
         <div class="list_filter_controls">
@@ -788,7 +740,7 @@ function list_html_generate(li_elements, config_key, modification_time, version 
                 <option value="10080">1 week</option>
             </select>
             <select class="scope_filter" id="scope_filter">
-                ${scope_options}
+                <option value="all" selected>All Scopes</option>
             </select>
             <div class="time_type_radio_group">
                 <label class="time_type_radio_container">
@@ -824,7 +776,27 @@ function list_html_generate(li_elements, config_key, modification_time, version 
     </div>
     
     <ul id="list_content">
-${li_elements}
+        <li data-fulltext="test_root" data-original="" data-type="function" data-created="1751315282305" data-modified="1751315282305">test_root<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="test_root_child1" data-original="" data-type="function" data-created="1751315282313" data-modified="1751315282313"><span class="list_term_duplicate">test_root_</span><span class="list_term_unique">child1</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="test_root_child1_nested1" data-original="" data-type="function" data-created="1751315282315" data-modified="1751315282315"><span class="list_term_duplicate">test_root_child1_</span><span class="list_term_unique">nested1</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="test_root_child1_nested2" data-original="" data-type="function" data-created="1751315282317" data-modified="1751315282317"><span class="list_term_duplicate">test_root_child1_</span><span class="list_term_unique">nested2</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="test_root_child2" data-original="" data-type="function" data-created="1751315282319" data-modified="1751315282319"><span class="list_term_duplicate">test_root_</span><span class="list_term_unique">child2</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="test_root_child2_nested1" data-original="" data-type="function" data-created="1751315282320" data-modified="1751315282320"><span class="list_term_duplicate">test_root_child2_</span><span class="list_term_unique">nested1</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="test_root_child2_nested1_deep1" data-original="" data-type="function" data-created="1751315282322" data-modified="1751315282322"><span class="list_term_duplicate">test_root_child2_nested1_</span><span class="list_term_unique">deep1</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="test_root_child2_nested1_deep2" data-original="" data-type="function" data-created="1751315282323" data-modified="1751315282323"><span class="list_term_duplicate">test_root_child2_nested1_</span><span class="list_term_unique">deep2</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="test_root_child3" data-original="" data-type="function" data-created="1751315282325" data-modified="1751315282325"><span class="list_term_duplicate">test_root_</span><span class="list_term_unique">child3</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="another_root" data-original="" data-type="function" data-created="1751315282326" data-modified="1751315282326">another_root<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="another_root_sub1" data-original="" data-type="function" data-created="1751315282327" data-modified="1751315282327"><span class="list_term_duplicate">another_root_</span><span class="list_term_unique">sub1</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="another_root_sub2" data-original="" data-type="function" data-created="1751315282328" data-modified="1751315282328"><span class="list_term_duplicate">another_root_</span><span class="list_term_unique">sub2</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="another_root_sub2_nested" data-original="" data-type="function" data-created="1751315282329" data-modified="1751315282329"><span class="list_term_duplicate">another_root_sub2_</span><span class="list_term_unique">nested</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_operations" data-original="" data-type="function" data-created="1751315282331" data-modified="1751315282331">file_operations<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_operations_read" data-original="" data-type="function" data-created="1751315282332" data-modified="1751315282332"><span class="list_term_duplicate">file_operations_</span><span class="list_term_unique">read</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_operations_read_sync" data-original="" data-type="function" data-created="1751315282333" data-modified="1751315282333"><span class="list_term_duplicate">file_operations_read_</span><span class="list_term_unique">sync</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_operations_read_async" data-original="" data-type="function" data-created="1751315282333" data-modified="1751315282333"><span class="list_term_duplicate">file_operations_read_</span><span class="list_term_unique">async</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_operations_write" data-original="" data-type="function" data-created="1751315282334" data-modified="1751315282334"><span class="list_term_duplicate">file_operations_</span><span class="list_term_unique">write</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_operations_write_sync" data-original="" data-type="function" data-created="1751315282335" data-modified="1751315282335"><span class="list_term_duplicate">file_operations_write_</span><span class="list_term_unique">sync</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_operations_write_async" data-original="" data-type="function" data-created="1751315282336" data-modified="1751315282336"><span class="list_term_duplicate">file_operations_write_</span><span class="list_term_unique">async</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="file_operations_delete" data-original="" data-type="function" data-created="1751315282337" data-modified="1751315282337"><span class="list_term_duplicate">file_operations_</span><span class="list_term_unique">delete</span><span style="color: #6e7681;">()</span></li>
     </ul>
     
     <div id="location_content" style="display: none;">
@@ -832,8 +804,8 @@ ${li_elements}
     </div>
     <script>
         // Configuration for the external script
-        window.FILE_NAME = '${config_key}';
-        window.LAST_MODIFIED = ${modification_time};
+        window.FILE_NAME = 'test_hierarchy';
+        window.LAST_MODIFIED = 1751315280478.8025;
     </script>
     <script src="/js/shared_client.js"></script>
     <script src="/js/nav_client.js"></script>
@@ -841,7 +813,4 @@ ${li_elements}
     <script src="/js/time_filter_client.js"></script>
     <script src="/js/list_client.js"></script>
 </body>
-</html>`;
-}
-
-module.exports = { list_html_generate }; 
+</html>

@@ -1,0 +1,450 @@
+const path = require('path');
+const { scan_directory_tree } = require('./big_simple');
+
+function generate_big_html(txt_content, txt_file_path, last_modified) {
+    const relative_path = path.relative(process.cwd(), txt_file_path);
+    const file_name = path.basename(txt_file_path, '.txt');
+    
+    // Scan the project directory for JS files and functions
+    // Go up 3 levels from current working directory to reach project root
+    const project_root = path.resolve(process.cwd(), '../../..');
+    const scan_result = scan_directory_tree(project_root);
+    const outline_content = generate_outline_content(scan_result);
+    
+    return `<!DOCTYPE html>
+<html>
+<head>
+<style>
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #6e7681;
+        --gray-dark:   #4e5561;
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+        
+        /* Big page specific colors */
+        --folder-blue: #569cd6;
+        --file-blue:   #569cd6;
+        --function-yellow: #dcdcaa;
+        --method-green: #2ea043;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          0;
+        position:         relative;
+    }
+    
+    /* Fixed header area with solid background */
+    .header_area {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--bg);
+        border-bottom: 1px solid var(--hover);
+        z-index: 1000;
+        padding-bottom: 10px;
+    }
+    
+    /* Main content area - pushed down below fixed header */
+    #content {
+        padding: 20px;
+        margin-top: 140px;
+    }
+    
+    /* Outline Control Panel - left justified below nav */
+    .outline_controls {
+        margin-top: 10px;
+        margin-left: 20px;
+        display: flex;
+        gap: 12px;
+        padding: 12px;
+        background-color: transparent;
+    }
+    
+    /* Green control buttons */
+    .control_button {
+        background-color: #2ea043;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .control_button:hover {
+        background-color: #3fb654;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+    }
+    
+    .control_button:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Make "All" button slightly wider */
+    .control_button:last-child {
+        width: auto;
+        min-width: 60px;
+        padding: 12px 16px;
+    }
+    
+    /* Navigation buttons */
+    .button_nav {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.7;
+    }
+    
+    .button_nav:hover {
+        opacity: 0.9;
+    }
+    
+    .button_nav.style_active {
+        background-color: var(--edit-border);
+        opacity: 1;
+        font-weight: 500;
+    }
+    
+    .nav_controls {
+        padding: 20px;
+        padding-bottom: 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .page_version {
+        margin-left: auto;
+        color: var(--gray);
+        font-size: 12px;
+    }
+    
+    /* Outline line styles */
+    .outline_line_number {
+        cursor: pointer;
+        user-select: none;
+        color: var(--gray);
+        margin-right: 8px;
+        min-width: 60px;
+        display: inline-block;
+    }
+    
+    .outline_line_number:hover {
+        color: var(--text);
+    }
+    
+    /* Content styling with colors */
+    .big_folder_name {
+        color: var(--folder-blue);
+    }
+    
+    .big_folder_slash {
+        color: var(--gray);
+    }
+    
+    .big_file_name {
+        color: var(--file-blue);
+    }
+    
+    .big_file_ext {
+        color: var(--gray);
+    }
+    
+    .big_function_name {
+        color: var(--function-yellow);
+    }
+    
+    .big_function_paren {
+        color: var(--gray);
+    }
+    
+    .big_method_name {
+        color: var(--method-green);
+    }
+    
+    .big_method_arrow {
+        color: var(--gray);
+    }
+    
+    /* Stats display */
+    .big_stats {
+        color: var(--gray);
+        margin-bottom: 20px;
+        padding: 10px;
+        border-bottom: 1px solid #333;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    /* Hidden children when collapsed */
+    .style_hidden {
+        display: none;
+    }
+    
+    /* Method calls container */
+    .method_calls {
+        transition: opacity 0.2s ease;
+    }
+    
+    .method_calls.hidden {
+        display: none !important;
+    }
+    
+    /* Filter button */
+    .filter_button {
+        background-color: var(--gray);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0.5;
+    }
+    
+    .filter_button:hover {
+        opacity: 0.8;
+    }
+    
+    .filter_button.active {
+        opacity: 1;
+    }
+    
+    /* Function lines that can be hidden */
+    .function_line {
+        transition: opacity 0.2s ease;
+    }
+    
+    .function_line.hidden {
+        display: none !important;
+    }
+</style>
+</head>
+<body>
+    <div class="header_area">
+        <div class="nav_controls">
+            <button class="button_nav" data-nav="index" title="View Index">Index</button>
+            <button class="button_nav" data-nav="big" title="View Function Hierarchy">Big</button>
+            <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+            <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+            <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
+            <button class="button_nav" data-nav="debug">Debug</button>
+            <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+            <div class="page_version">v1.0.0</div>
+        </div>
+        
+        <div class="outline_controls">
+            <button class="control_button" onclick="outline_expand_all()" title="Expand All">+</button>
+            <button class="control_button" onclick="outline_collapse_all()" title="Collapse All">-</button>
+            <button class="control_button" onclick="outline_level_1_handle()" title="Level 1">1</button>
+            <button class="control_button" onclick="outline_level_2_handle()" title="Level 2">2</button>
+            <button class="control_button" onclick="outline_expand_all_handle()" title="All">All</button>
+        </div>
+    </div>
+    
+    <div id="content">
+        <div class="big_stats">
+            <span>Files: ${Object.keys(scan_result.files).length} | Functions: ${count_total_functions(scan_result)} | Last scan: ${new Date(scan_result.last_scan).toLocaleTimeString()}</span>
+            <div style="display: flex; gap: 10px;">
+                <button class="filter_button active" id="toggle_functions" title="Toggle functions" style="background-color: var(--function-yellow); color: var(--bg);">function(</button>
+                <button class="filter_button active" id="toggle_methods" title="Toggle method calls" style="background-color: var(--method-green);">function--></button>
+            </div>
+        </div>
+        ${outline_content}
+    </div>
+    
+    <script>
+        window.FILE_NAME = '${file_name}';
+        window.LAST_MODIFIED = ${last_modified};
+    </script>
+    <script src="/js/shared_client.js"></script>
+    <script src="/js/nav_client.js"></script>
+    <script src="/js/big_client.js"></script>
+</body>
+</html>`;
+}
+
+function generate_outline_content(scan_result) {
+    // Build hierarchical structure
+    const tree = build_folder_tree(scan_result.files);
+    
+    let html = '';
+    let outline_counter = 1;
+    
+    // Render the tree recursively
+    html = render_tree_node(tree, '', outline_counter, 0);
+    
+    return html;
+}
+
+function build_folder_tree(files) {
+    const tree = {
+        name: '.',
+        type: 'folder',
+        children: {},
+        files: []
+    };
+    
+    // Build the tree structure
+    for (const [file_path, file_info] of Object.entries(files)) {
+        const parts = file_path.split(path.sep);
+        let current = tree;
+        
+        // Navigate/create folder structure
+        for (let i = 0; i < parts.length - 1; i++) {
+            const folder_name = parts[i];
+            if (!current.children[folder_name]) {
+                current.children[folder_name] = {
+                    name: folder_name,
+                    type: 'folder',
+                    children: {},
+                    files: []
+                };
+            }
+            current = current.children[folder_name];
+        }
+        
+        // Add file to current folder
+        const file_name = parts[parts.length - 1];
+        current.files.push({
+            name: file_name,
+            path: file_path,
+            functions: file_info.functions
+        });
+    }
+    
+    return tree;
+}
+
+function render_tree_node(node, parent_outline, counter, indent_level) {
+    let html = '';
+    let local_counter = counter;
+    
+    // Sort children: folders first, then files
+    const sorted_folders = Object.keys(node.children).sort((a, b) => a.localeCompare(b));
+    const sorted_files = node.files.sort((a, b) => a.name.localeCompare(b.name));
+    
+    // Determine if we should use numbers or letters based on indent level
+    // Even levels (0, 2, 4...) use numbers, odd levels use letters
+    const use_letters = indent_level % 2 === 1;
+    
+    // Render folders
+    for (let i = 0; i < sorted_folders.length; i++) {
+        const folder_name = sorted_folders[i];
+        const folder = node.children[folder_name];
+        const outline_num = use_letters ? 
+            `${String.fromCharCode(97 + local_counter - 1)}.` : 
+            `${local_counter}.`;
+        const indent = indent_level * 60;
+        
+        // Folder div - default to expanded (data-collapsed="false")
+        html += `<div style="margin-left: ${indent}px; display: flex;" data-indent="${indent_level}" data-collapsed="false">`;
+        html += `<span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="${outline_num}">${outline_num}</span>`;
+        html += `<span class="list_edit_text"><span class="big_folder_name">${folder_name}</span><span class="big_folder_slash">/</span></span>`;
+        html += `</div>`;
+        
+        // Render folder contents recursively
+        html += render_tree_node(folder, outline_num, 1, indent_level + 1);
+        
+        local_counter++;
+    }
+    
+    // Render files
+    for (let i = 0; i < sorted_files.length; i++) {
+        const file = sorted_files[i];
+        const outline_num = use_letters ? 
+            `${String.fromCharCode(97 + local_counter - 1)}.` : 
+            `${local_counter}.`;
+        const indent = indent_level * 60;
+        
+        const [basename, ext] = file.name.includes('.') ? 
+            [file.name.substring(0, file.name.lastIndexOf('.')), file.name.substring(file.name.lastIndexOf('.'))] :
+            [file.name, ''];
+        
+        // File div - default to expanded (data-collapsed="false")
+        html += `<div style="margin-left: ${indent}px; display: flex;" data-indent="${indent_level}" data-collapsed="false">`;
+        html += `<span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="${outline_num}">${outline_num}</span>`;
+        html += `<span class="list_edit_text"><span class="big_file_name">${basename}</span><span class="big_file_ext">${ext}</span></span>`;
+        html += `</div>`;
+        
+        // Render functions (always use the opposite of the parent level)
+        if (file.functions && file.functions.length > 0) {
+            const func_use_letters = (indent_level + 1) % 2 === 1;
+            for (let j = 0; j < file.functions.length; j++) {
+                const func = file.functions[j];
+                const func_outline = func_use_letters ? 
+                    `${String.fromCharCode(97 + j)}.` : 
+                    `${j + 1}.`;
+                const func_indent = (indent_level + 1) * 60;
+                
+                html += `<div class="function_line" style="margin-left: ${func_indent}px; display: flex;" data-indent="${indent_level + 1}" data-collapsed="false">`;
+                html += `<span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="${func_outline}">${func_outline}</span>`;
+                html += `<span class="list_edit_text"><span class="big_function_name">${func.name}</span><span class="big_function_paren">(</span></span>`;
+                html += `</div>`;
+                
+                // Render method calls if any
+                if (func.calls && func.calls.length > 0) {
+                    const method_indent = (indent_level + 2) * 60;
+                    const method_use_letters = (indent_level + 2) % 2 === 1;
+                    
+                    func.calls.forEach((called_func, index) => {
+                        const method_outline = method_use_letters ? 
+                            `${String.fromCharCode(97 + index)}.` : 
+                            `${index + 1}.`;
+                        
+                        html += `<div class="method_calls" style="margin-left: ${method_indent}px; display: flex;" data-indent="${indent_level + 2}">`;
+                        html += `<span style="min-width: 30px; flex-shrink: 0; margin-right: 4px; text-align: right; color: var(--gray);">${method_outline}</span>`;
+                        html += `<span class="list_edit_text"><span class="big_method_name">${called_func}</span><span class="big_method_arrow"> -></span></span>`;
+                        html += `</div>`;
+                    });
+                }
+            }
+        }
+        
+        local_counter++;
+    }
+    
+    return html;
+}
+
+// Removed old outline number functions - no longer needed with new tree structure
+
+function count_total_functions(scan_result) {
+    let total = 0;
+    for (const file_info of Object.values(scan_result.files)) {
+        total += file_info.functions.length;
+    }
+    return total;
+}
+
+module.exports = { generate_big_html };

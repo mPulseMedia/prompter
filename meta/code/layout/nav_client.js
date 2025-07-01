@@ -23,42 +23,70 @@ const nav_config_map = {
     
     // Tree pages
     'tree': { button: 'tree', url: '/tool/tree.html' },
-    'tree_file': { button: 'tree', url: '/tool/tree.html' }
+    'tree_file': { button: 'tree', url: '/tool/tree.html' },
+    
+    // Debug pages
+    'debug': { button: 'debug', url: '/tool/debug.html' },
+    'debug_file': { button: 'debug', url: '/tool/debug.html' },
+    
+    // Big pages
+    'big': { button: 'big', url: '/tool/big.html' },
+    'big_file': { button: 'big', url: '/tool/big.html' }
 };
 
 // Initialize navigation when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    debug_basic('nav_client', 'DOM loaded, initializing navigation');
     nav_init();
     version_websocket_init();
 });
 
 // Initialize navigation buttons
 function nav_init() {
+    debug_nav('nav_init', 'Starting navigation initialization');
+    
     const navControls = document.querySelector('.nav_controls');
-    if (!navControls) return;
+    if (!navControls) {
+        debug_nav('nav_init', 'No nav controls found');
+        return;
+    }
     
     // Get current page from window.FILE_NAME
     const currentFile = window.FILE_NAME || '';
     const currentConfig = nav_config_map[currentFile];
     const currentButton = currentConfig ? currentConfig.button : 'index';
     
+    debug_nav('nav_init', 'Current navigation state', {
+        currentFile: currentFile,
+        currentButton: currentButton,
+        currentConfig: currentConfig
+    });
+    
     // Update active state
     const buttons = navControls.querySelectorAll('.button_nav');
+    debug_nav('nav_init', `Found ${buttons.length} navigation buttons`);
+    
     buttons.forEach(btn => {
         const buttonType = btn.getAttribute('data-nav');
         if (buttonType === currentButton) {
             btn.classList.add('style_active');
+            debug_nav('nav_init', `Set ${buttonType} button as active`);
         } else {
             btn.classList.remove('style_active');
         }
         
         // Add click handler
-        btn.addEventListener('click', () => nav_button_click(buttonType));
+        btn.addEventListener('click', () => {
+            debug_ui('nav_button', `Button clicked: ${buttonType}`);
+            nav_button_click(buttonType);
+        });
     });
 }
 
 // Handle navigation button clicks
 function nav_button_click(buttonType) {
+    debug_nav('nav_button_click', `Processing navigation to ${buttonType}`);
+    
     // Find the URL for the clicked button
     let targetUrl = null;
     
@@ -78,20 +106,31 @@ function nav_button_click(buttonType) {
         case 'tree':
             targetUrl = '/tool/tree.html';
             break;
+        case 'debug':
+            targetUrl = '/tool/debug.html';
+            break;
+        case 'big':
+            targetUrl = '/tool/big.html';
+            break;
     }
     
     if (targetUrl) {
+        debug_nav('nav_button_click', `Navigating to ${targetUrl}`);
         // Navigate to the new page
         window.location.href = `http://localhost:3002${targetUrl}`;
+    } else {
+        debug_nav('nav_button_click', `No target URL found for ${buttonType}`);
     }
 }
 
 // Initialize WebSocket for version updates
 function version_websocket_init() {
+    debug_sync('version_websocket_init', 'Initializing version WebSocket');
     const ws = new WebSocket('ws://localhost:3002');
     
     ws.addEventListener('open', () => {
         console.log('WebSocket connected for version updates');
+        debug_sync('version_websocket_init', 'WebSocket connected successfully');
     });
     
     ws.addEventListener('message', (event) => {
@@ -109,6 +148,7 @@ function version_websocket_init() {
     
     ws.addEventListener('error', (error) => {
         console.error('WebSocket error:', error);
+        debug_sync('version_websocket_init', 'WebSocket error', {error: error.message || error});
     });
     
     ws.addEventListener('close', () => {
@@ -120,6 +160,8 @@ function version_websocket_init() {
 
 // Update version display
 function version_display_update(version, details) {
+    debug_ui('version_display_update', 'Updating version display', {version, details});
+    
     const versionElement = document.querySelector('.page_version');
     if (versionElement) {
         versionElement.textContent = version;

@@ -1,52 +1,4 @@
-// Template for generating list HTML pages
-
-/**
- * Generate HTML content for list files (00_index and similar lists)
- * @param {string} li_elements - The generated <li> elements as HTML string
- * @param {string} config_key - Configuration key (e.g., '00_index')
- * @param {number} modification_time - Last modification timestamp
- * @param {string} version - Current version string
- * @returns {string} Complete HTML document
- */
-function list_html_generate(li_elements, config_key, modification_time, version = 'v1.0.0', codenames = []) {
-    // Generate scope options from codenames
-    const files_by_ext = new Map();
-    
-    codenames.forEach(name => {
-        if (name && typeof name === 'string') {
-            // Group all files by extension
-            if (name.includes('.')) {
-                const lastDot = name.lastIndexOf('.');
-                if (lastDot > 0) {
-                    const ext = name.substring(lastDot);
-                    if (!files_by_ext.has(ext)) {
-                        files_by_ext.set(ext, new Set());
-                    }
-                    files_by_ext.get(ext).add(name);
-                }
-            }
-        }
-    });
-    
-    // Generate scope dropdown options
-    let scope_options = '<option value="all" selected>All Scopes</option>';
-    
-    // Add files by extension sections - sorted by extension
-    const sortedExts = Array.from(files_by_ext.keys()).sort();
-    sortedExts.forEach(ext => {
-        const files = Array.from(files_by_ext.get(ext)).sort();
-        if (files.length > 0) {
-            // Create clean extension label (remove the dot)
-            const extLabel = ext.substring(1).toUpperCase();
-            scope_options += `<optgroup label="${extLabel} Files">`;
-            files.forEach(file => {
-                scope_options += `<option value="${file}">${file}</option>`;
-            });
-            scope_options += '</optgroup>';
-        }
-    });
-
-    return `<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -751,7 +703,7 @@ function list_html_generate(li_elements, config_key, modification_time, version 
             <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
             <button class="button_nav" data-nav="debug">Debug</button>
             <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
-            <div class="page_version">${version}</div>
+            <div class="page_version">v1.1.0</div>
         </div>
         
         <div class="list_filter_controls">
@@ -788,7 +740,7 @@ function list_html_generate(li_elements, config_key, modification_time, version 
                 <option value="10080">1 week</option>
             </select>
             <select class="scope_filter" id="scope_filter">
-                ${scope_options}
+                <option value="all" selected>All Scopes</option>
             </select>
             <div class="time_type_radio_group">
                 <label class="time_type_radio_container">
@@ -824,7 +776,21 @@ function list_html_generate(li_elements, config_key, modification_time, version 
     </div>
     
     <ul id="list_content">
-${li_elements}
+        <li data-fulltext="Debug Configuration" data-original="" data-type="function" data-created="1751316013433" data-modified="1751316013433">Debug Configuration<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="Available Debug Groups:" data-original="" data-type="function" data-created="1751316013435" data-modified="1751316013435">Available Debug Groups:<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="- all: Enable/disable all debug messages" data-original="" data-type="css" data-created="1751316013437" data-modified="1751316013437">- all: Enable/disable all debug messages<span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- basic: Basic operations and flow" data-original="" data-type="css" data-created="1751316013438" data-modified="1751316013438"><span class="list_term_duplicate">- </span><span class="list_term_unique">basic: Basic operations and flow</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- ui: User interface interactions" data-original="" data-type="css" data-created="1751316013440" data-modified="1751316013440"><span class="list_term_duplicate">- </span><span class="list_term_unique">ui: User interface interactions</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- function: Function calls and returns" data-original="" data-type="css" data-created="1751316013442" data-modified="1751316013442"><span class="list_term_duplicate">- </span><span class="list_term_unique">function: Function calls and returns</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- sync: Server synchronization and WebSocket" data-original="" data-type="css" data-created="1751316013443" data-modified="1751316013443"><span class="list_term_duplicate">- </span><span class="list_term_unique">sync: Server synchronization and WebSocket</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- filter: Filter operations and search" data-original="" data-type="css" data-created="1751316013445" data-modified="1751316013445"><span class="list_term_duplicate">- </span><span class="list_term_unique">filter: Filter operations and search</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- nav: Navigation between pages" data-original="" data-type="css" data-created="1751316013446" data-modified="1751316013446"><span class="list_term_duplicate">- </span><span class="list_term_unique">nav: Navigation between pages</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- outline: Outline expand/collapse operations" data-original="" data-type="css" data-created="1751316013447" data-modified="1751316013447"><span class="list_term_duplicate">- </span><span class="list_term_unique">outline: Outline expand/collapse operations</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- list: List hierarchy and rendering" data-original="" data-type="css" data-created="1751316013448" data-modified="1751316013448"><span class="list_term_duplicate">- </span><span class="list_term_unique">list: List hierarchy and rendering</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- state: State management and localStorage" data-original="" data-type="css" data-created="1751316013449" data-modified="1751316013449"><span class="list_term_duplicate">- </span><span class="list_term_unique">state: State management and localStorage</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="- perf: Performance measurements" data-original="" data-type="css" data-created="1751316013449" data-modified="1751316013449"><span class="list_term_duplicate">- </span><span class="list_term_unique">perf: Performance measurements</span><span style="color: #6e7681;">></span></li>
+        <li data-fulltext="Current Settings:" data-original="" data-type="function" data-created="1751316013450" data-modified="1751316013450">Current Settings:<span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="(Enable debug groups to see detailed console output)" data-original="" data-type="function" data-created="1751316013450" data-modified="1751316013450">(Enable debug groups to see detailed console output)<span style="color: #6e7681;">()</span></li>
     </ul>
     
     <div id="location_content" style="display: none;">
@@ -832,8 +798,8 @@ ${li_elements}
     </div>
     <script>
         // Configuration for the external script
-        window.FILE_NAME = '${config_key}';
-        window.LAST_MODIFIED = ${modification_time};
+        window.FILE_NAME = 'debug';
+        window.LAST_MODIFIED = 1751316011306.4326;
     </script>
     <script src="/js/shared_client.js"></script>
     <script src="/js/nav_client.js"></script>
@@ -841,7 +807,4 @@ ${li_elements}
     <script src="/js/time_filter_client.js"></script>
     <script src="/js/list_client.js"></script>
 </body>
-</html>`;
-}
-
-module.exports = { list_html_generate }; 
+</html>

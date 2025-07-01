@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test Hierarchy</title>
+<style>
+body { background: #1e1e1e; color: white; font-family: monospace; padding: 20px; }
+.test { margin: 20px 0; padding: 20px; border: 1px solid #666; }
+.clickable { cursor: pointer; color: #4ec9b0; text-decoration: underline; }
+.child { margin-left: 30px; color: #9cdcfe; }
+</style>
+</head>
+<body>
+<h1>Testing Hierarchical Click Events</h1>
+
+<div class="test">
+    <h2>Test 1: Basic Click Event</h2>
+    <div class="clickable" onclick="alert('Click works!')">Click me - should show alert</div>
+</div>
+
+<div class="test">
+    <h2>Test 2: Console Logging</h2>
+    <div class="clickable" onclick="console.log('Console log works!'); this.style.color='green'; this.textContent='Clicked!'">Click me - check console</div>
+</div>
+
+<div class="test">
+    <h2>Test 3: Toggle Visibility</h2>
+    <div class="clickable" onclick="toggleChildren(this)">Click to toggle children</div>
+    <div class="children" style="display: block;">
+        <div class="child">Child 1</div>
+        <div class="child">Child 2</div>
+        <div class="child">Child 3</div>
+    </div>
+</div>
+
+<div class="test">
+    <h2>Test 4: Simulated List Item</h2>
+    <div style="position: relative; padding-left: 40px;">
+        <span class="list_outline_number" style="position: absolute; left: 0; cursor: pointer; color: #6e7681;">1.</span>
+        <span>01_prompt_foundation.html</span>
+    </div>
+</div>
+
+<script>
+function toggleChildren(element) {
+    const children = element.nextElementSibling;
+    if (children) {
+        children.style.display = children.style.display === 'none' ? 'block' : 'none';
+        element.style.color = children.style.display === 'none' ? '#ce9178' : '#4ec9b0';
+    }
+}
+
+// Test if our list client approach would work
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded - adding event listeners');
+    
+    // Try to attach click handler to the simulated list item
+    const outlineNumber = document.querySelector('.list_outline_number');
+    if (outlineNumber) {
+        console.log('Found outline number element');
+        outlineNumber.addEventListener('click', function(e) {
+            console.log('Outline number clicked!');
+            alert('Outline number click detected!');
+            e.stopPropagation();
+        });
+    }
+});
+
+// Log any JavaScript errors
+window.addEventListener('error', function(e) {
+    console.error('JavaScript error:', e.message, e.filename, e.lineno);
+});
+</script>
+</body>
+</html>

@@ -36,18 +36,36 @@ function tree_html_generate(div_elements, config_key, modification_time, version
         font-size:        18px;
         line-height:      1.5;
         margin:           0;
-        padding:          20px;
+        padding:          0;
         position:         relative;
+    }
+    
+    /* Fixed header area with solid background */
+    .header_area {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--bg);
+        border-bottom: 1px solid var(--hover);
+        z-index: 1000;
+        padding-bottom: 10px;
     }
     
     /* Navigation controls - left justified */
     .nav_controls {
-        position: fixed;
-        top: 20px;
-        left: 20px;
+        padding: 20px;
+        padding-bottom: 0;
         display: flex;
         gap: 10px;
-        z-index: 1001;
+        align-items: center;
+    }
+    
+    /* Page version */
+    .page_version {
+        margin-left: auto;
+        color: var(--gray);
+        font-size: 12px;
     }
     
     .button_nav {
@@ -73,31 +91,16 @@ function tree_html_generate(div_elements, config_key, modification_time, version
         font-weight: 500;
     }
     
-    /* Version display in upper right */
-    .version_display {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        color: var(--gray);
-        font-size: 14px;
-        font-family: inherit;
-        z-index: 1001;
-        opacity: 0.7;
-    }
     
     /* Tree controls */
     .tree_controls {
-        position: fixed;
-        top: 70px;
-        left: 20px;
+        margin-top: 10px;
+        margin-left: 20px;
         display: flex;
         gap: 10px;
         align-items: center;
-        z-index: 1000;
-        background-color: rgba(30, 30, 30, 0.95);
         padding: 12px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background-color: transparent;
     }
     
     .tree_function_select {
@@ -131,7 +134,7 @@ function tree_html_generate(div_elements, config_key, modification_time, version
     
     /* Tree content */
     #tree_content {
-        margin-top: 140px;
+        margin-top: 120px;  /* Space for nav (50px) + controls (70px) */
         padding: 20px;
     }
     
@@ -201,21 +204,24 @@ function tree_html_generate(div_elements, config_key, modification_time, version
 </style>
 </head>
 <body>
-    <div class="nav_controls">
-        <button class="button_nav" data-nav="index" title="View Index">Index</button>
-        <button class="button_nav" data-nav="function" title="View Functions">Function</button>
-        <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
-        <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
-        <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
-    </div>
-    
-    <div class="version_display">${version}</div>
-    
-    <div class="tree_controls">
-        <label for="tree_function_select">Function:</label>
-        <select class="tree_function_select" id="tree_function_select">
-            <option value="">Select a function...</option>
-        </select>
+    <div class="header_area">
+        <div class="nav_controls">
+            <button class="button_nav" data-nav="index" title="View Index">Index</button>
+            <button class="button_nav" data-nav="big" title="View Function Hierarchy">Big</button>
+            <button class="button_nav" data-nav="function" title="View Functions">Function</button>
+            <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
+            <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
+            <button class="button_nav" data-nav="debug">Debug</button>
+            <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
+            <div class="page_version">${version}</div>
+        </div>
+        
+        <div class="tree_controls">
+            <label for="tree_function_select">Function:</label>
+            <select class="tree_function_select" id="tree_function_select">
+                <option value="">Select a function...</option>
+            </select>
+        </div>
     </div>
     
     <div id="tree_content">

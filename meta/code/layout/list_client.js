@@ -94,6 +94,389 @@ function sync_throttle_buffer(func, wait) {
 }
 
 // ============================================
+// HIERARCHICAL LIST FUNCTIONALITY
+// ============================================
+
+// Create hierarchical structure from flat list
+function list_create_hierarchy(mode = 'prefix') {
+    const listContent = document.getElementById('list_content');
+    const liElements = Array.from(listContent.querySelectorAll('li'));
+    
+    // Store original flat list for reverting
+    if (!window.originalListHTML) {
+        window.originalListHTML = listContent.innerHTML;
+    }
+    
+    // If flat mode, restore original and return
+    if (mode === 'flat') {
+        listContent.innerHTML = window.originalListHTML;
+        setupOriginalEventHandlers();
+        return;
+    }
+    
+    // Group items based on organization mode
+    const groups = new Map();
+    const rootItems = [];
+    
+    liElements.forEach((li, index) => {
+        const fullText = li.getAttribute('data-fulltext');
+        const dataType = li.getAttribute('data-type');
+        
+        let groupKey = null;
+        let parent = null;
+        
+        if (mode === 'prefix') {
+            // Skip CSS classes - they don't participate in hierarchy
+            if (dataType === 'css') {
+                rootItems.push({ element: li, children: [], index: index + 1 });
+                return;
+            }
+            
+            // Find parent by checking for common prefix with previous items
+            let maxCommonLength = 0;
+            
+            // Check against all previous items for potential parent
+            for (const [prefix, group] of groups) {
+                // Check if this item is a child of another item
+                // Either starts with prefix_ or starts with prefix. (for file extensions)
+                if ((fullText.startsWith(prefix + '_') || 
+                     (fullText.startsWith(prefix + '.') && prefix.indexOf('.') === -1)) && 
+                    prefix.length > maxCommonLength) {
+                    console.log(`Item "${fullText}" matches parent "${prefix}"`);
+                    parent = group;
+                    maxCommonLength = prefix.length;
+                }
+            }
+        } else if (mode === 'type') {
+            // Group by type
+            groupKey = dataType || 'other';
+            if (groups.has(groupKey)) {
+                parent = groups.get(groupKey);
+            } else {
+                const typeGroup = {
+                    element: null,
+                    fullText: groupKey,
+                    children: [],
+                    index: 0,
+                    isGroup: true,
+                    groupName: groupKey.charAt(0).toUpperCase() + groupKey.slice(1) + 's'
+                };
+                groups.set(groupKey, typeGroup);
+                rootItems.push(typeGroup);
+                parent = typeGroup;
+            }
+        } else if (mode === 'folder') {
+            // Group by folder structure (for files)
+            if (fullText.includes('/')) {
+                const parts = fullText.split('/');
+                const folderPath = parts.slice(0, -1).join('/');
+                groupKey = folderPath;
+                
+                if (groups.has(groupKey)) {
+                    parent = groups.get(groupKey);
+                } else {
+                    const folderGroup = {
+                        element: null,
+                        fullText: folderPath,
+                        children: [],
+                        index: 0,
+                        isGroup: true,
+                        groupName: folderPath
+                    };
+                    groups.set(groupKey, folderGroup);
+                    rootItems.push(folderGroup);
+                    parent = folderGroup;
+                }
+            }
+        }
+        
+        const item = {
+            element: li,
+            fullText: fullText,
+            children: [],
+            index: index + 1,
+            parent: parent
+        };
+        
+        if (parent && parent.isGroup) {
+            parent.children.push(item);
+        } else if (parent) {
+            parent.children.push(item);
+        } else {
+            rootItems.push(item);
+        }
+        
+        // Register this item as a potential parent (for prefix mode)
+        if (mode === 'prefix') {
+            groups.set(fullText, item);
+        }
+    });
+    
+    // Clear the list and rebuild with hierarchy
+    listContent.innerHTML = '';
+    
+    // Render the hierarchical structure
+    let globalIndex = 1;
+    
+    function renderItem(item, level = 0, parentNumber = '') {
+        const div = document.createElement('div');
+        div.className = 'list_hierarchical_item';
+        div.setAttribute('data-indent', level);
+        div.setAttribute('data-collapsed', 'false'); // Start expanded to see hierarchy
+        div.style.marginLeft = (level * 30) + 'px';
+        
+        // Handle group headers differently
+        if (item.isGroup) {
+            // Calculate outline number for groups
+            const itemNumber = globalIndex + '.';
+            globalIndex++;
+            
+            // Create outline number
+            const outlineNum = document.createElement('span');
+            outlineNum.className = 'list_outline_number';
+            outlineNum.textContent = itemNumber;
+            outlineNum.setAttribute('data-original', itemNumber);
+            outlineNum.style.minWidth = '40px';
+            outlineNum.style.marginRight = '10px';
+            outlineNum.style.textAlign = 'right';
+            
+            // Create group header content
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'list_hierarchical_content';
+            contentDiv.innerHTML = `<strong style="color: var(--gray)">${item.groupName}</strong>`;
+            
+            div.appendChild(outlineNum);
+            div.appendChild(contentDiv);
+            listContent.appendChild(div);
+            
+            // Render children
+            item.children.forEach((child, idx) => {
+                renderItem(child, level + 1, itemNumber.replace('.', ''));
+            });
+            
+            // Update outline display for collapsed state
+            if (item.children.length > 0) {
+                outlineNum.style.cursor = 'pointer';
+                // Don't change to > since we're starting expanded
+                // if (div.getAttribute('data-collapsed') === 'true') {
+                //     outlineNum.textContent = itemNumber.replace('.', '>');
+                // }
+            }
+        } else {
+            // Regular items
+            // Calculate outline number
+            const itemNumber = parentNumber ? 
+                parentNumber + '.' + String.fromCharCode(97 + (item.parent ? item.parent.children.indexOf(item) : 0)) : 
+                globalIndex + '.';
+            
+            if (!parentNumber) globalIndex++;
+            
+            // Create outline number
+            const outlineNum = document.createElement('span');
+            outlineNum.className = 'list_outline_number';
+            outlineNum.textContent = itemNumber;
+            outlineNum.setAttribute('data-original', itemNumber);
+            outlineNum.style.minWidth = '40px';
+            outlineNum.style.marginRight = '10px';
+            outlineNum.style.textAlign = 'right';
+            
+            // Create content wrapper
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'list_hierarchical_content';
+            contentDiv.innerHTML = item.element.innerHTML;
+            
+            // Copy data attributes
+            div.setAttribute('data-fulltext', item.element.getAttribute('data-fulltext'));
+            div.setAttribute('data-type', item.element.getAttribute('data-type'));
+            div.setAttribute('data-created', item.element.getAttribute('data-created'));
+            div.setAttribute('data-modified', item.element.getAttribute('data-modified'));
+            
+            div.appendChild(outlineNum);
+            div.appendChild(contentDiv);
+            listContent.appendChild(div);
+            
+            // Render children (initially hidden if parent is collapsed)
+            item.children.forEach(child => {
+                renderItem(child, level + 1, itemNumber.replace('.', ''));
+            });
+            
+            // Update outline display based on children
+            if (item.children.length > 0) {
+                outlineNum.style.cursor = 'pointer';
+                if (div.getAttribute('data-collapsed') === 'true') {
+                    outlineNum.textContent = itemNumber.replace('.', '>');
+                }
+            }
+        }
+    }
+    
+    console.log('Root items:', rootItems.length);
+    console.log('Groups found:', groups.size);
+    rootItems.forEach((item, i) => {
+        console.log(`Root item ${i}:`, item.fullText || item.groupName, 'children:', item.children.length);
+        renderItem(item);
+    });
+    
+    // Add click handlers to outline numbers
+    setupOutlineHandlers();
+}
+
+// Set up outline click handlers using event delegation
+function setupOutlineHandlers() {
+    console.log('!!! SETTING UP OUTLINE HANDLERS WITH EVENT DELEGATION !!!');
+    
+    // Remove any existing handlers first
+    const listContent = document.getElementById('list_content');
+    if (!listContent) {
+        console.error('List content not found!');
+        return;
+    }
+    
+    // Create a visible indicator that handlers are being set up
+    const indicator = document.createElement('div');
+    indicator.innerHTML = 'CLICK HANDLERS ACTIVATED!';
+    indicator.style.position = 'fixed';
+    indicator.style.top = '50px';
+    indicator.style.right = '20px';
+    indicator.style.background = 'green';
+    indicator.style.color = 'white';
+    indicator.style.padding = '10px';
+    indicator.style.zIndex = '9999';
+    document.body.appendChild(indicator);
+    setTimeout(() => indicator.remove(), 2000);
+    
+    // Use event delegation on the list container
+    let clickTimer = null;
+    listContent.addEventListener('click', function(e) {
+        console.log('Click event on:', e.target.className, e.target.textContent);
+        
+        // Check if we clicked on an outline number
+        if (e.target.classList.contains('list_outline_number')) {
+            e.stopPropagation();
+            e.preventDefault();
+            
+            console.log('!!! OUTLINE NUMBER CLICKED:', e.target.textContent);
+            
+            // Visual feedback
+            e.target.style.color = 'red';
+            setTimeout(() => {
+                e.target.style.color = '';
+            }, 200);
+            
+            const outlineNum = e.target;
+            const parentDiv = outlineNum.parentElement;
+            const hasChildren = checkHasChildren(parentDiv);
+            
+            console.log('Parent div:', parentDiv);
+            console.log('Has children:', hasChildren);
+            
+            if (!hasChildren) {
+                console.log('No children, nothing to toggle');
+                return;
+            }
+            
+            if (clickTimer) {
+                // Double click - toggle all descendants
+                clearTimeout(clickTimer);
+                clickTimer = null;
+                console.log('!!! DOUBLE CLICK DETECTED !!!');
+                toggleAllDescendants(parentDiv, outlineNum);
+            } else {
+                // Single click - toggle immediate children
+                clickTimer = setTimeout(() => {
+                    clickTimer = null;
+                    console.log('!!! SINGLE CLICK DETECTED !!!');
+                    toggleImmediateChildren(parentDiv, outlineNum);
+                }, 250);
+            }
+        }
+    }, true); // Use capture phase
+    
+    // Also log all outline numbers found
+    const outlineNumbers = document.querySelectorAll('.list_outline_number');
+    console.log('Found outline numbers:', outlineNumbers.length);
+    outlineNumbers.forEach((num, idx) => {
+        console.log(`  ${idx}: ${num.textContent}`);
+        // Make them visually distinct
+        num.style.backgroundColor = 'rgba(255, 255, 0, 0.1)';
+        num.style.padding = '2px 5px';
+        num.style.borderRadius = '3px';
+    });
+}
+
+// Check if item has children
+function checkHasChildren(div) {
+    const nextSibling = div.nextElementSibling;
+    if (!nextSibling) return false;
+    
+    const currentIndent = parseInt(div.getAttribute('data-indent'));
+    const nextIndent = parseInt(nextSibling.getAttribute('data-indent'));
+    return nextIndent > currentIndent;
+}
+
+// Toggle immediate children
+function toggleImmediateChildren(parentDiv, outlineNum) {
+    const isCollapsed = parentDiv.getAttribute('data-collapsed') === 'true';
+    const parentIndent = parseInt(parentDiv.getAttribute('data-indent'));
+    
+    parentDiv.setAttribute('data-collapsed', !isCollapsed);
+    
+    // Update outline number display with visual feedback
+    const originalText = outlineNum.getAttribute('data-original');
+    console.log('Toggling:', originalText, 'isCollapsed:', isCollapsed);
+    outlineNum.textContent = isCollapsed ? originalText : originalText.replace('.', '>');
+    outlineNum.style.fontWeight = isCollapsed ? 'normal' : 'bold';
+    
+    // Show/hide immediate children
+    let current = parentDiv.nextElementSibling;
+    while (current) {
+        const currentIndent = parseInt(current.getAttribute('data-indent'));
+        
+        if (currentIndent <= parentIndent) break;
+        
+        if (currentIndent === parentIndent + 1) {
+            current.style.display = isCollapsed ? 'flex' : 'none';
+        }
+        
+        current = current.nextElementSibling;
+    }
+}
+
+// Toggle all descendants
+function toggleAllDescendants(parentDiv, outlineNum) {
+    const isCollapsed = parentDiv.getAttribute('data-collapsed') === 'true';
+    const parentIndent = parseInt(parentDiv.getAttribute('data-indent'));
+    
+    parentDiv.setAttribute('data-collapsed', !isCollapsed);
+    
+    // Update outline number display with visual feedback
+    const originalText = outlineNum.getAttribute('data-original');
+    console.log('Toggling:', originalText, 'isCollapsed:', isCollapsed);
+    outlineNum.textContent = isCollapsed ? originalText : originalText.replace('.', '>');
+    outlineNum.style.fontWeight = isCollapsed ? 'normal' : 'bold';
+    
+    // Show/hide all descendants
+    let current = parentDiv.nextElementSibling;
+    while (current) {
+        const currentIndent = parseInt(current.getAttribute('data-indent'));
+        
+        if (currentIndent <= parentIndent) break;
+        
+        current.style.display = isCollapsed ? 'flex' : 'none';
+        
+        // Also update collapsed state of descendants
+        if (current.querySelector('.list_outline_number')) {
+            current.setAttribute('data-collapsed', !isCollapsed);
+            const childOutline = current.querySelector('.list_outline_number');
+            const childOriginal = childOutline.getAttribute('data-original');
+            childOutline.textContent = isCollapsed ? childOriginal : childOriginal.replace('.', '>');
+        }
+        
+        current = current.nextElementSibling;
+    }
+}
+
+// ============================================
 // FUNCTION EXPANSION FUNCTIONALITY
 // ============================================
 
@@ -106,11 +489,18 @@ function function_toggle_expansion(li) {
     }
 }
 
-// Add click event listeners to all li elements
-const liElements = document.querySelectorAll('li');
-let currently_editing = null; // Track which element is currently being edited
+// Setup original event handlers for flat list mode
+function setupOriginalEventHandlers() {
+    const liElements = document.querySelectorAll('li');
+    let currently_editing = null; // Track which element is currently being edited
+    
+    liElements.forEach(li => {
+        setupEditableRow(li, currently_editing);
+    });
+}
 
-liElements.forEach(li => {
+// Setup editable row functionality
+function setupEditableRow(li, currently_editing) {
     // Modified setupEditableRow for split terms
     let syncDebounced;
     const fullText = li.getAttribute('data-fulltext') || li.textContent;
@@ -456,20 +846,20 @@ function list_filter_apply() {
 
 // Update duplicate coloring based on visible items
 function list_duplicate_update() {
-    const liElements = document.querySelectorAll('#list_content li:not(.style_hidden)');
+    const visibleItems = document.querySelectorAll('#list_content .list_hierarchical_item:not(.style_hidden)');
     let previousTerm = '';
     
-    liElements.forEach((li, index) => {
-        const dataType = li.getAttribute('data-type');
+    visibleItems.forEach((item, index) => {
+        const dataType = item.getAttribute('data-type');
         
         // Skip CSS entries for duplicate coloring
         if (dataType === 'css') {
             return;
         }
         
-        const currentTerm = li.getAttribute('data-fulltext');
-        const newNameSpan = li.querySelector('.list_label_new');
-        const targetElement = newNameSpan || li;
+        const currentTerm = item.getAttribute('data-fulltext');
+        const contentDiv = item.querySelector('.list_hierarchical_content');
+        if (!contentDiv) return;
         
         // Reset to default display
         let displayContent = currentTerm;
@@ -559,18 +949,7 @@ function list_duplicate_update() {
         }
         
         // Update the display
-        if (newNameSpan) {
-            newNameSpan.innerHTML = displayContent;
-        } else {
-            // Preserve original term if it exists
-            const originalTerm = li.getAttribute('data-original');
-            if (originalTerm) {
-                // This shouldn't happen in normal flow, but handle it gracefully
-                targetElement.innerHTML = displayContent;
-            } else {
-                targetElement.innerHTML = displayContent;
-            }
-        }
+        contentDiv.innerHTML = displayContent;
     });
 }
 
@@ -649,22 +1028,24 @@ function search_apply_simple() {
     const searchTerm = searchInput.value.toLowerCase().trim();
     console.log('Search term:', searchTerm);
     
-    const liElements = document.querySelectorAll('#list_content li');
-    console.log('Found li elements:', liElements.length);
+    const listItems = document.querySelectorAll('#list_content .list_hierarchical_item');
+    console.log('Found list items:', listItems.length);
     
     let filteredCount = 0;
-    liElements.forEach(li => {
-        const fullText = li.getAttribute('data-fulltext');
+    listItems.forEach(item => {
+        const fullText = item.getAttribute('data-fulltext');
         if (!fullText) return;
         
         // Check search filter only (ignore type filters for now)
         const passesSearch = searchTerm === '' || fullText.toLowerCase().includes(searchTerm);
         
         if (passesSearch) {
-            li.classList.remove('search_hidden');
+            item.classList.remove('search_hidden');
+            item.style.display = 'flex';
             filteredCount++;
         } else {
-            li.classList.add('search_hidden');
+            item.classList.add('search_hidden');
+            item.style.display = 'none';
         }
     });
     
@@ -687,16 +1068,16 @@ function filters_apply_all() {
     console.log('=== UNIFIED FILTERING START ===');
     
     const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
-    const liElements = document.querySelectorAll('#list_content li');
+    const listItems = document.querySelectorAll('#list_content .list_hierarchical_item');
     
     console.log('Search term:', searchTerm);
     console.log('Filter state:', list_filter_state);
-    console.log('Processing', liElements.length, 'items');
+    console.log('Processing', listItems.length, 'items');
     
     let visibleCount = 0;
-    liElements.forEach(li => {
-        const dataType = li.getAttribute('data-type');
-        const fullText = li.getAttribute('data-fulltext');
+    listItems.forEach(item => {
+        const dataType = item.getAttribute('data-type');
+        const fullText = item.getAttribute('data-fulltext');
         if (!fullText) return;
         
         // Check search filter
@@ -715,16 +1096,18 @@ function filters_apply_all() {
         }
         
         // Check time filter (don't hide if already hidden by time)
-        const passesTimeFilter = !li.classList.contains('style_time_hidden');
+        const passesTimeFilter = !item.classList.contains('style_time_hidden');
         
         // Show item only if it passes all filters
         const shouldShow = passesSearch && passesTypeFilter && passesTimeFilter;
         
         if (shouldShow) {
-            li.classList.remove('style_hidden', 'search_hidden');
+            item.classList.remove('style_hidden', 'search_hidden');
+            item.style.display = 'flex';
             visibleCount++;
         } else {
-            li.classList.add('style_hidden');
+            item.classList.add('style_hidden');
+            item.style.display = 'none';
         }
     });
     
@@ -817,14 +1200,50 @@ function search_init() {
 
 // Initialize functionality when DOM is ready
 function list_init() {
-    console.log('=== LIST INIT STARTING ===');
+    console.log('!!! LIST CLIENT INITIALIZING !!!');
     console.log('Document ready state:', document.readyState);
     
-    // Initialize filters first
+    // Add a visual indicator that JavaScript is running
+    const jsIndicator = document.createElement('div');
+    jsIndicator.innerHTML = 'LIST CLIENT LOADED AND RUNNING!';
+    jsIndicator.style.position = 'fixed';
+    jsIndicator.style.bottom = '20px';
+    jsIndicator.style.right = '20px';
+    jsIndicator.style.background = 'blue';
+    jsIndicator.style.color = 'white';
+    jsIndicator.style.padding = '15px';
+    jsIndicator.style.zIndex = '9999';
+    jsIndicator.style.fontSize = '18px';
+    document.body.appendChild(jsIndicator);
+    setTimeout(() => jsIndicator.remove(), 3000);
+    
+    // Get initial organization mode
+    const organizeSelect = document.getElementById('organize_mode_select');
+    const initialMode = organizeSelect ? organizeSelect.value : 'prefix';
+    
+    console.log('!!! INITIAL ORGANIZATION MODE:', initialMode);
+    console.log('Organize select element:', organizeSelect);
+    
+    // Create hierarchical structure first
+    list_create_hierarchy(initialMode);
+    
+    // Initialize filters
     list_filter_init();
     
     // Then search (which depends on filters)
     search_init();
+    
+    // Setup organization mode dropdown
+    if (organizeSelect) {
+        organizeSelect.addEventListener('change', function() {
+            const mode = this.value;
+            console.log('Organization mode changed to:', mode);
+            list_create_hierarchy(mode);
+            
+            // Reapply filters after reorganization
+            filters_apply_all();
+        });
+    }
     
     // Apply initial unified filtering
     setTimeout(() => {
@@ -832,7 +1251,13 @@ function list_init() {
         filters_apply_all();
     }, 100);
     
-    console.log('=== LIST INIT COMPLETE ===');
+    // Force re-setup handlers after a delay to ensure DOM is ready
+    setTimeout(() => {
+        console.log('!!! DELAYED HANDLER SETUP !!!');
+        setupOutlineHandlers();
+    }, 500);
+    
+    console.log('!!! LIST INIT COMPLETE !!!');
 }
 
 console.log('Script loading... Document ready state:', document.readyState);

@@ -19,22 +19,36 @@
         font-size:        18px;
         line-height:      1.5;
         margin:           0;
-        padding:          20px;
+        padding:          0;
         position:         relative;
+    }
+    
+    /* Fixed header area with solid background */
+    .header_area {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--bg);
+        border-bottom: 1px solid var(--hover);
+        z-index: 1000;
+        padding-bottom: 10px;
+    }
+    
+    /* Main content area - pushed down below fixed header */
+    #content {
+        padding: 20px;
+        margin-top: 140px;  /* Space for nav (50px) + controls (70px) + padding */
     }
     
     /* Outline Control Panel - left justified below nav */
     .outline_controls {
-        position: fixed;
-        top: 70px;  /* Below nav buttons */
-        left: 20px;
+        margin-top: 10px;
+        margin-left: 20px;
         display: flex;
         gap: 12px;
-        z-index: 1000;
-        background-color: rgba(30, 30, 30, 0.95);  /* Subtle background */
         padding: 12px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background-color: transparent;
     }
     
     /* Green control buttons */
@@ -105,26 +119,21 @@
         font-weight: 500;
     }
     
-    /* Version display in upper right */
-    .version_display {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        color: var(--gray);
-        font-size: 14px;
-        font-family: inherit;
-        z-index: 1001;
-        opacity: 0.7;
-    }
     
     /* Navigation controls - left justified */
     .nav_controls {
-        position: fixed;
-        top: 20px;
-        left: 20px;
+        padding: 20px;
+        padding-bottom: 0;
         display: flex;
         gap: 10px;
-        z-index: 1001;
+        align-items: center;
+    }
+    
+    /* Page version */
+    .page_version {
+        margin-left: auto;
+        color: var(--gray);
+        font-size: 12px;
     }
     
     /* Outline specific styles */
@@ -148,21 +157,24 @@
 </style>
 </head>
 <body>
-    <div class="nav_controls">
+    <div class="header_area">
+        <div class="nav_controls">
         <button class="button_nav" data-nav="index" title="View Index">Index</button>
+        <button class="button_nav" data-nav="big" title="View Function Hierarchy">Big</button>
         <button class="button_nav" data-nav="function" title="View Functions">Function</button>
         <button class="button_nav" data-nav="web" title="View Web Relationships">Web</button>
         <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
+        <button class="button_nav" data-nav="debug">Debug</button>
         <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
-    </div>
-    
-    <div class="version_display">v1.1.0</div>
-    
-    <!-- Outline Control Buttons -->
-    <div class="outline_controls">
+        <div class="page_version">v1.1.0</div>
+        </div>
+        
+        <!-- Outline Control Buttons -->
+        <div class="outline_controls">
         <button class="control_button" id="button_expand_level_1" title="Show Level 1 Only">1</button>
         <button class="control_button" id="button_expand_level_2" title="Show Levels 1-2">2</button>
         <button class="control_button" id="button_expand_all" title="Show All Levels">All</button>
+        </div>
     </div>
     
     <div id="content">

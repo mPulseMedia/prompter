@@ -1,0 +1,17 @@
+Big - Function and File Hierarchy
+
+This page shows all JavaScript functions across the entire codebase, organized by folder and file structure.
+
+Features:
+- Displays folders with blue names and gray slashes (folder/)
+- Shows files with blue names and gray extensions (file.js)
+- Lists functions with yellow names and gray parentheses (function()
+- Tracks where each function is called throughout the codebase
+- Expandable/collapsible outline structure
+- Real-time updates when files change
+- Data stored in localStorage for persistence
+
+Navigation:
+- Click to expand/collapse folders and files
+- Shows functions in order of definition (top to bottom)
+- Updates automatically when files are modified

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+// Test if we can access the prompt page and check for errors
+fetch('http://localhost:3002/tool/prompt.html')
+  .then(response => response.text())
+  .then(html => {
+    console.log('Page loaded, checking for outline elements...');
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const outlineNumbers = doc.querySelectorAll('.outline_line_number');
+    console.log('Found outline numbers:', outlineNumbers.length);
+    
+    // Check if the click handlers are being added
+    const scripts = doc.querySelectorAll('script');
+    console.log('Scripts found:', scripts.length);
+    
+    // Look for the specific script that should add handlers
+    let hasOutlineClient = false;
+    scripts.forEach(script => {
+      if (script.src && script.src.includes('outline_client.js')) {
+        hasOutlineClient = true;
+      }
+    });
+    console.log('Has outline_client.js:', hasOutlineClient);
+  })
+  .catch(err => console.error('Error:', err));
+</script>
+</head>
+<body>
+<h1>Check browser console for output</h1>
+</body>
+</html>
