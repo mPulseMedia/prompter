@@ -2,14 +2,25 @@
 <html>
 <head>
 <style>
+
     :root {
         --bg:          #1e1e1e;
         --text:        #ffffff;
-        --gray:        #6e7681;
-        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --gray:        #4a4a4a;
+        --gray-dark:   #4e5561;
         --hover:       #2d2d2d;
         --edit-border: #007AFF;
         --green:       #2ea043;
+        
+        /* Cursor.ai syntax colors */
+        --function-def-yellow: #dcdcaa;
+        --file-blue:       #569cd6;
+        --css-pink:        #ce9178;
+        --comment-gray:    #8a8a8a;
+        
+        /* Big page specific colors */
+        --folder-blue: #569cd6;
+        --function-call-orange: #7a3c07;
     }
     
     body {
@@ -166,7 +177,7 @@
         <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
         <button class="button_nav" data-nav="debug">Debug</button>
         <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
-        <div class="page_version">v1.1.0</div>
+        <div class="page_version">v01.01.04</div>
         </div>
         
         <!-- Outline Control Buttons -->
@@ -1545,8 +1556,8 @@
         window.FILE_NAME = 'web';
         window.LAST_MODIFIED = 1751231772416.6636;
     </script>
-    <script src="/js/shared_client.js"></script>
-    <script src="/js/nav_client.js"></script>
+    <script src="/js/utl_shared_client.js"></script>
+    <script src="/js/utl_nav_client.js"></script>
     <script src="/js/outline_client.js"></script>
 </body>
 </html>

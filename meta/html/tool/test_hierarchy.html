@@ -2,20 +2,25 @@
 <html>
 <head>
 <style>
+
     :root {
         --bg:          #1e1e1e;
         --text:        #ffffff;
-        --gray:        #6e7681;
-        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
+        --gray:        #4a4a4a;
+        --gray-dark:   #4e5561;
         --hover:       #2d2d2d;
         --edit-border: #007AFF;
         --green:       #2ea043;
         
         /* Cursor.ai syntax colors */
-        --function-yellow: #dcdcaa;  /* Function name yellow */
-        --file-blue:       #9cdcfe;  /* Variable/file light blue */
-        --css-pink:        #ce9178;  /* String/class pinkish */
-        --comment-gray:    #8a8a8a;  /* Lighter gray for comments */
+        --function-def-yellow: #dcdcaa;
+        --file-blue:       #569cd6;
+        --css-pink:        #ce9178;
+        --comment-gray:    #8a8a8a;
+        
+        /* Big page specific colors */
+        --folder-blue: #569cd6;
+        --function-call-orange: #7a3c07;
     }
     
     body {
@@ -201,7 +206,7 @@
     }
     
     /* Type indicators (extensions, slashes, parentheses) always darker gray */
-    li span[style*="color: #6e7681"] {
+    li span[style*="color: #4a4a4a"] {
         color: var(--gray) !important;
     }
     
@@ -703,7 +708,7 @@
             <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
             <button class="button_nav" data-nav="debug">Debug</button>
             <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
-            <div class="page_version">v1.1.0</div>
+            <div class="page_version">v01.01.04</div>
         </div>
         
         <div class="list_filter_controls">
@@ -776,27 +781,27 @@
     </div>
     
     <ul id="list_content">
-        <li data-fulltext="test_root" data-original="" data-type="function" data-created="1751315282305" data-modified="1751315282305">test_root<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="test_root_child1" data-original="" data-type="function" data-created="1751315282313" data-modified="1751315282313"><span class="list_term_duplicate">test_root_</span><span class="list_term_unique">child1</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="test_root_child1_nested1" data-original="" data-type="function" data-created="1751315282315" data-modified="1751315282315"><span class="list_term_duplicate">test_root_child1_</span><span class="list_term_unique">nested1</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="test_root_child1_nested2" data-original="" data-type="function" data-created="1751315282317" data-modified="1751315282317"><span class="list_term_duplicate">test_root_child1_</span><span class="list_term_unique">nested2</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="test_root_child2" data-original="" data-type="function" data-created="1751315282319" data-modified="1751315282319"><span class="list_term_duplicate">test_root_</span><span class="list_term_unique">child2</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="test_root_child2_nested1" data-original="" data-type="function" data-created="1751315282320" data-modified="1751315282320"><span class="list_term_duplicate">test_root_child2_</span><span class="list_term_unique">nested1</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="test_root_child2_nested1_deep1" data-original="" data-type="function" data-created="1751315282322" data-modified="1751315282322"><span class="list_term_duplicate">test_root_child2_nested1_</span><span class="list_term_unique">deep1</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="test_root_child2_nested1_deep2" data-original="" data-type="function" data-created="1751315282323" data-modified="1751315282323"><span class="list_term_duplicate">test_root_child2_nested1_</span><span class="list_term_unique">deep2</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="test_root_child3" data-original="" data-type="function" data-created="1751315282325" data-modified="1751315282325"><span class="list_term_duplicate">test_root_</span><span class="list_term_unique">child3</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="another_root" data-original="" data-type="function" data-created="1751315282326" data-modified="1751315282326">another_root<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="another_root_sub1" data-original="" data-type="function" data-created="1751315282327" data-modified="1751315282327"><span class="list_term_duplicate">another_root_</span><span class="list_term_unique">sub1</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="another_root_sub2" data-original="" data-type="function" data-created="1751315282328" data-modified="1751315282328"><span class="list_term_duplicate">another_root_</span><span class="list_term_unique">sub2</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="another_root_sub2_nested" data-original="" data-type="function" data-created="1751315282329" data-modified="1751315282329"><span class="list_term_duplicate">another_root_sub2_</span><span class="list_term_unique">nested</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_operations" data-original="" data-type="function" data-created="1751315282331" data-modified="1751315282331">file_operations<span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_operations_read" data-original="" data-type="function" data-created="1751315282332" data-modified="1751315282332"><span class="list_term_duplicate">file_operations_</span><span class="list_term_unique">read</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_operations_read_sync" data-original="" data-type="function" data-created="1751315282333" data-modified="1751315282333"><span class="list_term_duplicate">file_operations_read_</span><span class="list_term_unique">sync</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_operations_read_async" data-original="" data-type="function" data-created="1751315282333" data-modified="1751315282333"><span class="list_term_duplicate">file_operations_read_</span><span class="list_term_unique">async</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_operations_write" data-original="" data-type="function" data-created="1751315282334" data-modified="1751315282334"><span class="list_term_duplicate">file_operations_</span><span class="list_term_unique">write</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_operations_write_sync" data-original="" data-type="function" data-created="1751315282335" data-modified="1751315282335"><span class="list_term_duplicate">file_operations_write_</span><span class="list_term_unique">sync</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_operations_write_async" data-original="" data-type="function" data-created="1751315282336" data-modified="1751315282336"><span class="list_term_duplicate">file_operations_write_</span><span class="list_term_unique">async</span><span style="color: #6e7681;">()</span></li>
-        <li data-fulltext="file_operations_delete" data-original="" data-type="function" data-created="1751315282337" data-modified="1751315282337"><span class="list_term_duplicate">file_operations_</span><span class="list_term_unique">delete</span><span style="color: #6e7681;">()</span></li>
+        <li data-fulltext="test_root" data-original="" data-type="function" data-created="1751315282305" data-modified="1751315282305">test_root<span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="test_root_child1" data-original="" data-type="function" data-created="1751315282313" data-modified="1751315282313"><span class="list_term_duplicate">test_root_</span><span class="list_term_unique">child1</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="test_root_child1_nested1" data-original="" data-type="function" data-created="1751315282315" data-modified="1751315282315"><span class="list_term_duplicate">test_root_child1_</span><span class="list_term_unique">nested1</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="test_root_child1_nested2" data-original="" data-type="function" data-created="1751315282317" data-modified="1751315282317"><span class="list_term_duplicate">test_root_child1_</span><span class="list_term_unique">nested2</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="test_root_child2" data-original="" data-type="function" data-created="1751315282319" data-modified="1751315282319"><span class="list_term_duplicate">test_root_</span><span class="list_term_unique">child2</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="test_root_child2_nested1" data-original="" data-type="function" data-created="1751315282320" data-modified="1751315282320"><span class="list_term_duplicate">test_root_child2_</span><span class="list_term_unique">nested1</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="test_root_child2_nested1_deep1" data-original="" data-type="function" data-created="1751315282322" data-modified="1751315282322"><span class="list_term_duplicate">test_root_child2_nested1_</span><span class="list_term_unique">deep1</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="test_root_child2_nested1_deep2" data-original="" data-type="function" data-created="1751315282323" data-modified="1751315282323"><span class="list_term_duplicate">test_root_child2_nested1_</span><span class="list_term_unique">deep2</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="test_root_child3" data-original="" data-type="function" data-created="1751315282325" data-modified="1751315282325"><span class="list_term_duplicate">test_root_</span><span class="list_term_unique">child3</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="another_root" data-original="" data-type="function" data-created="1751315282326" data-modified="1751315282326">another_root<span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="another_root_sub1" data-original="" data-type="function" data-created="1751315282327" data-modified="1751315282327"><span class="list_term_duplicate">another_root_</span><span class="list_term_unique">sub1</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="another_root_sub2" data-original="" data-type="function" data-created="1751315282328" data-modified="1751315282328"><span class="list_term_duplicate">another_root_</span><span class="list_term_unique">sub2</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="another_root_sub2_nested" data-original="" data-type="function" data-created="1751315282329" data-modified="1751315282329"><span class="list_term_duplicate">another_root_sub2_</span><span class="list_term_unique">nested</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="file_operations" data-original="" data-type="function" data-created="1751315282331" data-modified="1751315282331">file_operations<span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="file_operations_read" data-original="" data-type="function" data-created="1751315282332" data-modified="1751315282332"><span class="list_term_duplicate">file_operations_</span><span class="list_term_unique">read</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="file_operations_read_sync" data-original="" data-type="function" data-created="1751315282333" data-modified="1751315282333"><span class="list_term_duplicate">file_operations_read_</span><span class="list_term_unique">sync</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="file_operations_read_async" data-original="" data-type="function" data-created="1751315282333" data-modified="1751315282333"><span class="list_term_duplicate">file_operations_read_</span><span class="list_term_unique">async</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="file_operations_write" data-original="" data-type="function" data-created="1751315282334" data-modified="1751315282334"><span class="list_term_duplicate">file_operations_</span><span class="list_term_unique">write</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="file_operations_write_sync" data-original="" data-type="function" data-created="1751315282335" data-modified="1751315282335"><span class="list_term_duplicate">file_operations_write_</span><span class="list_term_unique">sync</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="file_operations_write_async" data-original="" data-type="function" data-created="1751315282336" data-modified="1751315282336"><span class="list_term_duplicate">file_operations_write_</span><span class="list_term_unique">async</span><span style="color: var(--gray);">()</span></li>
+        <li data-fulltext="file_operations_delete" data-original="" data-type="function" data-created="1751315282337" data-modified="1751315282337"><span class="list_term_duplicate">file_operations_</span><span class="list_term_unique">delete</span><span style="color: var(--gray);">()</span></li>
     </ul>
     
     <div id="location_content" style="display: none;">
@@ -807,10 +812,10 @@
         window.FILE_NAME = 'test_hierarchy';
         window.LAST_MODIFIED = 1751315280478.8025;
     </script>
-    <script src="/js/shared_client.js"></script>
-    <script src="/js/nav_client.js"></script>
+    <script src="/js/utl_shared_client.js"></script>
+    <script src="/js/utl_nav_client.js"></script>
     <script src="/js/simple_filters.js"></script>
-    <script src="/js/time_filter_client.js"></script>
+    <script src="/js/utl_time_filter_client.js"></script>
     <script src="/js/list_client.js"></script>
 </body>
 </html>

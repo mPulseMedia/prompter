@@ -6018,5 +6018,137 @@
   "function_calls": {
     "created": 1751336939546,
     "modified": 1751336939546
+  },
+  "big_term_duplicate": {
+    "created": 1751338824259,
+    "modified": 1751338824259
+  },
+  "color_constants.js": {
+    "created": 1751339361431,
+    "modified": 1751339361431
+  },
+  "big_apply_duplicate_styling": {
+    "created": 1751340953862,
+    "modified": 1751340953862
+  },
+  "big_duplicate_update": {
+    "created": 1751340953865,
+    "modified": 1751340953865
+  },
+  "big_extract_text_content": {
+    "created": 1751340953866,
+    "modified": 1751340953866
+  },
+  "big_function_def_name": {
+    "created": 1751341561730,
+    "modified": 1751341561730
+  },
+  "big_scan.js": {
+    "created": 1751342633635,
+    "modified": 1751342633635
+  },
+  "filter_core.js": {
+    "created": 1751342633639,
+    "modified": 1751342633639
+  },
+  "list_data_process": {
+    "created": 1751342863923,
+    "modified": 1751342863923
+  },
+  "list_hierarchy_build": {
+    "created": 1751342863926,
+    "modified": 1751342863926
+  },
+  "list_logic.js": {
+    "created": 1751342863926,
+    "modified": 1751342863926
+  },
+  "outline_logic.js": {
+    "created": 1751342863927,
+    "modified": 1751342863927
+  },
+  "tree_data_build": {
+    "created": 1751342863928,
+    "modified": 1751342863928
+  },
+  "tree_logic.js": {
+    "created": 1751342863928,
+    "modified": 1751342863928
+  },
+  "tree_relationships_analyze": {
+    "created": 1751342863929,
+    "modified": 1751342863929
+  },
+  "utl_color_constants.js": {
+    "created": 1751343101019,
+    "modified": 1751343101019
+  },
+  "utl_filter_core.js": {
+    "created": 1751343101022,
+    "modified": 1751343101022
+  },
+  "utl_nav_client.js": {
+    "created": 1751343101022,
+    "modified": 1751343101022
+  },
+  "utl_persistence_manager.js": {
+    "created": 1751343101023,
+    "modified": 1751343101023
+  },
+  "utl_shared_client.js": {
+    "created": 1751343101024,
+    "modified": 1751343101024
+  },
+  "utl_time_filter_client.js": {
+    "created": 1751343101024,
+    "modified": 1751343101024
+  },
+  "utl_timestamp_manager.js": {
+    "created": 1751343101025,
+    "modified": 1751343101025
+  },
+  "dependency_mapper.js": {
+    "created": 1751343430704,
+    "modified": 1751343430704
+  },
+  "dependency_scan": {
+    "created": 1751343430707,
+    "modified": 1751343430707
+  },
+  "execute_updates": {
+    "created": 1751343430708,
+    "modified": 1751343430708
+  },
+  "find_references_to": {
+    "created": 1751343430709,
+    "modified": 1751343430709
+  },
+  "generate_update_plan": {
+    "created": 1751343430709,
+    "modified": 1751343430709
+  },
+  "safe_rename": {
+    "created": 1751343430710,
+    "modified": 1751343430710
+  },
+  "safe_rename.js": {
+    "created": 1751343460711,
+    "modified": 1751343460711
+  },
+  "func_name": {
+    "created": 1751344268767,
+    "modified": 1751344268767
+  },
+  "version_name_generate": {
+    "created": 1751344268770,
+    "modified": 1751344268770
+  },
+  "version_current_with_name": {
+    "created": 1751344568314,
+    "modified": 1751344568314
+  },
+  "reload_indicator": {
+    "created": 1751344815711,
+    "modified": 1751344815711
   }
 }

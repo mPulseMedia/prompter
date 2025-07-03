@@ -1,4 +1,5 @@
 // Template for generating tree HTML page
+const { CSS_VARIABLES } = require('./utl_color_constants');
 
 /**
  * Generate HTML for tree page showing function relationships
@@ -13,21 +14,7 @@ function tree_html_generate(div_elements, config_key, modification_time, version
 <html>
 <head>
 <style>
-    :root {
-        --bg:          #1e1e1e;
-        --text:        #ffffff;
-        --gray:        #6e7681;
-        --gray-dark:   #4e5561;
-        --hover:       #2d2d2d;
-        --edit-border: #007AFF;
-        --green:       #2ea043;
-        
-        /* Cursor.ai syntax colors */
-        --function-yellow: #dcdcaa;
-        --file-blue:       #9cdcfe;
-        --css-pink:        #ce9178;
-        --comment-gray:    #8a8a8a;
-    }
+${CSS_VARIABLES}
     
     body {
         background-color: var(--bg);
@@ -252,8 +239,8 @@ function tree_html_generate(div_elements, config_key, modification_time, version
         window.FILE_NAME = '${config_key}';
         window.LAST_MODIFIED = ${modification_time};
     </script>
-    <script src="/js/shared_client.js"></script>
-    <script src="/js/nav_client.js"></script>
+    <script src="/js/utl_shared_client.js"></script>
+    <script src="/js/utl_nav_client.js"></script>
     <script src="/js/tree_client.js"></script>
 </body>
 </html>`;

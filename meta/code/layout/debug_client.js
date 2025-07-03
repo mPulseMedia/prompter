@@ -53,7 +53,7 @@ function debug_ui_init() {
         controlDiv.style.cssText = `
             margin: 10px 0;
             padding: 10px;
-            background: #1e1e1e;
+            background: var(--bg);
             border-radius: 4px;
             display: flex;
             align-items: center;
@@ -188,7 +188,7 @@ function debug_ui_init() {
     instructions.style.cssText = `
         margin-top: 20px;
         padding: 15px;
-        background: #1e1e1e;
+        background: var(--bg);
         border-radius: 4px;
         color: #888;
         font-size: 12px;
@@ -208,7 +208,7 @@ function debug_ui_init() {
     logContainer.id = 'debug_log_viewer';
     logContainer.style.cssText = `
         flex: 1;
-        background: #1e1e1e;
+        background: var(--bg);
         border-radius: 8px;
         display: flex;
         flex-direction: column;
@@ -238,7 +238,7 @@ function debug_ui_init() {
     filterSelect.id = 'log_filter_select';
     filterSelect.style.cssText = `
         padding: 5px 10px;
-        background: #1e1e1e;
+        background: var(--bg);
         color: #fff;
         border: 1px solid #3e3e3e;
         border-radius: 4px;

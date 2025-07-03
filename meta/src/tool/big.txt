@@ -1,6 +1,6 @@
 Big - Function and File Hierarchy
 
-This page shows all JavaScript functions across the entire codebase, organized by folder and file structure.
+This page shows all JavaScript functions across the entire codebase, organized by folder and file structure with real-time updates.
 
 Features:
 - Displays folders with blue names and gray slashes (folder/)

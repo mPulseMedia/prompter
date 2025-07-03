@@ -7,8 +7,8 @@ const { list_html_generate } = require('../layout/list_template');
 const { outline_html_generate } = require('../layout/outline_template');
 const { tree_html_generate } = require('../layout/tree_template');
 const { big_html_generate } = require('../layout/big_template');
-const { timestamp_get_or_create, timestamp_update_modified } = require('../layout/timestamp_manager');
-const { version_current, version_initialize, version_increment } = require('./version_manager');
+const { timestamp_get_or_create, timestamp_update_modified } = require('../layout/utl_timestamp_manager');
+const { version_current, version_current_with_name, version_initialize, version_increment } = require('./version_manager');
 
 
 const storage_file_config = {};
@@ -55,7 +55,7 @@ function reload_auto_activate() {
     sync_message_broadcast({
         type: 'auto_reload_activated',
         expires_at: reload_mode_auto.expires_at,
-        interval: 60000 // Reload every 60 seconds
+        interval: 10000 // Reload every 10 seconds
     });
     
     // Set timeout to deactivate after 1 hour
@@ -405,7 +405,7 @@ function sync_html_build(config_key) {
                 }
                 
                 // Apply gray style to text if it has a reference
-                const textStyle = hasReference ? ' style="color: #6e7681;"' : '';
+                const textStyle = hasReference ? ' style="color: var(--gray);"' : '';
                 
                 // Set data-collapsed and data-repeated attributes
                 const collapsedAttr = isRepeatedFunction ? 'true' : defaultCollapsed;
@@ -419,7 +419,7 @@ function sync_html_build(config_key) {
                 // No outline number, just regular text
                 // Check if this is the YOU ARE HERE line
                 const isYouAreHere = content_after_tabs.includes('YOU ARE HERE');
-                const textStyle = isYouAreHere ? ' style="color: #2ea043; font-weight: bold;"' : '';
+                const textStyle = isYouAreHere ? ' style="color: var(--green); font-weight: bold;"' : '';
                 return `        <div style="margin-left: ${margin_left}px" class="list_edit_text" data-indent="${tab_count}"${textStyle}>${content_after_tabs}</div>`;
             }
         })
@@ -430,7 +430,8 @@ function sync_html_build(config_key) {
     } else if (config_key === 'big') {
         // Special handling for big page - function hierarchy viewer
         const content = lines.join('\n');
-        html_content = big_html_generate(content, config.txt_path, reload_modification_get[config_key]);
+        const version_info = version_current_with_name();
+        html_content = big_html_generate(content, config.txt_path, reload_modification_get[config_key], version_info.full_display);
     } else if (formatType === 'index' || config_key === 'index' || config_key.startsWith('index_')) {
         // Generate li elements for each line with gray coloring for duplicates
         let previousTerm = '';
@@ -514,7 +515,7 @@ function sync_html_build(config_key) {
                 // Check if it's a comment entry (starts with __)
                 if (currentTerm.startsWith('__')) {
                     // It's a comment - add # indicator
-                    typeIndicator = '<span style="color: #6e7681;">#</span>';
+                    typeIndicator = '<span style="color: var(--gray);">#</span>';
                     dataType = 'comment';
                     // For comments, show the full text including the description
                     displayContent = currentTerm;
@@ -532,7 +533,7 @@ function sync_html_build(config_key) {
                     
                     if (css_class_name_is(currentTerm)) {
                         // It's a CSS class - add > indicator
-                        typeIndicator = '<span style="color: #6e7681;">></span>';
+                        typeIndicator = '<span style="color: var(--gray);">></span>';
                         displayContent += typeIndicator;
                         dataType = 'css';
                     } else {
@@ -548,7 +549,7 @@ function sync_html_build(config_key) {
                     
                     if (isFolder && !hasExtension) {
                         // It's a folder - add gray slash
-                        typeIndicator = '<span style="color: #6e7681;">/</span>';
+                        typeIndicator = '<span style="color: var(--gray);">/</span>';
                         displayContent += typeIndicator;
                         dataType = 'folder';
                     } else if (hasExtension) {
@@ -568,16 +569,16 @@ function sync_html_build(config_key) {
                                 if (uniqueDotIndex > 0) {
                                     const uniqueBase = uniquePart.substring(0, uniqueDotIndex);
                                     const uniqueExt = uniquePart.substring(uniqueDotIndex);
-                                    return `<span class="list_term_unique">${uniqueBase}</span><span style="color: #6e7681;">${uniqueExt}</span>`;
+                                    return `<span class="list_term_unique">${uniqueBase}</span><span style="color: var(--gray);">${uniqueExt}</span>`;
                                 }
                                 return match;
                             });
                         } else {
-                            displayContent = baseName + `<span style="color: #6e7681;">${extension}</span>`;
+                            displayContent = baseName + `<span style="color: var(--gray);">${extension}</span>`;
                         }
                     } else {
                         // It's a function - add gray parentheses
-                        typeIndicator = '<span style="color: #6e7681;">()</span>';
+                        typeIndicator = '<span style="color: var(--gray);">()</span>';
                         displayContent += typeIndicator;
                         dataType = 'function';
                     }
@@ -683,6 +684,10 @@ function sync_txt_save(file_name, line_number, new_text) {
         sync_in_progress = true;
         fs.writeFileSync(config.txt_path, lines.join('\n'));
         console.log(`Successfully synced to ${config.txt_path}`);
+        
+        // Increment version after successful sync
+        const new_version = version_increment('patch', `Updated ${file_name}`, file_name, new_text);
+        console.log(`Version incremented to ${new_version} after sync`);
         
         // Reset flag after a short delay to ensure file watcher sees it
         setTimeout(() => {

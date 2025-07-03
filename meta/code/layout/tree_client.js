@@ -251,6 +251,7 @@ function tree_called_by_display(called_by) {
     });
 }
 
+
 // Navigate to another function
 function tree_function_navigate(functionName) {
     const select = document.getElementById('tree_function_select');

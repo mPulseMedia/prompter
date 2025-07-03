@@ -1,6 +1,6 @@
 Server running on port 3002
 WebSocket server running on ws://localhost:3002
-Version system initialized: v1.1.0
+Version system initialized: v01.01.04
 Watching prompt_foundation txt file
 Processing functions_file:
   Format type: outline
@@ -19,16 +19,45 @@ Watching prompt txt file
 Watching test_hierarchy txt file
 Watching tree txt file
 Watching web txt file
-Requested JS file: shared_client.js
+Requested JS file: utl_shared_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_shared_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js
+Requested JS file: utl_nav_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_nav_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js
+Requested JS file: outline_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/outline_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js
+Requested JS file: big_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
+New WebSocket client connected
+New WebSocket client connected
+WebSocket client disconnected. Remaining: 1
+WebSocket client disconnected. Remaining: 0
+Requested JS file: utl_shared_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_shared_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js
+Requested JS file: utl_nav_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_nav_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js
+Requested JS file: outline_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/outline_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js
 Requested JS file: big_client.js
 Checking paths for JS file:
   Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
@@ -37,37 +66,42 @@ Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/
 New WebSocket client connected
 New WebSocket client connected
 Auto-updating index...
-File changed: index, new timestamp: 1751336639504
-Auto-reload mode activated until 11:23:59 PM
+File changed: index, new timestamp: 1751347742858
+Auto-reload mode activated until 2:29:02 AM
 Broadcasting to 2 clients: {
   type: 'auto_reload_activated',
-  expires_at: 1751340239506,
-  interval: 60000
+  expires_at: 1751351342859,
+  interval: 10000
 }
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336639504 }
+Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751347742858 }
 Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
+Index stats: Extracted 352 index entries:
 Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336639507
-Auto-reload mode activated until 11:23:59 PM
+File changed: index, new timestamp: 1751347742860
+Auto-reload mode activated until 2:29:02 AM
 Broadcasting to 2 clients: {
   type: 'auto_reload_activated',
-  expires_at: 1751340239508,
-  interval: 60000
+  expires_at: 1751351342861,
+  interval: 10000
 }
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336639507 }
+Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751347742860 }
 WebSocket client disconnected. Remaining: 1
 WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
+Requested JS file: utl_shared_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_shared_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js
+Requested JS file: utl_nav_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_nav_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js
+Requested JS file: outline_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/outline_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js
 Requested JS file: big_client.js
 Checking paths for JS file:
   Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
@@ -75,26 +109,31 @@ Checking paths for JS file:
 Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
 New WebSocket client connected
 New WebSocket client connected
-File changed: index, new timestamp: 1751336640730
-Auto-reload mode activated until 11:24:00 PM
+File changed: index, new timestamp: 1751347744020
+Auto-reload mode activated until 2:29:04 AM
 Broadcasting to 2 clients: {
   type: 'auto_reload_activated',
-  expires_at: 1751340240733,
-  interval: 60000
+  expires_at: 1751351344022,
+  interval: 10000
 }
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336640730 }
+Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751347744020 }
 WebSocket client disconnected. Remaining: 1
 WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
+Requested JS file: utl_shared_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_shared_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js
+Requested JS file: utl_nav_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_nav_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js
+Requested JS file: outline_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/outline_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js
 Requested JS file: big_client.js
 Checking paths for JS file:
   Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
@@ -102,26 +141,31 @@ Checking paths for JS file:
 Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
 New WebSocket client connected
 New WebSocket client connected
-File changed: index, new timestamp: 1751336641449
-Auto-reload mode activated until 11:24:01 PM
+File changed: index, new timestamp: 1751347745929
+Auto-reload mode activated until 2:29:05 AM
 Broadcasting to 2 clients: {
   type: 'auto_reload_activated',
-  expires_at: 1751340241451,
-  interval: 60000
+  expires_at: 1751351345931,
+  interval: 10000
 }
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336641449 }
+Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751347745929 }
 WebSocket client disconnected. Remaining: 1
 WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
+Requested JS file: utl_shared_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_shared_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js
+Requested JS file: utl_nav_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_nav_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js
+Requested JS file: outline_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/outline_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js
 Requested JS file: big_client.js
 Checking paths for JS file:
   Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
@@ -129,26 +173,31 @@ Checking paths for JS file:
 Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
 New WebSocket client connected
 New WebSocket client connected
-File changed: index, new timestamp: 1751336643442
-Auto-reload mode activated until 11:24:03 PM
+File changed: index, new timestamp: 1751347747302
+Auto-reload mode activated until 2:29:07 AM
 Broadcasting to 2 clients: {
   type: 'auto_reload_activated',
-  expires_at: 1751340243447,
-  interval: 60000
+  expires_at: 1751351347305,
+  interval: 10000
 }
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336643442 }
+Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751347747302 }
 WebSocket client disconnected. Remaining: 1
 WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
+Requested JS file: utl_shared_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_shared_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js
+Requested JS file: utl_nav_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_nav_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js
+Requested JS file: outline_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/outline_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js
 Requested JS file: big_client.js
 Checking paths for JS file:
   Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
@@ -156,38 +205,39 @@ Checking paths for JS file:
 Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
 New WebSocket client connected
 New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336669518
-Auto-reload mode activated until 11:24:29 PM
+File changed: big, new timestamp: 1751347765766
+Auto-reload mode activated until 2:29:25 AM
 Broadcasting to 2 clients: {
   type: 'auto_reload_activated',
-  expires_at: 1751340269519,
-  interval: 60000
+  expires_at: 1751351365782,
+  interval: 10000
 }
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336669518 }
-Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336669521
-Auto-reload mode activated until 11:24:29 PM
+Broadcasting to 2 clients: { type: 'file_changed', file: 'big', timestamp: 1751347765766 }
+File changed: index, new timestamp: 1751347765783
+Auto-reload mode activated until 2:29:25 AM
 Broadcasting to 2 clients: {
   type: 'auto_reload_activated',
-  expires_at: 1751340269521,
-  interval: 60000
+  expires_at: 1751351365783,
+  interval: 10000
 }
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336669521 }
+Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751347765783 }
 WebSocket client disconnected. Remaining: 1
 WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
+Requested JS file: utl_shared_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_shared_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js
+Requested JS file: utl_nav_client.js
 Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_nav_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js
+Requested JS file: outline_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/outline_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js
 Requested JS file: big_client.js
 Checking paths for JS file:
   Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
@@ -195,1212 +245,39 @@ Checking paths for JS file:
 Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
 New WebSocket client connected
 New WebSocket client connected
-File changed: index, new timestamp: 1751336671058
-Auto-reload mode activated until 11:24:31 PM
+File changed: big, new timestamp: 1751347766647
+Auto-reload mode activated until 2:29:26 AM
 Broadcasting to 2 clients: {
   type: 'auto_reload_activated',
-  expires_at: 1751340271062,
-  interval: 60000
+  expires_at: 1751351366661,
+  interval: 10000
 }
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336671058 }
+Broadcasting to 2 clients: { type: 'file_changed', file: 'big', timestamp: 1751347766647 }
+File changed: index, new timestamp: 1751347766662
+Auto-reload mode activated until 2:29:26 AM
+Broadcasting to 2 clients: {
+  type: 'auto_reload_activated',
+  expires_at: 1751351366663,
+  interval: 10000
+}
+Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751347766662 }
 WebSocket client disconnected. Remaining: 1
 WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336671596
-Auto-reload mode activated until 11:24:31 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340271598,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336671596 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336673809
-Auto-reload mode activated until 11:24:33 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340273812,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336673809 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336699523
-Auto-reload mode activated until 11:24:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340299524,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336699523 }
-Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336699525
-Auto-reload mode activated until 11:24:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340299526,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336699525 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336700824
-Auto-reload mode activated until 11:25:00 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340300827,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336700824 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336701477
-Auto-reload mode activated until 11:25:01 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340301479,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336701477 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336703475
-Auto-reload mode activated until 11:25:03 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340303479,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336703475 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336729511
-Auto-reload mode activated until 11:25:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340329512,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336729511 }
-Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336729513
-Auto-reload mode activated until 11:25:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340329514,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336729513 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336731058
-Auto-reload mode activated until 11:25:31 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340331061,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336731058 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336731811
-Auto-reload mode activated until 11:25:31 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340331813,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336731811 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336733806
-Auto-reload mode activated until 11:25:33 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340333810,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336733806 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336759526
-Auto-reload mode activated until 11:25:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340359527,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336759526 }
-Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336759528
-Auto-reload mode activated until 11:25:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340359529,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336759528 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336760818
-Auto-reload mode activated until 11:26:00 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340360819,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336760818 }
-File changed: index, new timestamp: 1751336761309
-Auto-reload mode activated until 11:26:01 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340361311,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336761309 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336762665
-Auto-reload mode activated until 11:26:02 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340362668,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336762665 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336789526
-Auto-reload mode activated until 11:26:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340389527,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336789526 }
-Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336789528
-Auto-reload mode activated until 11:26:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340389529,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336789528 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336791073
-Auto-reload mode activated until 11:26:31 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340391077,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336791073 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336801306
-Auto-reload mode activated until 11:26:41 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340401309,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336801306 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336802859
-Auto-reload mode activated until 11:26:42 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340402863,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336802859 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336819542
-Auto-reload mode activated until 11:26:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340419543,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336819542 }
-Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336819545
-Auto-reload mode activated until 11:26:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340419545,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336819545 }
-File changed: index, new timestamp: 1751336819657
-Auto-reload mode activated until 11:26:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340419658,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336819657 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336828932
-Auto-reload mode activated until 11:27:08 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340428934,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336828932 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336830485
-Auto-reload mode activated until 11:27:10 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340430488,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336830485 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336849544
-Auto-reload mode activated until 11:27:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340449545,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336849544 }
-Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336849546
-Auto-reload mode activated until 11:27:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340449547,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336849546 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336850982
-Auto-reload mode activated until 11:27:30 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340450985,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336850982 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336852067
-Auto-reload mode activated until 11:27:32 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340452069,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336852067 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336879532
-Auto-reload mode activated until 11:27:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340479532,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336879532 }
-Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336879534
-Auto-reload mode activated until 11:27:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340479535,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336879534 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336881290
-Auto-reload mode activated until 11:28:01 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340481292,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336881290 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336884481
-Auto-reload mode activated until 11:28:04 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340484486,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336884481 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336909543
-Auto-reload mode activated until 11:28:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340509544,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336909543 }
-Index auto-update completed successfully
-Index stats: Extracted 339 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336909545
-Auto-reload mode activated until 11:28:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340509546,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336909545 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336911222
-Auto-reload mode activated until 11:28:31 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340511225,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336911222 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336939542
-Auto-reload mode activated until 11:28:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340539548,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336939542 }
-Index auto-update completed successfully
-Index stats: Extracted 342 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336939548
-Auto-reload mode activated until 11:28:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340539548,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336939548 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336944446
-Auto-reload mode activated until 11:29:04 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340544450,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336944446 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336969544
-Auto-reload mode activated until 11:29:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340569545,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336969544 }
-Index auto-update completed successfully
-Index stats: Extracted 342 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336969546
-Auto-reload mode activated until 11:29:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340569547,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336969546 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751336971277
-Auto-reload mode activated until 11:29:31 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340571279,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336971277 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751336999548
-Auto-reload mode activated until 11:29:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340599549,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336999548 }
-Index auto-update completed successfully
-Index stats: Extracted 342 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751336999551
-Auto-reload mode activated until 11:29:59 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340599551,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751336999551 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751337001554
-Auto-reload mode activated until 11:30:01 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340601557,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751337001554 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-Auto-updating index...
-File changed: index, new timestamp: 1751337029545
-Auto-reload mode activated until 11:30:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340629546,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751337029545 }
-Index auto-update completed successfully
-Index stats: Extracted 342 index entries:
-Index HTML regeneration triggered
-File changed: index, new timestamp: 1751337029548
-Auto-reload mode activated until 11:30:29 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340629548,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751337029548 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751337032400
-Auto-reload mode activated until 11:30:32 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340632401,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751337032400 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751337033474
-Auto-reload mode activated until 11:30:33 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340633476,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751337033474 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
-Requested JS file: big_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/big_client.js
-New WebSocket client connected
-New WebSocket client connected
-File changed: index, new timestamp: 1751337034467
-Auto-reload mode activated until 11:30:34 PM
-Broadcasting to 2 clients: {
-  type: 'auto_reload_activated',
-  expires_at: 1751340634470,
-  interval: 60000
-}
-Broadcasting to 2 clients: { type: 'file_changed', file: 'index', timestamp: 1751337034467 }
-WebSocket client disconnected. Remaining: 1
-WebSocket client disconnected. Remaining: 0
-Requested JS file: shared_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/shared_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/shared_client.js
-Requested JS file: nav_client.js
-Checking paths for JS file:
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/nav_client.js exists: false
-  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js exists: true
-Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/nav_client.js
+Requested JS file: utl_shared_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_shared_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_shared_client.js
+Requested JS file: utl_nav_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/utl_nav_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/utl_nav_client.js
+Requested JS file: outline_client.js
+Checking paths for JS file:
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/outline_client.js exists: false
+  Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js exists: true
+Serving JS file from: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/layout/outline_client.js
 Requested JS file: big_client.js
 Checking paths for JS file:
   Checking: /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync/big_client.js exists: false

@@ -626,7 +626,7 @@ function setupEditableRow(li, currently_editing) {
                 
                 // Add type indicators
                 if (isFolder && !hasExtension) {
-                    displayContent += '<span style="color: #6e7681;">/</span>';
+                    displayContent += '<span style="color: var(--gray);">/</span>';
                 } else if (hasExtension) {
                     const lastDotIndex = editedText.lastIndexOf('.');
                     const baseName = editedText.substring(0, lastDotIndex);
@@ -639,15 +639,15 @@ function setupEditableRow(li, currently_editing) {
                             if (uniqueDotIndex > 0) {
                                 const uniqueBase = uniquePart.substring(0, uniqueDotIndex);
                                 const uniqueExt = uniquePart.substring(uniqueDotIndex);
-                                return `<span class="list_term_unique">${uniqueBase}</span><span style="color: #6e7681;">${uniqueExt}</span>`;
+                                return `<span class="list_term_unique">${uniqueBase}</span><span style="color: var(--gray);">${uniqueExt}</span>`;
                             }
                             return match;
                         });
                     } else {
-                        displayContent = baseName + `<span style="color: #6e7681;">${extension}</span>`;
+                        displayContent = baseName + `<span style="color: var(--gray);">${extension}</span>`;
                     }
                 } else {
-                    displayContent += '<span style="color: #6e7681;">()</span>';
+                    displayContent += '<span style="color: var(--gray);">()</span>';
                 }
                 
                 newNameSpan.innerHTML = displayContent;
@@ -923,7 +923,7 @@ function list_duplicate_update() {
         
         // Rebuild display with type indicators
         if (dataType === 'folder') {
-            displayContent += '<span style="color: #6e7681;">/</span>';
+            displayContent += '<span style="color: var(--gray);">/</span>';
         } else if (dataType === 'file') {
             const lastDotIndex = currentTerm.lastIndexOf('.');
             const baseName = currentTerm.substring(0, lastDotIndex);
@@ -937,15 +937,15 @@ function list_duplicate_update() {
                     if (uniqueDotIndex > 0) {
                         const uniqueBase = uniquePart.substring(0, uniqueDotIndex);
                         const uniqueExt = uniquePart.substring(uniqueDotIndex);
-                        return `<span class="list_term_unique">${uniqueBase}</span><span style="color: #6e7681;">${uniqueExt}</span>`;
+                        return `<span class="list_term_unique">${uniqueBase}</span><span style="color: var(--gray);">${uniqueExt}</span>`;
                     }
                     return match;
                 });
             } else {
-                displayContent = baseName + `<span style="color: #6e7681;">${extension}</span>`;
+                displayContent = baseName + `<span style="color: var(--gray);">${extension}</span>`;
             }
         } else if (dataType === 'function') {
-            displayContent += '<span style="color: #6e7681;">()</span>';
+            displayContent += '<span style="color: var(--gray);">()</span>';
         }
         
         // Update the display

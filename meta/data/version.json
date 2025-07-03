@@ -1,7 +1,7 @@
 {
   "major": 1,
   "minor": 1,
-  "patch": 0,
+  "patch": 4,
   "history": [
     {
       "version": "v1.0.0",
@@ -12,11 +12,44 @@
     },
     {
       "version": "v1.1.0",
+      "name": "version_display",
       "type": "minor",
       "description": "Added version display to all pages",
       "timestamp": 1751227623351,
       "date": "6/29/2025, 1:07:03 PM"
+    },
+    {
+      "version": "v01.01.01",
+      "name": "big",
+      "type": "patch",
+      "description": "Removed numbered buttons",
+      "timestamp": 1751345175670,
+      "date": "7/1/2025, 12:46:15 AM"
+    },
+    {
+      "version": "v01.01.02",
+      "name": "is",
+      "type": "patch",
+      "description": "Updated big.txt",
+      "timestamp": 1751345516390,
+      "date": "7/1/2025, 12:51:56 AM"
+    },
+    {
+      "version": "v01.01.03",
+      "name": "reload_indicator_show",
+      "type": "patch",
+      "description": "Added reload indicator",
+      "timestamp": 1751345524321,
+      "date": "7/1/2025, 12:52:04 AM"
+    },
+    {
+      "version": "v01.01.04",
+      "name": "outline_controls",
+      "type": "patch",
+      "description": "Updated outline controls",
+      "timestamp": 1751345533532,
+      "date": "7/1/2025, 12:52:13 AM"
     }
   ],
-  "last_update": 1751227623361
+  "last_update": 1751345533541
 }

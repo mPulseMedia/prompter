@@ -1,4 +1,5 @@
 // Template for generating list HTML pages
+const { CSS_VARIABLES } = require('./utl_color_constants');
 
 /**
  * Generate HTML content for list files (00_index and similar lists)
@@ -50,21 +51,7 @@ function list_html_generate(li_elements, config_key, modification_time, version 
 <html>
 <head>
 <style>
-    :root {
-        --bg:          #1e1e1e;
-        --text:        #ffffff;
-        --gray:        #6e7681;
-        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
-        --hover:       #2d2d2d;
-        --edit-border: #007AFF;
-        --green:       #2ea043;
-        
-        /* Cursor.ai syntax colors */
-        --function-yellow: #dcdcaa;  /* Function name yellow */
-        --file-blue:       #9cdcfe;  /* Variable/file light blue */
-        --css-pink:        #ce9178;  /* String/class pinkish */
-        --comment-gray:    #8a8a8a;  /* Lighter gray for comments */
-    }
+${CSS_VARIABLES}
     
     body {
         background-color: var(--bg);
@@ -249,7 +236,7 @@ function list_html_generate(li_elements, config_key, modification_time, version 
     }
     
     /* Type indicators (extensions, slashes, parentheses) always darker gray */
-    li span[style*="color: #6e7681"] {
+    li span[style*="color: #4a4a4a"] {
         color: var(--gray) !important;
     }
     
@@ -835,10 +822,10 @@ ${li_elements}
         window.FILE_NAME = '${config_key}';
         window.LAST_MODIFIED = ${modification_time};
     </script>
-    <script src="/js/shared_client.js"></script>
-    <script src="/js/nav_client.js"></script>
+    <script src="/js/utl_shared_client.js"></script>
+    <script src="/js/utl_nav_client.js"></script>
     <script src="/js/simple_filters.js"></script>
-    <script src="/js/time_filter_client.js"></script>
+    <script src="/js/utl_time_filter_client.js"></script>
     <script src="/js/list_client.js"></script>
 </body>
 </html>`;

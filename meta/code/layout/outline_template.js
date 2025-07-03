@@ -1,4 +1,5 @@
 // Template for generating start file HTML page
+const { CSS_VARIABLES } = require('./utl_color_constants');
 
 /**
  * Generate HTML for outline format pages (start, function, web)
@@ -13,15 +14,7 @@ function outline_html_generate(div_elements, config_key, modification_time, vers
 <html>
 <head>
 <style>
-    :root {
-        --bg:          #1e1e1e;
-        --text:        #ffffff;
-        --gray:        #6e7681;
-        --gray-dark:   #4e5561;  /* Mid-level dark gray for duplicates */
-        --hover:       #2d2d2d;
-        --edit-border: #007AFF;
-        --green:       #2ea043;
-    }
+${CSS_VARIABLES}
     
     body {
         background-color: var(--bg);
@@ -196,8 +189,8 @@ ${div_elements}
         window.FILE_NAME = '${config_key}';
         window.LAST_MODIFIED = ${modification_time};
     </script>
-    <script src="/js/shared_client.js"></script>
-    <script src="/js/nav_client.js"></script>
+    <script src="/js/utl_shared_client.js"></script>
+    <script src="/js/utl_nav_client.js"></script>
     <script src="/js/outline_client.js"></script>
 </body>
 </html>`;

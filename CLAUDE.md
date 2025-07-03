@@ -2,6 +2,34 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## CRITICAL: Problem-Solving Philosophy
+
+**ALWAYS solve problems at their root cause, not with superficial workarounds**
+
+When encountering issues like:
+- Version numbers not updating
+- Server not detecting changes
+- UI not reflecting modifications
+- File watchers not triggering
+
+**DO NOT:**
+- Manually edit data files (version.json, timestamps.json, etc.)
+- Fake system behavior to appear correct
+- Apply band-aid fixes that bypass the actual system
+- Take shortcuts that will resurface the problem later
+
+**INSTEAD:**
+1. Understand WHY the system isn't working as expected
+2. Trace the root cause through the codebase
+3. Fix the actual mechanism that's broken
+4. If the system design is flawed, improve the design
+5. Test that your fix works through the proper channels
+
+Example: If version numbers aren't incrementing, understand that versions only increment when files are edited through the browser interface (which triggers sync_txt_save). The solution is NOT to manually edit version.json, but to either:
+- Use the browser interface for edits that should increment version
+- Improve the system to detect direct file edits if that's the desired behavior
+- Add a proper CLI command for version management if needed
+
 ## IMPORTANT: First Steps in New Chats
 
 When starting a new chat session with this project:
@@ -9,13 +37,13 @@ When starting a new chat session with this project:
 2. **If not running, start it**: 
    ```bash
    cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync
-   nohup node sync_server.js > server.log 2>&1 &
+   ./restart_server.sh
    ```
-3. **Check if keepalive is running**: `ps aux | grep server_keepalive`
-4. **If not running, start keepalive**:
+3. **Set up auto-restart cron** (optional, for frequent file changes):
    ```bash
-   cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync
-   nohup ./server_keepalive.sh 30 8 > /dev/null 2>&1 &
+   # Add to crontab to restart every 30 seconds
+   * * * * * cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync && ./restart_server.sh > /dev/null 2>&1
+   * * * * * sleep 30; cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync && ./restart_server.sh > /dev/null 2>&1
    ```
 
 ## Development System Overview
@@ -47,11 +75,8 @@ This is a Meta development system designed for Cursor.ai that builds web applica
 # From meta/code/sync/ directory
 node sync_server.js
 
-# Or using the shell script
-./meta/code/sync/meta.sh
-
-# With auto-restart keepalive (restarts every 30 seconds for 8 hours)
-./meta/code/sync/server_keepalive.sh 30 8
+# Or using the robust restart script (RECOMMENDED)
+./restart_server.sh
 ```
 
 ### Server Details
@@ -76,33 +101,34 @@ lsof -ti:3002 | xargs kill -9
 
 ### Server Restart Commands
 ```bash
-# Kill existing server
+# Robust restart (RECOMMENDED)
+cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync
+./restart_server.sh
+
+# Manual restart (if needed)
 lsof -ti:3002 | xargs kill -9
-
-# Restart server
-cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync && nohup node sync_server.js > server.log 2>&1 &
-
-# Check if running
+nohup node sync_server.js > server.log 2>&1 &
 lsof -i:3002
 ```
 
-### Auto-restart Server (Keepalive)
-The server should automatically restart every X seconds for Y hours to ensure it stays running and picks up changes.
+### Auto-restart Server (Cron)
+For frequent file changes, set up automatic restart via cron:
 
-**IMPORTANT**: If user reports that changes aren't showing or outline clicks aren't working:
-1. Check if files have been modified in the last 5 minutes
-2. If yes, start the keepalive script immediately
+**IMPORTANT**: If user reports that changes aren't showing or outline clicks aren't working, use cron for auto-restart:
 
 ```bash
-# Start server with auto-restart every 30 seconds for 8 hours
-cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync
-./server_keepalive.sh 30 8
+# Edit crontab
+crontab -e
 
-# Check if keepalive is running
-ps aux | grep server_keepalive
+# Add these lines to restart every 30 seconds
+* * * * * cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync && ./restart_server.sh > /dev/null 2>&1
+* * * * * sleep 30; cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync && ./restart_server.sh > /dev/null 2>&1
 
-# Stop keepalive
-pkill -f server_keepalive.sh
+# Check if cron is running
+crontab -l
+
+# Remove cron restarts
+crontab -e  # then delete the lines
 ```
 
 ## Development Workflow
@@ -152,6 +178,34 @@ pkill -f server_keepalive.sh
 - Real-time filtering and search capabilities
 - Timestamp tracking for all entries
 
+## Safe File Renaming
+
+### CRITICAL: Always Use Safe Rename Tools
+
+When renaming files or functions, NEVER rename manually as it breaks dependencies. Always use:
+
+```bash
+# Analyze what would be changed (safe to run)
+cd /Users/pauldsmith/Desktop/dev/prompter-1/meta/code/sync
+node safe_rename.js old_file.js new_file.js
+
+# Actually perform the rename and update all references
+node safe_rename.js old_file.js new_file.js --execute
+```
+
+The safe rename tool:
+1. **Scans all files** for require() statements and script src references
+2. **Shows exactly what will be updated** before making changes  
+3. **Renames the file and updates all references** atomically
+4. **Prevents broken dependencies** that cause page loading failures
+
+### Dependency Mapping
+
+To understand file relationships:
+```bash
+node -e "console.log(require('./dependency_mapper').dependency_scan())"
+```
+
 ## Development Rules
 
 Based on .cursor/rules and meta/meta_remind.txt:
@@ -159,6 +213,7 @@ Based on .cursor/rules and meta/meta_remind.txt:
 - Re-read meta/rule/ folder periodically to understand current conventions
 - Insert thought bubbles into meta/meta_note.txt when available
 - Follow established codenames from the project whenever possible
+- **ALWAYS use safe_rename.js for file/function renaming**
 
 ## Known Issues and Solutions
 

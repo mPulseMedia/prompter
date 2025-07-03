@@ -129,7 +129,7 @@ async function applyAllFilters() {
         if (item.type === 'css' && filterState.css) matchesType = true;
         if (item.type === 'comment' && filterState.comments) matchesType = true;
         
-        // Check time filter (delegated to time_filter_client.js)
+        // Check time filter (delegated to utl_time_filter_client.js)
         let matchesTime = true;
         if (item.element && item.element.classList.contains('style_time_hidden')) {
             matchesTime = false;

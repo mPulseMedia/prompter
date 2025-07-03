@@ -1,7 +1,8 @@
 const path = require('path');
-const { directory_tree_scan } = require('./big_simple');
+const { directory_tree_scan } = require('./big_scan');
+const { CSS_VARIABLES } = require('./utl_color_constants');
 
-function big_html_generate(txt_content, txt_file_path, last_modified) {
+function big_html_generate(txt_content, txt_file_path, last_modified, version = 'v1.1.0') {
     const relative_path = path.relative(process.cwd(), txt_file_path);
     const file_name = path.basename(txt_file_path, '.txt');
     
@@ -15,20 +16,11 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
 <html>
 <head>
 <style>
-    :root {
-        --bg:          #1e1e1e;
-        --text:        #ffffff;
-        --gray:        #6e7681;
-        --gray-dark:   #4e5561;
-        --hover:       #2d2d2d;
-        --edit-border: #007AFF;
-        --green:       #2ea043;
-        
-        /* Big page specific colors */
-        --folder-blue: #569cd6;
-        --file-blue:   #569cd6;
-        --function-yellow: #dcdcaa;
-        --function-green: #2ea043;
+${CSS_VARIABLES}
+    
+    /* Style for grayed out duplicate first terms */
+    .big_term_duplicate {
+        color: var(--gray);
     }
     
     body {
@@ -144,6 +136,22 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
         margin-left: auto;
         color: var(--gray);
         font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    /* Small green circle indicator for reload notifications */
+    .reload_indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: transparent;
+        transition: background-color 0.3s ease;
+    }
+    
+    .reload_indicator.active {
+        background: var(--green);
     }
     
     /* Outline line styles */
@@ -177,8 +185,8 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
         color: var(--gray);
     }
     
-    .big_function_name {
-        color: var(--function-yellow);
+    .big_function_def_name {
+        color: var(--function-def-yellow);
     }
     
     .big_function_paren {
@@ -186,7 +194,7 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
     }
     
     .big_function_call_name {
-        color: var(--function-green);
+        color: var(--function-call-orange);
     }
     
     .big_function_call_arrow {
@@ -210,11 +218,11 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
     }
     
     /* Method calls container */
-    .function_calls {
+    .method_calls {
         transition: opacity 0.2s ease;
     }
     
-    .function_calls.hidden {
+    .method_calls.hidden {
         display: none !important;
     }
     
@@ -349,6 +357,11 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
     .time_hidden {
         display: none !important;
     }
+    
+    /* Checkbox unchecked state - dark background */
+    input[type="checkbox"]:not(:checked) {
+        background-color: var(--bg) !important;
+    }
 </style>
 </head>
 <body>
@@ -361,14 +374,17 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
             <button class="button_nav" data-nav="tree" title="View Function Tree">Tree</button>
             <button class="button_nav" data-nav="debug">Debug</button>
             <button class="button_nav" data-nav="prompt" title="View Prompt">Prompt</button>
-            <div class="page_version">v1.0.0</div>
+            <div class="page_version">
+                <span class="reload_indicator" id="reload_indicator"></span>
+                ${version}
+            </div>
         </div>
         
         <div class="outline_controls">
             <button class="control_button" onclick="outline_expand_all_handle()" title="All">All</button>
-            <button class="control_button" onclick="outline_level_1_handle()" title="Level 1">1</button>
+            <!-- <button class="control_button" onclick="outline_level_1_handle()" title="Level 1">1</button>
             <button class="control_button" onclick="outline_level_2_handle()" title="Level 2">2</button>
-            <button class="control_button" onclick="outline_level_3_handle()" title="Level 3">3</button>
+            <button class="control_button" onclick="outline_level_3_handle()" title="Level 3">3</button> -->
             <button class="control_button" onclick="outline_collapse_all()" title="Collapse Level">-</button>
             <button class="control_button" onclick="outline_expand_all()" title="Expand Level">+</button>
         </div>
@@ -382,6 +398,24 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
                        autocomplete="off">
                 <button class="search_clear" id="search_clear" title="Clear search">X</button>
             </div>
+            <div style="display: flex; gap: 15px; margin-left: 20px; align-items: center;">
+                <label style="display: flex; align-items: center; gap: 6px; color: var(--function-def-yellow); cursor: pointer;">
+                    <input type="checkbox" id="toggle_functions" checked style="
+                        accent-color: var(--function-def-yellow);
+                        transform: scale(1.2);
+                        cursor: pointer;
+                    ">
+                    <span>function(</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 6px; color: var(--function-call-orange); cursor: pointer;">
+                    <input type="checkbox" id="toggle_methods" checked style="
+                        accent-color: var(--function-call-orange);
+                        transform: scale(1.2);
+                        cursor: pointer;
+                    ">
+                    <span>function--></span>
+                </label>
+            </div>
             <select class="time_filter_select" id="time_filter_select">
                 <option value="0" selected>All time</option>
                 <option value="1">1 minute</option>
@@ -391,10 +425,6 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
                 <option value="1440">1 day</option>
                 <option value="10080">1 week</option>
             </select>
-            <div style="display: flex; gap: 10px; margin-left: 20px;">
-                <button class="filter_button active" id="toggle_functions" title="Toggle functions" style="background-color: var(--function-yellow); color: var(--bg);">function(</button>
-                <button class="filter_button active" id="toggle_functions_calls" title="Toggle function calls" style="background-color: var(--function-green);">function--></button>
-            </div>
         </div>
     </div>
     
@@ -409,8 +439,9 @@ function big_html_generate(txt_content, txt_file_path, last_modified) {
         window.FILE_NAME = '${file_name}';
         window.LAST_MODIFIED = ${last_modified};
     </script>
-    <script src="/js/shared_client.js"></script>
-    <script src="/js/nav_client.js"></script>
+    <script src="/js/utl_shared_client.js"></script>
+    <script src="/js/utl_nav_client.js"></script>
+    <script src="/js/outline_client.js"></script>
     <script src="/js/big_client.js"></script>
 </body>
 </html>`;
@@ -424,7 +455,7 @@ function outline_content_generate(scan_result) {
     let outline_counter = 1;
     
     // Render the tree recursively
-    html = tree_node_render(tree, '', outline_counter, 0);
+    html = tree_node_render(tree, '', outline_counter, 0, []);
     
     return html;
 }
@@ -470,7 +501,7 @@ function folder_tree_build(files) {
     return tree;
 }
 
-function tree_node_render(node, parent_outline, counter, indent_level) {
+function tree_node_render(node, parent_outline, counter, indent_level, previousNames = []) {
     let html = '';
     let local_counter = counter;
     
@@ -482,6 +513,9 @@ function tree_node_render(node, parent_outline, counter, indent_level) {
     // Even levels (0, 2, 4...) use numbers, odd levels use letters
     const use_letters = indent_level % 2 === 1;
     
+    // Track only the immediately previous name at this level for duplicate detection
+    let previousName = null;
+    
     // Render folders
     for (let i = 0; i < sorted_folders.length; i++) {
         const folder_name = sorted_folders[i];
@@ -491,14 +525,17 @@ function tree_node_render(node, parent_outline, counter, indent_level) {
             `${local_counter}.`;
         const indent = indent_level * 60;
         
+        let displayName = folder_name;
+        previousName = folder_name;
+        
         // Folder div - default to expanded (data-collapsed="false")
         html += `<div style="margin-left: ${indent}px; display: flex;" data-indent="${indent_level}" data-collapsed="false">`;
         html += `<span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="${outline_num}">${outline_num}</span>`;
-        html += `<span class="list_edit_text"><span class="big_folder_name">${folder_name}</span><span class="big_folder_slash">/</span></span>`;
+        html += `<span class="list_edit_text"><span class="big_folder_name">${displayName}</span><span class="big_folder_slash">/</span></span>`;
         html += `</div>`;
         
         // Render folder contents recursively
-        html += tree_node_render(folder, outline_num, 1, indent_level + 1);
+        html += tree_node_render(folder, outline_num, 1, indent_level + 1, []);
         
         local_counter++;
     }
@@ -515,17 +552,22 @@ function tree_node_render(node, parent_outline, counter, indent_level) {
             [file.name.substring(0, file.name.lastIndexOf('.')), file.name.substring(file.name.lastIndexOf('.'))] :
             [file.name, ''];
         
+        let displayBasename = basename;
+        previousName = file.name;
+        
         // File div - default to expanded (data-collapsed="false")
         const modified_attr = file.modified ? ` data-modified="${Math.round(file.modified)}"` : '';
         const created_attr = file.created ? ` data-created="${Math.round(file.created)}"` : '';
         html += `<div style="margin-left: ${indent}px; display: flex;" data-indent="${indent_level}" data-collapsed="false"${modified_attr}${created_attr}>`;
         html += `<span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="${outline_num}">${outline_num}</span>`;
-        html += `<span class="list_edit_text"><span class="big_file_name">${basename}</span><span class="big_file_ext">${ext}</span></span>`;
+        html += `<span class="list_edit_text"><span class="big_file_name">${displayBasename}</span><span class="big_file_ext">${ext}</span></span>`;
         html += `</div>`;
         
         // Render functions (always use the opposite of the parent level)
         if (file.functions && file.functions.length > 0) {
             const func_use_letters = (indent_level + 1) % 2 === 1;
+            let previousFuncName = null;
+            
             for (let j = 0; j < file.functions.length; j++) {
                 const func = file.functions[j];
                 const func_outline = func_use_letters ? 
@@ -533,24 +575,31 @@ function tree_node_render(node, parent_outline, counter, indent_level) {
                     `${j + 1}.`;
                 const func_indent = (indent_level + 1) * 60;
                 
+                let displayFuncName = func.name;
+                previousFuncName = func.name;
+                
                 html += `<div class="function_line" style="margin-left: ${func_indent}px; display: flex;" data-indent="${indent_level + 1}" data-collapsed="false">`;
                 html += `<span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="${func_outline}">${func_outline}</span>`;
-                html += `<span class="list_edit_text"><span class="big_function_name">${func.name}</span><span class="big_function_paren">(</span></span>`;
+                html += `<span class="list_edit_text"><span class="big_function_def_name">${displayFuncName}</span><span class="big_function_paren">(</span></span>`;
                 html += `</div>`;
                 
                 // Render method calls if any
                 if (func.calls && func.calls.length > 0) {
                     const method_indent = (indent_level + 2) * 60;
                     const method_use_letters = (indent_level + 2) % 2 === 1;
+                    let previousMethodName = null;
                     
                     func.calls.forEach((called_func, index) => {
                         const method_outline = method_use_letters ? 
                             `${String.fromCharCode(97 + index)}.` : 
                             `${index + 1}.`;
                         
-                        html += `<div class="function_calls" style="margin-left: ${method_indent}px; display: flex;" data-indent="${indent_level + 2}">`;
+                        let displayMethodName = called_func;
+                        previousMethodName = called_func;
+                        
+                        html += `<div class="method_calls" style="margin-left: ${method_indent}px; display: flex;" data-indent="${indent_level + 2}">`;
                         html += `<span style="min-width: 30px; flex-shrink: 0; margin-right: 4px; text-align: right; color: var(--gray);">${method_outline}</span>`;
-                        html += `<span class="list_edit_text"><span class="big_function_call_name">${called_func}</span><span class="big_function_call_arrow"> -></span></span>`;
+                        html += `<span class="list_edit_text"><span class="big_function_call_name">${displayMethodName}</span><span class="big_function_call_arrow"> -></span></span>`;
                         html += `</div>`;
                     });
                 }

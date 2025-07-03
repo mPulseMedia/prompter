@@ -1,6 +1,24 @@
 // ============================================
 // OUTLINE CLIENT - EXPAND/COLLAPSE FUNCTIONALITY
 // ============================================
+//
+// CLICK BEHAVIOR:
+// - Single click: Toggle only immediate children of clicked item
+//   - If expanded: Collapse to hide direct children only  
+//   - If collapsed: Expand to show direct children only
+//
+// DOUBLE-CLICK BEHAVIOR:
+// - Double click: Recursively toggle ALL descendants
+//   - If expanded: Collapse ALL nested children at every level
+//   - If collapsed: Expand ALL nested children at every level
+//
+// VISUAL INDICATORS:
+// - "." = Expanded (showing children)
+// - ">" = Collapsed (hiding children)
+// - Single click: Green flash
+// - Double click: Blue flash
+//
+// ============================================
 
 // Global state
 const outline_state = {
@@ -17,6 +35,13 @@ const outline_storage_key = 'outline_state_' + (window.FILE_NAME || 'default');
 // ============================================
 
 function outline_state_save() {
+    // Delegate to big_client.js if it has a save function
+    if (window.page_state_save) {
+        window.page_state_save();
+        return;
+    }
+    
+    // Fallback: save our own state
     const state = {};
     const all_divs = document.querySelectorAll('div[data-indent]');
     
@@ -47,33 +72,9 @@ function outline_state_load() {
 }
 
 function outline_state_restore() {
-    // Don't restore if user is actively clicking
-    if (outline_state.is_user_action) return;
-    
-    const saved_state = outline_state_load();
-    if (!saved_state) return;
-    
-    console.log('Restoring outline state for', outline_storage_key, saved_state);
-    
-    const all_divs = document.querySelectorAll('div[data-indent]');
-    
-    all_divs.forEach((div, index) => {
-        const text = div.textContent.trim().substring(0, 50);
-        const indent = div.getAttribute('data-indent');
-        const key = `${indent}_${index}_${text}`;
-        
-        if (key in saved_state) {
-            const should_collapse = saved_state[key];
-            div.setAttribute('data-collapsed', should_collapse);
-            
-            const outline_num = div.querySelector('.outline_line_number');
-            if (outline_num) {
-                outline_display_update(outline_num, should_collapse);
-                // Always update visibility based on state
-                outline_descendants_show(div, !should_collapse);
-            }
-        }
-    });
+    // Don't restore - let big_client.js handle all state restoration
+    // This prevents conflicts between the two state management systems
+    return;
 }
 
 // ============================================
@@ -229,6 +230,7 @@ function outline_descendants_show(parent_div, show) {
     const parent_indent = outline_indent_get(parent_div);
     let sibling = parent_div.nextElementSibling;
     
+    // For single-click, only handle immediate children
     while (sibling && sibling.tagName === 'DIV') {
         const sibling_indent = outline_indent_get(sibling);
         
@@ -238,7 +240,14 @@ function outline_descendants_show(parent_div, show) {
         
         if (sibling_indent === parent_indent + 1) {
             // Direct child
-            sibling.style.display = show ? '' : 'none';
+            // Skip if filtered out by big_client.js filters
+            const is_filtered = sibling.classList.contains('hidden') || 
+                              sibling.classList.contains('search_hidden') || 
+                              sibling.classList.contains('time_hidden');
+            
+            if (!is_filtered) {
+                sibling.style.display = show ? '' : 'none';
+            }
             
             // If showing and this child is expanded, show its children too
             if (show && sibling.getAttribute('data-collapsed') !== 'true') {
@@ -263,12 +272,16 @@ function outline_double_click_handle(outline_num) {
         return; // Don't do anything for leaf nodes
     }
     
+    console.log('Double-click handling for:', parent_div.textContent.substring(0, 30));
+    
     const is_collapsed = parent_div.getAttribute('data-collapsed') === 'true';
     
     if (is_collapsed) {
+        console.log('Expanding ALL descendants');
         // If closed, expand ALL descendants recursively
         outline_expand_all(parent_div);
     } else {
+        console.log('Collapsing ALL descendants');
         // If open, collapse ALL descendants recursively
         outline_collapse_all(parent_div);
     }
@@ -284,6 +297,9 @@ function outline_double_click_handle(outline_num) {
 }
 
 function outline_expand_all(parent_div) {
+    // Mark as user action to prevent interference from state restore
+    outline_state.is_user_action = true;
+    
     // First expand the parent itself
     parent_div.setAttribute('data-collapsed', 'false');
     const parent_outline = parent_div.querySelector('.outline_line_number');
@@ -291,20 +307,38 @@ function outline_expand_all(parent_div) {
         outline_display_update(parent_outline, false);
     }
     
-    // Get all descendants and expand them
+    // Get ALL descendants and process them
     const descendants = outline_descendants_get(parent_div);
-    descendants.forEach(desc => {
-        desc.style.display = '';
-        desc.setAttribute('data-collapsed', 'false');
+    
+    descendants.forEach(descendant => {
+        // Expand this descendant
+        descendant.setAttribute('data-collapsed', 'false');
         
-        const outline = desc.querySelector('.outline_line_number');
+        const outline = descendant.querySelector('.outline_line_number');
         if (outline) {
             outline_display_update(outline, false);
         }
+        
+        // Show unless filtered
+        const is_filtered = descendant.classList.contains('hidden') || 
+                          descendant.classList.contains('search_hidden') || 
+                          descendant.classList.contains('time_hidden');
+        
+        if (!is_filtered) {
+            descendant.style.display = '';
+        }
     });
+    
+    // Clear user action flag after a delay
+    setTimeout(() => {
+        outline_state.is_user_action = false;
+    }, 100);
 }
 
 function outline_collapse_all(parent_div) {
+    // Mark as user action to prevent interference from state restore
+    outline_state.is_user_action = true;
+    
     // Collapse the parent
     parent_div.setAttribute('data-collapsed', 'true');
     const parent_outline = parent_div.querySelector('.outline_line_number');
@@ -312,17 +346,24 @@ function outline_collapse_all(parent_div) {
         outline_display_update(parent_outline, true);
     }
     
-    // Hide and collapse all descendants
+    // Get ALL descendants and hide them
     const descendants = outline_descendants_get(parent_div);
-    descendants.forEach(desc => {
-        desc.style.display = 'none';
-        desc.setAttribute('data-collapsed', 'true');
+    
+    descendants.forEach(descendant => {
+        // Hide and collapse this descendant
+        descendant.style.display = 'none';
+        descendant.setAttribute('data-collapsed', 'true');
         
-        const outline = desc.querySelector('.outline_line_number');
+        const outline = descendant.querySelector('.outline_line_number');
         if (outline) {
             outline_display_update(outline, true);
         }
     });
+    
+    // Clear user action flag after a delay
+    setTimeout(() => {
+        outline_state.is_user_action = false;
+    }, 100);
 }
 
 // ============================================
@@ -409,25 +450,26 @@ function outline_init() {
         return false;
     }
     
-    // FIRST: Apply initial state (all expanded by default)
-    const all_divs = document.querySelectorAll('div[data-indent]');
-    all_divs.forEach(div => {
-        const collapsed = div.getAttribute('data-collapsed') === 'true';
-        if (collapsed) {
+    // Wait a bit for big_client.js to restore state first
+    setTimeout(() => {
+        // Check if big_client.js has already loaded and set collapse states
+        const all_divs = document.querySelectorAll('div[data-indent]');
+        
+        // Apply current state (whether set by big_client.js or default)
+        all_divs.forEach(div => {
+            const collapsed = div.getAttribute('data-collapsed') === 'true';
             const outline_num = div.querySelector('.outline_line_number');
             if (outline_num) {
-                outline_display_update(outline_num, true);
-                outline_descendants_show(div, false);
+                // Update the outline number display to match the collapsed state
+                outline_display_update(outline_num, collapsed);
+                
+                // If the item is collapsed, hide its descendants
+                if (collapsed) {
+                    outline_descendants_show(div, false);
+                }
             }
-        }
-    });
-    
-    // THEN: Try to restore saved state
-    const has_saved_state = outline_state_load() !== null;
-    if (has_saved_state) {
-        // Restore from localStorage - this will override the default state
-        outline_state_restore();
-    }
+        });
+    }, 100);
     
     // Bind click handlers to outline numbers
     outline_numbers.forEach((outline_num, idx) => {
@@ -456,7 +498,7 @@ function outline_init() {
         if (!is_leaf) {
             new_outline.addEventListener('mouseenter', () => {
                 new_outline.style.backgroundColor = 'rgba(110, 118, 129, 0.2)';
-                new_outline.style.color = '#ffffff';
+                new_outline.style.color = 'var(--text)';
             });
             
             new_outline.addEventListener('mouseleave', () => {
@@ -465,20 +507,31 @@ function outline_init() {
             });
         }
         
-        // Simple click handler - just toggle on click
+        // Track clicks to distinguish single from double
+        let click_timer = null;
+        let click_count = 0;
+        
         new_outline.addEventListener('click', (e) => {
             e.stopPropagation();
             e.preventDefault();
-            console.log('Click event fired on:', new_outline.textContent);
-            outline_click_handle(new_outline);
-        });
-        
-        // Separate double-click for expand/collapse all
-        new_outline.addEventListener('dblclick', (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            console.log('Double-click event fired on:', new_outline.textContent);
-            outline_double_click_handle(new_outline);
+            
+            click_count++;
+            
+            if (click_count === 1) {
+                // Wait to see if it's a double-click
+                click_timer = setTimeout(() => {
+                    // It's a single click
+                    console.log('Single click on:', new_outline.textContent);
+                    outline_click_handle(new_outline);
+                    click_count = 0;
+                }, 250); // 250ms delay to detect double-click
+            } else if (click_count === 2) {
+                // It's a double-click
+                clearTimeout(click_timer);
+                console.log('Double-click detected on:', new_outline.textContent);
+                outline_double_click_handle(new_outline);
+                click_count = 0;
+            }
         });
     });
     

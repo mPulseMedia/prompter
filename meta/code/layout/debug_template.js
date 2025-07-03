@@ -1,4 +1,5 @@
 // Template for generating debug HTML page
+const { CSS_VARIABLES } = require('./utl_color_constants');
 
 /**
  * Generate HTML content for debug page
@@ -12,21 +13,7 @@ function debug_html_generate(config_key, modification_time, version = 'v1.0.0') 
 <html>
 <head>
 <style>
-    :root {
-        --bg:          #1e1e1e;
-        --text:        #ffffff;
-        --gray:        #6e7681;
-        --gray-dark:   #4e5561;
-        --hover:       #2d2d2d;
-        --edit-border: #007AFF;
-        --green:       #2ea043;
-        
-        /* Cursor.ai syntax colors */
-        --function-yellow: #dcdcaa;
-        --file-blue:       #9cdcfe;
-        --css-pink:        #ce9178;
-        --comment-gray:    #8a8a8a;
-    }
+${CSS_VARIABLES}
     
     body {
         background-color: var(--bg);
@@ -117,8 +104,8 @@ function debug_html_generate(config_key, modification_time, version = 'v1.0.0') 
         window.FILE_NAME = '${config_key}';
         window.LAST_MODIFIED = ${modification_time};
     </script>
-    <script src="/js/shared_client.js"></script>
-    <script src="/js/nav_client.js"></script>
+    <script src="/js/utl_shared_client.js"></script>
+    <script src="/js/utl_nav_client.js"></script>
     <script src="/js/debug_client.js"></script>
 </body>
 </html>`;

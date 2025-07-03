@@ -6,35 +6,58 @@
     function init() {
         console.log('Big page initializing...');
         
-        // Set up functions filter button
+        // Set up functions filter checkbox
         const toggle_functions = document.getElementById('toggle_functions');
         if (toggle_functions) {
             // Load saved state
             const show_functions = localStorage.getItem('big_show_functions') !== 'false';
+            toggle_functions.checked = show_functions;
             function_show_update(show_functions);
             
-            toggle_functions.addEventListener('click', function() {
-                const is_active = toggle_functions.classList.contains('active');
-                const new_state = !is_active;
+            toggle_functions.addEventListener('change', function() {
+                const new_state = toggle_functions.checked;
                 
-                toggle_functions.classList.toggle('active');
+                // If turning off functions, also turn off methods
+                if (!new_state) {
+                    const toggle_methods = document.getElementById('toggle_methods');
+                    if (toggle_methods && toggle_methods.checked) {
+                        toggle_methods.checked = false;
+                        method_show_update(false);
+                        localStorage.setItem('big_show_methods', false);
+                    }
+                }
+                
                 function_show_update(new_state);
                 localStorage.setItem('big_show_functions', new_state);
             });
         }
         
-        // Set up methods filter button
+        // Set up methods filter checkbox
         const toggle_methods = document.getElementById('toggle_methods');
         if (toggle_methods) {
             // Load saved state
             const show_methods = localStorage.getItem('big_show_methods') !== 'false';
+            toggle_methods.checked = show_methods;
             method_show_update(show_methods);
             
-            toggle_methods.addEventListener('click', function() {
-                const is_active = toggle_methods.classList.contains('active');
-                const new_state = !is_active;
+            toggle_methods.addEventListener('change', function() {
+                const new_state = toggle_methods.checked;
                 
-                toggle_methods.classList.toggle('active');
+                // If trying to turn on methods, ensure functions are on first
+                if (new_state) {
+                    const toggle_functions = document.getElementById('toggle_functions');
+                    const functions_active = toggle_functions && toggle_functions.checked;
+                    
+                    if (!functions_active) {
+                        // Turn on functions first
+                        if (toggle_functions) {
+                            toggle_functions.checked = true;
+                            function_show_update(true);
+                            localStorage.setItem('big_show_functions', true);
+                        }
+                    }
+                }
+                
                 method_show_update(new_state);
                 localStorage.setItem('big_show_methods', new_state);
             });
@@ -54,57 +77,8 @@
         }
         setInterval(debounced_save, 2000);
         
-        // Add global click handler for all outline numbers
-        document.addEventListener('click', function(e) {
-            // Check if clicked element is an outline number
-            if (e.target.classList.contains('outline_line_number')) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                console.log('Clicked outline number:', e.target.textContent);
-                
-                const parent_div = e.target.parentElement;
-                if (!parent_div) return;
-                
-                // Check if has children
-                const current_indent = parseInt(parent_div.getAttribute('data-indent') || '0');
-                let next_sibling = parent_div.nextElementSibling;
-                let has_children = false;
-                
-                if (next_sibling && next_sibling.getAttribute('data-indent')) {
-                    const next_indent = parseInt(next_sibling.getAttribute('data-indent'));
-                    has_children = next_indent > current_indent;
-                }
-                
-                if (!has_children) {
-                    console.log('No children, skipping');
-                    return;
-                }
-                
-                // Toggle collapsed state
-                const is_collapsed = parent_div.getAttribute('data-collapsed') === 'true';
-                const new_collapsed = !is_collapsed;
-                
-                console.log('Toggling:', parent_div.textContent.substring(0, 30), 'from', is_collapsed, 'to', new_collapsed);
-                
-                parent_div.setAttribute('data-collapsed', new_collapsed);
-                
-                // Update display
-                const outline_num = e.target;
-                const original = outline_num.getAttribute('data-original') || outline_num.textContent;
-                if (new_collapsed) {
-                    outline_num.textContent = original.replace('.', '>');
-                } else {
-                    outline_num.textContent = original;
-                }
-                
-                // Show/hide children
-                descendant_toggle(parent_div, !new_collapsed);
-                
-                // Save state immediately
-                state_all_save();
-            }
-        });
+        // Remove the global click handler - let outline_client.js handle it
+        // The outline_client.js script will manage all outline number clicks including double-click detection
         
         // Set up search functionality
         const search_input = document.getElementById('search_input');
@@ -142,6 +116,9 @@
         
         // Load saved states on init
         state_all_load();
+        
+        // Apply initial duplicate detection
+        big_duplicate_update();
         
         // Set up time filter
         const time_filter_select = document.getElementById('time_filter_select');
@@ -328,6 +305,9 @@
                 toggle_button.classList.remove('active');
             }
         }
+        
+        // Update duplicate detection after function visibility changes
+        big_duplicate_update();
     }
     
     function method_show_update(show) {
@@ -335,8 +315,10 @@
         method_calls.forEach(method => {
             if (show) {
                 method.classList.remove('hidden');
+                method.style.display = 'flex';
             } else {
                 method.classList.add('hidden');
+                method.style.display = 'none';
             }
         });
         
@@ -348,6 +330,9 @@
                 toggle_button.classList.remove('active');
             }
         }
+        
+        // Update duplicate detection after method visibility changes
+        big_duplicate_update();
     }
     
     function search_big_apply(search_term) {
@@ -412,6 +397,9 @@
                 descendant_toggle(div, true);
             }
         });
+        
+        // Update duplicate detection after search
+        big_duplicate_update();
     }
     
     function search_big_clear() {
@@ -451,6 +439,122 @@
                 });
             } catch (e) {
                 console.error('Failed to restore collapse states:', e);
+            }
+        }
+        
+        // Update duplicate detection after clearing search
+        big_duplicate_update();
+    }
+    
+    function big_duplicate_update() {
+        // Clear existing duplicate styling
+        const all_duplicates = document.querySelectorAll('.big_term_duplicate');
+        all_duplicates.forEach(span => {
+            const parent = span.parentNode;
+            if (parent) {
+                parent.innerHTML = parent.textContent; // Remove HTML tags
+            }
+        });
+        
+        // Get all visible div elements with data-indent
+        const all_divs = document.querySelectorAll('div[data-indent]');
+        const visible_divs = Array.from(all_divs).filter(div => {
+            return div.style.display !== 'none' && 
+                   !div.classList.contains('search_hidden') && 
+                   !div.classList.contains('time_hidden') &&
+                   !div.classList.contains('hidden'); // Also filter out elements hidden by function/method toggles
+        });
+        
+        // Track terms we've seen to ensure only subsequent instances get grayed
+        const seen_terms = new Map(); // term -> first occurrence index
+        
+        // Apply duplicate detection to adjacent visible items at the same level
+        for (let i = 1; i < visible_divs.length; i++) {
+            const current_div = visible_divs[i];
+            const prev_div = visible_divs[i - 1];
+            
+            // Get indent levels to check if they're at the same hierarchical level
+            const current_indent = parseInt(current_div.getAttribute('data-indent') || '0');
+            const prev_indent = parseInt(prev_div.getAttribute('data-indent') || '0');
+            
+            // Only apply duplicate detection if items are at the same indent level
+            if (current_indent === prev_indent) {
+                const current_text = big_extract_text_content(current_div);
+                const prev_text = big_extract_text_content(prev_div);
+                
+                if (current_text && prev_text) {
+                    big_apply_duplicate_styling(current_div, current_text, prev_text);
+                }
+            }
+        }
+    }
+    
+    function big_extract_text_content(div) {
+        // Extract the main text content (folder name, file name, function name, etc.)
+        const text_span = div.querySelector('.list_edit_text');
+        if (!text_span) return null;
+        
+        // Get text from different types of elements
+        const folder_name = text_span.querySelector('.big_folder_name');
+        const file_name = text_span.querySelector('.big_file_name');
+        const function_def_name = text_span.querySelector('.big_function_def_name');
+        const function_call_name = text_span.querySelector('.big_function_call_name');
+        
+        if (folder_name) return folder_name.textContent;
+        if (file_name) return file_name.textContent;
+        if (function_def_name) return function_def_name.textContent;
+        if (function_call_name) return function_call_name.textContent;
+        
+        return null;
+    }
+    
+    function big_apply_duplicate_styling(current_div, current_text, prev_text) {
+        const delimiters = /[_\-\.\s]+/;
+        const current_parts = current_text.split(delimiters);
+        const prev_parts = prev_text.split(delimiters);
+        
+        // Find how many consecutive terms match from the beginning
+        let matching_terms = 0;
+        const min_length = Math.min(current_parts.length, prev_parts.length);
+        
+        for (let i = 0; i < min_length; i++) {
+            if (current_parts[i] === prev_parts[i]) {
+                matching_terms++;
+            } else {
+                break;
+            }
+        }
+        
+        // Only apply styling if we have matches and there are remaining unique parts
+        if (matching_terms > 0 && matching_terms < current_parts.length) {
+            // Find the character position where unique part starts
+            let duplicate_end_pos = 0;
+            for (let i = 0; i < matching_terms; i++) {
+                duplicate_end_pos += current_parts[i].length;
+                // Add delimiter length if not the last matching term
+                if (i < matching_terms - 1 || matching_terms < current_parts.length) {
+                    const remaining_text = current_text.substring(duplicate_end_pos);
+                    const delim_match = remaining_text.match(/^[_\-\.\s]+/);
+                    if (delim_match) {
+                        duplicate_end_pos += delim_match[0].length;
+                    }
+                }
+            }
+            
+            const duplicate_part = current_text.substring(0, duplicate_end_pos);
+            const unique_part = current_text.substring(duplicate_end_pos);
+            
+            // Apply styling to the appropriate element
+            const text_span = current_div.querySelector('.list_edit_text');
+            if (text_span) {
+                const target_element = text_span.querySelector('.big_folder_name') ||
+                                     text_span.querySelector('.big_file_name') ||
+                                     text_span.querySelector('.big_function_def_name') ||
+                                     text_span.querySelector('.big_function_call_name');
+                
+                if (target_element) {
+                    target_element.innerHTML = `<span class="big_term_duplicate">${duplicate_part}</span>${unique_part}`;
+                }
             }
         }
     }
@@ -543,9 +647,12 @@
                 folder.classList.remove('time_hidden');
             });
         }
+        
+        // Update duplicate detection after time filter
+        big_duplicate_update();
     }
     
-    // Make save function available globally for shared_client.js to call
+    // Make save function available globally for utl_shared_client.js to call
     window.page_state_save = state_all_save;
     
     // Global functions for the control buttons
@@ -599,6 +706,9 @@
                 }
             }
         });
+        
+        // Update duplicate detection after level changes
+        big_duplicate_update();
         
         state_all_save();
     };
@@ -675,6 +785,9 @@
             }
         });
         
+        // Update duplicate detection after level changes
+        big_duplicate_update();
+        
         state_all_save();
     };
     
@@ -713,6 +826,9 @@
             }
         });
         
+        // Update duplicate detection after level changes
+        big_duplicate_update();
+        
         state_all_save();
     };
     
@@ -750,6 +866,9 @@
                 div.style.display = 'none';
             }
         });
+        
+        // Update duplicate detection after level changes
+        big_duplicate_update();
         
         state_all_save();
     };
@@ -798,6 +917,9 @@
                 descendant_toggle(div, false);
             });
         }
+        
+        // Update duplicate detection after expand/collapse all
+        big_duplicate_update();
         
         state_all_save();
     };

@@ -369,7 +369,7 @@ function reload_auto_activation_handle(data) {
             
             location.reload();
         }
-    }, data.interval || 60000); // Default to 1 minute
+    }, data.interval || 10000); // Default to 10 seconds
     
     // Also set timeout to stop after expiration
     const timeUntilExpire = data.expires_at - Date.now();
@@ -396,69 +396,26 @@ function reload_auto_deactivation_handle() {
 
 // Show/hide auto-reload notification
 function reload_auto_notification_show(show, expiresAt = null) {
-    let notification = document.getElementById('reload_auto_notification');
+    const indicator = document.getElementById('reload_indicator');
+    if (!indicator) return;
     
-    if (show && !notification) {
-        // Create notification element
-        notification = document.createElement('div');
-        notification.id = 'reload_auto_notification';
-        notification.style.cssText = `
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: #2ea043;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-size: 14px;
-            z-index: 10000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        `;
-        
-        const expiresTime = expiresAt ? new Date(expiresAt).toLocaleTimeString() : '';
-        notification.innerHTML = `🔄 Auto-reload active until ${expiresTime}`;
-        document.body.appendChild(notification);
-    } else if (!show && notification) {
-        notification.remove();
+    if (show) {
+        indicator.classList.add('active');
+    } else {
+        indicator.classList.remove('active');
     }
 }
 
 // Show reload notification
 function reload_notification_show(message) {
-    // Remove any existing notification
-    const existing = document.getElementById('reload-notification');
-    if (existing) existing.remove();
+    const indicator = document.getElementById('reload_indicator');
+    if (!indicator) return;
     
-    // Create notification
-    const notification = document.createElement('div');
-    notification.id = 'reload-notification';
-    notification.style.cssText = `
-        position: fixed;
-        top: 120px;
-        right: 20px;
-        background: #2ea043;
-        color: white;
-        padding: 12px 16px;
-        border-radius: 6px;
-        font-size: 14px;
-        font-weight: 500;
-        z-index: 2000;
-        box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
-        transition: all 0.3s ease;
-        opacity: 0;
-        transform: translateX(20px);
-    `;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    // Animate in
+    // Flash the green circle
+    indicator.classList.add('active');
     setTimeout(() => {
-        notification.style.opacity = '1';
-        notification.style.transform = 'translateX(0)';
-    }, 10);
-    
-    return notification;
+        indicator.classList.remove('active');
+    }, 1500);
 }
 
 // Fallback to polling if WebSocket fails
