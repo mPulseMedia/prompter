@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+    :root {
+        --bg:          #1e1e1e;
+        --text:        #ffffff;
+        --gray:        #4a4a4a;
+        --gray-dark:   #4e5561;
+        --hover:       #2d2d2d;
+        --edit-border: #007AFF;
+        --green:       #2ea043;
+        
+        /* Cursor.ai syntax colors */
+        --function-def-yellow: #dcdcaa;
+        --file-blue:       #569cd6;
+        --css-pink:        #ce9178;
+        --comment-gray:    #8a8a8a;
+        
+        /* Big page specific colors */
+        --folder-blue: #569cd6;
+        --function-call-orange: #c6a05a;
+        
+        /* Data structure colors */
+        --data-struct-create-light-brown: #d2691e;
+        --data-struct-ref-dark-brown: #8b4513;
+    }
+    
+    body {
+        background-color: var(--bg);
+        color:            var(--text);
+        font-family:      "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+        font-size:        18px;
+        line-height:      1.5;
+        margin:           0;
+        padding:          0;
+        position:         relative;
+    }
+    
+    /* Fixed header area with solid background */
+    .header_area {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--bg);
+        border-bottom: 1px solid var(--hover);
+        z-index: 1000;
+        padding-bottom: 10px;
+    }
+    
+    /* Main content area - pushed down below fixed header */
+    #content {
+        padding: 20px;
+        margin-top: 140px;
+    }
+    
+    /* Page selector dropdown */
+    .page_selector {
+        margin-top: 10px;
+        margin-left: 20px;
+        padding: 12px;
+        background-color: transparent;
+    }
+    
+    .page_dropdown {
+        background-color: var(--bg);
+        color: var(--text);
+        border: 1px solid var(--gray);
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: inherit;
+        cursor: pointer;
+        min-width: 200px;
+        transition: border-color 0.2s ease;
+    }
+    
+    .page_dropdown:hover {
+        border-color: var(--edit-border);
+    }
+    
+    .page_dropdown:focus {
+        outline: none;
+        border-color: var(--edit-border);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+    }
+    
+    
+    .page_version {
+        margin-left: auto;
+        color: var(--gray);
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    /* Sequence display */
+    .sequence_container {
+        display: none;
+    }
+    
+    .sequence_container.active {
+        display: block;
+    }
+    
+    .sequence_title {
+        font-size: 20px;
+        color: var(--function-def-yellow);
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+    
+    .sequence_item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        padding: 8px;
+        transition: background-color 0.2s ease;
+    }
+    
+    .sequence_item:hover {
+        background-color: var(--hover);
+        border-radius: 4px;
+    }
+    
+    .sequence_number {
+        color: var(--gray);
+        margin-right: 16px;
+        min-width: 30px;
+        text-align: right;
+        font-size: 14px;
+    }
+    
+    .sequence_function {
+        color: var(--function-def-yellow);
+        font-weight: 500;
+    }
+    
+    .sequence_arrow {
+        color: var(--gray);
+        margin: 0 8px;
+    }
+    
+    .sequence_description {
+        color: var(--comment-gray);
+        font-size: 14px;
+        margin-left: 16px;
+    }
+    
+    /* Empty state */
+    .empty_state {
+        color: var(--gray);
+        text-align: center;
+        margin-top: 100px;
+        font-size: 16px;
+    }
+</style>
+</head>
+<body>
+    <div class="header_area">
+        
+        <div class="page_selector">
+            <select class="page_dropdown" id="page_select">
+                <option value="">Select a page...</option>
+                <option value="index">Index</option>
+                <option value="big">Big</option>
+                <option value="function">Function</option>
+                <option value="tree">Tree</option>
+                <option value="debug">Debug</option>
+                <option value="prompt">Prompt</option>
+                <option value="sequence">Sequence</option>
+            </select>
+        </div>
+    </div>
+    
+    <div id="content">
+        <div class="empty_state" id="empty_state">
+            Select a page from the dropdown to view its load sequence
+        </div>
+        
+        <div class="sequence_container" id="sequence_index"><div class="sequence_title">Index Page Load Sequence</div><div class="sequence_item"><span class="sequence_number">1.</span><span class="sequence_function">init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize page-specific functionality</span></div><div class="sequence_item"><span class="sequence_number">2.</span><span class="sequence_function">state_all_load()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Load saved UI state from localStorage</span></div><div class="sequence_item"><span class="sequence_number">3.</span><span class="sequence_function">nav_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize navigation buttons and routing</span></div><div class="sequence_item"><span class="sequence_number">4.</span><span class="sequence_function">list_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Set up list view functionality</span></div><div class="sequence_item"><span class="sequence_number">5.</span><span class="sequence_function">search_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Set up search functionality</span></div><div class="sequence_item"><span class="sequence_number">6.</span><span class="sequence_function">time_filter_init()</span><span class="sequence_description">// Initialize time-based filtering</span></div></div><div class="sequence_container" id="sequence_big"><div class="sequence_title">Big Page Load Sequence</div><div class="sequence_item"><span class="sequence_number">1.</span><span class="sequence_function">init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize page-specific functionality</span></div><div class="sequence_item"><span class="sequence_number">2.</span><span class="sequence_function">state_all_load()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Load saved UI state from localStorage</span></div><div class="sequence_item"><span class="sequence_number">3.</span><span class="sequence_function">nav_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize navigation buttons and routing</span></div><div class="sequence_item"><span class="sequence_number">4.</span><span class="sequence_function">outline_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize collapsible outline controls</span></div><div class="sequence_item"><span class="sequence_number">5.</span><span class="sequence_function">search_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Set up search functionality</span></div><div class="sequence_item"><span class="sequence_number">6.</span><span class="sequence_function">time_filter_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize time-based filtering</span></div><div class="sequence_item"><span class="sequence_number">7.</span><span class="sequence_function">big_duplicate_update()</span><span class="sequence_description">// Update duplicate term highlighting</span></div></div><div class="sequence_container" id="sequence_function"><div class="sequence_title">Function Page Load Sequence</div><div class="sequence_item"><span class="sequence_number">1.</span><span class="sequence_function">init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize page-specific functionality</span></div><div class="sequence_item"><span class="sequence_number">2.</span><span class="sequence_function">nav_init()</span><span class="sequence_description">// Initialize navigation buttons and routing</span></div></div><div class="sequence_container" id="sequence_tree"><div class="sequence_title">Tree Page Load Sequence</div><div class="sequence_item"><span class="sequence_number">1.</span><span class="sequence_function">tree_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize tree view</span></div><div class="sequence_item"><span class="sequence_number">2.</span><span class="sequence_function">nav_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize navigation buttons and routing</span></div><div class="sequence_item"><span class="sequence_number">3.</span><span class="sequence_function">tree_dropdown_setup()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Set up function selector dropdown</span></div><div class="sequence_item"><span class="sequence_number">4.</span><span class="sequence_function">tree_function_load()</span><span class="sequence_description">// Load function call hierarchy</span></div></div><div class="sequence_container" id="sequence_debug"><div class="sequence_title">Debug Page Load Sequence</div><div class="sequence_item"><span class="sequence_number">1.</span><span class="sequence_function">debug_ui_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize debug interface</span></div><div class="sequence_item"><span class="sequence_number">2.</span><span class="sequence_function">nav_init()</span><span class="sequence_description">// Initialize navigation buttons and routing</span></div></div><div class="sequence_container" id="sequence_prompt"><div class="sequence_title">Prompt Page Load Sequence</div><div class="sequence_item"><span class="sequence_number">1.</span><span class="sequence_function">init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize page-specific functionality</span></div><div class="sequence_item"><span class="sequence_number">2.</span><span class="sequence_function">state_all_load()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Load saved UI state from localStorage</span></div><div class="sequence_item"><span class="sequence_number">3.</span><span class="sequence_function">nav_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize navigation buttons and routing</span></div><div class="sequence_item"><span class="sequence_number">4.</span><span class="sequence_function">outline_init()</span><span class="sequence_description">// Initialize collapsible outline controls</span></div></div><div class="sequence_container" id="sequence_sequence"><div class="sequence_title">Sequence Page Load Sequence</div><div class="sequence_item"><span class="sequence_number">1.</span><span class="sequence_function">init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize page-specific functionality</span></div><div class="sequence_item"><span class="sequence_number">2.</span><span class="sequence_function">nav_init()</span><span class="sequence_arrow">→</span><span class="sequence_description">// Initialize navigation buttons and routing</span></div><div class="sequence_item"><span class="sequence_number">3.</span><span class="sequence_function">User Interactions (Coming Soon)</span></div></div>
+    </div>
+    
+    <script>
+        window.FILE_NAME = 'sequence';
+        window.LAST_MODIFIED = 1751564542938.4238;
+    </script>
+    <script src="/js/utl_shared_client.js"></script>
+    <script src="/js/utl_sequence_logger.js"></script>
+    <script src="/js/sequence_client.js"></script>
+</body>
+</html>

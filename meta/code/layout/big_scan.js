@@ -30,8 +30,14 @@ function directory_tree_scan(base_path) {
                         const content = fs.readFileSync(full_path, 'utf8');
                         const functions = function_extract_all(content);
                         
+                        const raw_data_structures = data_structure_extract_all(content, functions);
+                        
+                        // Consolidate data structures to avoid duplicates
+                        const consolidated_data_structures = consolidate_data_structures(raw_data_structures);
+                        
                         result.files[item_relative] = {
                             functions: functions,
+                            data_structures: consolidated_data_structures,
                             size: stat.size,
                             modified: stat.mtimeMs,
                             created: stat.ctimeMs
@@ -163,12 +169,157 @@ function function_extract_all(content) {
             }
             
             func.calls = Array.from(calls).sort();
+            func.end_line = end_line;
             functions.push(func);
         }
     }
     
     // Sort functions alphabetically by name
     return functions.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function data_structure_extract_all(content, functions) {
+    const data_structures = [];
+    const lines = content.split('\n');
+    
+    // Data structure names we're looking for (from the analysis)
+    const target_structures = [
+        'storage_file_config',
+        'reload_modification_get',
+        'reload_mode_auto',
+        'websocket_connections',
+        'version_data',
+        'timestamp_data',
+        'debug_config',
+        'filter_state',
+        'dependency_map'
+    ];
+    
+    // Helper function to find which function contains a given line
+    function find_containing_function(line_num) {
+        if (!functions || functions.length === 0) return null;
+        
+        // Find the function that contains this line
+        for (const func of functions) {
+            // Use actual function boundaries if available
+            const start = func.start_line || func.line - 1;
+            const end = func.end_line || func.line + 50;
+            
+            if (start <= line_num && line_num <= end) {
+                return func.name;
+            }
+        }
+        return null;
+    }
+    
+    lines.forEach((line, index) => {
+        // Check for data structure creation patterns
+        target_structures.forEach(struct_name => {
+            // Pattern 1: const struct_name = { or [
+            const create_pattern1 = new RegExp(`^\\s*(?:const|let|var)\\s+${struct_name}\\s*=\\s*[{\\[]`);
+            // Pattern 2: struct_name = { (assignment)
+            const create_pattern2 = new RegExp(`^\\s*${struct_name}\\s*=\\s*[{\\[]`);
+            // Pattern 3: Object property definition in storage_file_config
+            const create_pattern3 = new RegExp(`^\\s*storage_file_config\\[['"\`]\\w+['"\`]\\]\\s*=\\s*{`);
+            
+            if (create_pattern1.test(line) || create_pattern2.test(line) || create_pattern3.test(line)) {
+                const containing_function = find_containing_function(index + 1);
+                data_structures.push({
+                    name: struct_name,
+                    type: 'creation',
+                    line: index + 1,
+                    content: line.trim(),
+                    function: containing_function
+                });
+            }
+            
+            // Check for data structure references (accessing or modifying)
+            // Only count meaningful references, not just mentions
+            // Pattern 1: struct_name.property or struct_name[key]
+            const ref_pattern1 = new RegExp(`\\b${struct_name}\\s*[.\\[]`);
+            // Pattern 2: Object.keys(struct_name) or similar
+            const ref_pattern2 = new RegExp(`\\b(?:Object\\.\\w+|JSON\\.\\w+)\\s*\\(\\s*${struct_name}`);
+            // Pattern 3: function parameter or return
+            const ref_pattern3 = new RegExp(`(?:return|=>)\\s+${struct_name}\\b`);
+            // Pattern 4: Modifying the structure
+            const ref_pattern4 = new RegExp(`\\b${struct_name}\\s*=\\s*(?!\\{|\\[)`);
+            
+            if ((ref_pattern1.test(line) || ref_pattern2.test(line) || ref_pattern3.test(line) || ref_pattern4.test(line)) && 
+                !create_pattern1.test(line) && !create_pattern2.test(line) && !create_pattern3.test(line)) {
+                // Make sure it's not also a creation line and not in a comment
+                if (!line.trim().startsWith('//') && !line.trim().startsWith('*')) {
+                    const containing_function = find_containing_function(index + 1);
+                    data_structures.push({
+                        name: struct_name,
+                        type: 'reference',
+                        line: index + 1,
+                        content: line.trim(),
+                        function: containing_function
+                    });
+                }
+            }
+        });
+        
+        // Also check for version.json and timestamps.json file operations
+        // Only count as data structure reference if it's actually being read/written
+        if ((line.includes('version.json') || line.includes('VERSION_FILE')) && 
+            (line.includes('readFileSync') || line.includes('writeFileSync') || line.includes('JSON.parse') || line.includes('JSON.stringify'))) {
+            const containing_function = find_containing_function(index + 1);
+            data_structures.push({
+                name: 'version_data',
+                type: line.includes('writeFileSync') ? 'creation' : 'reference',
+                line: index + 1,
+                content: line.trim(),
+                function: containing_function
+            });
+        }
+        
+        if ((line.includes('timestamps.json') || line.includes('TIMESTAMPS_FILE')) &&
+            (line.includes('readFileSync') || line.includes('writeFileSync') || line.includes('JSON.parse') || line.includes('JSON.stringify'))) {
+            const containing_function = find_containing_function(index + 1);
+            data_structures.push({
+                name: 'timestamp_data',
+                type: line.includes('writeFileSync') ? 'creation' : 'reference',
+                line: index + 1,
+                content: line.trim(),
+                function: containing_function
+            });
+        }
+    });
+    
+    return data_structures;
+}
+
+function consolidate_data_structures(data_structures) {
+    // Group by name, type, and function to consolidate duplicates
+    const consolidated = new Map();
+    
+    data_structures.forEach(ds => {
+        // Create a key that includes name, type, and containing function
+        const key = `${ds.name}_${ds.type}_${ds.function || 'module'}`;
+        
+        if (!consolidated.has(key)) {
+            // First occurrence - keep it with its line number
+            consolidated.set(key, {
+                name: ds.name,
+                type: ds.type,
+                line: ds.line,
+                function: ds.function,
+                lines: [ds.line]  // Track all line numbers for this occurrence
+            });
+        } else {
+            // Subsequent occurrence - just add the line number
+            const existing = consolidated.get(key);
+            existing.lines.push(ds.line);
+            // Update to show the first line where it appears
+            if (ds.line < existing.line) {
+                existing.line = ds.line;
+            }
+        }
+    });
+    
+    // Convert back to array and sort by line number
+    return Array.from(consolidated.values()).sort((a, b) => a.line - b.line);
 }
 
 module.exports = { directory_tree_scan };

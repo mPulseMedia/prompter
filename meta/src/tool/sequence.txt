@@ -1,0 +1,39 @@
+1. Page Load Sequences
+   a. Index Page
+      1. init()
+      2. state_all_load()
+      3. nav_init()
+      4. list_init()
+      5. search_init()
+      6. time_filter_init()
+   b. Big Page
+      1. init()
+      2. state_all_load()
+      3. nav_init()
+      4. outline_init()
+      5. search_init()
+      6. time_filter_init()
+      7. big_duplicate_update()
+   c. Function Page
+      1. init()
+      2. nav_init()
+   d. Tree Page
+      1. tree_init()
+      2. nav_init()
+      3. tree_dropdown_setup()
+      4. tree_function_load()
+   e. Debug Page
+      1. debug_ui_init()
+      2. nav_init()
+   f. Prompt Page
+      1. init()
+      2. state_all_load()
+      3. nav_init()
+      4. outline_init()
+   g. Sequence Page
+      1. init()
+      2. nav_init()
+2. User Interactions (Coming Soon)
+   a. Button Clicks
+   b. Cron Jobs
+   c. WebSocket Events

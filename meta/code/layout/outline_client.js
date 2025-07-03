@@ -265,23 +265,28 @@ function outline_descendants_show(parent_div, show) {
 
 function outline_double_click_handle(outline_num) {
     const parent_div = outline_parent_div_get(outline_num);
-    if (!parent_div) return;
+    if (!parent_div) {
+        console.log('No parent div found');
+        return;
+    }
     
     // Check if this item has children
     if (!outline_has_children(parent_div)) {
+        console.log('No children, skipping');
         return; // Don't do anything for leaf nodes
     }
     
-    console.log('Double-click handling for:', parent_div.textContent.substring(0, 30));
+    console.log('DOUBLE-CLICK on:', parent_div.textContent.substring(0, 50));
     
     const is_collapsed = parent_div.getAttribute('data-collapsed') === 'true';
+    console.log('Current collapsed state:', is_collapsed);
     
     if (is_collapsed) {
-        console.log('Expanding ALL descendants');
+        console.log('Item is COLLAPSED - calling expand_all');
         // If closed, expand ALL descendants recursively
         outline_expand_all(parent_div);
     } else {
-        console.log('Collapsing ALL descendants');
+        console.log('Item is EXPANDED - calling collapse_all');
         // If open, collapse ALL descendants recursively
         outline_collapse_all(parent_div);
     }
@@ -297,73 +302,138 @@ function outline_double_click_handle(outline_num) {
 }
 
 function outline_expand_all(parent_div) {
-    // Mark as user action to prevent interference from state restore
-    outline_state.is_user_action = true;
+    console.log('EXPAND ALL CALLED for:', parent_div.textContent.substring(0, 50));
+    const parent_indent = outline_indent_get(parent_div);
+    console.log('Parent indent:', parent_indent);
     
-    // First expand the parent itself
+    // First expand the parent
     parent_div.setAttribute('data-collapsed', 'false');
     const parent_outline = parent_div.querySelector('.outline_line_number');
     if (parent_outline) {
-        outline_display_update(parent_outline, false);
+        const original = parent_outline.getAttribute('data-original') || parent_outline.textContent;
+        parent_outline.textContent = original.replace('>', '.');
     }
     
-    // Get ALL descendants and process them
-    const descendants = outline_descendants_get(parent_div);
+    // Count all descendants
+    let descendant_count = 0;
+    let current = parent_div.nextElementSibling;
     
-    descendants.forEach(descendant => {
-        // Expand this descendant
-        descendant.setAttribute('data-collapsed', 'false');
+    // FORCEFULLY EXPAND AND SHOW ALL DESCENDANTS - INCLUDING FUNCTIONS AND CALLS
+    while (current) {
+        if (current.tagName !== 'DIV') {
+            current = current.nextElementSibling;
+            continue;
+        }
         
-        const outline = descendant.querySelector('.outline_line_number');
+        const current_indent = outline_indent_get(current);
+        console.log('Processing:', current.textContent.substring(0, 50), 'indent:', current_indent, 'classes:', current.className);
+        
+        // If we've reached something at same or higher level, we're done
+        if (current_indent <= parent_indent) {
+            console.log('Reached parent level, stopping');
+            break;
+        }
+        
+        // THIS IS A DESCENDANT - FORCE IT OPEN REGARDLESS OF TYPE!
+        descendant_count++;
+        
+        // Set expanded state
+        current.setAttribute('data-collapsed', 'false');
+        
+        // Update its outline number to expanded state if it has one
+        const outline = current.querySelector('.outline_line_number');
         if (outline) {
-            outline_display_update(outline, false);
+            const original = outline.getAttribute('data-original') || outline.textContent;
+            outline.textContent = original.replace('>', '.');
         }
         
-        // Show unless filtered
-        const is_filtered = descendant.classList.contains('hidden') || 
-                          descendant.classList.contains('search_hidden') || 
-                          descendant.classList.contains('time_hidden');
+        // FORCE SHOW IT - check if it has special classes that need handling
+        const is_function = current.classList.contains('function_line');
+        const is_method = current.classList.contains('method_calls');
         
-        if (!is_filtered) {
-            descendant.style.display = '';
+        // Only show if not filtered by function/method toggles
+        if (is_function && current.classList.contains('hidden')) {
+            console.log('Skipping hidden function');
+        } else if (is_method && current.classList.contains('hidden')) {
+            console.log('Skipping hidden method');
+        } else {
+            // SHOW IT!
+            current.style.display = 'flex';
+            current.style.visibility = 'visible';
+            current.classList.remove('search_hidden');
+            current.classList.remove('time_hidden');
+            console.log('Showed descendant:', current.textContent.substring(0, 30));
         }
-    });
+        
+        // Move to next
+        current = current.nextElementSibling;
+    }
     
-    // Clear user action flag after a delay
-    setTimeout(() => {
-        outline_state.is_user_action = false;
-    }, 100);
+    console.log('EXPAND ALL COMPLETE - processed', descendant_count, 'descendants');
+    
+    // Save state
+    outline_state_save();
 }
 
 function outline_collapse_all(parent_div) {
-    // Mark as user action to prevent interference from state restore
-    outline_state.is_user_action = true;
+    console.log('COLLAPSE ALL CALLED for:', parent_div.textContent.substring(0, 50));
+    const parent_indent = outline_indent_get(parent_div);
+    console.log('Parent indent:', parent_indent);
     
-    // Collapse the parent
+    // First collapse the parent
     parent_div.setAttribute('data-collapsed', 'true');
     const parent_outline = parent_div.querySelector('.outline_line_number');
     if (parent_outline) {
-        outline_display_update(parent_outline, true);
+        const original = parent_outline.getAttribute('data-original') || parent_outline.textContent;
+        parent_outline.textContent = original.replace('.', '>');
     }
     
-    // Get ALL descendants and hide them
-    const descendants = outline_descendants_get(parent_div);
+    // Count all descendants
+    let descendant_count = 0;
+    let current = parent_div.nextElementSibling;
     
-    descendants.forEach(descendant => {
-        // Hide and collapse this descendant
-        descendant.style.display = 'none';
-        descendant.setAttribute('data-collapsed', 'true');
-        
-        const outline = descendant.querySelector('.outline_line_number');
-        if (outline) {
-            outline_display_update(outline, true);
+    // FORCEFULLY COLLAPSE AND HIDE ALL DESCENDANTS - INCLUDING FUNCTIONS AND CALLS
+    while (current) {
+        if (current.tagName !== 'DIV') {
+            current = current.nextElementSibling;
+            continue;
         }
-    });
+        
+        const current_indent = outline_indent_get(current);
+        console.log('Processing:', current.textContent.substring(0, 50), 'indent:', current_indent, 'classes:', current.className);
+        
+        // If we've reached something at same or higher level, we're done
+        if (current_indent <= parent_indent) {
+            console.log('Reached parent level, stopping');
+            break;
+        }
+        
+        // THIS IS A DESCENDANT - FORCE IT CLOSED REGARDLESS OF TYPE!
+        descendant_count++;
+        
+        // Set collapsed state
+        current.setAttribute('data-collapsed', 'true');
+        
+        // Update its outline number to collapsed state if it has one
+        const outline = current.querySelector('.outline_line_number');
+        if (outline) {
+            const original = outline.getAttribute('data-original') || outline.textContent;
+            outline.textContent = original.replace('.', '>');
+        }
+        
+        // FORCE HIDE IT - regardless of type
+        current.style.display = 'none';
+        current.style.visibility = 'hidden';
+        console.log('Hid descendant:', current.textContent.substring(0, 30));
+        
+        // Move to next
+        current = current.nextElementSibling;
+    }
     
-    // Clear user action flag after a delay
-    setTimeout(() => {
-        outline_state.is_user_action = false;
-    }, 100);
+    console.log('COLLAPSE ALL COMPLETE - processed', descendant_count, 'descendants');
+    
+    // Save state
+    outline_state_save();
 }
 
 // ============================================
