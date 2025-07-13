@@ -1,0 +1,79 @@
+////////////////////////////////////////////////////////////////
+
+NOTE: This file defines core naming conventions for all project identifiers.
+
+1. terminology
+    a. definitions
+        1. Define codename as unique name for a concept, object, file, folder, 
+           function, variable in the project.
+        2. Define term as one or more terms make up the codename, separated by _.
+        3. Define root as the first term in a codename.
+        4. Define root_list as the list of all roots used throughout the 
+           project.
+
+2. rule_format
+    a. style
+        1. Use snake_case.
+        2. Keep under 4 terms.
+        3. No special characters.
+        4. Use common abbreviations consistently.
+    b. root_term_reuse
+        1. Start codenames with existing root terms whenever possible.
+        2. Only introduce new root terms when creating novel object.
+    c. term_hierarchy
+        1. Structure terms from left to right as: root > sub_object > 
+           attribute > verb.
+        2. Use leftmost terms for root terms and primary objects.
+        3. Use next term for term_object_sub or sub-concept if needed.
+        4. Use next term for attribute if needed.
+        5. Use last term for verb actions needed, like get, put, set, is.
+        6. Example: circle_border_color_set (root_object_sub_attribute_verb).
+    d. rule_grammar
+        1. Use singular forms, not plural.
+        2. Use present tense, not past or future.
+        3. Never use -ing endings (gerunds) or -er.
+        4. Use base verb forms for actions.
+        5. Keep terms concise and clear.
+    
+
+3. rule_scope
+    a. application
+        1. Apply to all identifiers.
+        2. Include files, directories, functions, variables, and anything 
+           cursor.ai can name.
+        3. No exceptions allowed.
+        4. Apply to every new identifier created.
+        5. Apply to every identifier modified.
+
+4. rule_path
+    a. naming
+        1. Create codename from file path, ignoring extensions and numbers.
+        2. Use established roots to shorten path names.
+
+5. rule_application
+    a. timing
+        1. Apply codename rules before creating any identifier.
+        2. Apply codename rules before modifying any identifier.
+        3. Apply codename rules before committing any changes.
+    b. verification
+        1. Verify all identifiers follow codename rules.
+        2. Verify all variables use snake_case.
+        3. Verify all class names use snake_case.
+        4. Verify all function names use snake_case.
+        5. Verify circle-related names start with "circle".
+        6. Verify boolean variables end with "_is".
+        7. Verify circle location variables use "circle_loc" prefix.
+        8. Verify all variables use appropriate root terms for grouping.
+        9. Verify term_hierarchy follows root > object_sub > attribute > verb 
+           pattern.
+        10. Verify grammatical rules are followed (singular, present tense, 
+            no -ing).
+        11. Verify CSS class names follow codename rules and are informed by 
+            existing codenames in the index.
+    c. process_update
+        1. Update all affected files when changing codenames.
+        2. Update all references to changed codenames.
+        3. Update file_index with all codename changes.
+        4. Verify no broken references after changes.
+
+//////////////////////////////////////////////////////////////// 

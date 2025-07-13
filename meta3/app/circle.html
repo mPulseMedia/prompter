@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Hover App</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        
+        #circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: blue;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        
+        #circle.hover {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="circle"></div>
+    
+    <button id="reset-button">Reset Color</button>
+    <div id="status-message"></div>
+    
+    <script>
+        const circle = document.getElementById('circle');
+        
+        circle.addEventListener('mouseenter', function() {
+            circle.classList.add('hover');
+            logEvent('mouseenter', 'red');
+        });
+        
+        circle.addEventListener('mouseleave', function() {
+            circle.classList.remove('hover');
+            logEvent('mouseleave', 'blue');
+        });
+        
+        // Reset button functionality
+        const resetButton = document.getElementById('reset-button');
+        const statusMessage = document.getElementById('status-message');
+        
+        resetButton.addEventListener('click', function() {
+            circle.classList.remove('hover');
+            statusMessage.textContent = 'Color reset!';
+            setTimeout(() => {
+                statusMessage.textContent = '';
+            }, 2000);
+        });
+        
+        // Logging for debugging
+        function logEvent(event, color) {
+            if (window.logger) {
+                window.logger.log(event, color);
+            }
+            console.log(`Event: ${event}, Color: ${color}`);
+        }
+    </script>
+</body>
+</html>

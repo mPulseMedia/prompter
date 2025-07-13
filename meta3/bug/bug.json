@@ -1,0 +1,103 @@
+{
+  "bugs": [
+    {
+      "id": "BUG-1751928084384",
+      "title": "HTML validation errors in circle.html",
+      "description": "Invalid tag found: <blkjhody> at position 739; Missing or malformed <body> tag",
+      "severity": "high",
+      "status": "open",
+      "file_path": "/app/circle.html",
+      "error_type": "html_validation_error",
+      "reported_at": "2025-07-07T22:41:24.384Z",
+      "fixed_at": null,
+      "fix_description": null,
+      "related_bugs": [],
+      "test_cases": []
+    },
+    {
+      "id": "BUG-1751928193656",
+      "title": "HTML validation failures detected",
+      "description": "Valid <body> tag: {\"error\":\"No body tag found\"}; No invalid HTML tags: {\"invalid_tags\":[\"blkjhody\"],\"count\":1}",
+      "severity": "high",
+      "status": "open",
+      "file_path": "/app/circle.html",
+      "error_type": "html_validation_error",
+      "reported_at": "2025-07-07T22:43:13.656Z",
+      "fixed_at": null,
+      "fix_description": null,
+      "related_bugs": [],
+      "test_cases": []
+    },
+    {
+      "id": "BUG-1751928362387",
+      "title": "HTML validation failures detected",
+      "description": "Valid <body> tag: {\"error\":\"No body tag found\"}; No invalid HTML tags: {\"invalid_tags\":[\"bodasdy\"],\"count\":1}",
+      "severity": "high",
+      "status": "open",
+      "file_path": "/app/circle.html",
+      "error_type": "html_validation_error",
+      "reported_at": "2025-07-07T22:46:02.387Z",
+      "fixed_at": null,
+      "fix_description": null,
+      "related_bugs": [],
+      "test_cases": []
+    },
+    {
+      "id": "BUG-1751928363384",
+      "title": "HTML validation failures detected",
+      "description": "Valid <body> tag: {\"error\":\"No body tag found\"}; No invalid HTML tags: {\"invalid_tags\":[\"bodasdy\"],\"count\":1}",
+      "severity": "high",
+      "status": "open",
+      "file_path": "/app/circle.html",
+      "error_type": "html_validation_error",
+      "reported_at": "2025-07-07T22:46:03.384Z",
+      "fixed_at": null,
+      "fix_description": null,
+      "related_bugs": [],
+      "test_cases": []
+    },
+    {
+      "id": "BUG-1751928543030",
+      "title": "HTML validation failures detected",
+      "description": "Mouse leave event listener: {\"has_listener\":false,\"typos_found\":[\"addEasdsdfventListener\"],\"error\":\"Mouse leave listener not found correctly\"}",
+      "severity": "high",
+      "status": "open",
+      "file_path": "/app/circle.html",
+      "error_type": "html_validation_error",
+      "reported_at": "2025-07-07T22:49:03.030Z",
+      "fixed_at": null,
+      "fix_description": null,
+      "related_bugs": [],
+      "test_cases": []
+    },
+    {
+      "id": "BUG-1751928767777",
+      "title": "HTML validation failures detected",
+      "description": "Mouse leave event listener: {\"has_listener\":false,\"typos_found\":[],\"error\":\"Mouse leave listener not found correctly\"}",
+      "severity": "high",
+      "status": "open",
+      "file_path": "/app/circle.html",
+      "error_type": "html_validation_error",
+      "reported_at": "2025-07-07T22:52:47.777Z",
+      "fixed_at": null,
+      "fix_description": null,
+      "related_bugs": [],
+      "test_cases": []
+    },
+    {
+      "id": "BUG-1751928768768",
+      "title": "HTML validation failures detected",
+      "description": "Mouse leave event listener: {\"has_listener\":false,\"typos_found\":[],\"error\":\"Mouse leave listener not found correctly\"}",
+      "severity": "high",
+      "status": "open",
+      "file_path": "/app/circle.html",
+      "error_type": "html_validation_error",
+      "reported_at": "2025-07-07T22:52:48.768Z",
+      "fixed_at": null,
+      "fix_description": null,
+      "related_bugs": [],
+      "test_cases": []
+    }
+  ],
+  "fixes": {}
+}

@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "total": 2,
+  "failed": 0,
+  "timestamp": "2025-07-08T03:17:11.334Z",
+  "results": [
+    {
+      "id": "circle_1751944626662",
+      "name": "circle",
+      "passed": true,
+      "message": "circle_hover_pass"
+    },
+    {
+      "id": "reset_1751944630243",
+      "name": "reset",
+      "passed": true,
+      "message": "reset_button_pass"
+    }
+  ]
+}

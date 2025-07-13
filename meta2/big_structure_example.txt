@@ -1,0 +1,86 @@
+BIG PAGE STRUCTURE EXAMPLE
+==========================
+
+The Big page displays a hierarchical view of your codebase with these element types:
+
+1. FOLDERS (blue - var(--folder-blue: #569cd6))
+   Format: folder_name/
+   Example: 
+   1. meta/
+   2. app/
+   3. src/
+
+2. FILES (blue - var(--file-blue: #569cd6))
+   Format: filename.ext
+   Example:
+   a. sync_server.js
+   b. big_client.js
+   c. index.html
+
+3. FUNCTIONS (yellow - var(--function-def-yellow: #dcdcaa))
+   Format: function_name(
+   Example:
+   1. init(
+   2. directory_tree_scan(
+   3. function_extract_all(
+
+4. FUNCTION CALLS (orange - var(--function-call-orange: #c6a05a))
+   Format: function_name ->
+   Example:
+   a. state_all_load ->
+   b. nav_init ->
+   c. search_init ->
+
+5. DATA CREATION (light brown - var(--data-struct-create-light-brown: #d2691e))
+   Format: data_name {}
+   Example:
+   a. version_data {}
+   b. timestamp_data {}
+   c. debug_config {}
+
+6. DATA REFERENCES (dark brown - var(--data-struct-ref-dark-brown: #8b4513))
+   Format: data_name ->
+   Example:
+   a. version_data ->
+   b. timestamp_data ->
+   c. filter_state ->
+
+FULL HIERARCHY EXAMPLE:
+-----------------------
+1. meta/                                    [FOLDER - blue]
+   a. code/                                 [FOLDER - blue]
+      1. sync/                              [FOLDER - blue]
+         a. sync_server.js                  [FILE - blue]
+            1. init(                        [FUNCTION - yellow]
+               a. version_data {}           [DATA CREATE - light brown]
+               b. timestamp_data {}         [DATA CREATE - light brown]
+               c. file_watch_start ->       [FUNCTION CALL - orange]
+               d. version_data ->           [DATA REF - dark brown]
+            2. file_watch_start(            [FUNCTION - yellow]
+               a. directory_scan ->         [FUNCTION CALL - orange]
+               b. timestamp_data ->         [DATA REF - dark brown]
+      2. layout/                            [FOLDER - blue]
+         a. big_client.js                   [FILE - blue]
+            1. init(                        [FUNCTION - yellow]
+               a. state_all_load ->         [FUNCTION CALL - orange]
+               b. filter_state {}           [DATA CREATE - light brown]
+            2. update_display(              [FUNCTION - yellow]
+               a. function_show_update ->   [FUNCTION CALL - orange]
+               b. filter_state ->           [DATA REF - dark brown]
+
+VIEWING MODES:
+--------------
+1. Directory Mode (dir checkbox ON):
+   - Shows full hierarchy with folders and files
+   - Functions nested under their files
+   - Data structures nested under their functions
+
+2. Flat Function Mode (dir checkbox OFF, functions ON):
+   - Hides folders and files
+   - Shows all functions in a flat list
+   - Shows function calls and data structures under each function
+
+3. Data-only Mode (functions OFF, data_create/data_ref ON):
+   - Shows only functions that contain data operations
+   - Hides functions without data structures
+   - Useful for tracking data flow through the codebase

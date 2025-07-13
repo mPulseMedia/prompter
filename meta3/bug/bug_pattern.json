@@ -1,0 +1,22 @@
+{
+  "patterns": [
+    {
+      "id": "PATTERN-1751928084385",
+      "error_type": "html_validation_error",
+      "file_pattern": "circle",
+      "occurrences": 7,
+      "first_seen": "2025-07-07T22:41:24.384Z",
+      "last_seen": "2025-07-07T22:52:48.768Z",
+      "bug_ids": [
+        "BUG-1751928084384",
+        "BUG-1751928193656",
+        "BUG-1751928362387",
+        "BUG-1751928363384",
+        "BUG-1751928543030",
+        "BUG-1751928767777",
+        "BUG-1751928768768"
+      ]
+    }
+  ],
+  "prevention_rules": []
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Status</title>
+    <style>
+        body {
+            margin      : 0;
+            padding     : 20px;
+            font-family : -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background  : #f5f5f5;
+        }
+        
+        .test_status_indicator {
+            position        : fixed;
+            top             : 20px;
+            right           : 20px;
+            width           : 100px;
+            height          : 100px;
+            border-radius   : 50%;
+            display         : flex;
+            align-items     : center;
+            justify-content : center;
+            font-size       : 48px;
+            font-weight     : bold;
+            color           : white;
+            transition      : all 0.3s ease;
+            box-shadow      : 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .test_status_pass {
+            background : #4CAF50;
+        }
+        
+        .test_status_fail {
+            background : #f44336;
+            animation  : pulse 1s infinite;
+        }
+        
+        .test_status_running {
+            background : #2196F3;
+            animation  : spin 2s linear infinite;
+        }
+        
+        .test_status_waiting {
+            background : #9E9E9E;
+        }
+        
+        @keyframes pulse {
+            0%   { transform: scale(1); }
+            50%  { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .details {
+            max-width    : 800px;
+            margin       : 0 auto;
+            background   : white;
+            padding      : 20px;
+            border-radius: 8px;
+            box-shadow   : 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .test_result_item {
+            padding        : 10px;
+            margin         : 5px 0;
+            border-radius  : 4px;
+            display        : flex;
+            justify-content: space-between;
+            align-items    : center;
+        }
+        
+        .test_result_pass {
+            background : #E8F5E9;
+            color      : #2E7D32;
+        }
+        
+        .test_result_fail {
+            background : #FFEBEE;
+            color      : #C62828;
+        }
+        
+        .test_error_msg {
+            font-size  : 0.9em;
+            color      : #666;
+            margin-top : 5px;
+        }
+        
+        h1 {
+            text-align : center;
+            color      : #333;
+        }
+        
+        .test_auto_run {
+            text-align : center;
+            margin     : 20px 0;
+            color      : #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="test_status_indicator" class="test_status_indicator test_status_waiting">
+        ⏸
+    </div>
+    
+    <div class="details">
+        <h1>Automatic Test Status</h1>
+        <div class="test_auto_run">Tests run automatically when files change</div>
+        <div id="test_results"></div>
+    </div>
+    
+    <script>
+        const statusIndicator = document.getElementById('test_status_indicator');
+        const resultsDiv      = document.getElementById('test_results');
+        
+        async function checkStatus() {
+            try {
+                // Check test status
+                const statusRes = await fetch('/test/test_mech/test_result.json');
+                const status    = await statusRes.json();
+                
+                // Update indicator
+                if (status.passed) {
+                    statusIndicator.className   = 'test_status_indicator test_status_pass';
+                    statusIndicator.textContent = '✓';
+                } else {
+                    statusIndicator.className   = 'test_status_indicator test_status_fail';
+                    statusIndicator.textContent = '✗';
+                }
+                
+                // Get results from status
+                const results = status.results || [];
+                
+                // Display results
+                resultsDiv.innerHTML = `
+                    <div style="text-align: center; margin: 20px 0;">
+                        <strong>Total: ${status.total}</strong> | 
+                        <span style="color: #4CAF50">Passed: ${status.total - status.failed}</span> | 
+                        <span style="color: #f44336">Failed: ${status.failed}</span>
+                    </div>
+                    ${results.map(test => `
+                        <div class="test_result_item ${test.passed ? 'test_result_pass' : 'test_result_fail'}">
+                            <span>${test.passed ? '✓' : '✗'} ${test.name}</span>
+                            ${test.error ? `<div class="test_error_msg">${test.error}</div>` : ''}
+                        </div>
+                    `).join('')}
+                `;
+                
+            } catch (error) {
+                statusIndicator.className   = 'test_status_indicator test_status_waiting';
+                statusIndicator.textContent = '⏸';
+                resultsDiv.innerHTML        = '<p style="text-align: center; color: #666;">Waiting for tests...</p>';
+            }
+        }
+        
+        // Check status every 2 seconds
+        setInterval(checkStatus, 2000);
+        checkStatus();
+        
+        // Listen for file changes via WebSocket or polling
+        // This would trigger test runs automatically
+    </script>
+</body>
+</html>

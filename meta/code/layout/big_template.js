@@ -455,7 +455,7 @@ function outline_content_generate(scan_result) {
     let outline_counter = 1;
     
     // Render the tree recursively
-    html = tree_node_render(tree, '', outline_counter, 0, []);
+    html = tree_node_render(tree, '', outline_counter, 0, [], scan_result);
     
     return html;
 }
@@ -501,7 +501,7 @@ function folder_tree_build(files) {
     return tree;
 }
 
-function tree_node_render(node, parent_outline, counter, indent_level, previousNames = []) {
+function tree_node_render(node, parent_outline, counter, indent_level, previousNames = [], scan_result = null) {
     let html = '';
     let local_counter = counter;
     
@@ -535,7 +535,7 @@ function tree_node_render(node, parent_outline, counter, indent_level, previousN
         html += `</div>`;
         
         // Render folder contents recursively
-        html += tree_node_render(folder, outline_num, 1, indent_level + 1, []);
+        html += tree_node_render(folder, outline_num, 1, indent_level + 1, [], scan_result);
         
         local_counter++;
     }
@@ -578,7 +578,11 @@ function tree_node_render(node, parent_outline, counter, indent_level, previousN
                 let displayFuncName = func.name;
                 previousFuncName = func.name;
                 
-                html += `<div class="function_line" style="margin-left: ${func_indent}px; display: flex;" data-indent="${indent_level + 1}" data-collapsed="false">`;
+                // Add data attributes to track if function has data structures
+                const has_data_create = func.has_data_create ? ' data-has-data-create="true"' : '';
+                const has_data_ref = func.has_data_ref ? ' data-has-data-ref="true"' : '';
+                
+                html += `<div class="function_line" style="margin-left: ${func_indent}px; display: flex;" data-indent="${indent_level + 1}" data-collapsed="false"${has_data_create}${has_data_ref}>`;
                 html += `<span class="outline_line_number" style="min-width: 30px; flex-shrink: 0; cursor: pointer; user-select: none; margin-right: 4px; text-align: right;" data-original="${func_outline}">${func_outline}</span>`;
                 html += `<span class="list_edit_text"><span class="big_function_def_name">${displayFuncName}</span><span class="big_function_paren">(</span></span>`;
                 html += `</div>`;
@@ -602,6 +606,45 @@ function tree_node_render(node, parent_outline, counter, indent_level, previousN
                         html += `<span class="list_edit_text"><span class="big_function_call_name">${displayMethodName}</span><span class="big_function_call_arrow"> -></span></span>`;
                         html += `</div>`;
                     });
+                }
+                
+                // Render data structures for this function
+                if (scan_result.files[file.path] && scan_result.files[file.path].data_structures) {
+                    const func_data_structures = scan_result.files[file.path].data_structures.filter(ds => 
+                        ds.function === func.name
+                    );
+                    
+                    if (func_data_structures.length > 0) {
+                        const data_indent = (indent_level + 2) * 60;
+                        const data_use_letters = (indent_level + 2) % 2 === 1;
+                        let data_counter = 0;
+                        
+                        // Render data creation first
+                        func_data_structures.filter(ds => ds.type === 'creation').forEach(ds => {
+                            const data_outline = data_use_letters ? 
+                                `${String.fromCharCode(97 + data_counter)}.` : 
+                                `${data_counter + 1}.`;
+                            
+                            html += `<div class="data_create_line" style="margin-left: ${data_indent}px; display: flex;" data-indent="${indent_level + 2}">`;
+                            html += `<span style="min-width: 30px; flex-shrink: 0; margin-right: 4px; text-align: right; color: var(--gray);">${data_outline}</span>`;
+                            html += `<span class="list_edit_text"><span class="big_data_create">${ds.name} {}</span></span>`;
+                            html += `</div>`;
+                            data_counter++;
+                        });
+                        
+                        // Then render data references
+                        func_data_structures.filter(ds => ds.type === 'reference').forEach(ds => {
+                            const data_outline = data_use_letters ? 
+                                `${String.fromCharCode(97 + data_counter)}.` : 
+                                `${data_counter + 1}.`;
+                            
+                            html += `<div class="data_ref_line" style="margin-left: ${data_indent}px; display: flex;" data-indent="${indent_level + 2}">`;
+                            html += `<span style="min-width: 30px; flex-shrink: 0; margin-right: 4px; text-align: right; color: var(--gray);">${data_outline}</span>`;
+                            html += `<span class="list_edit_text"><span class="big_data_ref">${ds.name} -></span></span>`;
+                            html += `</div>`;
+                            data_counter++;
+                        });
+                    }
                 }
             }
         }

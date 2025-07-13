@@ -1,0 +1,47 @@
+{
+  "requirements": [
+    {
+      "id": "REQ-1751685423007",
+      "description": "Display a blue circle on the page",
+      "prompt_id": "CIRCLE-001",
+      "created_at": "2025-07-05T03:17:03.007Z",
+      "status": "pending",
+      "test_cases": [
+        "TEST-1751685423008"
+      ],
+      "implementation_files": [
+        "/app/circle.html"
+      ],
+      "verification_status": "unverified"
+    },
+    {
+      "id": "REQ-1751685423007",
+      "description": "Circle turns red on mouse hover",
+      "prompt_id": "CIRCLE-001",
+      "created_at": "2025-07-05T03:17:03.007Z",
+      "status": "pending",
+      "test_cases": [],
+      "implementation_files": [],
+      "verification_status": "unverified"
+    },
+    {
+      "id": "REQ-1751685423008",
+      "description": "Circle returns to blue when mouse leaves",
+      "prompt_id": "CIRCLE-001",
+      "created_at": "2025-07-05T03:17:03.008Z",
+      "status": "pending",
+      "test_cases": [],
+      "implementation_files": [
+        "/app/circle.html"
+      ],
+      "verification_status": "unverified"
+    }
+  ],
+  "prompts": {
+    "CIRCLE-001": [
+      "REQ-1751685423007",
+      "REQ-1751685423007",
+      "REQ-1751685423008"
+    ]
+  }
+}

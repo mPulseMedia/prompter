@@ -1,0 +1,2 @@
+Meta3 Dashboard running at http://localhost:3003
+Error: ENOENT: no such file or directory, stat '/Users/pauldsmith/Desktop/dev/prompter-1/meta3/dashboard/index.html'

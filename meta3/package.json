@@ -1,0 +1,15 @@
+{
+  "name": "meta3-scaffolding",
+  "version": "1.0.0",
+  "description": "Scaffolding and buttressing mechanisms for robust development",
+  "main": "dashboard/server.js",
+  "scripts": {
+    "start": "node dashboard/server.js",
+    "test": "node scripts/run_tests.js",
+    "generate-docs": "node scripts/generate_docs.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "puppeteer": "^21.0.0"
+  }
+}
