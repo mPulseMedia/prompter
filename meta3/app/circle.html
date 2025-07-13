@@ -39,12 +39,12 @@
         
         circle.addEventListener('mouseenter', function() {
             circle.classList.add('hover');
-            logEvent('mouseenter', 'red');
+            logEvent('mouseenter' , 'red');
         });
         
         circle.addEventListener('mouseleave', function() {
             circle.classList.remove('hover');
-            logEvent('mouseleave', 'blue');
+            logEvent('mouseleave' , 'blue');
         });
         
         // Reset button functionality
@@ -64,7 +64,7 @@
             if (window.logger) {
                 window.logger.log(event, color);
             }
-            console.log(`Event: ${event}, Color: ${color}`);
+            console.log(`Event: ${event} , Color: ${color}`);
         }
     </script>
 </body>

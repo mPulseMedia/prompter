@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta3 Dashboard - Tests & Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #c9d1d9;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Demo Section */
+        .demo-section {
+            background: #161b22;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 400px;
+        }
+        
+        .demo-section h2 {
+            color: #c9d1d9;
+            margin-bottom: 30px;
+        }
+        
+        #circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #1f6feb;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+        
+        #circle.hover {
+            background-color: #f85149;
+        }
+        
+        #reset-button {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        #reset-button:hover {
+            background: #2ea043;
+        }
+        
+        #status-message {
+            color: #3fb950;
+            font-size: 14px;
+            height: 20px;
+        }
+        
+        /* Test Results Section */
+        .test-section {
+            background: #161b22;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            padding: 30px;
+            min-height: 400px;
+        }
+        
+        .test-section h2 {
+            color: #c9d1d9;
+            margin-bottom: 20px;
+        }
+        
+        .test-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .refresh-btn, .run-tests-btn {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .refresh-btn:hover, .run-tests-btn:hover {
+            background: #2ea043;
+        }
+        
+        .run-tests-btn {
+            background: #1f6feb;
+        }
+        
+        .run-tests-btn:hover {
+            background: #388bfd;
+        }
+        
+        .summary {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-item {
+            background: #0d1117;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #30363d;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .summary-label {
+            color: #8b949e;
+            font-size: 12px;
+        }
+        
+        .summary-value {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 5px;
+            color: #c9d1d9;
+        }
+        
+        .summary-value.passed {
+            color: #3fb950;
+        }
+        
+        .summary-value.failed {
+            color: #f85149;
+        }
+        
+        .test-list {
+            background: #0d1117;
+            border-radius: 5px;
+            border: 1px solid #30363d;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .test-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #21262d;
+            font-size: 14px;
+        }
+        
+        .test-item:last-child {
+            border-bottom: none;
+        }
+        
+        .test-status {
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        .test-name {
+            font-weight: 500;
+            color: #c9d1d9;
+        }
+        
+        .test-error {
+            color: #f85149;
+            font-size: 12px;
+            margin-left: 25px;
+            margin-top: 5px;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #8b949e;
+            padding: 40px;
+        }
+        
+        .error-message {
+            background: #21262d;
+            color: #f85149;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #30363d;
+            margin-bottom: 20px;
+        }
+        
+        /* Custom scrollbar for dark mode */
+        .test-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .test-list::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+        
+        .test-list::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 4px;
+        }
+        
+        .test-list::-webkit-scrollbar-thumb:hover {
+            background: #484f58;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Meta3 Test Dashboard</h1>
+        
+        <div class="main-grid">
+            <!-- Demo Section -->
+            <div class="demo-section">
+                <h2>Interactive Demo</h2>
+                <div id="circle"></div>
+                <button id="reset-button">Reset Color</button>
+                <div id="status-message"></div>
+            </div>
+            
+            <!-- Test Results Section -->
+            <div class="test-section">
+                <h2>Test Results</h2>
+                
+                <div class="test-controls">
+                    <button class="refresh-btn" onclick="loadTests()">Refresh Results</button>
+                    <button class="run-tests-btn" onclick="runTests()">Run Tests</button>
+                </div>
+                
+                <div class="summary" id="summary" style="display: none;">
+                    <div class="summary-item">
+                        <div class="summary-label">Total</div>
+                        <div class="summary-value" id="total-tests">0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Passed</div>
+                        <div class="summary-value passed" id="passed-tests">0</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Failed</div>
+                        <div class="summary-value failed" id="failed-tests">0</div>
+                    </div>
+                </div>
+                
+                <div class="test-list" id="test-list">
+                    <div class="loading">Loading tests...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Circle demo functionality
+        const circle = document.getElementById('circle');
+        const resetButton = document.getElementById('reset-button');
+        const statusMessage = document.getElementById('status-message');
+        
+        circle.addEventListener('mouseenter', function() {
+            // circle.classList.add('hover');
+            logEvent('mouseenter', 'red');
+        });
+        
+        circle.addEventListener('mouseleave', function() {
+            circle.classList.remove('hover');
+            logEvent('mouseleave', 'blue');
+        });
+        
+        resetButton.addEventListener('click', function() {
+            circle.classList.remove('hover');
+            statusMessage.textContent = 'Color reset!';
+            setTimeout(() => {
+                statusMessage.textContent = '';
+            }, 2000);
+        });
+        
+        function logEvent(event, color) {
+            if (window.logger) {
+                window.logger.log(event, color);
+            }
+            console.log(`Event: ${event}, Color: ${color}`);
+        }
+        
+        // Test results functionality
+        async function loadTests() {
+            const testList = document.getElementById('test-list');
+            const summary = document.getElementById('summary');
+            
+            testList.innerHTML = '<div class="loading">Loading tests...</div>';
+            summary.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/test');
+                const tests = await response.json();
+                
+                if (!tests || tests.length === 0) {
+                    testList.innerHTML = '<div class="error-message">No test results found. Click "Run Tests" to execute tests.</div>';
+                    return;
+                }
+                
+                // Sort tests by name
+                tests.sort((a, b) => a.name.localeCompare(b.name));
+                
+                // Update summary
+                const totalTests = tests.length;
+                const passedTests = tests.filter(t => t.passed).length;
+                const failedTests = totalTests - passedTests;
+                
+                document.getElementById('total-tests').textContent = totalTests;
+                document.getElementById('passed-tests').textContent = passedTests;
+                document.getElementById('failed-tests').textContent = failedTests;
+                summary.style.display = 'flex';
+                
+                // Display tests
+                testList.innerHTML = tests.map(test => {
+                    const status = test.passed ? '🟢' : '🔴';
+                    let html = `
+                        <div class="test-item">
+                            <span class="test-name">${test.name}_test</span>
+                            <span class="test-status">${status}</span>
+                        </div>
+                    `;
+                    
+                    if (!test.passed && test.error) {
+                        html += `<div class="test-error">${test.error}</div>`;
+                    }
+                    
+                    return html;
+                }).join('');
+                
+            } catch (error) {
+                testList.innerHTML = `<div class="error-message">Error loading tests: ${error.message}</div>`;
+            }
+        }
+        
+        async function runTests() {
+            const testList = document.getElementById('test-list');
+            testList.innerHTML = '<div class="loading">Running tests... This may take a few seconds.</div>';
+            
+            try {
+                const response = await fetch('/api/run-tests', { method: 'POST' });
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Reload test results after running
+                    setTimeout(loadTests, 1000);
+                } else {
+                    testList.innerHTML = `<div class="error-message">Error running tests: ${result.error || 'Unknown error'}</div>`;
+                }
+            } catch (error) {
+                testList.innerHTML = `<div class="error-message">Error running tests: ${error.message}</div>`;
+            }
+        }
+        
+        // Load tests on page load
+        loadTests();
+        
+        // Auto-refresh every 5 seconds
+        setInterval(loadTests, 5000);
+    </script>
+</body>
+</html>

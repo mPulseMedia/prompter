@@ -1,0 +1,37 @@
+{
+  "last_edited_files": [
+    {
+      "path": "/Users/pauldsmith/Desktop/dev/prompter-1/test_hierarchy.html",
+      "description": "Test hierarchy page with horizontal split layout - test names at bottom",
+      "key_features": [
+        "Horizontal split with flexbox",
+        "Main content area on top",
+        "Test names panel at bottom (200px height)",
+        "Smooth scrolling navigation",
+        "Active test highlighting"
+      ],
+      "last_modified": "2025-07-13",
+      "important_markers": [
+        "test_names_panel",
+        "Testing Hierarchical Click Events",
+        "scrollToTest"
+      ]
+    }
+  ],
+  "current_context": {
+    "task": "Modified test_hierarchy.html to have horizontal split with test names at bottom",
+    "user_request": "Split the web page horizontally with scrolling test names on the bottom",
+    "completion_status": "completed"
+  },
+  "protection_rules": {
+    "always_verify_before_edit": true,
+    "check_file_markers": true,
+    "confirm_file_path_matches_content": true
+  },
+  "common_mistakes_to_avoid": [
+    "Editing the wrong file when multiple files have similar names",
+    "Not verifying file content before making changes",
+    "Assuming file location without checking",
+    "Not reading enough of the file to understand its purpose"
+  ]
+}

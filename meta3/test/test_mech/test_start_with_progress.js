@@ -1,6 +1,7 @@
 const puppeteer            = require('puppeteer');
 const fs                   = require('fs');
 const path                 = require('path');
+const http                 = require('http');
 const test_mouse_cursor = require('./test_mouse_cursor');
 
 // Import feature tests
@@ -28,6 +29,33 @@ const feature_list = [
     { name: 'reset_button_message', func: reset_click_message_test },
     { name: 'test_results_refresh', func: test_results_update_test }
 ];
+
+// Function to update test status on server
+function updateTestStatus(testName, status) {
+    const data = JSON.stringify({ testName, status });
+    
+    const options = {
+        hostname: 'localhost',
+        port: 3003,
+        path: '/api/test/progress',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+        }
+    };
+    
+    const req = http.request(options, (res) => {
+        // Ignore response
+    });
+    
+    req.on('error', (e) => {
+        console.error(`Problem with request: ${e.message}`);
+    });
+    
+    req.write(data);
+    req.end();
+}
 
 async function test_start() {
     // Check for headless argument
@@ -77,7 +105,15 @@ async function test_start() {
             }
             
             console.log(`test_execute: ${feature.name}`);
+            
+            // Update status to running
+            updateTestStatus(feature.name, 'running');
+            
             const result = await feature.func(page);
+            
+            // Update status to completed
+            updateTestStatus(feature.name, result.passed ? 'passed' : 'failed');
+            
             results.push({ 
                 id   : `${feature.name}_${Date.now()}`,
                 name : feature.name,
@@ -96,6 +132,9 @@ async function test_start() {
     } catch (error) {
         console.error('test_error_fatal:', error);
     } finally {
+        // Clear test status
+        updateTestStatus('', 'completed');
+        
         // Keep browser open for 1 second so you can see the results
         console.log('\ntest_browser_wait: 1_second');
         await new Promise(resolve => setTimeout(resolve, 1000));

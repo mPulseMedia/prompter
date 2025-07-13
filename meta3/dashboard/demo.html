@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta3 Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        
+        /* Main content area - top section */
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            background: #0d1117;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+        
+        #circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #1f6feb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 40px;
+        }
+        
+        #circle.expanded {
+            width: 250px;
+            height: 250px;
+        }
+        
+        #circle:hover {
+            background-color: #f85149;
+        }
+        
+        #reset-button {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: background-color 0.2s;
+        }
+        
+        #reset-button:hover {
+            background: #2ea043;
+        }
+        
+        #double-click-button {
+            background: #6e40c9;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: all 0.1s ease;
+            user-select: none;
+        }
+        
+        #double-click-button:hover {
+            background: #8956ff;
+        }
+        
+        #double-click-button.clicked {
+            background: #f85149;
+            transform: scale(1.1);
+        }
+        
+        #reload-button {
+            background: #0969da;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        
+        #reload-button:hover {
+            background: #0860ca;
+        }
+        
+        #run-tests-button {
+            background: #2ea043;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        
+        #run-tests-button:hover {
+            background: #238636;
+        }
+        
+        #run-tests-button:disabled {
+            background: #6e7681;
+            cursor: not-allowed;
+        }
+        
+        #status-message {
+            color: #3fb950;
+            font-size: 16px;
+            height: 24px;
+            font-weight: 500;
+        }
+        
+        /* Bottom panel container */
+        .test-names-bottom {
+            height: 200px;
+            background: #161b22;
+            border-top: 2px solid #30363d;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        /* Left column for controls */
+        .controls-column {
+            width: 300px;
+            padding: 20px;
+            border-right: 1px solid #30363d;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            font-size: 14px;
+        }
+        
+        .controls-column button {
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        .controls-column label {
+            color: #c9d1d9;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .controls-column input[type="checkbox"] {
+            cursor: pointer;
+        }
+        
+        .controls-column #status-message {
+            font-size: 14px;
+        }
+        
+        /* Test results column */
+        .test-results-column {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+        
+        .test-names-scroll {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-flow: column;
+            grid-template-rows: repeat(4, auto);
+            gap: 2px 20px;
+        }
+        
+        .test-name {
+            color: #c9d1d9;
+            flex: 1;
+        }
+        
+        .loading {
+            color: #8b949e;
+            font-size: 14px;
+        }
+        
+        .error-message {
+            color: #f85149;
+            font-size: 14px;
+        }
+        
+        /* Bottom panel test items */
+        .test-name-item {
+            padding: 4px 10px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            gap: 8px;
+        }
+        
+        .test-name-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .test-status-icon {
+            font-size: 11px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main content area - Circle Demo Only -->
+    <div class="main-content">
+        <div>
+            <div id="circle"></div>
+            <button id="reset-button">Reset Color</button>
+            <button id="double-click-button">Double Click Me!</button>
+        </div>
+    </div>
+    
+    <!-- Bottom Panel -->
+    <div class="test-names-bottom">
+        <!-- Left Column - Controls -->
+        <div class="controls-column">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button id="reload-button">Reload Page</button>
+                <label style="display: flex; align-items: center; gap: 4px;">
+                    <input type="checkbox" id="auto-reload-checkbox">
+                    Every 20s
+                </label>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <button id="run-tests-button">Run Tests</button>
+                <label style="display: flex; align-items: center; gap: 4px;">
+                    <input type="checkbox" id="auto-test-checkbox">
+                    Every 60s
+                </label>
+            </div>
+            <div>
+                <label style="display: flex; align-items: center; gap: 4px;">
+                    <input type="checkbox" id="test-visibility-checkbox" checked>
+                    <span id="test-visibility-label">Test shown</span>
+                </label>
+            </div>
+            <div id="status-message"></div>
+        </div>
+        
+        <!-- Test Results Column -->
+        <div class="test-results-column">
+            <div class="test-names-scroll" id="test-list">
+                <div class="loading">Loading test names...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // CRITICAL: Declare these variables FIRST before any other code
+        const isDashboardWindow = !window.location.search.includes('test-mode');
+        const storagePrefix = isDashboardWindow ? '' : 'test_';
+        console.log('Window type:', isDashboardWindow ? 'dashboard' : 'test', 'Storage prefix:', '"' + storagePrefix + '"');
+        
+        // Now initialize other variables and functionality
+        const circle = document.getElementById('circle');
+        const resetButton = document.getElementById('reset-button');
+        const statusMessage = document.getElementById('status-message');
+        
+        // Store color scheme state
+        let isHovering = false;
+        let currentColorScheme = 0;
+        
+        // Define color schemes: [normal, hover]
+        const colorSchemes = [
+            ['#1f6feb', '#f85149'], // Original: blue -> red
+            ['#2ea043', '#fd7e14'], // Green -> orange  
+            ['#6e40c9', '#e74c3c'], // Purple -> red
+            ['#0969da', '#28a745'], // Dark blue -> green
+            ['#dc3545', '#6f42c1']  // Red -> purple
+        ];
+        
+        function updateCircleColors() {
+            const [normalColor, hoverColor] = colorSchemes[currentColorScheme];
+            circle.style.backgroundColor = isHovering ? hoverColor : normalColor;
+        }
+        
+        circle.addEventListener('mouseenter', function() {
+            isHovering = true;
+            updateCircleColors();
+            console.log('Circle hover: entered');
+        });
+        
+        circle.addEventListener('mouseleave', function() {
+            isHovering = false;
+            updateCircleColors();
+            console.log('Circle hover: left');
+        });
+        
+        circle.addEventListener('click', function() {
+            circle.classList.toggle('expanded');
+            console.log('Circle clicked: ' + (circle.classList.contains('expanded') ? 'expanded' : 'normal'));
+        });
+        
+        resetButton.addEventListener('click', function() {
+            // Cycle to next color scheme
+            currentColorScheme = (currentColorScheme + 1) % colorSchemes.length;
+            
+            // Reset state
+            isHovering = false;
+            circle.classList.remove('expanded');
+            
+            // Apply new colors
+            updateCircleColors();
+            
+            const [normalColor, hoverColor] = colorSchemes[currentColorScheme];
+            statusMessage.textContent = `Colors changed! Scheme ${currentColorScheme + 1}`;
+            console.log(`Reset: switched to color scheme ${currentColorScheme + 1}`);
+            
+            setTimeout(() => {
+                statusMessage.textContent = '';
+            }, 2000);
+        });
+        
+        // Double-click button functionality
+        const doubleClickButton = document.getElementById('double-click-button');
+        let clickCount = 0;
+        let singleClickTimer = null;
+        
+        // Add single click feedback for better responsiveness
+        doubleClickButton.addEventListener('click', function() {
+            // Briefly flash the button to show click registered
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 100);
+        });
+        
+        doubleClickButton.addEventListener('dblclick', function() {
+            clickCount++;
+            doubleClickButton.textContent = `Clicked ${clickCount} times!`;
+            doubleClickButton.classList.add('clicked');
+            console.log('Double-click detected, count:', clickCount);
+            
+            setTimeout(() => {
+                doubleClickButton.classList.remove('clicked');
+            }, 300);
+        });
+        
+        // Reload functionality
+        const reloadButton = document.getElementById('reload-button');
+        const autoReloadCheckbox = document.getElementById('auto-reload-checkbox');
+        let reloadInterval = null;
+        window.reloadInterval = null; // Expose globally for test cleanup
+        let countdownInterval = null;
+        let reloadCountdown = 20;
+        
+        reloadButton.addEventListener('click', function() {
+            console.log('Manual reload triggered');
+            location.reload();
+        });
+        
+        autoReloadCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                console.log('Auto-reload enabled');
+                // Store in localStorage so it persists after reload
+                localStorage.setItem(storagePrefix + 'autoReload', 'true');
+                startAutoReload();
+            } else {
+                console.log('Auto-reload disabled');
+                localStorage.setItem(storagePrefix + 'autoReload', 'false');
+                stopAutoReload();
+            }
+        });
+        
+        function startAutoReload() {
+            reloadCountdown = 20;
+            updateReloadButton();
+            
+            // Start countdown display
+            countdownInterval = setInterval(() => {
+                reloadCountdown--;
+                updateReloadButton();
+                if (reloadCountdown <= 0) {
+                    reloadCountdown = 20;
+                }
+            }, 1000);
+            
+            reloadInterval = setInterval(() => {
+                console.log('Auto-reload triggered');
+                location.reload();
+            }, 20000); // 20 seconds
+            window.reloadInterval = reloadInterval; // Expose globally
+        }
+        
+        function stopAutoReload() {
+            if (reloadInterval) {
+                clearInterval(reloadInterval);
+                reloadInterval = null;
+                window.reloadInterval = null;
+            }
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+            }
+            reloadButton.textContent = 'Reload Page';
+        }
+        
+        function updateReloadButton() {
+            if (autoReloadCheckbox.checked) {
+                reloadButton.textContent = `Reload Page (${reloadCountdown}s)`;
+            } else {
+                reloadButton.textContent = 'Reload Page';
+            }
+        }
+        
+        // Check if auto-reload was enabled before
+        const savedAutoReload = localStorage.getItem(storagePrefix + 'autoReload');
+        console.log('Loading autoReload:', storagePrefix + 'autoReload', '=', savedAutoReload);
+        if (savedAutoReload === 'true') {
+            autoReloadCheckbox.checked = true;
+            startAutoReload();
+        }
+        
+        // Test running functionality
+        const runTestsButton = document.getElementById('run-tests-button');
+        const autoTestCheckbox = document.getElementById('auto-test-checkbox');
+        let testInterval = null;
+        window.testInterval = null; // Expose globally for test cleanup
+        let isRunningTests = false;
+        let testCountdownInterval = null;
+        let testCountdown = 60;
+        
+        async function runTests() {
+            if (isRunningTests) return;
+            
+            isRunningTests = true;
+            runTestsButton.disabled = true;
+            runTestsButton.textContent = 'Running Tests...';
+            statusMessage.textContent = 'Running tests...';
+            
+            try {
+                const testVisible = localStorage.getItem(storagePrefix + 'testVisible') !== 'false';
+                const response = await fetch('/api/run-tests', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        headless: !testVisible
+                    })
+                });
+                
+                if (response.ok) {
+                    statusMessage.textContent = 'Tests completed!';
+                    
+                    // Record test completion time
+                    lastTestTime = new Date();
+                    localStorage.setItem(storagePrefix + 'lastTestTime', lastTestTime.toISOString());
+                    updateVisibilityLabel();
+                    
+                    // Wait a bit then reload test results
+                    setTimeout(() => {
+                        loadTests();
+                        statusMessage.textContent = '';
+                    }, 2000);
+                } else if (response.status === 409) {
+                    const data = await response.json();
+                    statusMessage.textContent = data.message || 'Tests already running';
+                } else {
+                    statusMessage.textContent = 'Failed to run tests';
+                }
+            } catch (error) {
+                console.error('Error running tests:', error);
+                statusMessage.textContent = 'Error running tests';
+            } finally {
+                isRunningTests = false;
+                runTestsButton.disabled = false;
+                runTestsButton.textContent = 'Run Tests';
+            }
+        }
+        
+        runTestsButton.addEventListener('click', runTests);
+        
+        autoTestCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                console.log('Auto-test enabled');
+                localStorage.setItem(storagePrefix + 'autoTest', 'true');
+                startAutoTest();
+            } else {
+                console.log('Auto-test disabled');
+                localStorage.setItem(storagePrefix + 'autoTest', 'false');
+                stopAutoTest();
+            }
+        });
+        
+        function startAutoTest() {
+            // Run tests immediately
+            runTests();
+            // Then run every 60 seconds with countdown
+            startTestCountdown();
+        }
+        
+        function stopAutoTest() {
+            if (testInterval) {
+                clearInterval(testInterval);
+                testInterval = null;
+                window.testInterval = null;
+            }
+            if (testCountdownInterval) {
+                clearInterval(testCountdownInterval);
+                testCountdownInterval = null;
+            }
+            runTestsButton.textContent = 'Run Tests';
+        }
+        
+        function startTestCountdown() {
+            testCountdown = 60;
+            updateTestButton();
+            
+            // Start countdown display
+            testCountdownInterval = setInterval(() => {
+                testCountdown--;
+                updateTestButton();
+                if (testCountdown <= 0) {
+                    testCountdown = 60;
+                }
+            }, 1000);
+            
+            testInterval = setInterval(() => {
+                console.log('Auto-test triggered');
+                runTests();
+            }, 60000); // 60 seconds
+            window.testInterval = testInterval; // Expose globally
+        }
+        
+        function updateTestButton() {
+            if (autoTestCheckbox.checked && !isRunningTests) {
+                runTestsButton.textContent = `Run Tests (${testCountdown}s)`;
+            } else if (!isRunningTests) {
+                runTestsButton.textContent = 'Run Tests';
+            }
+            // Don't change text while tests are running
+        }
+        
+        // Check if auto-test was enabled before
+        const savedAutoTest = localStorage.getItem(storagePrefix + 'autoTest');
+        console.log('Loading autoTest:', storagePrefix + 'autoTest', '=', savedAutoTest);
+        if (savedAutoTest === 'true') {
+            autoTestCheckbox.checked = true;
+            startAutoTest();
+        }
+        
+        // Test visibility functionality
+        const testVisibilityCheckbox = document.getElementById('test-visibility-checkbox');
+        const testVisibilityLabel = document.getElementById('test-visibility-label');
+        let lastTestTime = null;
+        
+        // Load saved test visibility preference
+        const savedVisibility = localStorage.getItem(storagePrefix + 'testVisible');
+        console.log('Loading testVisible:', storagePrefix + 'testVisible', '=', savedVisibility);
+        if (savedVisibility !== null) {
+            testVisibilityCheckbox.checked = savedVisibility === 'true';
+        }
+        
+        // Load last test time from localStorage
+        const savedLastTestTime = localStorage.getItem(storagePrefix + 'lastTestTime');
+        if (savedLastTestTime) {
+            lastTestTime = new Date(savedLastTestTime);
+        }
+        
+        function formatPacificTime(date) {
+            if (!date) return '';
+            return date.toLocaleTimeString('en-US', {
+                timeZone: 'America/Los_Angeles',
+                hour: 'numeric',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            });
+        }
+        
+        function updateVisibilityLabel() {
+            const baseText = testVisibilityCheckbox.checked ? 'Show Tests' : 'Hide Tests';
+            const timeText = lastTestTime ? ` (Last ${formatPacificTime(lastTestTime)})` : '';
+            testVisibilityLabel.textContent = baseText + timeText;
+        }
+        
+        updateVisibilityLabel();
+        
+        testVisibilityCheckbox.addEventListener('change', function() {
+            localStorage.setItem(storagePrefix + 'testVisible', this.checked.toString());
+            updateVisibilityLabel();
+            console.log('Test visibility:', this.checked ? 'shown' : 'hidden');
+        });
+        
+        // Test results functionality
+        let currentRunningTest = null;
+        
+        async function loadTests() {
+            const testList = document.getElementById('test-list');
+            
+            try {
+                // Get test results
+                const response = await fetch('/api/test');
+                const testData = await response.json();
+                const tests = testData.tests || testData; // Handle both new and old API format
+                
+                // If we don't have a lastTestTime yet, try to get it from test results
+                if (!lastTestTime && testData.timestamp) {
+                    lastTestTime = new Date(testData.timestamp);
+                    localStorage.setItem(storagePrefix + 'lastTestTime', lastTestTime.toISOString());
+                    updateVisibilityLabel();
+                }
+                
+                // Get current test status (only for dashboard windows)
+                if (isDashboardWindow) {
+                    const statusResponse = await fetch('/api/test/status');
+                    const statusData = await statusResponse.json();
+                    
+                    if (statusData.currentTest && statusData.currentTest.name) {
+                        currentRunningTest = statusData.currentTest.name;
+                    }
+                } else {
+                    currentRunningTest = null; // No test status for test windows
+                }
+                
+                if (!tests || tests.length === 0) {
+                    testList.innerHTML = '<div class="error-message">No test results</div>';
+                    return;
+                }
+                
+                // Sort tests alphabetically by name
+                tests.sort((a, b) => a.name.localeCompare(b.name));
+                
+                // Display tests in bottom panel - scrollable list
+                testList.innerHTML = tests.map((test) => {
+                    const status = test.passed ? '🟢' : '🔴';
+                    const errorInfo = test.error ? ` - ${test.error}` : '';
+                    const isRunning = currentRunningTest === test.name;
+                    
+                    return `
+                        <div class="test-name-item">
+                            <span class="test-status-icon">${isRunning ? '🟡' : status}</span>
+                            <span class="test-name">${test.name}${errorInfo}</span>
+                        </div>
+                    `;
+                }).join('');
+                
+                // If we have a pre-existing running test, add it to the list if it's not there
+                if (currentRunningTest && !tests.find(t => t.name === currentRunningTest)) {
+                    const runningTestHtml = `
+                        <div class="test-name-item">
+                            <span class="test-status-icon">🟡</span>
+                            <span class="test-name">${currentRunningTest}</span>
+                        </div>
+                    `;
+                    testList.innerHTML = runningTestHtml + testList.innerHTML;
+                }
+                
+            } catch (error) {
+                testList.innerHTML = `<div class="error-message">Error loading tests</div>`;
+            }
+        }
+        
+        // Load tests on page load
+        loadTests();
+        
+        // Auto-refresh - faster during test runs
+        let refreshInterval = 5000;
+        let refreshTimer = null;
+        
+        function startTestRefresh() {
+            if (refreshTimer) clearInterval(refreshTimer);
+            
+            refreshTimer = setInterval(async () => {
+                await loadTests();
+                
+                // Check if tests are running to adjust refresh rate (only for dashboard)
+                if (isDashboardWindow) {
+                    try {
+                        const statusResponse = await fetch('/api/test/status');
+                        const statusData = await statusResponse.json();
+                        
+                        if (statusData.isRunning && refreshInterval !== 1000) {
+                            // Speed up refresh during tests
+                            refreshInterval = 1000;
+                            startTestRefresh();
+                        } else if (!statusData.isRunning && refreshInterval !== 5000) {
+                            // Slow down when tests complete
+                            refreshInterval = 5000;
+                            startTestRefresh();
+                        }
+                    } catch (error) {
+                        console.error('Error checking test status:', error);
+                    }
+                }
+            }, refreshInterval);
+        }
+        
+        startTestRefresh();
+    </script>
+</body>
+</html>

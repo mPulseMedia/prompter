@@ -1,20 +1,68 @@
 {
   "passed": true,
-  "total": 2,
+  "total": 10,
   "failed": 0,
-  "timestamp": "2025-07-08T03:17:11.334Z",
+  "timestamp": "2025-07-13T20:59:10.862Z",
   "results": [
     {
-      "id": "circle_1751944626662",
-      "name": "circle",
+      "id": "auto_reload_checkbox_1752440289569",
+      "name": "auto_reload_checkbox",
+      "passed": true,
+      "message": "auto_reload_pass: page successfully reloaded after 20s"
+    },
+    {
+      "id": "auto_test_checkbox_1752440296332",
+      "name": "auto_test_checkbox",
+      "passed": true,
+      "message": "auto_test_checkbox_pass"
+    },
+    {
+      "id": "circle_click_diameter_1752440303947",
+      "name": "circle_click_diameter",
+      "passed": true,
+      "message": "circle_click_pass: diameter toggles correctly"
+    },
+    {
+      "id": "circle_hover_color_1752440309739",
+      "name": "circle_hover_color",
       "passed": true,
       "message": "circle_hover_pass"
     },
     {
-      "id": "reset_1751944630243",
-      "name": "reset",
+      "id": "double_click_button_1752440315485",
+      "name": "double_click_button",
       "passed": true,
-      "message": "reset_button_pass"
+      "message": "double_click_pass"
+    },
+    {
+      "id": "reload_button_manual_1752440323328",
+      "name": "reload_button_manual",
+      "passed": true,
+      "message": "page_reload_pass: manual reload button works correctly"
+    },
+    {
+      "id": "reset_button_circle_1752440331036",
+      "name": "reset_button_circle",
+      "passed": true,
+      "message": "reset_button_pass: color and diameter reset"
+    },
+    {
+      "id": "reset_button_hover_state_1752440337902",
+      "name": "reset_button_hover_state",
+      "passed": true,
+      "message": "reset_hover_state_pass"
+    },
+    {
+      "id": "reset_button_message_1752440344706",
+      "name": "reset_button_message",
+      "passed": true,
+      "message": "reset_click_message_pass"
+    },
+    {
+      "id": "test_results_refresh_1752440349808",
+      "name": "test_results_refresh",
+      "passed": true,
+      "message": "test_results_update_pass: auto-refresh working"
     }
   ]
 }

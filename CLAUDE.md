@@ -30,6 +30,24 @@ Example: If version numbers aren't incrementing, understand that versions only i
 - Improve the system to detect direct file edits if that's the desired behavior
 - Add a proper CLI command for version management if needed
 
+## CRITICAL: File Edit Protection
+
+**ALWAYS verify you're editing the correct file before making changes**
+
+Before editing any file:
+1. **Read the file first** to verify its content matches expectations
+2. **Check for content markers** that confirm it's the right file:
+   - `test_hierarchy.html` must contain "Testing Hierarchical Click Events" and "test_names_panel"
+   - `outline_client.js` must contain "OUTLINE CLIENT" and "outline_state"
+   - `big_client.js` must contain "big_data" and "codename_analysis"
+3. **Verify the file path** matches the intended file
+4. **Look for unique identifiers** in the first 50-100 lines
+
+Protection utilities available:
+- `/meta/code/layout/file_verify_util.js` - File verification patterns
+- `/meta/code/layout/edit_protection.js` - Edit protection system
+- `/.claude_context_memory.json` - Recent edit history and context
+
 ## IMPORTANT: First Steps in New Chats
 
 When starting a new chat session with this project:

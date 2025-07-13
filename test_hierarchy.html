@@ -3,41 +3,113 @@
 <head>
 <title>Test Hierarchy</title>
 <style>
-body { background: #1e1e1e; color: white; font-family: monospace; padding: 20px; }
-.test { margin: 20px 0; padding: 20px; border: 1px solid #666; }
+body { 
+    background: #1e1e1e; 
+    color: white; 
+    font-family: monospace; 
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content area - takes up most of the screen */
+.main_content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* Bottom panel for test names */
+.test_names_panel {
+    height: 200px;
+    background: #2d2d30;
+    border-top: 2px solid #666;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.test_name_item {
+    padding: 8px 15px;
+    margin: 5px 0;
+    background: #3c3c3c;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.test_name_item:hover {
+    background: #4a4a4a;
+    transform: translateX(5px);
+}
+
+.test_name_item.active {
+    background: #0e639c;
+    font-weight: bold;
+}
+
+.test { 
+    margin: 20px 0; 
+    padding: 20px; 
+    border: 1px solid #666;
+    scroll-margin-top: 20px;
+}
+
 .clickable { cursor: pointer; color: #4ec9b0; text-decoration: underline; }
 .child { margin-left: 30px; color: #9cdcfe; }
+
+/* Panel header */
+.panel_header {
+    background: #252526;
+    padding: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid #666;
+    position: sticky;
+    top: 0;
+}
 </style>
 </head>
 <body>
-<h1>Testing Hierarchical Click Events</h1>
 
-<div class="test">
-    <h2>Test 1: Basic Click Event</h2>
-    <div class="clickable" onclick="alert('Click works!')">Click me - should show alert</div>
-</div>
+<div class="main_content">
+    <h1>Testing Hierarchical Click Events</h1>
 
-<div class="test">
-    <h2>Test 2: Console Logging</h2>
-    <div class="clickable" onclick="console.log('Console log works!'); this.style.color='green'; this.textContent='Clicked!'">Click me - check console</div>
-</div>
+    <div class="test" id="test1">
+        <h2>Test 1: Basic Click Event</h2>
+        <div class="clickable" onclick="alert('Click works!')">Click me - should show alert</div>
+    </div>
 
-<div class="test">
-    <h2>Test 3: Toggle Visibility</h2>
-    <div class="clickable" onclick="toggleChildren(this)">Click to toggle children</div>
-    <div class="children" style="display: block;">
-        <div class="child">Child 1</div>
-        <div class="child">Child 2</div>
-        <div class="child">Child 3</div>
+    <div class="test" id="test2">
+        <h2>Test 2: Console Logging</h2>
+        <div class="clickable" onclick="console.log('Console log works!'); this.style.color='green'; this.textContent='Clicked!'">Click me - check console</div>
+    </div>
+
+    <div class="test" id="test3">
+        <h2>Test 3: Toggle Visibility</h2>
+        <div class="clickable" onclick="toggleChildren(this)">Click to toggle children</div>
+        <div class="children" style="display: block;">
+            <div class="child">Child 1</div>
+            <div class="child">Child 2</div>
+            <div class="child">Child 3</div>
+        </div>
+    </div>
+
+    <div class="test" id="test4">
+        <h2>Test 4: Simulated List Item</h2>
+        <div style="position: relative; padding-left: 40px;">
+            <span class="list_outline_number" style="position: absolute; left: 0; cursor: pointer; color: #6e7681;">1.</span>
+            <span>01_prompt_foundation.html</span>
+        </div>
     </div>
 </div>
 
-<div class="test">
-    <h2>Test 4: Simulated List Item</h2>
-    <div style="position: relative; padding-left: 40px;">
-        <span class="list_outline_number" style="position: absolute; left: 0; cursor: pointer; color: #6e7681;">1.</span>
-        <span>01_prompt_foundation.html</span>
-    </div>
+<div class="test_names_panel">
+    <div class="panel_header">Test Navigation</div>
+    <div class="test_name_item" onclick="scrollToTest('test1')">Test 1: Basic Click Event</div>
+    <div class="test_name_item" onclick="scrollToTest('test2')">Test 2: Console Logging</div>
+    <div class="test_name_item" onclick="scrollToTest('test3')">Test 3: Toggle Visibility</div>
+    <div class="test_name_item" onclick="scrollToTest('test4')">Test 4: Simulated List Item</div>
 </div>
 
 <script>
@@ -46,6 +118,28 @@ function toggleChildren(element) {
     if (children) {
         children.style.display = children.style.display === 'none' ? 'block' : 'none';
         element.style.color = children.style.display === 'none' ? '#ce9178' : '#4ec9b0';
+    }
+}
+
+// Scroll to test function
+function scrollToTest(testId) {
+    const testElement = document.getElementById(testId);
+    if (testElement) {
+        // Smooth scroll to the test
+        testElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Update active state in navigation
+        document.querySelectorAll('.test_name_item').forEach(item => {
+            item.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        
+        // Highlight the test briefly
+        testElement.style.transition = 'background 0.3s';
+        testElement.style.background = '#2a4a6a';
+        setTimeout(() => {
+            testElement.style.background = '';
+        }, 500);
     }
 }
 
@@ -63,6 +157,32 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
         });
     }
+    
+    // Highlight active test when scrolling
+    const mainContent = document.querySelector('.main_content');
+    const tests = document.querySelectorAll('.test');
+    const navItems = document.querySelectorAll('.test_name_item');
+    
+    mainContent.addEventListener('scroll', () => {
+        let currentTest = null;
+        
+        tests.forEach((test, index) => {
+            const rect = test.getBoundingClientRect();
+            if (rect.top <= 100 && rect.bottom > 100) {
+                currentTest = index;
+            }
+        });
+        
+        if (currentTest !== null) {
+            navItems.forEach((item, index) => {
+                if (index === currentTest) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+    });
 });
 
 // Log any JavaScript errors
