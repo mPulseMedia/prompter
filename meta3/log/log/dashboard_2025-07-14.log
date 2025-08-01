@@ -1,0 +1,848 @@
+[2025-07-14T00:21:10.693Z] [SESSION-1752452470689] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T00:21:51.554Z] [SESSION-1752452470689] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:21:56.500Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter"}
+[2025-07-14T00:22:05.926Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter"}
+[2025-07-14T00:22:06.180Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color"}
+[2025-07-14T00:22:11.739Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color"}
+[2025-07-14T00:22:11.993Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto"}
+[2025-07-14T00:22:41.725Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto"}
+[2025-07-14T00:22:42.482Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button"}
+[2025-07-14T00:22:50.097Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button"}
+[2025-07-14T00:22:50.852Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button"}
+[2025-07-14T00:22:51.624Z] [SESSION-1752452470689] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:22:58.308Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button"}
+[2025-07-14T00:22:58.560Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state"}
+[2025-07-14T00:23:05.164Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state"}
+[2025-07-14T00:23:05.418Z] [SESSION-1752452470689] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message"}
+[2025-07-14T00:50:27.820Z] [SESSION-1752454227818] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T00:50:33.495Z] [SESSION-1752454227818] [dashboard] [INFO] Fetching system overview
+[2025-07-14T00:51:52.839Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:51:57.906Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T00:52:01.194Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T00:52:01.195Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T00:52:04.129Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T00:52:04.383Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T00:52:05.244Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T00:52:07.618Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T00:52:09.588Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T00:52:09.589Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T00:52:12.260Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T00:52:12.261Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T00:52:13.416Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T00:52:14.680Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T00:52:43.925Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T00:52:45.440Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T00:52:46.898Z] [SESSION-1752454227818] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start.js\ntest_error_fatal: TargetCloseError: Protocol error (Runtime.callFunctionOn): Target closed\n    at CallbackRegistry.clear (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/CallbackRegistry.js:81:36)\n    at CdpCDPSession.onClosed (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/CdpSession.js:114:25)\n    at Connection.onMessage (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Connection.js:140:25)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at listOnTimeout (node:internal/timers:569:9)\n    at process.processTimers (node:internal/timers:543:7) {\n  cause: ProtocolError\n      at <instance_members_initializer> (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/CallbackRegistry.js:102:14)\n      at new Callback (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/CallbackRegistry.js:106:16)\n      at CallbackRegistry.create (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/CallbackRegistry.js:24:26)\n      at Connection._rawSend (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Connection.js:99:26)\n      at CdpCDPSession.send (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/CdpSession.js:73:33)\n      at #evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/ExecutionContext.js:363:50)\n      at ExecutionContext.evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/ExecutionContext.js:277:36)\n      at IsolatedWorld.evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/IsolatedWorld.js:100:30)\n      at CdpJSHandle.evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/api/JSHandle.js:149:37)\n      at CdpElementHandle.evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/api/ElementHandle.js:344:38)\n}\n/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/LifecycleWatcher.js:103\n            this.#terminationDeferred.resolve(new Error('Navigating frame was detached'));\n                                              ^\n\nError: Navigating frame was detached\n    at #onFrameDetached (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/LifecycleWatcher.js:103:47)\n    at /Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/third_party/mitt/mitt.js:62:7\n    at Array.map (<anonymous>)\n    at Object.emit (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/third_party/mitt/mitt.js:61:20)\n    at CdpFrame.emit (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/EventEmitter.js:83:23)\n    at #removeFramesRecursively (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/FrameManager.js:455:15)\n    at #onClientDisconnect (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/FrameManager.js:99:42)\n\nNode.js v24.3.0\n","stderr":"test_error_fatal: TargetCloseError: Protocol error (Runtime.callFunctionOn): Target closed\n    at CallbackRegistry.clear (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/CallbackRegistry.js:81:36)\n    at CdpCDPSession.onClosed (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/CdpSession.js:114:25)\n    at Connection.onMessage (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Connection.js:140:25)\n    at runNextTicks (node:internal/process/task_queues:65:5)\n    at listOnTimeout (node:internal/timers:569:9)\n    at process.processTimers (node:internal/timers:543:7) {\n  cause: ProtocolError\n      at <instance_members_initializer> (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/CallbackRegistry.js:102:14)\n      at new Callback (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/CallbackRegistry.js:106:16)\n      at CallbackRegistry.create (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/CallbackRegistry.js:24:26)\n      at Connection._rawSend (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/Connection.js:99:26)\n      at CdpCDPSession.send (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/CdpSession.js:73:33)\n      at #evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/ExecutionContext.js:363:50)\n      at ExecutionContext.evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/ExecutionContext.js:277:36)\n      at IsolatedWorld.evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/IsolatedWorld.js:100:30)\n      at CdpJSHandle.evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/api/JSHandle.js:149:37)\n      at CdpElementHandle.evaluate (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/api/ElementHandle.js:344:38)\n}\n/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/LifecycleWatcher.js:103\n            this.#terminationDeferred.resolve(new Error('Navigating frame was detached'));\n                                              ^\n\nError: Navigating frame was detached\n    at #onFrameDetached (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/LifecycleWatcher.js:103:47)\n    at /Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/third_party/mitt/mitt.js:62:7\n    at Array.map (<anonymous>)\n    at Object.emit (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/third_party/mitt/mitt.js:61:20)\n    at CdpFrame.emit (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/common/EventEmitter.js:83:23)\n    at #removeFramesRecursively (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/FrameManager.js:455:15)\n    at #onClientDisconnect (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/node_modules/puppeteer-core/lib/cjs/puppeteer/cdp/FrameManager.js:99:42)\n\nNode.js v24.3.0\n"}
+[2025-07-14T00:52:51.850Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T00:52:57.226Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T00:53:00.518Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T00:53:00.520Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T00:53:03.408Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T00:53:03.663Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T00:53:04.524Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T00:53:06.899Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T00:53:08.871Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T00:53:08.874Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T00:53:11.543Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T00:53:11.544Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T00:53:12.702Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T00:53:13.962Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T00:53:43.216Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T00:53:44.731Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T00:53:51.598Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T00:53:51.927Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:53:59.311Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T00:54:06.173Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T00:54:12.975Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T00:54:14.236Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T00:54:16.003Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T00:54:17.515Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T00:54:22.765Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T00:54:24.028Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T00:54:26.402Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T00:54:29.334Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T00:54:51.987Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T00:54:56.828Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T00:55:00.120Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T00:55:00.120Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T00:55:03.012Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T00:55:03.264Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T00:55:04.125Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T00:55:06.498Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T00:55:08.468Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T00:55:08.468Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T00:55:11.141Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T00:55:11.142Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T00:55:12.300Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T00:55:13.561Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T00:55:42.817Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T00:55:44.332Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T00:55:51.186Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T00:55:52.056Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:55:58.904Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T00:56:05.770Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T00:56:12.575Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T00:56:13.835Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T00:56:15.603Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T00:56:17.116Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T00:56:22.372Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T00:56:23.634Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T00:56:26.010Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T00:56:28.948Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T00:56:52.120Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T00:56:56.950Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T00:57:00.236Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T00:57:00.237Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T00:57:03.127Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T00:57:03.383Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T00:57:04.242Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T00:57:06.613Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T00:57:08.582Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T00:57:08.583Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T00:57:11.259Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T00:57:11.260Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T00:57:12.417Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T00:57:13.677Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T00:57:42.936Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T00:57:44.451Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T00:57:51.313Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T00:57:52.196Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:57:59.030Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T00:58:05.884Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T00:58:12.689Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T00:58:13.951Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T00:58:15.716Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T00:58:17.226Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T00:58:22.482Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T00:58:23.743Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T00:58:26.116Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T00:58:29.057Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T00:58:52.259Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T00:58:57.090Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T00:59:00.380Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T00:59:00.382Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T00:59:03.270Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T00:59:03.523Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T00:59:04.384Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T00:59:06.756Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T00:59:08.730Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T00:59:08.731Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T00:59:11.411Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T00:59:11.413Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T00:59:12.572Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T00:59:13.836Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T00:59:43.114Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T00:59:44.634Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T00:59:51.522Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T00:59:52.334Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:59:59.262Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:00:06.146Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:00:12.956Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:00:14.222Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:00:15.992Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:00:17.507Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:00:22.776Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:00:24.038Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:00:26.416Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:00:29.349Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:00:52.398Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:00:57.238Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:01:00.541Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:01:00.543Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:01:03.441Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:01:03.694Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:01:04.558Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:01:06.935Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:01:08.905Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:01:08.907Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:01:11.588Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:01:11.590Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:01:12.750Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:01:14.015Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:01:43.257Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:01:44.771Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:01:51.632Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:01:52.467Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:01:59.355Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:02:06.209Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:02:13.003Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:02:14.265Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:02:16.033Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:02:17.545Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:02:22.796Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:02:24.054Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:02:26.426Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:02:29.356Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:02:51.536Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:02:56.363Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:02:59.652Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:02:59.652Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:03:02.537Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:03:02.789Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:03:03.649Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:03:06.022Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:03:07.991Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:03:07.991Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:03:10.662Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:03:10.665Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:03:11.818Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:03:13.081Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:03:42.327Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:03:43.841Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:03:50.703Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:03:51.606Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:03:58.415Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:04:05.276Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:04:12.069Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:04:13.330Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:04:15.096Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:04:16.609Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:04:21.856Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:04:23.117Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:04:25.484Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:04:28.405Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:04:52.822Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:04:57.631Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:05:00.918Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:05:00.919Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:05:03.821Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:05:04.075Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:05:04.935Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:05:07.308Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:05:09.277Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:05:09.278Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:05:11.950Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:05:11.952Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:05:13.105Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:05:14.366Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:05:43.607Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:05:45.123Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:05:51.986Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:05:52.824Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:05:59.705Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:06:06.564Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:06:13.370Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:06:14.631Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:06:16.397Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:06:17.910Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:06:23.158Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:06:24.418Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:06:26.790Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:06:29.733Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:06:52.823Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:06:57.648Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:07:00.934Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:07:00.935Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:07:03.823Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:07:04.077Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:07:04.934Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:07:07.308Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:07:09.275Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:07:09.277Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:07:11.948Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:07:11.949Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:07:13.105Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:07:14.364Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:07:43.598Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:07:45.112Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:07:51.970Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:07:52.823Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:07:59.685Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:08:06.545Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:08:13.339Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:08:14.599Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:08:16.366Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:08:17.877Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:08:23.128Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:08:24.386Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:08:26.756Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:08:29.687Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:08:52.825Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:08:57.731Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:09:01.017Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:09:01.017Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:09:03.905Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:09:04.159Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:09:05.017Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:09:07.389Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:09:09.358Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:09:09.360Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:09:12.029Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:09:12.030Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:09:13.184Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:09:14.446Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:09:43.690Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:09:45.204Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:09:52.074Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:09:52.824Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:09:59.790Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:10:06.650Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:10:13.457Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:10:14.721Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:10:16.488Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:10:18.000Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:10:23.253Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:10:24.511Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:10:26.885Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:10:29.812Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:10:52.824Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:10:57.657Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:11:00.943Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:11:00.944Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:11:03.839Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:11:04.093Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:11:04.952Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:11:07.324Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:11:09.291Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:11:09.293Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:11:11.961Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:11:11.962Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:11:13.119Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:11:14.380Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:11:43.611Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:11:45.123Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:11:51.988Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:11:52.823Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:11:59.705Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:12:06.563Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:12:13.355Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:12:14.616Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:12:16.382Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:12:17.893Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:12:23.145Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:12:24.404Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:12:26.778Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:12:29.719Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:12:52.825Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:12:57.667Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:13:00.954Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:13:00.955Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:13:03.839Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:13:04.092Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:13:04.949Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:13:07.324Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:13:09.293Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:13:09.294Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:13:11.970Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:13:11.971Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:13:13.127Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:13:14.388Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:13:43.634Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:13:45.150Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:13:52.012Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:13:52.826Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:13:59.721Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:14:06.580Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:14:13.391Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:14:14.650Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:14:16.414Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:14:17.927Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:14:23.173Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:14:24.434Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:14:26.806Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:14:29.748Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:14:52.824Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:14:57.652Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:15:00.941Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:15:00.942Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:15:03.841Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:15:04.096Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:15:04.953Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:15:07.323Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:15:09.292Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:15:09.293Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:15:11.966Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:15:11.968Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:15:13.124Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:15:14.381Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:15:43.616Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:15:45.131Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:15:51.995Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:15:52.825Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:15:59.707Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:16:06.565Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:16:13.374Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:16:14.636Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:16:16.401Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:16:17.912Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:16:23.162Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:16:24.424Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:16:26.793Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:16:29.752Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:16:52.826Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:16:58.026Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:17:01.314Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:17:01.315Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:17:04.208Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:17:04.460Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:17:05.319Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:17:07.691Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:17:09.661Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:17:09.663Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:17:12.335Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:17:12.336Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:17:13.491Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:17:14.751Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:17:43.993Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:17:45.505Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:17:52.372Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:17:52.825Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:18:00.093Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:18:06.952Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:18:13.758Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:18:15.019Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:18:16.787Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:18:18.300Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:18:23.553Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:18:24.815Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:18:27.185Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:18:30.109Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:18:52.826Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:18:57.969Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:19:01.260Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:19:01.260Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:19:04.144Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:19:04.397Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:19:05.258Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:19:07.627Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:19:09.594Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:19:09.596Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:19:12.267Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:19:12.268Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:19:13.425Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:19:14.685Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:19:43.932Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:19:45.443Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:19:52.303Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:19:52.827Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:20:00.025Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:20:06.889Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:20:13.690Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:20:14.952Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:20:16.717Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:20:18.227Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:20:23.478Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:20:24.739Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:20:27.111Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:20:30.069Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:20:52.828Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:20:57.977Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:21:01.266Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:21:01.267Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:21:04.157Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:21:04.411Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:21:05.271Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:21:07.643Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:21:09.609Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:21:09.610Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:21:12.283Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:21:12.285Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:21:13.441Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:21:14.702Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:21:43.951Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:21:45.467Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:21:52.332Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:21:52.826Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:22:00.050Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:22:06.913Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:22:13.707Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:22:14.969Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:22:16.738Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:22:18.248Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:22:23.495Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:22:24.755Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:22:27.127Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:22:30.043Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:22:52.823Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T01:22:57.556Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:23:00.843Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:23:00.844Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:23:03.726Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:23:03.979Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:23:04.840Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:23:07.212Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:23:09.179Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:23:09.181Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:23:11.855Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:23:11.856Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:23:13.012Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:23:14.272Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:23:26.497Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:23:43.517Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:23:45.028Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:23:51.881Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:23:52.007Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:23:59.598Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:24:06.458Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:24:13.259Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:24:14.521Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:24:16.288Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:24:17.800Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:24:23.050Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:24:24.311Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:24:26.685Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:24:29.596Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:24:52.074Z] [SESSION-1752454227818] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T01:24:56.937Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:25:00.224Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:25:00.225Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:25:03.109Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:25:03.361Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:25:04.232Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:25:06.603Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:25:08.578Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:25:08.580Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:25:11.256Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:25:11.257Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:25:12.412Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:25:13.675Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:25:42.921Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T01:25:44.436Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T01:25:51.283Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T01:25:52.826Z] [SESSION-1752454227818] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T01:25:58.994Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T01:26:05.851Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T01:26:12.648Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T01:26:13.909Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 10"}
+[2025-07-14T01:26:15.672Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T01:26:17.184Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T01:26:22.429Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T01:26:23.688Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T01:26:26.064Z] [SESSION-1752454227818] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T01:26:28.997Z] [SESSION-1752454227818] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:27:10.005Z] [SESSION-1752456429999] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T01:32:33.463Z] [SESSION-1752456753461] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T01:33:44.208Z] [SESSION-1752456753461] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T01:33:49.121Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:33:52.384Z] [SESSION-1752456753461] [dashboard] [INFO] Stopping running tests
+[2025-07-14T01:33:52.418Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:33:52.420Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:33:52.428Z] [SESSION-1752456753461] [dashboard] [WARN] Could not kill Chrome test instances | {"error":"Command failed: pkill -f \"Google Chrome.*test-mode=true\"\n"}
+[2025-07-14T01:33:53.441Z] [SESSION-1752456753461] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T01:34:01.972Z] [SESSION-1752456753461] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T01:34:06.694Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:34:09.981Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:34:09.982Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:34:12.873Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:34:13.126Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:34:13.996Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:34:16.372Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:34:18.343Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:34:18.344Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:34:21.024Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:34:21.025Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:34:22.186Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:34:23.446Z] [SESSION-1752456753461] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:37:45.169Z] [SESSION-1752457065167] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T01:38:15.989Z] [SESSION-1752457065167] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T01:38:20.792Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T01:38:24.081Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T01:38:24.082Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T01:38:26.972Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T01:38:27.225Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T01:38:28.092Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T01:38:30.465Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T01:38:32.437Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T01:38:32.439Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T01:38:35.111Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T01:38:35.113Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T01:38:36.273Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"starting test"}
+[2025-07-14T01:38:37.531Z] [SESSION-1752457065167] [dashboard] [INFO] Test progress update | {"testName":"page_reload_auto","action":"initial state: unchecked"}
+[2025-07-14T01:38:52.365Z] [SESSION-1752457065167] [dashboard] [INFO] Stopping running tests
+[2025-07-14T01:38:52.421Z] [SESSION-1752457065167] [dashboard] [WARN] Could not kill Chrome test instances | {"error":"Command failed: pkill -f \"Google Chrome.*test-mode=true\"\n"}
+[2025-07-14T01:38:53.415Z] [SESSION-1752457065167] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T05:25:37.510Z] [SESSION-1752470737507] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T05:47:35.431Z] [SESSION-1752472055429] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T05:57:20.860Z] [SESSION-1752472640858] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T05:58:58.530Z] [SESSION-1752472640858] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T05:59:03.588Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T05:59:06.877Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T05:59:06.878Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T05:59:09.787Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T05:59:10.040Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T05:59:10.925Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T05:59:13.324Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T05:59:15.296Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T05:59:15.297Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T05:59:17.982Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T05:59:17.983Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T05:59:19.141Z] [SESSION-1752472640858] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T06:04:17.481Z] [SESSION-1752473057479] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T06:04:51.695Z] [SESSION-1752473057479] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T06:04:52.259Z] [SESSION-1752473057479] [dashboard] [INFO] Stopping running tests
+[2025-07-14T06:04:52.303Z] [SESSION-1752473057479] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T06:05:41.272Z] [SESSION-1752473057479] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T06:05:46.191Z] [SESSION-1752473057479] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T06:05:49.478Z] [SESSION-1752473057479] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T06:05:49.479Z] [SESSION-1752473057479] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T06:05:52.334Z] [SESSION-1752473057479] [dashboard] [INFO] Stopping running tests
+[2025-07-14T06:05:53.394Z] [SESSION-1752473057479] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T06:07:51.108Z] [SESSION-1752473271106] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T06:14:25.475Z] [SESSION-1752473665473] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T06:20:04.693Z] [SESSION-1752474004691] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T06:24:19.345Z] [SESSION-1752474259343] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T06:25:48.510Z] [SESSION-1752474259343] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T06:25:53.563Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T06:25:56.849Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T06:25:56.849Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T06:25:59.762Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T06:26:00.012Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T06:26:00.886Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T06:26:03.286Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T06:26:05.257Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T06:26:05.259Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T06:26:07.951Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T06:26:07.952Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T06:26:09.117Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T06:26:16.851Z] [SESSION-1752474259343] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T06:29:31.118Z] [SESSION-1752474571116] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T06:30:15.310Z] [SESSION-1752474571116] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T06:30:20.306Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T06:30:23.590Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T06:30:23.592Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T06:30:26.506Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T06:30:26.760Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T06:30:27.640Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T06:30:30.035Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T06:30:32.007Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T06:30:32.009Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T06:30:34.682Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T06:30:34.683Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T06:30:35.856Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T06:30:43.595Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T06:30:50.500Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T06:30:57.301Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T06:30:58.563Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 0"}
+[2025-07-14T06:30:58.564Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial load"}
+[2025-07-14T06:31:10.536Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T06:31:12.048Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T06:31:17.304Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T06:31:18.565Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T06:31:20.936Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T06:31:23.057Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"starting test"}
+[2025-07-14T06:31:24.570Z] [SESSION-1752474571116] [dashboard] [INFO] Test progress update | {"testName":"page_reload_button","action":"clicking_reload_button"}
+[2025-07-14T06:35:18.983Z] [SESSION-1752474918981] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T06:40:53.807Z] [SESSION-1752475253805] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T06:42:04.260Z] [SESSION-1752475253805] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T06:42:09.019Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T06:42:12.307Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T06:42:12.309Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T06:42:15.193Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T06:42:15.446Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T06:42:16.322Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T06:42:18.694Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T06:42:20.663Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T06:42:20.664Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T06:42:23.338Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T06:42:23.339Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T06:42:24.493Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T06:42:32.206Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T06:42:39.066Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T06:42:45.858Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T06:42:47.121Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 0"}
+[2025-07-14T06:42:47.122Z] [SESSION-1752475253805] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial load"}
+[2025-07-14T17:03:36.360Z] [SESSION-1752512616358] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T17:14:25.129Z] [SESSION-1752513265127] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T17:15:32.652Z] [SESSION-1752513265127] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T17:15:37.376Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T17:15:40.658Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T17:15:40.659Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T17:15:43.550Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T17:15:43.804Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T17:15:44.665Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T17:15:47.035Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T17:15:49.003Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T17:15:49.005Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T17:15:51.679Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T17:15:51.680Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T17:15:52.836Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T17:16:00.543Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T17:16:07.395Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T17:16:14.196Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T17:16:15.457Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 0"}
+[2025-07-14T17:16:15.458Z] [SESSION-1752513265127] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial load"}
+[2025-07-14T18:36:15.524Z] [SESSION-1752518175522] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:15:27.072Z] [SESSION-1752520527070] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:18:23.621Z] [SESSION-1752520703619] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:32:43.150Z] [SESSION-1752521563148] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:39:08.791Z] [SESSION-1752521948789] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:41:42.550Z] [SESSION-1752522102547] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:42:39.491Z] [SESSION-1752522102547] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T19:42:41.906Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T19:42:43.239Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T19:42:43.240Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T19:42:44.635Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T19:42:44.741Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T19:42:45.164Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T19:42:46.296Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T19:42:47.216Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T19:42:47.217Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T19:42:48.441Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T19:42:48.442Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T19:42:49.055Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T19:42:52.522Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T19:42:55.499Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T19:42:59.452Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T19:42:59.962Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 0"}
+[2025-07-14T19:42:59.964Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial load"}
+[2025-07-14T19:43:00.674Z] [SESSION-1752522102547] [dashboard] [INFO] Stopping running tests
+[2025-07-14T19:43:01.197Z] [SESSION-1752522102547] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T19:43:01.717Z] [SESSION-1752522102547] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T19:43:03.659Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T19:43:04.993Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T19:43:04.994Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T19:43:06.393Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T19:43:06.497Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T19:43:06.916Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T19:43:08.052Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T19:43:08.973Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T19:43:08.975Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T19:43:10.205Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T19:43:10.206Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T19:43:10.820Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T19:43:14.296Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T19:43:17.284Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T19:43:21.236Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T19:43:21.747Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 5"}
+[2025-07-14T19:43:23.357Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T19:43:23.967Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T19:43:26.213Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T19:43:26.724Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T19:43:27.742Z] [SESSION-1752522102547] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T19:43:29.746Z] [SESSION-1752522102547] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T19:44:17.561Z] [SESSION-1752522257559] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:48:20.435Z] [SESSION-1752522500433] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:51:25.393Z] [SESSION-1752522685391] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:54:50.833Z] [SESSION-1752522890831] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:56:01.039Z] [SESSION-1752522890831] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T19:56:03.558Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T19:56:04.892Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T19:56:04.894Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T19:56:06.286Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T19:56:06.388Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T19:56:06.794Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T19:56:07.932Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T19:56:08.853Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T19:56:08.855Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T19:56:10.085Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T19:56:10.087Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T19:56:10.699Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T19:56:14.170Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T19:56:17.154Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T19:56:21.105Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T19:56:21.616Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 8"}
+[2025-07-14T19:56:22.331Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T19:56:22.942Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T19:56:25.187Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T19:56:25.699Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T19:56:26.719Z] [SESSION-1752522890831] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T19:56:28.706Z] [SESSION-1752522890831] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T19:56:48.859Z] [SESSION-1752522890831] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T19:57:12.333Z] [SESSION-1752523032331] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T19:57:40.847Z] [SESSION-1752523032331] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T19:57:43.430Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T19:57:44.762Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T19:57:44.762Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T19:57:46.167Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T19:57:46.274Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T19:57:46.695Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T19:57:47.828Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T19:57:48.354Z] [SESSION-1752523032331] [dashboard] [INFO] Stopping running tests
+[2025-07-14T19:57:48.860Z] [SESSION-1752523032331] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T19:57:49.394Z] [SESSION-1752523032331] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T19:57:51.274Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T19:57:52.605Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T19:57:52.606Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T19:57:53.997Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T19:57:54.102Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T19:57:54.523Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T19:57:55.650Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T19:57:56.572Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T19:57:56.574Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T19:57:57.798Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T19:57:57.799Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T19:57:58.415Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T19:58:01.886Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T19:58:04.859Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T19:58:08.810Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T19:58:09.318Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 2"}
+[2025-07-14T19:58:10.962Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T19:58:11.573Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T19:58:13.847Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T19:58:14.356Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T19:58:15.377Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T19:58:17.283Z] [SESSION-1752523032331] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T19:58:35.839Z] [SESSION-1752523032331] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T19:58:38.267Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T19:58:39.599Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T19:58:39.600Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T19:58:41.000Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T19:58:41.104Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T19:58:41.529Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T19:58:42.666Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T19:58:43.587Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T19:58:43.589Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T19:58:44.820Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T19:58:44.822Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T19:58:45.437Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T19:58:48.908Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T19:58:51.896Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T19:58:55.845Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T19:58:56.354Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 8"}
+[2025-07-14T19:58:57.067Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T19:58:57.681Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T19:58:59.928Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T19:59:00.437Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T19:59:01.460Z] [SESSION-1752523032331] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T19:59:03.368Z] [SESSION-1752523032331] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T20:22:41.480Z] [SESSION-1752524561478] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-14T20:23:15.913Z] [SESSION-1752524561478] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T20:23:18.352Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T20:23:19.687Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T20:23:19.687Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T20:23:21.068Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T20:23:21.171Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T20:23:21.589Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T20:23:22.719Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T20:23:23.636Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T20:23:23.637Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T20:23:24.864Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T20:23:24.866Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T20:23:25.478Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T20:23:28.944Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T20:23:31.918Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T20:23:35.855Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T20:23:36.366Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 8"}
+[2025-07-14T20:23:37.082Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T20:23:37.696Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T20:23:39.943Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T20:23:40.453Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T20:23:41.475Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T20:23:43.470Z] [SESSION-1752524561478] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T20:23:56.012Z] [SESSION-1752524561478] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T20:23:58.294Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T20:23:59.625Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T20:23:59.626Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}
+[2025-07-14T20:24:01.036Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"after state: [object Object]"}
+[2025-07-14T20:24:01.140Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"testing_hover_after_click"}
+[2025-07-14T20:24:01.549Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking_again_to_toggle"}
+[2025-07-14T20:24:02.680Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"starting test"}
+[2025-07-14T20:24:03.595Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"initial color: rgb(31, 111, 235)"}
+[2025-07-14T20:24:03.596Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"hovering"}
+[2025-07-14T20:24:04.822Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"after color: rgb(248, 81, 73)"}
+[2025-07-14T20:24:04.824Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_hover_color","action":"moving_away"}
+[2025-07-14T20:24:05.432Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_button","action":"starting test"}
+[2025-07-14T20:24:08.895Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_hover_state","action":"starting test"}
+[2025-07-14T20:24:11.866Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_color_change_message","action":"starting test"}
+[2025-07-14T20:24:15.818Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"starting test"}
+[2025-07-14T20:24:16.329Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"test_panel_refresh","action":"initial count: 8"}
+[2025-07-14T20:24:17.041Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"starting test"}
+[2025-07-14T20:24:17.656Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"test_run_auto","action":"initial state: unchecked"}
+[2025-07-14T20:24:19.906Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"starting test"}
+[2025-07-14T20:24:20.415Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking"}
+[2025-07-14T20:24:21.432Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"twice_click_button","action":"double_clicking_again"}
+[2025-07-14T20:24:23.419Z] [SESSION-1752524561478] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T20:24:36.915Z] [SESSION-1752524561478] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-14T20:24:39.295Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"starting test"}
+[2025-07-14T20:24:40.630Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"initial state: [object Object]"}
+[2025-07-14T20:24:40.631Z] [SESSION-1752524561478] [dashboard] [INFO] Test progress update | {"testName":"circle_click_diameter","action":"clicking"}

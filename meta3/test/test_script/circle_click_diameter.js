@@ -1,5 +1,5 @@
 // Circle click test - verifies clicking the circle changes diameter and doesn't break hover
-async function circle_click_test(page) {
+async function circle_click_diameter(page) {
     console.log('circle_click_run');
     
     // Find the circle element
@@ -107,4 +107,4 @@ async function circle_click_test(page) {
     return { passed: true, message: 'circle_click_pass: diameter toggles correctly' };
 }
 
-module.exports = circle_click_test;
+module.exports = circle_click_diameter;

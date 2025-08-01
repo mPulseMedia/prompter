@@ -1,5 +1,5 @@
 // Circle hover test
-async function circle_hover_test(page) {
+async function circle_hover_color(page) {
     console.log('circle_hover_run');
     
     // Find the element
@@ -61,4 +61,4 @@ async function circle_hover_test(page) {
     return { passed: true, message: 'circle_hover_pass' };
 }
 
-module.exports = circle_hover_test;
+module.exports = circle_hover_color;

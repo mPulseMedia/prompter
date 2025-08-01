@@ -1,12 +1,12 @@
-// Reset button test - verifies reset button resets both color and diameter
-async function reset_button_test(page) {
-    console.log('reset_button_run');
+// Circle color change button test - verifies button changes color and resets diameter
+async function circle_color_change_button(page) {
+    console.log('circle_color_change_button_run');
     
     // Find elements
-    const button = await page.$('#reset-button');
+    const button = await page.$('#circle-color-change-button');
     const circle = await page.$('#circle');
     if (!button) {
-        return { passed: false, error: 'reset_not_found: #reset-button' };
+        return { passed: false, error: 'circle_color_change_not_found: #circle-color-change-button' };
     }
     if (!circle) {
         return { passed: false, error: 'circle_not_found: #circle' };
@@ -64,4 +64,4 @@ async function reset_button_test(page) {
     return { passed: true, message: 'reset_button_pass: color and diameter reset' };
 }
 
-module.exports = reset_button_test;
+module.exports = circle_color_change_button;

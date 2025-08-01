@@ -2,31 +2,30 @@ const puppeteer            = require('puppeteer');
 const fs                   = require('fs');
 const path                 = require('path');
 const test_mouse_cursor = require('./test_mouse_cursor');
+const { createProgressReporter } = require('./test_progress_reporter');
 
 // Import feature tests
-const circle_hover_test = require('../test_script/circle_hover_test');
-const circle_click_test = require('../test_script/circle_click_test');
-const reset_button_test = require('../test_script/reset_button_test');
-const reset_hover_state_test = require('../test_script/reset_hover_state_test');
-const double_click_test = require('../test_script/double_click_test');
-const page_reload_test = require('../test_script/page_reload_test');
-const auto_reload_test = require('../test_script/auto_reload_test');
-const auto_test_checkbox_test = require('../test_script/auto_test_checkbox_test');
-const reset_click_message_test = require('../test_script/reset_click_message_test');
-const test_results_update_test = require('../test_script/test_results_update_test');
+const circle_hover_color = require('../test_script/circle_hover_color');
+const circle_click_diameter = require('../test_script/circle_click_diameter');
+// Circle color change tests (formerly reset)
+const circle_color_change_button = require('../test_script/circle_color_change_button');
+const circle_color_change_hover_state = require('../test_script/circle_color_change_hover_state');
+const circle_color_change_message = require('../test_script/circle_color_change_message');
+// Renamed tests with new naming convention
+const test_run_auto = require('../test_script/test_run_auto');
+const test_panel_refresh = require('../test_script/test_panel_refresh');
+const twice_click_button = require('../test_script/twice_click_button');
 
-// Feature list - organized alphabetically for better grouping
+// Feature list - removed page reload tests
 const feature_list = [
-    { name: 'auto_reload_checkbox', func: auto_reload_test },
-    { name: 'auto_test_checkbox', func: auto_test_checkbox_test },
-    { name: 'circle_click_diameter', func: circle_click_test },
-    { name: 'circle_hover_color', func: circle_hover_test },
-    { name: 'double_click_button', func: double_click_test },
-    { name: 'reload_button_manual', func: page_reload_test },
-    { name: 'reset_button_circle', func: reset_button_test },
-    { name: 'reset_button_hover_state', func: reset_hover_state_test },
-    { name: 'reset_button_message', func: reset_click_message_test },
-    { name: 'test_results_refresh', func: test_results_update_test }
+    { name: 'circle_click_diameter', func: circle_click_diameter },
+    { name: 'circle_hover_color', func: circle_hover_color },
+    { name: 'circle_color_change_button', func: circle_color_change_button },
+    { name: 'circle_color_change_hover_state', func: circle_color_change_hover_state },
+    { name: 'circle_color_change_message', func: circle_color_change_message },
+    { name: 'test_panel_refresh', func: test_panel_refresh },
+    { name: 'test_run_auto', func: test_run_auto },
+    { name: 'twice_click_button', func: twice_click_button }
 ];
 
 async function test_start() {
@@ -35,7 +34,7 @@ async function test_start() {
     
     const browser = await puppeteer.launch({
         headless       : isHeadless,  // Show/hide browser window based on argument
-        slowMo         : 250,    // Slow down actions so you can see them clearly
+        slowMo         : 100,    // Reduced delay for faster tests
         executablePath : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
         args           : ['--no-sandbox', '--window-size=1200,800']
     });
@@ -60,7 +59,7 @@ async function test_start() {
         await page.evaluate(test_mouse_cursor);
         console.log('test_mouse_cursor: enabled');
         
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 200));
         
         // Add a marker to detect unexpected reloads
         await page.evaluate(() => {
@@ -77,20 +76,23 @@ async function test_start() {
             }
             
             console.log(`test_execute: ${feature.name}`);
+            
+            // Start capturing console logs for this test
+            const progressReporter = createProgressReporter(feature.name);
+            progressReporter.startCapture();
+            
             const result = await feature.func(page);
+            
+            // Stop capturing
+            progressReporter.stopCapture();
+            
             results.push({ 
                 id   : `${feature.name}_${Date.now()}`,
                 name : feature.name,
                 ...result 
             });
             
-            // If this was the page_reload or page_reload_auto test, re-establish our marker
-            if ((feature.name === 'page_reload' || feature.name === 'page_reload_auto') && result.passed) {
-                await page.evaluate(() => {
-                    window.testStartMarker = Date.now();
-                    console.log('test_marker_reset_after_reload:', window.testStartMarker);
-                });
-            }
+            // No need to handle page reload tests anymore
         }
         
     } catch (error) {

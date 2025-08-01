@@ -5,29 +5,31 @@ const http                 = require('http');
 const test_mouse_cursor = require('./test_mouse_cursor');
 
 // Import feature tests
-const circle_hover_test = require('../test_script/circle_hover_test');
-const circle_click_test = require('../test_script/circle_click_test');
-const reset_button_test = require('../test_script/reset_button_test');
-const reset_hover_state_test = require('../test_script/reset_hover_state_test');
-const double_click_test = require('../test_script/double_click_test');
-const page_reload_test = require('../test_script/page_reload_test');
-const auto_reload_test = require('../test_script/auto_reload_test');
-const auto_test_checkbox_test = require('../test_script/auto_test_checkbox_test');
-const reset_click_message_test = require('../test_script/reset_click_message_test');
-const test_results_update_test = require('../test_script/test_results_update_test');
+const circle_hover_color = require('../test_script/circle_hover_color');
+const circle_click_diameter = require('../test_script/circle_click_diameter');
+// Circle color change tests (formerly reset)
+const circle_color_change_button = require('../test_script/circle_color_change_button');
+const circle_color_change_hover_state = require('../test_script/circle_color_change_hover_state');
+const circle_color_change_message = require('../test_script/circle_color_change_message');
+// Renamed tests with new naming convention
+const page_reload_auto = require('../test_script/page_reload_auto');
+const page_reload_button = require('../test_script/page_reload_button');
+const test_run_auto = require('../test_script/test_run_auto');
+const test_panel_refresh = require('../test_script/test_panel_refresh');
+const twice_click_button = require('../test_script/twice_click_button');
 
 // Feature list - organized alphabetically for better grouping
 const feature_list = [
-    { name: 'auto_reload_checkbox', func: auto_reload_test },
-    { name: 'auto_test_checkbox', func: auto_test_checkbox_test },
-    { name: 'circle_click_diameter', func: circle_click_test },
-    { name: 'circle_hover_color', func: circle_hover_test },
-    { name: 'double_click_button', func: double_click_test },
-    { name: 'reload_button_manual', func: page_reload_test },
-    { name: 'reset_button_circle', func: reset_button_test },
-    { name: 'reset_button_hover_state', func: reset_hover_state_test },
-    { name: 'reset_button_message', func: reset_click_message_test },
-    { name: 'test_results_refresh', func: test_results_update_test }
+    { name: 'circle_click_diameter', func: circle_click_diameter },
+    { name: 'circle_hover_color', func: circle_hover_color },
+    { name: 'page_reload_auto', func: page_reload_auto },
+    { name: 'page_reload_button', func: page_reload_button },
+    { name: 'circle_color_change_button', func: circle_color_change_button },
+    { name: 'circle_color_change_hover_state', func: circle_color_change_hover_state },
+    { name: 'circle_color_change_message', func: circle_color_change_message },
+    { name: 'test_panel_refresh', func: test_panel_refresh },
+    { name: 'test_run_auto', func: test_run_auto },
+    { name: 'twice_click_button', func: twice_click_button }
 ];
 
 // Function to update test status on server
@@ -120,8 +122,12 @@ async function test_start() {
                 ...result 
             });
             
-            // If this was the page_reload or page_reload_auto test, re-establish our marker
-            if ((feature.name === 'page_reload' || feature.name === 'page_reload_auto') && result.passed) {
+            // If this was a test that reloads the page, re-inject mouse cursor and re-establish marker
+            if ((feature.name === 'page_reload_button' || feature.name === 'page_reload_auto') && result.passed) {
+                // Re-inject mouse cursor after page reload
+                await page.evaluate(test_mouse_cursor);
+                console.log('test_mouse_cursor: re-enabled after page reload');
+                
                 await page.evaluate(() => {
                     window.testStartMarker = Date.now();
                     console.log('test_marker_reset_after_reload:', window.testStartMarker);

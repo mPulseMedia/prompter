@@ -1,16 +1,16 @@
-// Reset hover state test - verifies reset works while hovering
-async function reset_hover_state_test(page) {
-    console.log('reset_hover_state_run');
+// Circle color change hover state test - verifies color change works while hovering
+async function circle_color_change_hover_state(page) {
+    console.log('circle_color_change_hover_state_run');
     
     // Find elements
     const circle = await page.$('#circle');
-    const resetButton = await page.$('#reset-button');
+    const colorChangeButton = await page.$('#circle-color-change-button');
     
     if (!circle) {
         return { passed: false, error: 'circle_not_found: #circle element missing' };
     }
-    if (!resetButton) {
-        return { passed: false, error: 'reset_button_not_found: #reset-button element missing' };
+    if (!colorChangeButton) {
+        return { passed: false, error: 'circle_color_change_button_not_found: #circle-color-change-button element missing' };
     }
     
     // Get circle dimensions
@@ -20,7 +20,7 @@ async function reset_hover_state_test(page) {
     }
     
     // Hover over circle
-    console.log('reset_hover_state_action: hovering_over_circle');
+    console.log('circle_color_change_hover_state_action: hovering_over_circle');
     await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
     await page.waitForFunction(() => true, {timeout: 100}).catch(() => {});
     
@@ -31,7 +31,7 @@ async function reset_hover_state_test(page) {
     
     // Click reset while still hovering
     console.log('reset_hover_state_action: clicking_reset_while_hovering');
-    await resetButton.click();
+    await colorChangeButton.click();
     await page.waitForFunction(() => true, {timeout: 100}).catch(() => {});
     
     // Color should return to blue even though we're still hovering
@@ -41,7 +41,7 @@ async function reset_hover_state_test(page) {
     
     // Verify it's blue (initial color)
     if (colorAfterReset === hoverColor) {
-        return { passed: false, error: 'reset_while_hovering_failed: color did not reset' };
+        return { passed: false, error: 'circle_color_change_while_hovering_failed: color did not change' };
     }
     
     // Move mouse slightly to re-trigger hover
@@ -54,7 +54,7 @@ async function reset_hover_state_test(page) {
     }, '#circle');
     
     if (reHoverColor === colorAfterReset) {
-        return { passed: false, error: 'hover_not_working_after_reset: hover effect broken' };
+        return { passed: false, error: 'hover_not_working_after_color_change: hover effect broken' };
     }
     
     // Move away to clean up
@@ -63,4 +63,4 @@ async function reset_hover_state_test(page) {
     return { passed: true, message: 'reset_hover_state_pass' };
 }
 
-module.exports = reset_hover_state_test;
+module.exports = circle_color_change_hover_state;

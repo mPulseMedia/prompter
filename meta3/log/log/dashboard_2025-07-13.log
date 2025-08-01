@@ -3032,3 +3032,245 @@
 [2025-07-13T20:58:53.148Z] [SESSION-1752432503914] [dashboard] [INFO] Test run requested but tests are already running
 [2025-07-13T20:59:10.865Z] [SESSION-1752432503914] [dashboard] [INFO] Tests completed successfully
 [2025-07-13T20:59:13.184Z] [SESSION-1752432503914] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-13T20:59:33.202Z] [SESSION-1752432503914] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T20:59:53.228Z] [SESSION-1752432503914] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T20:59:53.457Z] [SESSION-1752432503914] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T21:00:13.262Z] [SESSION-1752432503914] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T21:00:33.295Z] [SESSION-1752432503914] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T21:00:50.994Z] [SESSION-1752432503914] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T21:00:53.323Z] [SESSION-1752432503914] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-13T21:01:09.975Z] [SESSION-1752432503914] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T22:17:48.114Z] [SESSION-1752445068112] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:20:30.032Z] [SESSION-1752445230029] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:21:24.004Z] [SESSION-1752445230029] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-13T22:21:44.021Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:22:04.045Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:22:04.414Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:22:24.084Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:22:44.112Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:23:04.137Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:23:11.991Z] [SESSION-1752445230029] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js --headless\n","stderr":""}
+[2025-07-13T22:23:24.167Z] [SESSION-1752445230029] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-13T22:23:44.204Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:24:04.233Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:24:04.439Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:24:24.266Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:24:44.306Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:25:04.333Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:25:11.980Z] [SESSION-1752445230029] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js --headless\n","stderr":""}
+[2025-07-13T22:25:24.361Z] [SESSION-1752445230029] [dashboard] [INFO] Running all tests via test_start.js | {"headless":true}
+[2025-07-13T22:25:44.391Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:26:04.427Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:26:04.627Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:26:24.464Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:26:44.496Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:27:04.537Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:27:12.248Z] [SESSION-1752445230029] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js --headless\n","stderr":""}
+[2025-07-13T22:27:24.561Z] [SESSION-1752445230029] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:27:44.593Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:28:04.615Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:28:04.880Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:28:24.657Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:28:44.694Z] [SESSION-1752445230029] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:28:45.604Z] [SESSION-1752445725603] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:29:04.746Z] [SESSION-1752445725603] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:29:24.786Z] [SESSION-1752445725603] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:29:28.991Z] [SESSION-1752445768988] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:29:44.827Z] [SESSION-1752445768988] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:30:04.854Z] [SESSION-1752445768988] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:30:24.902Z] [SESSION-1752445768988] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:30:25.354Z] [SESSION-1752445768988] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:30:44.932Z] [SESSION-1752445768988] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:31:04.968Z] [SESSION-1752445768988] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:31:22.904Z] [SESSION-1752445768988] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T22:31:25.000Z] [SESSION-1752445768988] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:31:35.547Z] [SESSION-1752445895545] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:31:45.048Z] [SESSION-1752445895545] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:32:05.079Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:32:25.126Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:32:25.445Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:32:45.165Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:33:05.207Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:33:23.024Z] [SESSION-1752445895545] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T22:33:25.242Z] [SESSION-1752445895545] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:33:45.290Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:34:05.338Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:34:05.646Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:34:25.390Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:34:45.424Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:34:53.486Z] [SESSION-1752445895545] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:34:59.494Z] [SESSION-1752446099492] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:35:13.539Z] [SESSION-1752446099492] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:35:13.543Z] [SESSION-1752446099492] [dashboard] [INFO] Server restart requested
+[2025-07-13T22:35:56.830Z] [SESSION-1752446156829] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:36:16.709Z] [SESSION-1752446156829] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:36:16.712Z] [SESSION-1752446156829] [dashboard] [INFO] Server restart requested
+[2025-07-13T22:40:12.001Z] [SESSION-1752446411999] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:40:16.014Z] [SESSION-1752446411999] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:40:16.019Z] [SESSION-1752446411999] [dashboard] [INFO] Server restart requested
+[2025-07-13T22:40:30.265Z] [SESSION-1752446430263] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:40:36.010Z] [SESSION-1752446430263] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:40:36.016Z] [SESSION-1752446430263] [dashboard] [INFO] Server restart requested
+[2025-07-13T22:40:44.101Z] [SESSION-1752446444099] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:41:12.296Z] [SESSION-1752446472293] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:41:32.055Z] [SESSION-1752446472293] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:41:32.061Z] [SESSION-1752446472293] [dashboard] [INFO] Server restart requested
+[2025-07-13T22:42:08.059Z] [SESSION-1752446528057] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:42:28.114Z] [SESSION-1752446528057] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:42:28.123Z] [SESSION-1752446528057] [dashboard] [INFO] Server restart requested
+[2025-07-13T22:45:36.781Z] [SESSION-1752446736779] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:46:29.779Z] [SESSION-1752446736779] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:46:29.784Z] [SESSION-1752446736779] [dashboard] [INFO] Server restart requested
+[2025-07-13T22:47:26.291Z] [SESSION-1752446846289] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:47:28.126Z] [SESSION-1752446846289] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:47:28.134Z] [SESSION-1752446846289] [dashboard] [INFO] Server restart requested
+[2025-07-13T22:47:43.342Z] [SESSION-1752446863340] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:48:28.844Z] [SESSION-1752446908842] [dashboard] [INFO] Dashboard server started | {"port":3003}
+[2025-07-13T22:48:31.219Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:48:51.232Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:49:11.264Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:49:11.727Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:49:31.296Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:49:51.316Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:50:09.290Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T22:50:11.352Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:50:31.378Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:50:51.410Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:50:51.709Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:51:11.439Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:51:31.478Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:51:47.256Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T22:51:51.501Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:52:11.542Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:52:31.581Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:52:31.940Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:52:51.582Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:52:51.610Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:53:11.647Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:53:27.485Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T22:53:31.682Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:53:51.721Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:54:11.759Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:54:12.096Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:54:51.808Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:54:55.870Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T22:55:01.411Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:55:51.721Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:56:34.293Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T22:56:51.845Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:57:51.981Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T22:58:27.780Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T22:58:52.105Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T22:59:52.255Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:00:28.215Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:00:52.375Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:02:28.333Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:02:51.633Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:03:51.786Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:04:27.570Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:04:51.935Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:05:52.098Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:06:28.066Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:06:52.260Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:07:52.432Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:08:28.480Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:08:51.612Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:09:51.782Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:10:27.715Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:10:51.962Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:11:52.152Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:12:28.060Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:12:52.320Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:14:28.407Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:14:51.688Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:15:51.881Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:16:27.821Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:16:52.081Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:17:52.282Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:18:28.316Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:18:52.479Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:19:52.860Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:20:28.648Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:20:52.861Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:21:52.863Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:22:28.911Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:22:52.865Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:23:52.864Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:24:28.926Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:24:52.806Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:25:51.892Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:26:28.819Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:26:52.329Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:27:51.557Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:28:28.391Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:28:51.791Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:29:52.029Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:30:28.771Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:30:52.279Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:31:51.515Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:32:29.181Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:32:51.766Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:33:52.001Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:34:29.999Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T23:34:52.243Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:35:52.473Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:36:29.150Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:36:51.720Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:37:51.965Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:38:28.685Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:38:52.221Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:40:29.150Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:40:51.709Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:41:51.912Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:42:28.564Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-13T23:42:52.117Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:43:52.338Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:44:12.193Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T23:44:51.559Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:45:51.785Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:46:18.203Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T23:46:52.013Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:47:52.237Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:48:18.548Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T23:48:52.459Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:48:52.651Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\nnode:internal/modules/cjs/loader:1372\n  throw err;\n  ^\n\nError: Cannot find module '../test_script/circle_hover_test'\nRequire stack:\n- /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1369:15)\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)\n    at Module._load (node:internal/modules/cjs/loader:1179:37)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Module.require (node:internal/modules/cjs/loader:1449:12)\n    at require (node:internal/modules/helpers:135:16)\n    at Object.<anonymous> (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js:8:27)\n    at Module._compile (node:internal/modules/cjs/loader:1692:14) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [\n    '/Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js'\n  ]\n}\n\nNode.js v24.3.0\n","stderr":"node:internal/modules/cjs/loader:1372\n  throw err;\n  ^\n\nError: Cannot find module '../test_script/circle_hover_test'\nRequire stack:\n- /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1369:15)\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)\n    at Module._load (node:internal/modules/cjs/loader:1179:37)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Module.require (node:internal/modules/cjs/loader:1449:12)\n    at require (node:internal/modules/helpers:135:16)\n    at Object.<anonymous> (/Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js:8:27)\n    at Module._compile (node:internal/modules/cjs/loader:1692:14) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [\n    '/Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js'\n  ]\n}\n\nNode.js v24.3.0\n"}
+[2025-07-13T23:49:51.675Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:50:51.901Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:51:18.179Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T23:51:52.101Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:52:52.779Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:53:18.720Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T23:53:51.926Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:54:52.167Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:55:18.392Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T23:55:52.389Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:56:52.788Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:57:19.022Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T23:57:52.790Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-13T23:58:52.791Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-13T23:59:19.294Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-13T23:59:51.918Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:00:52.133Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:01:18.559Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-14T00:01:52.388Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:02:51.624Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:03:18.956Z] [SESSION-1752446908842] [dashboard] [ERROR] Test execution failed | {"error":"Command failed: node /Users/pauldsmith/Desktop/dev/prompter-1/meta3/test/test_mech/test_start_with_progress.js\n","stderr":""}
+[2025-07-14T00:03:51.826Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:04:52.027Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:05:28.930Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T00:05:52.251Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:06:52.480Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:07:29.257Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T00:07:51.721Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:08:51.966Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:09:28.750Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T00:09:52.191Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:10:52.436Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:11:29.252Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T00:11:51.643Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:12:51.881Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:13:28.607Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T00:13:52.102Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}
+[2025-07-14T00:14:52.350Z] [SESSION-1752446908842] [dashboard] [INFO] Test run requested but tests are already running
+[2025-07-14T00:15:29.145Z] [SESSION-1752446908842] [dashboard] [INFO] Tests completed successfully
+[2025-07-14T00:15:51.616Z] [SESSION-1752446908842] [dashboard] [INFO] Running all tests via test_start.js | {"headless":false}

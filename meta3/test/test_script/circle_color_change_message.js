@@ -1,13 +1,13 @@
-// Reset click message test - verifies reset button shows status message
-async function reset_click_message_test(page) {
-    console.log('reset_click_message_run');
+// Circle color change message test - verifies button shows status message
+async function circle_color_change_message(page) {
+    console.log('circle_color_change_message_run');
     
     // Find elements
-    const resetButton = await page.$('#reset-button');
+    const colorChangeButton = await page.$('#circle-color-change-button');
     const statusMessage = await page.$('#status-message');
     
-    if (!resetButton) {
-        return { passed: false, error: 'reset_button_not_found: #reset-button element missing' };
+    if (!colorChangeButton) {
+        return { passed: false, error: 'circle_color_change_button_not_found: #circle-color-change-button element missing' };
     }
     if (!statusMessage) {
         return { passed: false, error: 'status_message_not_found: #status-message element missing' };
@@ -21,8 +21,8 @@ async function reset_click_message_test(page) {
     console.log('status_message_initial:', initialMessage || 'empty');
     
     // Click reset button to trigger status message
-    console.log('status_message_action: clicking_reset');
-    await resetButton.click();
+    console.log('circle_color_change_message_action: clicking_button');
+    await colorChangeButton.click();
     
     // Wait a bit for message to appear
     await page.waitForFunction(() => true, {timeout: 100}).catch(() => {});
@@ -33,7 +33,7 @@ async function reset_click_message_test(page) {
     }, '#status-message');
     
     if (!messageAfterClick || messageAfterClick === '') {
-        return { passed: false, error: 'status_message_not_shown: no message after reset click' };
+        return { passed: false, error: 'circle_color_change_message_not_shown: no message after button click' };
     }
     
     if (!messageAfterClick.includes('Colors changed!')) {
@@ -61,7 +61,7 @@ async function reset_click_message_test(page) {
         return { passed: false, error: 'status_message_not_cleared: message still showing after timeout' };
     }
     
-    return { passed: true, message: 'reset_click_message_pass' };
+    return { passed: true, message: 'circle_color_change_message_pass' };
 }
 
-module.exports = reset_click_message_test;
+module.exports = circle_color_change_message;
